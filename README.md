@@ -26,7 +26,7 @@
 - Currently, no tests exist
 
 ## Contributors
-- Jeremy Ferguson: 
+- Jeremy Ferguson: [github](https://github.com/jeremyferguson) [email](jmfergie@gmail.com)
 
 ## FAQ
 
