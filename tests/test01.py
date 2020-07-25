@@ -2,42 +2,65 @@ import unittest
 import pygrad
 
 class TestSetup(unittest.TestCase):
-    def testErrorFileSetup(self,fname,error):
-        with self.assertRaises(error):
-            pygrad.setup(fname)
 
-    def testErrorFileSetupFormat(self,fname):
-        self.testErrorFileSetup(fname, InfileFormatException)
+    def ErrorFileSetup(self,fname,error):
+        with self.assertRaises(error):
+            pygrad.Main(fname)
+
+    def ErrorFileSetupFormat(self,fname):
+        self.ErrorFileSetup(fname, pygrad.InfileFormatException)
 
     def testMissingLine(self):
-        self.testErrorFileSetupFormat('error-ins/error-01.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-01.txt')
 
     def testMissingFile(self):
-        self.testErrorFileSetup('error-ins/error-00.txt', FileNotFoundError)
+        self.ErrorFileSetup('tests/error-ins/error-00.txt', FileNotFoundError)
     
     def testBlankFile(self):
-        self.testErrorFileSetupFormat('error-ins/error-02.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-02.txt')
 
     def testNoGas(self):
-        self.testErrorFileSetupFormat('error-ins/error-03.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-03.txt')
 
     def testAbsZero(self):
-        self.testErrorFileSetupFormat('error-ins/error-04.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-04.txt')
 
     def testZeroPressure(self):
-        self.testErrorFileSetupFormat('error-ins/error-05.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-05.txt')
 
     def testTooFewParameters(self):
-        self.testErrorFileSetupFormat('error-ins/error-06.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-06.txt')
 
     def testTooManyParameters(self):
-        self.testErrorFileSetupFormat('error-ins/error-07.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-07.txt')
     
     def testNgasBig(self):
-        self.testErrorFileSetupFormat('error-ins/error-08.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-08.txt')
 
     def testNgasMismatch(self):
-        self.testErrorFileSetupFormat('error-ins/error-09.txt')
+        self.ErrorFileSetupFormat('tests/error-ins/error-09.txt')
+
+    def testNfracMismatch(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-10.txt')
+    
+    def testNgasNMismatch(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-11.txt')
+
+    def testDuplicateNgas(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-12.txt')
+        
+    def testIncompletePercentage(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-13.txt')
+
+    def testMaxEnergy(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-14.txt')
+
+    def testMaxXrayEvents(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-15.txt')
+    
+    def testMaxMIPSEvents(self):
+        self.ErrorFileSetupFormat('tests/error-ins/error-16.txt')
+
 if __name__ == '__main__':
     unittest.main()
 
