@@ -61,6 +61,8 @@ class TestSetup(unittest.TestCase):
     def testMaxMIPSEvents(self):
         self.ErrorFileSetupFormat('tests/error-ins/error-16.txt')
 
+    def testFloatNgas(self):
+        self.ErrorFileSetup('tests/error-ins/error-17.txt',ValueError)
 if __name__ == '__main__':
     unittest.main()
 
