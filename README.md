@@ -15,7 +15,7 @@
 
 ## Usage
 
-- python3 pygrad.py [-h] infile [outfile]
+- `python3 pygrad.py [-h] infile [outfile]`
 ###### Positional arguments:
 - infile      Filename containing initial parameters
 - outfile     Filename for the output of the file
@@ -27,7 +27,9 @@
 
 ## Tests
 
-- Currently, no tests exist
+- Tests are created using the unittest module and can be run on their own by python
+- To run all tests:
+`python3 -m unittest discover -s tests` 
 
 ## Contributors
 - Jeremy Ferguson: [github](https://github.com/jeremyferguson) 
@@ -35,3 +37,6 @@ email:jmfergie@gmail.com
 
 ## TODO list
 - refactor plot arrays
+
+## Possible changes from Degrad
+- random number generator
