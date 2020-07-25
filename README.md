@@ -33,7 +33,5 @@
 - Jeremy Ferguson: [github](https://github.com/jeremyferguson) 
 email:jmfergie@gmail.com
 
-## FAQ
-
-## Support
-
+## TODO list
+- refactor plot arrays
