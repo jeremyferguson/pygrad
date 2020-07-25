@@ -62,7 +62,8 @@ class Main():
         self.efield, self.bmag, self.btheta = [float(i) for i in parameters[3][:3]]
         self.iwrite, self.ipen = [int(i) for i in parameters[3][3:]]
         self.deteff, self.excweight = [float(i.replace('−','-')) for i in parameters[4][:2]]
-        self.kgas, self.lgas, self.lcmp, self.lray, self.lpap, self.lbrm, self.iecasc = [int(i) for i in parameters[4][2:]] 
+        self.kgas, self.lgas, self.lcmp, self.lray, self.lpap, self.lbrm, self.iecasc = [
+                int(i) for i in parameters[4][2:]] 
         self.check_parameters()
         if self.nseed == 0:
             self.nseed = 54217137
@@ -104,14 +105,43 @@ class Main():
         self.vans = [i * self.VC for i in self.ans]
         self.van= self.an * self.VC
 
+        def assignIndex(i,aj):
+            self.e[i] = self.ehalf + self.estep * aj
+            self.gam[i] = (self.EMS + self.e[i])
+            self.bet[i] = math.sqrt(1.0-1.0/(self.gam[i] ** 2))
+        
         if self.efinal <= 20000.0:
             self.estep = self.efinal/self.nstep
             self.ehalf = self.estep/2.0
             for i in range(20000):
-                self.e[i] = self.ehalf + self.estep * i
-                self.gam[i] = (self.EMS + self.e[i]
-                self.bet[i] = math.sqrt(1.0-1.0/(self.gam[i] ** 2))
-        
+                assignIndex(i)
+        elif self.efinal <= 140000.0:
+            self.estep = 1.0
+            self.ehalf = 0.5
+            for i in range(16000):
+                assignIndex(i,i)
+            estep1 = self.estep
+            self.estep = (self.efinal-16000.0)/4000.0
+            for i in range(16000,20000):
+                assignIndex(i,i-15999)
+            self.estep = estep1
+        else:
+            self.estep = 1.0
+            self.ehalf = 0.5
+            for i in range(12000):
+                assignIndex(i,i)
+            estep1 = self.estep
+            self.estep = 20.0
+            for i in range(12000,16000):
+                assignIndex(i,i-11999)
+            self.estep = (self.efinal-92000.0)/4000.0
+            for i in range(16000,20000):
+                assignIndex(i,i-15999)
+            self.estep = estep1
+        self.wb = self.AWB * self.bmag * 1e-12
+        if self.bmag != 0.0:
+            self.eovb = self.efield * 1e-9 / self.bmag
+
     #Check if a variable is in a valid range
     def check_var(self, var, name, low=0, high=1):
         if var < low or var > high:
