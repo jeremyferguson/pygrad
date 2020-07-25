@@ -27,31 +27,38 @@ class Main():
         self.temp,self.torr = [float(i.replace('−','-')) for i in parameters[2][6:]]
         self.efield, self.bmag, self.btheta = [float(i) for i in parameters[3][:3]]
         self.iwrite, self.ipen = [int(i) for i in parameters[3][3:]]
+        self.deteff, self.excweight = [float(i.replace('−','-')) for i in parameters[4][:2]]
+        self.kgas, self.lgas, self.lcmp, self.lray, self.lpap, self.lbrm, self.iecasc = [int(i) for i in parameters[4][2:]] 
         self.check_parameters()
         if self.nseed == 0:
             self.nseed = 54217137
 
+    #Check if a variable is in a valid range
+    def check_var(self, var, name, low=0, high=1):
+        if var < low or var > high:
+            raise InfileFormatException('Invalid value for '+name)
 
     #Checks all the parameters are in a valid range
     def check_parameters(self):
-        if self.ngas < 1 or self.ngas > 6:
-            raise InfileFormatException('Invalid value for NGAS')
-        if self.imip < 1 or self.imip > 5:
-            raise InfileFormatException('Invalid value for IMIP')
+        self.check_var(self.ngas,'NGAS',1,6)
+        self.check_var(self.imip,'IMIP',1,5)
+        self.check_var(self.ndvec,'NDVEC',-1,2)
+        self.check_var(self.iwrite,'IWRITE',0,2)
+        self.check_var(self.ipen,'IPEN')
+        self.check_var(self.deteff,'DETEFF',0,100)
+        self.check_var(self.lcmp,'LCMP')
+        self.check_var(self.lray,'LRAY')
+        self.check_var(self.lpap,'LPAP')
+        self.check_var(self.lbrm,'LBRM')
+        self.check_var(self.iecasc,'IECASC')
         if (self.imip == 1 and self.ndelta > 1e5) or (self.imip != 1 and self.ndelta > 1e4):
             raise InfileFormatException('Invalid value for NDELTA')
-        if self.ndvec < -1 or self.ndvec > 2:
-            raise InfileFormatException('Invalid value for NDVEC')
         if self.imip == 3 and self.estart > 3e6:
             raise InfileFormatException('X-ray energy is too high')
         if self.estart <= 0 or self.etherm <= 0 or self.ecut < 0:
             raise InfileFormatException('Negative energy')
         if abs(100.0 - sum(self.nfrac)) > 1e-6:
             raise InfileFormatException('NFRAC does not sum to 100%')
-        if self.iwrite < 0 or self.iwrite > 2:
-            raise InfileFormatException('Invalid value for IWRITE')
-        if self.ipen < 0 or self.ipen > 1:
-            raise InfileFormatException('Invalid value for IPEN')
         actualngas = 0
         added = []
         for pair in zip(self.ngasn, self.nfrac):
