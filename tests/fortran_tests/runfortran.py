@@ -13,7 +13,7 @@ for fname in os.listdir(args.directory):
         with open(args.outfile,'r') as f:
             text = f.read()
         #Converts all the Fortran output into python ints or floats, then converts them back to strings
-        data = [[str(float(i.strip()) if '.' in i else int(i.strip())) for i in line.split(' ') if i != ''] for line in text.replace('D+','e').split('\n')[:-1]]
+        data = [[str(float(i.strip()) if '.' in i else int(i.strip())) for i in line.split(' ') if i != ''] for line in text.replace('D+','e').replace('D-','e-').split('\n')[:-1]]
         with open(args.directory + prefix + '.out','w') as f:
             f.write("\n".join([','.join(line) for line in data]))
 

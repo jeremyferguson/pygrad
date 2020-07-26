@@ -12,16 +12,16 @@ class TestSetup(unittest.TestCase):
     def testDensityCalc(self):
         for fname in os.listdir(self.densityTestPath):
             if fname[-3:] == '.in':
-                print(fname)
                 prefix = fname[:-3]
                 main = pygrad.Main(self.densityTestPath + fname)
                 main.calcDensity()
                 with open(self.densityTestPath + prefix + '.out', 'r') as out:
                     text = out.read()
-                data = [float(i) for i in text.split('\n')]
-                for pair in zip(data, main.den):
-                    self.assertEqual(pair[0],pair[1])
-                
+                #print('fortran: '+text)
+                data = [[float(i) for i in line.split(',')] for line in text.split('\n')]
+                for pair in zip(data, main.e):
+                    self.assertAlmostEqual(pair[0][0],pair[1], 0)
+                    #self.assertAlmostEqual(pair[0][1],pair[1][1], 4)
 
     def ErrorFileSetupFormat(self,fname):
         self.ErrorFileSetup(fname, pygrad.InfileFormatException)

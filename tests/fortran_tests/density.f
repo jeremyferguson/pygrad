@@ -9,6 +9,8 @@
       COMMON/RATIO/AN1,AN2,AN3,AN4,AN5,AN6,AN,FRAC(6)
       COMMON/INPT/NGAS,NSTEP,NANISO,EFINAL,ESTEP,AKT,ARY,TEMPC,TORR,IPEN
       COMMON/GASN/NGASN(6)
+      COMMON/MIX2/E(20000),EROOT(20000),QTOT(20000),QREL(20000),
+     /QINEL(20000),QEL(20000)
       COMMON/RLTVY/BET(20000),GAM(20000),VC,EMS
       DIMENSION AND(6),EIAV(80),X00(80),X11(80),AKS(80),AAA(80),
      /JELEC(80)
@@ -132,11 +134,9 @@ C CALCULATE DENSITY CORRECTION FACTOR ARRAY DEN(20000)
       ELSE 
        DEN(I)=AFC*X-CBAR              
       ENDIF
-C      WRITE(50,99) DEN(I)
-C  99  FORMAT(' DENSITY CORRECTION=',D12.5)
-      WRITE(50,20) DEN(I)
+C      WRITE(50,99) E(I)
+C  99  FORMAT(D12.5)
   236 CONTINUE
-  20  FORMAT(D12.5)
       RETURN
       END
       SUBROUTINE SETUP                                      
@@ -261,7 +261,7 @@ C      GAS PARAMETERS
 C
       READ(5,4) FRAC(1),FRAC(2),FRAC(3),FRAC(4),FRAC(5),FRAC(6),TEMPC,
      /TORR                        
-    4 FORMAT(8F10.4)      
+    4 FORMAT(8F10.5)      
 C                                                  
 C      FIELD VALUES                                                    
 C                                                                       
@@ -277,6 +277,9 @@ C INCREASED EFINAL CAUSED BY ELECTRIC FIELD
       EBIG=0.05*ESTART/1000. 
       EFINAL=ESTART*1.0001+760.0*EBIG/TORR*(TEMPC+ABZERO)/293.15*EFIELD
       IF(EFINAL.LT.(1.01*ESTART)) EFINAL=1.01*ESTART 
+C      WRITE(50,20) EFINAL
+C   20 FORMAT(1D12.4)
+
 C   CHECK INPUT
       TOTFRAC=0.0D0
       IF(NGAS.EQ.0.OR.NGAS.GT.6) GO TO 999
