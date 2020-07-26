@@ -340,7 +340,7 @@ class Main():
         else:
             akbar=AKS[self.ngasn[0]]
             x0=X00[self.ngasn[0]]
-            X1=X11[self.ngasn[0]]
+            x1=X11[self.ngasn[0]]
             abar=AAA[self.ngasn[0]]
         dcor = 0.5*math.log10(self.torr*293.15/(760.0*(self.temp+ABZERO)))
         x0 -= dcor

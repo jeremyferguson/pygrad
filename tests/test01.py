@@ -1,71 +1,87 @@
-import unittest
+import unittest, os
 import pygrad
 
 class TestSetup(unittest.TestCase):
-    setupErrorPath = 'tests/errors/setup'
+    pygrad_home = os.getenv('PYGRAD_HOME')
+    setupErrorPath = pygrad_home + '/tests/errors/setup/'
+    densityTestPath = pygrad_home + '/tests/fortran_tests/density-tests/'
     def ErrorFileSetup(self,fname,error):
         with self.assertRaises(error):
             pygrad.Main(fname)
+
+    def testDensityCalc(self):
+        for fname in os.listdir(self.densityTestPath):
+            if fname[-3:] == '.in':
+                print(fname)
+                prefix = fname[:-3]
+                main = pygrad.Main(self.densityTestPath + fname)
+                main.calcDensity()
+                with open(self.densityTestPath + prefix + '.out', 'r') as out:
+                    text = out.read()
+                data = [float(i) for i in text.split('\n')]
+                for pair in zip(data, main.den):
+                    self.assertEqual(pair[0],pair[1])
+                
 
     def ErrorFileSetupFormat(self,fname):
         self.ErrorFileSetup(fname, pygrad.InfileFormatException)
 
     def testMissingLine(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-01.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-01.txt')
 
     def testMissingFile(self):
-        self.ErrorFileSetup(setupErrorPath+'error-00.txt', FileNotFoundError)
+        self.ErrorFileSetup(self.setupErrorPath+'error-00.txt', FileNotFoundError)
     
     def testBlankFile(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-02.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-02.txt')
 
     def testNoGas(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-03.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-03.txt')
 
     def testAbsZero(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-04.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-04.txt')
 
     def testZeroPressure(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-05.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-05.txt')
 
     def testTooFewParameters(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-06.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-06.txt')
 
     def testTooManyParameters(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-07.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-07.txt')
     
     def testNgasBig(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-08.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-08.txt')
 
     def testNgasMismatch(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-09.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-09.txt')
 
     def testNfracMismatch(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-10.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-10.txt')
     
     def testNgasNMismatch(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-11.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-11.txt')
 
     def testDuplicateNgas(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-12.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-12.txt')
         
     def testIncompletePercentage(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-13.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-13.txt')
 
     def testMaxEnergy(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-14.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-14.txt')
 
     def testMaxXrayEvents(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-15.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-15.txt')
     
     def testMaxMIPSEvents(self):
-        self.ErrorFileSetupFormat(setupErrorPath+'error-16.txt')
+        self.ErrorFileSetupFormat(self.setupErrorPath+'error-16.txt')
 
     def testFloatNgas(self):
-        self.ErrorFileSetup(setupErrorPath+'error-17.txt',ValueError)
+        self.ErrorFileSetup(self.setupErrorPath+'error-17.txt',ValueError)
 
     def testCorrectSetup(self):
-        main = pygrad.Main('tests/success-ins/success-01.txt')
+        main = pygrad.Main(self.pygrad_home + '/tests/correct/success-01.txt')
         
 
 if __name__ == '__main__':
