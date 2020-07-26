@@ -29,7 +29,11 @@
 
 - Tests are created using the unittest module and can be run on their own by python
 - To run all tests:
-`python3 -m unittest discover -s tests` 
+`cd tests/fortran_tests`
+`make`
+In order to make all the tests for the old Fortran functions.  Then, 
+`cd ../..` to return to the top level and 
+`python3 -m unittest discover -s tests` to run all of the tests
 
 ## Contributors
 - Jeremy Ferguson: [github](https://github.com/jeremyferguson) 
