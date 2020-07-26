@@ -122,7 +122,7 @@ class Main():
 
         def assignIndex(i,aj):
             self.e[i] = self.ehalf + self.estep * aj
-            self.gam[i] = (EMS + self.e[i])
+            self.gam[i] = (EMS + self.e[i])/EMS
             self.bet[i] = math.sqrt(1.0-1.0/(self.gam[i] ** 2))
         
         if self.efinal <= 20000.0:

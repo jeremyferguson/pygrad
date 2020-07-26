@@ -17,11 +17,9 @@ class TestSetup(unittest.TestCase):
                 main.calcDensity()
                 with open(self.densityTestPath + prefix + '.out', 'r') as out:
                     text = out.read()
-                #print('fortran: '+text)
                 data = [[float(i) for i in line.split(',')] for line in text.split('\n')]
-                for pair in zip(data, main.e):
-                    self.assertAlmostEqual(pair[0][0],pair[1], 0)
-                    #self.assertAlmostEqual(pair[0][1],pair[1][1], 4)
+                for pair in zip(data, main.den):
+                    self.assertAlmostEqual(pair[0][0],pair[1], 2)
 
     def ErrorFileSetupFormat(self,fname):
         self.ErrorFileSetup(fname, pygrad.InfileFormatException)
