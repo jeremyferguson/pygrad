@@ -1,4 +1,41 @@
-import numpy as np,math,random
+import numpy as np,math,random,cascdata
+
+gas_dict = {1: 'cf4', 2: 'argon', 3: 'helium4', 4: 'helium3', 5: 'neon', 6: 'krypton', 7: 'xenon', 8: 'methane', 9: 'ethane', 10: 'propane', 11: 'isobutane', 12: 'co2', 14: 'h20', 15: 'oxygen', 16: 'nitrogen', 18: 'n20', 21: 'hydrogen', 30: 'sf6', 31: 'nh3', 34: 'ch3oh', 35: 'c2h5oh', 36: 'c3h7oh'}
+
+#Constants
+API = math.pi
+ABZERO = 273.15
+ARY = 13.60569253
+PIR2 = 8.7973554297e-17
+ECHARG = 1.602176565e-19 
+EMASS = 9.10938291e-31                     
+EMS = 510998.928
+VC = 299792458.0
+AMU = 1.660538921e-27                                             
+BOLTZ = 8.6173324e-5     
+BOLTZJ = 1.3806488e-23                                              
+AWB = 1.758820088e10                                              
+ALOSCH = 2.6867805e19      
+RE = 2.8179403267e-13    
+ALPH = 137.035999074
+HBAR = 6.58211928e-16                                     
+EOVM = math.sqrt(2.0*ECHARG/EMASS)*100.0                            
+ATMOS = 760.0                                                     
+CONST1 = (AWB/2.0)*1e-19                                          
+CONST2 = CONST1*1e-2                                             
+CONST3 = (0.2*AWB)*1e-9                                   
+CONST4 = CONST3*ALOSCH*1e-15                                      
+CONST5 = CONST3/2.0
+TWOPI = 2.0*API
+NANISO = 2
+
+#Density Effect Constants
+EIAV = [115.0,188.0,41.8,41.8,137.0,352.0,482.0,41.7,45.4,47.1,48.3,85.0,0.0,71.6,95.0,82.0,0.0,84.9,0.0,0.0,19.2,19.2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,128.0,53.7,0.0,0.0,67.6,62.9,61.1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,48.3,0.0,61.1,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+JELEC = [42,18,2,2,10,36,54,10,18,26,34,22,0,10,16,14,0,22,0,0,2,2,0,0,0,0,0,0,0,70,10,0,0,18,26,34,0,0,0,0,0,0,0,34,0,34,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+X00 = [1.70,1.7635,2.2017,2.2017,2.0735,1.7158,1.5630,1.6263,1.5090,1.4339,1.3788,1.6294,0.0,1.7952,1.7541,1.7378,0.0,1.6477,0.0,0.0,1.8639,1.8639,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.6,1.6822,0.0,0.0,0.2529,0.2218,0.2046,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.3788,0.0,0.2046,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+X11 = [4.00,4.4855,3.6122,3.6122,4.6421,5.0748,4.7371,3.9716,3.8726,3.8011,3.7524,4.1825,0.0,4.3437,4.3213,4.1323,0.0,4.1565,0.0,0.0,3.2718,3.2718,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,4.1158,0.0,0.0,2.7639,2.7052,2.6681,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.7524,0.0,2.6681,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+AKS = [3.00,2.9618,5.8347,5.8347,3.5771,3.4051,2.7414,3.6257,3.6095,3.5920,3.4884,3.3227,0.0,3.5901,3.2913,3.2125,0.0,3.3318,0.0,0.0,5.7273,5.7273,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,3.6464,0.0,0.0,3.5477,3.4834,3.5415,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.4884,0.0,3.5415,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+AAA = [.18551,.19714,.13443,.13443,.08064,.07446,.23314,.09253,0.09627,0.09916,.10852,.11768,0.0,.08101,.11778,.15349,0.0,.11992,0.0,0.0,.14092,.14092,0.0,0.0,0.0,0.0,0.0,0.0,0.0,.177484,.08315,0.0,0.0,.08970,0.09878,0.09644,0.0,0.0,0.0,0.0,0.0,0.0,0.0,.10852,0.0,0.09644,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
 class PygradException(Exception):
     pass
@@ -7,32 +44,6 @@ class InfileFormatException(PygradException):
     pass
 
 class Main():
-    gas_dict = {1: 'cf4', 2: 'argon', 3: 'helium4', 4: 'helium3', 5: 'neon', 6: 'krypton', 7: 'xenon', 8: 'methane', 9: 'ethane', 10: 'propane', 11: 'isobutane', 12: 'co2', 14: 'h20', 15: 'oxygen', 16: 'nitrogen', 18: 'n20', 21: 'hydrogen', 30: 'sf6', 31: 'nh3', 34: 'ch3oh', 35: 'c2h5oh', 36: 'c3h7oh'}
-    API = math.pi
-    ABZERO = 273.15
-    ARY = 13.60569253
-    PIR2 = 8.7973554297e-17
-    ECHARG = 1.602176565e-19 
-    EMASS = 9.10938291e-31                     
-    EMS = 510998.928
-    VC = 299792458.0
-    AMU = 1.660538921e-27                                             
-    BOLTZ = 8.6173324e-5     
-    BOLTZJ = 1.3806488e-23                                              
-    AWB = 1.758820088e10                                              
-    ALOSCH = 2.6867805e19      
-    RE = 2.8179403267e-13    
-    ALPH = 137.035999074
-    HBAR = 6.58211928e-16                                     
-    EOVM = math.sqrt(2.0*ECHARG/EMASS)*100.0                            
-    ATMOS = 760.0                                                     
-    CONST1 = (AWB/2.0)*1e-19                                          
-    CONST2 = CONST1*1e-2                                             
-    CONST3 = (0.2*AWB)*1e-9                                   
-    CONST4 = CONST3*ALOSCH*1e-15                                      
-    CONST5 = CONST3/2.0
-    TWOPI = 2.0*API
-    NANISO = 2
     NBREM = np.zeros(6,dtype=int)
     EBRTOT = np.zeros(6,dtype=float)
     ICFLG=0
@@ -40,6 +51,7 @@ class Main():
     IPFLG=0
     IBFLG=0
     LPEFLG=0
+
     def __init__(self, infile):
         with open(infile, 'r') as f:
             text = f.read()
@@ -65,6 +77,9 @@ class Main():
         self.kgas, self.lgas, self.lcmp, self.lray, self.lpap, self.lbrm, self.iecasc = [
                 int(i) for i in parameters[4][2:]] 
         self.check_parameters()
+        zipped = sorted(zip(self.ngasn,self.nfrac),key=lambda x:x[0],reverse=True)
+        self.ngasn = [i[0] for i in zipped]
+        self.nfrac = [i[1] for i in zipped]
         if self.nseed == 0:
             self.nseed = 54217137
         random.seed(self.nseed)
@@ -78,16 +93,16 @@ class Main():
         self.nstep=20000
         
         #Set up initial angles for beam and electric field
-        if ndvec == 1:
+        if self.ndvec == 1:
             self.phi = 0.0                          
             self.theta = 0.0
-        elif ndvec == -1:
+        elif self.ndvec == -1:
             self.phi = 0
-            self.theta = self.API
-        elif ndvec == 0:
+            self.theta = API
+        elif self.ndvec == 0:
             self.phi = 0.0
             self.theta = API/2.0
-        elif ndvec == 2:
+        elif self.ndvec == 2:
             self.R3 = random.random()
             self.phi = TWOPI * self.R3
             self.R4 = random.random()
@@ -98,23 +113,23 @@ class Main():
         
         self.initializeArrays()
         
-        self.corr = self.ABZERO*self.torr/(self.ATMOS*(self.ABZERO+self.temp)*100.0)
-        self.akt = (self.ABZERO+self.temp)*self.BOLTZ
-        self.ans = [i * self.corr * self.ALOSCH for i in self.frac]
-        self.an = 100.0*self.corr*self.ALOSCH                                            
-        self.vans = [i * self.VC for i in self.ans]
-        self.van= self.an * self.VC
+        self.corr = ABZERO*self.torr/(ATMOS*(ABZERO+self.temp)*100.0)
+        self.akt = (ABZERO+self.temp)*BOLTZ
+        self.ans = [i * self.corr * ALOSCH for i in self.nfrac]
+        self.an = 100.0*self.corr*ALOSCH                                            
+        self.vans = [i * VC for i in self.ans]
+        self.van= self.an * VC
 
         def assignIndex(i,aj):
             self.e[i] = self.ehalf + self.estep * aj
-            self.gam[i] = (self.EMS + self.e[i])
+            self.gam[i] = (EMS + self.e[i])
             self.bet[i] = math.sqrt(1.0-1.0/(self.gam[i] ** 2))
         
         if self.efinal <= 20000.0:
             self.estep = self.efinal/self.nstep
             self.ehalf = self.estep/2.0
             for i in range(20000):
-                assignIndex(i)
+                assignIndex(i,i)
         elif self.efinal <= 140000.0:
             self.estep = 1.0
             self.ehalf = 0.5
@@ -138,7 +153,7 @@ class Main():
             for i in range(16000,20000):
                 assignIndex(i,i-15999)
             self.estep = estep1
-        self.wb = self.AWB * self.bmag * 1e-12
+        self.wb = AWB * self.bmag * 1e-12
         if self.bmag != 0.0:
             self.eovb = self.efield * 1e-9 / self.bmag
 
@@ -171,7 +186,7 @@ class Main():
         actualngas = 0
         added = []
         for pair in zip(self.ngasn, self.nfrac):
-            if pair[0] != 0 and pair[0] not in self.gas_dict:
+            if pair[0] != 0 and pair[0] not in gas_dict:
                 raise InfileFormatException('Invalid gas number: '+str(pair[0]))
             if (pair[0] == 0 and pair[1] != 0) or (pair[0] != 0 and pair[1] == 0):
                 raise InfileFormatException('Mismatch between NGAS and NFRAC')
@@ -184,14 +199,14 @@ class Main():
                 added.append(pair[0])
         if actualngas != self.ngas:
             raise InfileFormatException('Mismatch between NGAS and NFRAC')
-        if self.temp <= -self.ABZERO:
+        if self.temp <= -ABZERO:
             raise InfileFormatException('Absolute zero')
         if self.torr <= 0:
             raise InfileFormatException('Negative pressure')
 
     #Initialize all the arrays used in the program to zeros
     #TODO: Clean this up
-    def initializeArrays():
+    def initializeArrays(self):
         self.msum = np.zeros(10000,dtype = int)
         self.mcomp = np.zeros(10000,dtype = int)
         self.mrayl = np.zeros(10000,dtype = int)
@@ -246,40 +261,100 @@ class Main():
         self.npl1 = np.zeros(100,dtype=int)
         self.npl10 = np.zeros(100,dtype=int)
         self.npl100 = np.zeros(100,dtype=int)
-        melec = np.zeros(1000,dtype=int)
-        melec3 = np.zeros(1000,dtype=int)
-        melec10 = np.zeros(1000,dtype=int)
-        melec30 = np.zeros(1000,dtype=int)
-        melec100 = np.zeros(1000,dtype=int)
-        melec300 = np.zeros(1000,dtype=int)
-        xav = np.zeros(100000,dtype=float)
-        yav = np.zeros(100000,dtype=float)
-        zav = np.zeros(100000,dtype=float)
-        tav = np.zeros(100000,dtype=float)
-        xyav = np.zeros(100000,dtype=float)
-        xyzav = np.zeros(100000,dtype=float)
-        dx = np.zeros(100000,dtype=float)
-        dy = np.zeros(100000,dtype=float)
-        dz = np.zeros(100000,dtype=float)
-        dt = np.zeros(100000,dtype=float)
-        dxy = np.zeros(100000,dtype=float)
-        dxyz = np.zeros(100000,dtype=float)
-        farx1 = np.zeros(100000,dtype=float)
-        fary1 = np.zeros(100000,dtype=float)
-        farz1 = np.zeros(100000,dtype=float)
-        farxy1 = np.zeros(100000,dtype=float)
-        rmax1 = np.zeros(100000,dtype=float)
-        tsum = np.zeros(100000,dtype=float)
-        xneg = np.zeros(100000,dtype=float)
-        yneg = np.zeros(100000,dtype=float)
-        zneg = np.zeros(100000,dtype=float)
-        edelta = np.zeros(100000,dtype=float)
-        edelta2 = np.zeros(100000,dtype=float)
-        ncl = np.zeros(100000,dtype=int)
-        nclexc = np.zeros(100000,dtype=int)
+        self.melec = np.zeros(1000,dtype=int)
+        self.melec3 = np.zeros(1000,dtype=int)
+        self.melec10 = np.zeros(1000,dtype=int)
+        self.melec30 = np.zeros(1000,dtype=int)
+        self.melec100 = np.zeros(1000,dtype=int)
+        self.melec300 = np.zeros(1000,dtype=int)
+        self.xav = np.zeros(100000,dtype=float)
+        self.yav = np.zeros(100000,dtype=float)
+        self.zav = np.zeros(100000,dtype=float)
+        self.tav = np.zeros(100000,dtype=float)
+        self.xyav = np.zeros(100000,dtype=float)
+        self.xyzav = np.zeros(100000,dtype=float)
+        self.dx = np.zeros(100000,dtype=float)
+        self.dy = np.zeros(100000,dtype=float)
+        self.dz = np.zeros(100000,dtype=float)
+        self.dt = np.zeros(100000,dtype=float)
+        self.dxy = np.zeros(100000,dtype=float)
+        self.dxyz = np.zeros(100000,dtype=float)
+        self.farx1 = np.zeros(100000,dtype=float)
+        self.fary1 = np.zeros(100000,dtype=float)
+        self.farz1 = np.zeros(100000,dtype=float)
+        self.farxy1 = np.zeros(100000,dtype=float)
+        self.rmax1 = np.zeros(100000,dtype=float)
+        self.tsum = np.zeros(100000,dtype=float)
+        self.xneg = np.zeros(100000,dtype=float)
+        self.yneg = np.zeros(100000,dtype=float)
+        self.zneg = np.zeros(100000,dtype=float)
+        self.edelta = np.zeros(100000,dtype=float)
+        self.edelta2 = np.zeros(100000,dtype=float)
+        self.ncl = np.zeros(100000,dtype=int)
+        self.nclexc = np.zeros(100000,dtype=int)
         self.e = np.zeros(20000,dtype = float)
         self.gam = np.zeros(20000,dtype=float)
         self.bet = np.zeros(20000,dtype=float)
+        self.den = np.zeros(20000,dtype=float)
+        self.nsdeg = np.zeros(17, dtype = int)
+        self.scr = np.zeros(17, dtype = str)
+        self.scr1 = np.zeros(17, dtype = str)
+
+    #Calculate density effect
+    def calcDensity(self):
+        jelecMult = lambda x: x[1] * JELEC[x[0] - 1]
+        zipped = zip(self.ngasn[:self.ngas],self.nfrac[:self.ngas])
+        zippedAn = zip(self.ngasn[:self.ngas],self.ans[:self.ngas])
+        sum1 = sum(map(lambda x: jelecMult(x) * math.log(EIAV[x[0] - 1]), list(zipped) ))
+        zipped = zip(self.ngasn[:self.ngas],self.nfrac[:self.ngas])
+        sumdnom = sum(map(jelecMult, list(zipped)))
+        hsum = sum(map(jelecMult, zippedAn))
+        eibar = math.e ** (sum1/sumdnom)
+        hwp1 = math.sqrt(4.0 * API * hsum * RE ** 3) * ALPH * EMS
+        delden = math.log(eibar/hwp1)
+        cbar = 1.0 + 2.0 * delden
+        if self.ngas != 1:
+            if cbar < 10.0:
+                x0 = 1.6
+                x1 = 4.0
+            elif cbar >= 4.0 and cbar < 10.5:
+                x0 = 1.7
+                x1 = 4.0
+            elif cbar >= 10.5 and cbar < 11.0:
+                x0 = 1.8
+                x1 = 4.0
+            elif cbar >= 11.0 and cbar < 11.5:
+                x0 = 1.8
+                x1 = 4.0
+            elif cbar >= 11.5 and cbar < 12.25:
+                x0 = 2.0
+                x1 = 4.0
+            elif cbar >= 12.25 and cbar < 13.804:
+                x0 = 2.0
+                x1 = 5.0
+            else: 
+                x0=0.326*cbar-1.5
+                x1=5.0
+            akbar=3.0
+            abar=(cbar-2.0*math.log(10.0)*x0)/((x1-x0)**3)
+        else:
+            akbar=AKS[self.ngasn[0]]
+            x0=X00[self.ngasn[0]]
+            X1=X11[self.ngasn[0]]
+            abar=AAA[self.ngasn[0]]
+        dcor = 0.5*math.log10(self.torr*293.15/(760.0*(self.temp+ABZERO)))
+        x0 -= dcor
+        x1 -= dcor
+        afc = 2.0*math.log(10.0)
+        for i in range(20000):
+            bg=self.bet[i]*self.gam[i]
+            x = math.log10(bg)
+            if x < x0:
+                self.den[i] = 0.0
+            elif x >= x0 and x <= x1:
+                self.den[i] = abar * math.e ** (akbar * math.log(x1 - x)) + afc * x - cbar
+            else:
+                self.den[i] = afc * x - cbar
 
 if __name__ == '__main__':
     import argparse
@@ -288,4 +363,5 @@ if __name__ == '__main__':
     parser.add_argument('outfile',nargs='?',help='Filename for the output of the file',default='DEGRAD.OUT')
     args = parser.parse_args()
     main = Main(args.infile)
-
+    main.calcDensity()
+    cascdata.copydata(main)
