@@ -1,5 +1,5 @@
 import unittest, os
-import pygrad
+import pygrad,utils
 
 class TestSetup(unittest.TestCase):
     pygrad_home = os.getenv('PYGRAD_HOME')
@@ -10,16 +10,12 @@ class TestSetup(unittest.TestCase):
             pygrad.Main(fname)
 
     def testDensityCalc(self):
-        for fname in os.listdir(self.densityTestPath):
-            if fname[-3:] == '.in':
-                prefix = fname[:-3]
-                main = pygrad.Main(self.densityTestPath + fname)
-                main.calcDensity()
-                with open(self.densityTestPath + prefix + '.out', 'r') as out:
-                    text = out.read()
-                data = [[float(i) for i in line.split(',')] for line in text.split('\n')]
-                for pair in zip(data, main.den):
-                    self.assertAlmostEqual(pair[0][0],pair[1], 2)
+        
+        def densityCalc(fname):
+            main = pygrad.Main(self.densityTestPath + fname)
+            main.calcDensity()
+            return [main.den]
+        utils.checkFortranTests(self.densityTestPath,densityCalc,"01",2)
 
     def ErrorFileSetupFormat(self,fname):
         self.ErrorFileSetup(fname, pygrad.InfileFormatException)

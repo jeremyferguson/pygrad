@@ -6,19 +6,18 @@
 
 - Python 3.x
 - Python libraries:
-	- re
-	- math
 	- numpy
-	- os
-	- random
 	- h5py
-	- copy
-	- unittest
 
+## Setup
+`git clone https://github.com/jeremyferguson/pygrad
+./config.sh`
+
+The shell script `setup.sh` sets all the necessary environment variables, so it is necessary to source it upon opening a new terminal window.
 
 ## Features
 
-- Currently, the only functionality is to do the initial setup and density effect calculations
+- The current functionality includes loading some of the gas data and doing the initial density effect calculations
 
 ## Usage
 
@@ -36,14 +35,11 @@
 
 - Tests are created using the unittest module and can be run on their own by python
 - To run all tests:
-`cd tests/fortran_tests`
-`make`
-In order to make all the tests for the old Fortran functions.  Then, 
-`cd ../..` to return to the top level and 
-`python3 -m unittest discover -s tests` to run all of the tests
+`python3 -m unittest discover -s tests`
+You can also go into the `tests` directory and run any of the test files individually.
 
 ## Contributors
-- Jeremy Ferguson: [github](https://github.com/jeremyferguson) 
+- Jeremy Ferguson: [github](https://github.com/jeremyferguson)\n 
 email:jmfergie@gmail.com
 
 ## TODO list
