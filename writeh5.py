@@ -137,7 +137,6 @@ def get_element_data(element,number,position,arrays,dimensions):
 
     for key in all_array_keys:
         if key not in data and check_ignore(key):
-            print(element,key)
             data[key] = np.zeros(dimensions[key],dtype = utils.checktype(key))
     return data
 
