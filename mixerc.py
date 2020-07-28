@@ -43,9 +43,7 @@ class MixerC():
         for gas in self.main.ngasn:
             self.gasmixc(gas,i)
             i += 1
-        self.arrays['PRSH'] /= 100.0
-        self.arrays['PRSHBT'] /= 100.0
-
+        
     def gasmixc(self,gas,i):
         group = self.f['elements']['mixerc']
         if gas == 0:
@@ -61,6 +59,11 @@ class MixerC():
             elgroup = group[element]
             for array in elgroup:
                 self.assignArray(i,j,array,elgroup[array],number)
+            k = 1 
+            for occ in self.arrays['INIOCC'][i][j]:
+                if occ > 0.0:
+                    self.arrays['ISHLMX'][i][j] = k
+                k += 1
             attrs = elgroup.attrs
             self.arrays['IZ'][i][j] = attrs.get('IZ')
             self.arrays['AMZ'][i][j] = attrs.get('AMZ') * number

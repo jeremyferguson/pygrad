@@ -5,8 +5,15 @@
 ## Prerequisites
 
 - Python 3.x
-- argparse, numpy, os python libraries
-- unittest library is necessary for running tests
+- Python libraries:
+	- re
+	- math
+	- numpy
+	- os
+	- random
+	- h5py
+	- copy
+	- unittest
 
 
 ## Features

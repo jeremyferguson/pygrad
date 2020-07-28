@@ -1,4 +1,5 @@
-import numpy as np,math,random,cascdata,mixerc
+import numpy as np,math,random
+import cascdata,mixerc,utils
 
 gas_dict = {
         1: {'name':'CF4','formula':[{'C':1},{'F':4}]},
