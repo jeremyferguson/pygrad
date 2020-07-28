@@ -143,7 +143,7 @@ def get_element_data(element,number,position,arrays,dimensions):
 
 def write_h5(elements):
     f = h5py.File('gas_data.hdf5','w')
-    el = f.create_group('elements')
+    el = f.create_group('/elements/mixerc')
     for element in elements:
         e = el.create_group(element)
         data = elements[element]

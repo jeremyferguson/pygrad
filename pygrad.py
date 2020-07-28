@@ -25,6 +25,7 @@ gas_dict = {
         36: {'name':'Iso-Propanol','formula':[{'C':3},{'H':8},{'O':1}]},
         44: {'name':'TMA','formula':[{'C':3},{'N':1},{'H':9}]},
         46: {'name':'N-Propanol','formula':[{'C':3},{'H':8},{'O':1}]}}
+shell_order = ['K','L1','L2','L3','M1','M2','M3','M4','M5','N1','N2','N3','N4','N5','O1','O2','O3']
 #Constants
 API = math.pi
 ABZERO = 273.15
