@@ -1,0 +1,47 @@
+\begin{quote}
+Python port of Degrad\+: \href{http://degrad.web.cern.ch/degrad/}{\texttt{ http\+://degrad.\+web.\+cern.\+ch/degrad/}} \end{quote}
+\hypertarget{md_README_autotoc_md1}{}\doxysection{Prerequisites}\label{md_README_autotoc_md1}
+
+\begin{DoxyItemize}
+\item Python 3.\+x
+\item Python libraries\+:
+\begin{DoxyItemize}
+\item numpy
+\item h5py
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md2}{}\doxysection{Setup}\label{md_README_autotoc_md2}
+{\ttfamily git clone \href{https://github.com/jeremyferguson/pygrad}{\texttt{ https\+://github.\+com/jeremyferguson/pygrad}} ./config.sh}
+
+The shell script {\ttfamily setup.\+sh} sets all the necessary environment variables, so it is necessary to {\ttfamily source} it upon opening a new terminal window.\hypertarget{md_README_autotoc_md3}{}\doxysection{Features}\label{md_README_autotoc_md3}
+
+\begin{DoxyItemize}
+\item The current functionality includes loading some of the gas data and doing the initial density effect calculations
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md4}{}\doxysection{Usage}\label{md_README_autotoc_md4}
+
+\begin{DoxyItemize}
+\item {\ttfamily python3 pygrad.\+py \mbox{[}-\/h\mbox{]} infile \mbox{[}outfile\mbox{]}} \doxysubparagraph*{Positional arguments\+:}
+\end{DoxyItemize}
+
+
+\begin{DoxyItemize}
+\item infile\+: Filename containing initial parameters
+\item outfile\+: Filename for the output of the file
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md5}{}\doxysection{Documentation}\label{md_README_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Currently, no documentation exists
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md6}{}\doxysection{Tests}\label{md_README_autotoc_md6}
+
+\begin{DoxyItemize}
+\item Tests are created using the unittest module and can be run on their own by python
+\item To run all tests\+: {\ttfamily python3 -\/m unittest discover -\/s tests} You can also go into the {\ttfamily tests} directory and run any of the test files individually.
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md7}{}\doxysection{Contributors}\label{md_README_autotoc_md7}
+
+\begin{DoxyItemize}
+\item Jeremy Ferguson\+: \href{https://github.com/jeremyferguson}{\texttt{ github}} ~\newline
+ email\+:\href{mailto:jmfergie@gmail.com}{\texttt{ jmfergie@gmail.\+com}}
+\end{DoxyItemize}\hypertarget{md_README_autotoc_md8}{}\doxysection{Possible changes from Degrad}\label{md_README_autotoc_md8}
+
+\begin{DoxyItemize}
+\item random number generator 
+\end{DoxyItemize}
