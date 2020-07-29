@@ -8,6 +8,8 @@
 - Python libraries:
 	- numpy
 	- h5py
+- gfortran
+- make
 
 ## Setup
 `git clone https://github.com/jeremyferguson/pygrad
