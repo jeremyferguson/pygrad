@@ -12,8 +12,8 @@
 - make
 
 ## Setup
-`git clone https://github.com/jeremyferguson/pygrad  
-./config.sh`
+	git clone https://github.com/jeremyferguson/pygrad  
+	./config.sh
 
 The shell script `setup.sh` sets all the necessary environment variables, so it is necessary to `source` it upon opening a new terminal window.
 
