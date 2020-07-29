@@ -150,6 +150,7 @@ class Main():
         #Used to assign indices in the code blocks below
         def assignIndex(i,aj):
             self.e[i] = self.ehalf + self.estep * aj
+            self.eroot[i] = math.sqrt(self.e[i])
             self.gam[i] = (EMS + self.e[i])/EMS
             self.bet[i] = math.sqrt(1.0-1.0/(self.gam[i] ** 2))
         
@@ -322,6 +323,7 @@ class Main():
         self.e = np.zeros(20000,dtype = np.double)
         self.gam = np.zeros(20000,dtype=np.double)
         self.bet = np.zeros(20000,dtype=np.double)
+        self.eroot = np.zeros(20000,dtype=np.double)
         self.den = np.zeros(20000,dtype=np.double)
 
     #Calculate density effect. DENSITY subroutine in Degrad

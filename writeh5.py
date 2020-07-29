@@ -148,9 +148,9 @@ def get_element_data(element,number,position,arrays,dimensions):
 #Write all the data in ELEMENTS to a new hdf5 file.
 def write_h5(elements):
     f = h5py.File('gas_data.hdf5','w')
-    el = f.create_group('/elements/mixerc')
+    el = f.create_group('/elements')
     for element in elements:
-        e = el.create_group(element)
+        e = el.create_group(element+'/mixerc/')
         data = elements[element]
         for array in data:
             if type(data[array]) == np.ndarray:

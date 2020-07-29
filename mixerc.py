@@ -102,7 +102,7 @@ class MixerC():
     #Read all the gas data for GAS in at mixture position I and do some conversions
     #to the proper units.
     def gasmixc(self,gas,i):
-        group = self.f['elements']['mixerc']
+        group = self.f['elements']
         if gas == 0:
             return
         if gas not in pygrad.gas_dict:
@@ -114,14 +114,14 @@ class MixerC():
             element = utils.getSingle(pair)
             number = pair[element]
             elgroup = group[element]
-            for array in elgroup:
-                self.assignArray(i,j,array,elgroup[array],number)
+            for array in elgroup['mixerc']:
+                self.assignArray(i,j,array,elgroup['mixerc'][array],number)
             k = 1 
             for occ in self.arrays['INIOCC'][i][j]:
                 if occ > 0.0:
                     self.arrays['ISHLMX'][i][j] = k
                 k += 1
-            attrs = elgroup.attrs
+            attrs = elgroup['mixerc'].attrs
             self.arrays['IZ'][i,j] = attrs.get('IZ')
             self.arrays['AMZ'][i,j] = attrs.get('AMZ') * number
             self.arrays['PRSH'][i,j] /= 100.0
