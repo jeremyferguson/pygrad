@@ -39,7 +39,7 @@ The shell script `setup.sh` sets all the necessary environment variables, so it 
 You can also go into the `tests` directory and run any of the test files individually.
 
 ## Contributors
-- Jeremy Ferguson: [github](https://github.com/jeremyferguson)\n 
+- Jeremy Ferguson: [github](https://github.com/jeremyferguson)\ 
 email:jmfergie@gmail.com
 
 ## TODO list

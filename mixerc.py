@@ -1,4 +1,4 @@
-import numpy as np,pygrad, h5py, utils
+import numpy as np,os,pygrad, h5py, utils
 
 array_pairs = {
         'PRBSH':'PRSH',
@@ -36,7 +36,7 @@ class MixerC():
                 "YPP":np.zeros((6,3,54), dtype = float),
                 "FRMFR":np.zeros((6,3,45), dtype = float),
                 "FRMFC":np.zeros((6,3,45), dtype = float)}
-        self.f = h5py.File('gas_data.hdf5','r')
+        self.f = h5py.File(os.getenv('PYGRAD_HOME')+'/gas_data.hdf5','r')
 
     def mixc(self):
         i = 0
@@ -50,7 +50,7 @@ class MixerC():
             return
         if gas not in pygrad.gas_dict:
             raise PygradException('Invalid gas number: '+ str(gas))
-        print(gas)
+        #print(gas)
         formula = pygrad.gas_dict[gas]['formula']
         j = 0
         for pair in formula:
@@ -65,18 +65,18 @@ class MixerC():
                     self.arrays['ISHLMX'][i][j] = k
                 k += 1
             attrs = elgroup.attrs
-            self.arrays['IZ'][i][j] = attrs.get('IZ')
-            self.arrays['AMZ'][i][j] = attrs.get('AMZ') * number
-            self.arrays['PRSH'][i][j] /= 100.0
-            self.arrays['PRSHBT'][i][j] /= 100.0
-            self.arrays['PRSH'][i][j] = self.arrays['PRSH'][i][j].T
-            self.arrays['AUG'][i][j][:4] *= 0.0272105
-            self.arrays['AUG'][i][j][4:] *= 0.00272105
-            self.arrays['RAD'][i][j][4:][5:] *= 6.582119e-16
-            self.arrays['YRY'][i][j] = np.log(self.arrays['YRY'][i][j] * number * 1e-24)
-            self.arrays['YCP'][i][j] = np.log(self.arrays['YCP'][i][j] * number * 1e-24)
-            self.arrays['YPP'][i][j] = np.log(self.arrays['YPP'][i][j] * number * 1e-24)
-            self.arrays['XCP'][i][j] = np.log(self.arrays['XCP'][i][j])
+            self.arrays['IZ'][i,j] = attrs.get('IZ')
+            self.arrays['AMZ'][i,j] = attrs.get('AMZ') * number
+            self.arrays['PRSH'][i,j] /= 100.0
+            self.arrays['PRSHBT'][i,j] /= 100.0
+            self.arrays['PRSH'][i,j] = self.arrays['PRSH'][i][j].T
+            self.arrays['AUG'][i,j,:4] *= 0.0272105
+            self.arrays['AUG'][i,j,4:] *= 0.00272105
+            self.arrays['RAD'][i,j,4:,5:] *= 6.582119e-16
+            self.arrays['YRY'][i,j] = np.log(self.arrays['YRY'][i][j] * number * 1e-24)
+            self.arrays['YCP'][i,j] = np.log(self.arrays['YCP'][i][j] * number * 1e-24)
+            self.arrays['YPP'][i,j] = np.log(self.arrays['YPP'][i][j] * number * 1e-24)
+            self.arrays['XCP'][i,j] = np.log(self.arrays['XCP'][i][j])
             j += 1
 
     def assignArray(self,i,j,name,array,number):
