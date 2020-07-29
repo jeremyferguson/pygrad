@@ -1,67 +1,46 @@
 import unittest,os
 import pygrad,utils,mixerc
 
+#A class to test the MixerC class
 class TestMixerC(unittest.TestCase):
     pygrad_home = os.getenv('PYGRAD_HOME')
     mixercTestPath = pygrad_home + '/tests/fortran_tests/mixerc-tests/'
 
-    def testMixerC1(self):
-        def MixerCCalc(fname):
+    #Returns a generic function for passing into the checkFortranTests function.
+    def mixerCStart(self,keys):
+        def start(fname):
             main = pygrad.Main(self.mixercTestPath + fname)
             mix = mixerc.MixerC(main)
             mix.mixc()
-            return [mix.arrays['RAD'],mix.arrays['PRSH']]
+            return [mix.arrays[key] for key in keys]
+        return start
 
+    def testMixerC1(self):
+        MixerCCalc = self.mixerCStart(['RAD','PRSH'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"01", 6)
 
     def testMixerC2(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['ESH'],mix.arrays['PRSHBT'],mix.arrays['INIOCC']]
-
+        MixerCCalc = self.mixerCStart(['ESH','PRSHBT','INIOCC'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"02", 6)
 
     def testMixerC3(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['IZ'],mix.arrays['ISHLMX'],mix.arrays['AMZ']]
-
+        MixerCCalc = self.mixerCStart(['IZ','ISHLMX','AMZ'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"03", 6)
     
     def testMixerC4(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['AUG']]
+        MixerCCalc = self.mixerCStart(['AUG'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"04", 6)
 
     def testMixerC5(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['XPE'],mix.arrays['YPE']]
+        MixerCCalc = self.mixerCStart(['XPE','YPE'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"05", 6)
    
     def testMixerC6(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['XCP'],mix.arrays['YRY'],mix.arrays['YCP'],mix.arrays['YPP']]
+        MixerCCalc = self.mixerCStart(['XCP','YRY','YCP','YPP'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"06", 6)
     
     def testMixerC7(self):
-        def MixerCCalc(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays['FRMFR'],mix.arrays['FRMFC']]
+        MixerCCalc = self.mixerCStart(['FRMFR','FRMFC'])
         utils.checkFortranTests(self.mixercTestPath, MixerCCalc,"07", 6)
 
 if __name__ == '__main__':

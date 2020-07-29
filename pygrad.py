@@ -1,6 +1,7 @@
 import numpy as np,math,random
 import cascdata,mixerc,utils
 
+#Dictionary that holds information about all gases available in Pygrad.
 gas_dict = {
         1: {'name':'CF4','formula':[{'C':1},{'F':4}]},
         2: {'name':'Argon','formula':[{'Ar':1}]},
@@ -77,6 +78,7 @@ class Main():
     IBFLG=0
     LPEFLG=0
 
+    #Initializes the main program object.  Analagous to the SETUP subroutine in Degrad.
     def __init__(self, infile):
         with open(infile, 'r') as f:
             text = f.read()
@@ -145,6 +147,7 @@ class Main():
         self.vans = [i * VC for i in self.ans]
         self.van= self.an * VC
 
+        #Used to assign indices in the code blocks below
         def assignIndex(i,aj):
             self.e[i] = self.ehalf + self.estep * aj
             self.gam[i] = (EMS + self.e[i])/EMS
@@ -230,7 +233,6 @@ class Main():
             raise InfileFormatException('Negative pressure')
 
     #Initialize all the arrays used in the program to zeros
-    #TODO: Clean this up
     def initializeArrays(self):
         self.msum = np.zeros(10000,dtype = np.int64)
         self.mcomp = np.zeros(10000,dtype = np.int64)
@@ -322,7 +324,7 @@ class Main():
         self.bet = np.zeros(20000,dtype=np.double)
         self.den = np.zeros(20000,dtype=np.double)
 
-    #Calculate density effect
+    #Calculate density effect. DENSITY subroutine in Degrad
     def calcDensity(self):
         jelecMult = lambda x: x[1] * JELEC[x[0] - 1]
         zipped = zip(self.ngasn[:self.ngas],self.nfrac[:self.ngas])

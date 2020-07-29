@@ -1,28 +1,33 @@
 import os,re,h5py, numpy as np,copy
 import pygrad,utils
 
+
 pygrad_home = os.getenv('PYGRAD_HOME')
 filepath = pygrad_home + '/degrad-3.9a.f'
+#Names of all arrays found in MXERC or its subroutines.
 all_array_keys = ['A','R','INIOC', 'ES', 'PRBSH', 'PRBSHBT', 'YPEK', 'XPEK', 'YPEL1', 'XPEL1', 'YPEL2', 'XPEL2', 'YPEL3', 'XPEL3', 'YPEM1', 'XPEM1', 'YPEM2', 'XPEM2', 'YPEM3', 'XPEM3', 'YPEM4', 'XPEM4', 'YPEM5', 'XPEM5', 'YPEN1', 'XPEN1', 'YPEN2', 'XPEN2', 'YPEN3', 'XPEN3', 'YPEN4', 'XPEN4', 'YPEN5', 'XPEN5', 'YPEO1', 'XPEO1', 'YPEO2', 'XPEO2', 'YPEO3', 'XPEO3', 'XENE', 'YRAY', 'YCOM', 'YPAP', 'FFR', 'FFC', 'IZ', 'AMZ','XCOM']
 gas_dict = copy.deepcopy(pygrad.gas_dict)
+#One-dimensional arrays in gas subroutines.
 flat_arrs = ['IZ','AMZ']
+#Pattern to find cgas subroutines in the Fortran file.
 find_subs = re.compile("SUBROUTINE CGAS([0-9]+)([\S\s]*?)END")
+#Pattern to find data statements within a subroutine.
 find_arrays = re.compile("DATA ([A-Z0-9]+)((?:(?:[\/0-9][0-9\.,/*ED\-]+\/?)[\s]+)+)")
+#Pattern to find each individual array element within a data statement.
 find_array_elements = re.compile("([0-9]+)\*([0-9\.e\-]+)")
+#Pattern to find all dimension statements within a subroutine.
 find_dimensions = re.compile("DIMENSION ([A-Z0-9]+(?:[^\n]+\n[\s]+\/)+[^\n]+)")
+#Pattern fo find all individual dimension assignments within a dimension statement.
 find_dimension_elements = re.compile("([A-Z0-9]+)(\([0-9,]+\))")
+#Back part of the pattern to find all assignments to the flat arrays.
 find_flat_arrs_end = r"\(([0-9])\)[\s]*=([0-9\.DE]+)"
+#Full pattern to find assignments to the flat arrays.
 find_flat_arrs = [re.compile("({0})".format(i) + find_flat_arrs_end) for i in flat_arrs]
+#Pattern to find assignment statements of multi-dimensional array elements.
 find_multiarr_elements = re.compile("([A-Z]+)\(([0-9,]+)\)\/(?:\n[\s]+\/)?([0-9DE\.\+\-]+)")
 
-#For testing only
-def compareGases(i,j):
-    for key in arrays[i]:
-        if key in arrays[j]:
-            print(key)
-            compArr(arrays[i][key],arrays[j][key],8)
 
-#Search text for all Fortran dimension statements and return all the 
+#Search TEXT for all Fortran dimension statements and return all the 
 #array sizes.
 def get_dimensions(text):
     dim_statements = re.findall(find_dimensions,text)
@@ -64,7 +69,7 @@ def get_arrays(text, dimensions):
     return arrays
 
 #Search TEXT for one-dimensional array element assignments and add the data
-#to ARRAYS, creating new arrays of size DIMENSIONS
+#to ARRAYS, using DIMENSIONS to determine the sizes of any new arrays. 
 def get_flat_arrays(text,arrays,dimensions):
     for assignment in find_flat_arrs:
         flat = re.findall(assignment,text)
@@ -81,7 +86,7 @@ def get_flat_arrays(text,arrays,dimensions):
     return arrays
 
 #Search text for multi-dimensional array element assignments and add the data
-#to ARRAYS, creating new arrays out of size DIMENSIONS
+#to ARRAYS, using DIMENSIONS to determine the sizes of any new arrays. 
 def get_multi_arrays(text,arrays,dimensions):
     multi_assignments = re.findall(find_multiarr_elements,text)
     for a in multi_assignments:
@@ -101,8 +106,8 @@ def get_multi_arrays(text,arrays,dimensions):
     return arrays
 
 #Return all arrays associated with ELEMENT in ARRAYS, using POSITION to determine
-#association, NUMBER to figure out atomic mass data, and DIMENSIONS to create new 
-#arrays if necessary
+#association, NUMBER to calculate atomic mass data, and DIMENSIONS to create new 
+#arrays if necessary.
 def get_element_data(element,number,position,arrays,dimensions):
     data = {}
     j = 0
@@ -140,6 +145,7 @@ def get_element_data(element,number,position,arrays,dimensions):
             data[key] = np.zeros(dimensions[key],dtype = utils.checktype(key))
     return data
 
+#Write all the data in ELEMENTS to a new hdf5 file.
 def write_h5(elements):
     f = h5py.File('gas_data.hdf5','w')
     el = f.create_group('/elements/mixerc')

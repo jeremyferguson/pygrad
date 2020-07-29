@@ -1,6 +1,7 @@
 import unittest, os
 import pygrad,utils
 
+#A class to test the setup and density functions.
 class TestSetup(unittest.TestCase):
     pygrad_home = os.getenv('PYGRAD_HOME')
     setupErrorPath = pygrad_home + '/tests/errors/setup/'

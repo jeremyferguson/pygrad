@@ -1,15 +1,14 @@
 import numpy as np
 import os
 
-j = 0
-'''Checks the implicit Fortran type of S.'''
+#Checks the implicit Fortran type of S.
 def checktype(s):
     s = s.upper()
     if ord(s[0]) > ord('H') and ord(s[0]) < ord('O'):
         return np.int64
     return np.double
 
-'''Compare every element in an array to PLACE decimal points.'''
+#Compare every element in an array to PLACE decimal points.
 def compArr(a,b,place,indices):
     assert(len(a) == len(b)),"{} {}".format(len(a),len(b))
     for i in range(len(a)):
@@ -20,17 +19,17 @@ def compArr(a,b,place,indices):
         else:
             assert(abs(a[i] - b[i]) < .1 ** -place),"{} at position {} is diferent from {}".format(a[i],new_indices,b[i])
 
-'''Get the only key in a dictionary with one key.'''
+#Get the only key in a dictionary with one key.
 def getSingle(d):
     return list(d.keys())[0]
 
-'''Runs PYCODE on a variety of inputs found in PATH and checks all the TESTVARS 
-against the Fortran outputs found in subdirectories of PATH with OUTFNAME 
-as the file name, using decimal PLACES for checking the values'''
+#Runs PYCODE on a variety of inputs found in PATH and checks all the TESTVARS 
+#against the Fortran outputs found in subdirectories of PATH with OUTFNAME 
+#as the file name, checking to PLACES decimal places for equality.
 def checkFortranTests(path,pycode,outfname,places):
     for fname in os.listdir(path):
         if fname[-3:] == '.in':
-            print(fname)
+            #print(fname)
             prefix = fname[:-3]
             testvars = np.array(pycode(fname))
             outpath = path + '/' + prefix + '/' + outfname + '.out'

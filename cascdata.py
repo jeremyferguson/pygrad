@@ -1,3 +1,6 @@
+#This file takes the place of the CASCDAT subroutine.  It defines several 
+#arrays related to cascade data.
+
 NSD = [2,2,2,4,2,2,4,4,6,2,2,4,4,6,2,2,4]
 SCRPT = [' K  ',' L1 ',' L2 ',' L3 ',' M1',' M2 ',' M3 ',' M4 ', ' M5 ',' N1 ',' N2 ',' N3 ',' N4 ',' N5 ',' O1 ',' O2 ',' O3 ']
 SCRPT1 = [' 1s ',' 2s ',' 2p1/2',' 2p3/2',' 3s ',' 3p1/2',' 3p3/2',' 3d3/2',' 3d5/2',' 4s ',' 4p1/2',' 4p3/2',' 4d3/2',' 4d5/2',' 5s ',' 5p1/2',' 5p3/2']

@@ -3,15 +3,17 @@ import argparse, os,re
 parser = argparse.ArgumentParser(description='Run a fortran program with several inputs and record the outputs')
 parser.add_argument('program',type=str,help='fortran program to run')
 parser.add_argument('directory',type=str,help='directory where input files are located')
-parser.add_argument('outfiles',nargs='+',help='File that the fortran program outputs to')
+parser.add_argument('outfiles',type=int,help='Number of the output files from the Fortran program')
 args = parser.parse_args()
 
+outfiles = [(args.program +str(i) +  '.out').upper() for i in range(1,args.outfiles+1)]
+#Runs all input files in the given directory and store their output
 for fname in os.listdir(args.directory):
     if len(fname) > 3 and fname[-3:] == '.in':
         prefix = fname[:-3]
         os.system('./'+args.program + ' < ' + args.directory + fname)
         i = 1
-        for out in args.outfiles:
+        for out in outfiles:
             with open(out,'r') as f:
                 text = f.read()
         #Converts all the Fortran output into python ints or floats, then converts them back to strings

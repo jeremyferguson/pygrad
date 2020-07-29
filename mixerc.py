@@ -1,5 +1,7 @@
 import numpy as np,os,pygrad, h5py, utils
 
+#Pairs each array found in element data to the higher-dimensional array 
+#in the mixerC class.
 array_pairs = {
         'PRBSH':'PRSH',
         'INIOC':'INIOCC',
@@ -15,35 +17,90 @@ array_pairs = {
         'A':'AUG',
         'R':'RAD'}
 
+#This class takes the place of the MIXERC subroutine.  It loads element
+#data on each element in each gas from an hdf5 file.'''
 class MixerC():
     def __init__(self,main):
         self.main = main
+        #Collection of all arrays which store data loaded in for each gas.
+        #Arrays are all 6x3 to store data from all 6 gases in the mixture, and 
+        #up to 3 elements per gas. Arrays with 17 as a dimension are storing data per shell.
         self.arrays = {
+                
+                #Probability of shell shakeoff from one shell to another.
                 "PRSH":np.zeros((6,3,17,17), dtype = float),
-                "ESH":np.zeros((6,3,17), dtype = float), 
-                "AUG":np.zeros((6,3,17,17,17), dtype = float), 
+                
+                #Energy of shakeoff for each shell.
+                "ESH":np.zeros((6,3,17), dtype = float),
+                
+                #Auger and Coster-Kronig transition rates for each shell.
+                #For each element, K and L shells are stored in milliatomic
+                #units and the rest of the shells are in 10**-4 atomic units 
+                #and are converted to eV upon being loaded in.
+                "AUG":np.zeros((6,3,17,17,17), dtype = float),
+                
+                #Radiative transition rates. Data is stored in units of
+                #1.519e15/sec and are converted to eV upon being loaded in.
                 "RAD":np.zeros((6,3,17,17), dtype = float),
+                
+                #Probability of shakeoff from beta decay. Stored as a
+                #percentage but converted to a probability upon being loaded in.
                 "PRSHBT":np.zeros((6,3,17), dtype = float),
+                
+                #Atomic number.
                 "IZ":np.zeros((6,3),dtype = int),
+                
+                #Level occupancy for ground state.
                 "INIOCC":np.zeros((6,3,17), dtype = int),
+                
+                #Highest occupied shell for each element.
                 "ISHLMX":np.zeros((6,3), dtype = int),
+                
+                #Mass of each element multiplied by the number of atoms in the 
+                #molecule.
                 "AMZ":np.zeros((6,3),dtype = float),
+                
+                #Photoelectric absorption cross sections for each shell. 
+                #Converted to logarithm upon being loaded in.
                 "XPE":np.zeros((6,3,17,60), dtype = float),
+                
+                #Photoelectric absorption cross sections for each shell.
+                #Converted to logarithm and multiplied by number of atoms in the
+                #molecule * 1e-24 upon being loaded in.
                 "YPE":np.zeros((6,3,17,60), dtype = float),
+                
+                #Compton cross-sections. Converted to logarithm upon being
+                #loaded in.
                 "XCP":np.zeros((6,3,54), dtype = float),
+                
+                #Rayleigh cross-sections. Converted to logarithm upon being 
+                #loaded in.
                 "YRY":np.zeros((6,3,54), dtype = float),
+                
+                #Compton cross-sections. Converted to logarithm upon being
+                #loaded in.
                 "YCP":np.zeros((6,3,54), dtype = float),
+                
+                #Pair production cross-sections. Converted to logarithm upon
+                #being loaded in.
                 "YPP":np.zeros((6,3,54), dtype = float),
+                
+                #Rayleigh form factors.
                 "FRMFR":np.zeros((6,3,45), dtype = float),
+                
+                #Compton form factors.
                 "FRMFC":np.zeros((6,3,45), dtype = float)}
         self.f = h5py.File(os.getenv('PYGRAD_HOME')+'/gas_data.hdf5','r')
 
+    #Read all the gas data in.
     def mixc(self):
         i = 0
         for gas in self.main.ngasn:
             self.gasmixc(gas,i)
             i += 1
         
+    #Read all the gas data for GAS in at mixture position I and do some conversions
+    #to the proper units.
     def gasmixc(self,gas,i):
         group = self.f['elements']['mixerc']
         if gas == 0:
@@ -79,6 +136,8 @@ class MixerC():
             self.arrays['XCP'][i,j] = np.log(self.arrays['XCP'][i][j])
             j += 1
 
+    #Assign ARRAY with NAME as its name to its proper position in the higher-dimensional
+    #array at position I,J, with NUMBER as the number of times it appears in the gas molecule.
     def assignArray(self,i,j,name,array,number):
         if name in array_pairs:
             key = array_pairs[name]

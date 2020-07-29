@@ -13,7 +13,7 @@
 `git clone https://github.com/jeremyferguson/pygrad
 ./config.sh`
 
-The shell script `setup.sh` sets all the necessary environment variables, so it is necessary to source it upon opening a new terminal window.
+The shell script `setup.sh` sets all the necessary environment variables, so it is necessary to `source` it upon opening a new terminal window.
 
 ## Features
 
@@ -39,11 +39,8 @@ The shell script `setup.sh` sets all the necessary environment variables, so it 
 You can also go into the `tests` directory and run any of the test files individually.
 
 ## Contributors
-- Jeremy Ferguson: [github](https://github.com/jeremyferguson)\ 
+- Jeremy Ferguson: [github](https://github.com/jeremyferguson)  
 email:jmfergie@gmail.com
-
-## TODO list
-- refactor plot arrays
 
 ## Possible changes from Degrad
 - random number generator
