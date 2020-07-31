@@ -55,4 +55,4 @@ def angcut(psct1):
         fac = (1.0-np.cos(thetac))/(np.sin(thetac)*np.sin(thetac))
         psct2 = (cns*fac) + 0.5
         angc = thetac * rads
-    return angc, psct2
+    return (angc, psct2)
