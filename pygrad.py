@@ -1,5 +1,5 @@
 import numpy as np,math,random
-import cascdata,mixerc,utils
+import cascdata,mixerc,utils,mixer
 
 #Dictionary that holds information about all gases available in Pygrad.
 gas_dict = {
@@ -37,6 +37,7 @@ ECHARG = 1.602176565e-19
 EMASS = 9.10938291e-31                     
 EMS = 510998.928
 VC = 299792458.0
+SMALL=1.0e-20         
 AMU = 1.660538921e-27                                             
 BOLTZ = 8.6173324e-5     
 BOLTZJ = 1.3806488e-23                                              
@@ -392,3 +393,5 @@ if __name__ == '__main__':
     main.calcDensity()
     cmix = mixerc.MixerC(main)
     cmix.mixc()
+    mix = mixer.Mixer(main)
+    mix.mix()
