@@ -6,63 +6,64 @@ class Mixer():
         self.description = ""
         self.qelm = np.zeros(20000,dtype = float)
         self.qsum = np.zeros(20000,dtype = float)
-        self.qin = np.zeros((6,250,20000),dtype = float)
-        self.qion = np.zeros((6,20000),dtype = float)
+        self.qin = np.zeros((self.main.ngas,250,20000),dtype = float)
+        self.qion = np.zeros((self.main.ngas,20000),dtype = float)
         self.qsatt = np.zeros(20000,dtype = float)
         self.qrel = np.zeros(20000,dtype = float)
         self.qinel = np.zeros(20000,dtype = float)
         self.nin = np.zeros(6,dtype = int)
-        self.lion = np.zeros(6,dtype = int)
-        self.lin = np.zeros((6,250),dtype = int)
-        self.alion = np.zeros(6,dtype = float)
-        self.alin = np.zeros((6,250),dtype = float)
+        self.lion = np.zeros(self.main.ngas,dtype = int)
+        self.lin = np.zeros((self.main.ngas,250),dtype = int)
+        self.alion = np.zeros(self.main.ngas,dtype = float)
+        self.alin = np.zeros((self.main.ngas,250),dtype = float)
         self.iplast = 0
         self.nplast = 0
         self.niso = 0
         self.fcion = np.zeros(20000,dtype = float)
         self.fcatt = np.zeros(20000,dtype = float)
         self.iecasc = 0
-        self.doubles = np.zeros((6,20000), dtype = float)
+        self.doubles = np.zeros((self.main.ngas,20000), dtype = float)
         self.cminixsc = np.zeros(6,dtype = float)
         self.cminexsc = np.zeros(6,dtype = float)
         self.ecloss = np.zeros(6,dtype = float)
         self.wpln = np.zeros(6,dtype = float)
-        self.avpfrac = np.zeros((3,6),dtype = float)
-        self.ngexc = np.zeros(6,dtype = int)
-        self.idg = np.zeros(6,dtype = int)
+        self.avpfrac = np.zeros((3,self.main.ngas),dtype = float)
+        self.ngexc = np.zeros(self.main.ngas,dtype = int)
+        self.idg = np.zeros(self.main.ngas,dtype = int)
 
         #Only used in mixer program
-        self.q = np.zeros((6,6,20000),dtype = float)
-        self.e = np.zeros((6,6),dtype = float)
-        self.ei = np.zeros((6,250),dtype = float)
-        self.eion = np.zeros(6,dtype = float)
-        self.peqel = np.zeros((6,6,20000),dtype = float)
-        self.peqin = np.zeros((6,250,20000),dtype = float)
-        self.penfrac = np.zeros((6,3,250),dtype = float)  
-        self.kin = np.zeros((6,250),dtype = int)
-        self.kel = np.zeros((6,6),dtype = int)
-        self.eions = np.zeros((6,30),dtype = float)
-        self.qions = np.zeros((6,30,20000),dtype = float)
-        self.peqions = np.zeros((6,30,20000),dtype = float)
-        self.legasn = np.zeros((6,30),dtype = int)
-        self.ieshel = np.zeros((6,30),dtype = int)
-        self.eb = np.zeros((6,30),dtype = float)
-        self.nc = np.zeros((6,30),dtype = int)
-        self.ec = np.zeros((6,30),dtype = float)
-        self.ng = np.zeros((6,30),dtype = int)
-        self.eg = np.zeros((6,30),dtype = float)
-        self.ngs = np.zeros((6,30),dtype = int)
-        self.egs = np.zeros((6,30),dtype = float)
-        self.wk = np.zeros((6,30),dtype = float)
-        self.efls = np.zeros((6,30),dtype = float)
-        self.izbrs = np.zeros((6,250),dtype = int)
-        self.qatts = np.zeros((6,8,20000),dtype = float)
-        self.qnul = np.zeros((6,10,20000),dtype = float)
-        self.scln = np.zeros((6,10), dtype = float)
-        self.esplits = np.zeros((6,5,20),dtype = float)
+        self.q = np.zeros((self.main.ngas,6,20000),dtype = float)
+        self.e = np.zeros((self.main.ngas,6),dtype = float)
+        self.ei = np.zeros((self.main.ngas,250),dtype = float)
+        self.eion = np.zeros(self.main.ngas,dtype = float)
+        self.peqel = np.zeros((self.main.ngas,self.main.ngas,20000),dtype = float)
+        self.peqin = np.zeros((self.main.ngas,250,20000),dtype = float)
+        self.penfrac = np.zeros((self.main.ngas,3,250),dtype = float)  
+        self.kin = np.zeros((self.main.ngas,250),dtype = int)
+        self.kel = np.zeros((self.main.ngas,self.main.ngas),dtype = int)
+        self.eions = np.zeros((self.main.ngas,30),dtype = float)
+        self.qions = np.zeros((self.main.ngas,30,20000),dtype = float)
+        self.peqions = np.zeros((self.main.ngas,30,20000),dtype = float)
+        self.ionmodl = np.zeros(self.main.ngas,dtype = int)
+        self.legasn = np.zeros((self.main.ngas,30),dtype = int)
+        self.ieshel = np.zeros((self.main.ngas,30),dtype = int)
+        self.eb = np.zeros((self.main.ngas,30),dtype = float)
+        self.nc = np.zeros((self.main.ngas,30),dtype = int)
+        self.ec = np.zeros((self.main.ngas,30),dtype = float)
+        self.ng = np.zeros((self.main.ngas,30),dtype = int)
+        self.eg = np.zeros((self.main.ngas,30),dtype = float)
+        self.ngs = np.zeros((self.main.ngas,30),dtype = int)
+        self.egs = np.zeros((self.main.ngas,30),dtype = float)
+        self.wk = np.zeros((self.main.ngas,30),dtype = float)
+        self.efls = np.zeros((self.main.ngas,30),dtype = float)
+        self.izbrs = np.zeros((self.main.ngas,250),dtype = int)
+        self.qatts = np.zeros((self.main.ngas,8,20000),dtype = float)
+        self.qnul = np.zeros((self.main.ngas,10,20000),dtype = float)
+        self.scln = np.zeros((self.main.ngas,10), dtype = float)
+        self.esplits = np.zeros((self.main.ngas,5,20),dtype = float)
         self.nion = np.zeros(6,dtype = int)
         self.natt = np.zeros(6,dtype = int)
-        self.nul = np.zeros(6,dtype = int)
+        self.nul = np.zeros(self.main.ngas,dtype = int)
 
 
     def mix(self):
@@ -132,7 +133,7 @@ class Mixer():
                     self.legas[start:end] = self.legasn[gas,:self.nion[gas]]
                     self.ieshell[start:end] = self.ieshel[gas,:self.nion[gas]]
                     peqarr = self.peqions[gas,:self.nion[gas]]
-                    self.ein[start:end] = self.eion[gas,:self.nion[gas]]/rgas1
+                    self.ein[start:end] = self.eions[gas,:self.nion[gas]]/rgas1
                 else:
                     n += 1
                     start = n
@@ -169,9 +170,10 @@ class Mixer():
                 self.efl[start:end] = self.efls[gas,:length]
                 self.rgas[start:end] = rgas1
                 self.ipn[start:end] = 1 #index?
+                self.ionmodel[start:end] = self.ionmodl[gas]
                 L = 2 + 5 * gas
                 self.iarry[start:end] = L
-                self.esplit[start:end,:20] = self.esplits[gas,self.ionmodel[gas],:20]
+                self.esplit[start:end,:20] = self.esplits[gas,self.ionmodl[gas],:20]
             if self.main.efinal >= self.e[gas,3]:  
                 if self.natt[gas] <= 1:
                     n += 1
@@ -246,7 +248,7 @@ class Mixer():
         if np.sum(self.nul) != 0:
             self.cfn = np.zeros((20000,self.nplast),dtype = float)
             self.sclenul = np.zeros(self.nplast,dtype = float)
-            for i in range(6):
+            for i in range(self.main.ngas):
                 j = self.nul[i]
                 if j > 0:
                     start = n + 1
@@ -284,19 +286,19 @@ class Mixer():
             jhi = min(jhi,jlarge)
             self.main.tcfmax[i] = np.max(self.tcf[jlow:jhi])
         self.tcfmax1 = np.max(self.tcf)
-        self.qtot,self.qel = np.split(np.sum(self.main.ans * self.q[:,:2].T,0),2)
+        self.qtot,self.qel = np.split(np.sum(self.main.ans[:self.main.ngas] * self.q[:,:2].T,0),2)
         self.qtot = self.qtot.T
         self.qel = self.qel.T
-        for i in range(6):
+        for i in range(self.main.ngas):
             self.qion[i] = self.q[i,2] * self.main.ans[i]
             if self.nion[i] > 1:
                 self.qion[i] = self.qions[i,self.nion[i]] * self.main.ans[i]
-        self.qatt = (self.q[:,4].T * self.main.ans).T
+        self.qatt = (self.q[:,4].T * self.main.ans[:self.main.ngas]).T
         self.qsatt = np.sum(self.qatt,0)
         self.qsum = np.sum(self.qion,0) + self.qsatt
-        self.qrel = qsum - 2 * self.qsatt
-        for i in range(6):
-            if i > 0:
+        self.qrel = self.qsum - 2 * self.qsatt
+        for i in range(self.main.ngas):
+            if self.nin[i] > 0:
                 self.qsum += np.sum(self.qin[i,:self.nin[i]],1) * self.main.ans[i]
 
     def mixgas(self,gas,i):

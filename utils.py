@@ -8,6 +8,12 @@ def checktype(s):
         return np.int64
     return np.double
 
+#Converts X to either a float or an int.
+def convert(x):
+    if '.' in x or 'e' in x:
+        return float(x)
+    return int(x)
+
 #Compare every element in an array to PLACE decimal points.
 def compArr(a,b,place,indices):
     assert(len(a) == len(b)),"{} {}".format(len(a),len(b))
