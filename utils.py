@@ -14,16 +14,35 @@ def convert(x):
         return float(x)
     return int(x)
 
-#Compare every element in an array to PLACE decimal points.
-def compArr(a,b,place,indices):
+#Compare every element in arrays A and B to PLACE decimal places.
+def compArr(a,b,place=5):
+    compArrFunc(a,b,lambda x,y,place: abs(x - y) < .1 ** -place,[],place)
+
+#Assert that FUNC(x,y,PLACE) is true for all elements in A and B,using INDICES to keep track of the previous dimensions
+def compArrFunc(a,b,func,indices,place=5):
     assert(len(a) == len(b)),"{} {}".format(len(a),len(b))
     for i in range(len(a)):
         new_indices = indices + [i]
-        #print(new_indices)
         if type(a[i]) == np.ndarray:
-            compArr(a[i],b[i],place,new_indices)
+            compArrFunc(a[i],b[i],func,new_indices,place)
         else:
-            assert(abs(a[i] - b[i]) < .1 ** -place),"{} at position {} is diferent from {}".format(a[i],new_indices,b[i])
+            assert(func(a[i],b[i],place)),"Failed at comparing {} to {} at position {}".format(a[i],b[i],new_indices)
+
+#Ensure every element in A is greater than every element in B to PLACE decimal places.
+def compArrGreater(a,b,place=5):
+    compArrFunc(a,b,lambda x,y,place:x > y + .1 ** -place,[],place)
+
+#Ensure every element in A is greater than the single value B to PLACE decimal places.
+def compArrGreaterValue(a,b,place=5):
+    compArrFunc(a,b,lambda x,y,place:x > b + .1 ** -place,[],place)
+
+#Ensure every element in A is less than every element in B to PLACE decimal places.
+def compArrLess(a,b,place=5):
+    compArrFunc(a,b,lambda x,y,place:x < y + .1 ** -place,[],place)
+
+#Ensure every element in A is less than the single value B to PLACE decimal places.
+def compArrLessValue(a,b,place=5):
+    compArrFunc(a,b,lambda x,y,place:x < b + .1 ** -place,[],place)
 
 #Get the only key in a dictionary with one key.
 def getSingle(d):
@@ -47,7 +66,7 @@ def checkFortranTests(path,pycode,outfname,places):
             for testvar in testvars:
                 new_fortran[i] = np.reshape(fortran_out[i],testvar.shape,'C')
                 i += 1
-            compArr(testvars, new_fortran,places,[])
+            compArr(testvars, new_fortran,places)
 
 #Set angle cuts on angular distribution and renormalise forward
 def angcut(psct1):

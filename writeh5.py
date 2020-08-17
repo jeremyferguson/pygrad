@@ -2,9 +2,12 @@ import os,re,h5py, numpy as np,copy
 import utils,pygrad,cascdata
 
 
+verbosity = 0
+if __name__ == '__main__':
+    verbosity = 1
 pygrad_home = os.getenv('PYGRAD_HOME')
 filepath = pygrad_home + '/degrad-3.9a.f'
-#Names of all arrays found in MXERC or its subroutines.
+#Names of all arrays found in MIXERC or its subroutines.
 all_array_keys = ['A','R','INIOC', 'ES', 'PRBSH', 'PRBSHBT', 'YPEK', 'XPEK', 'YPEL1', 'XPEL1', 'YPEL2', 'XPEL2', 'YPEL3', 'XPEL3', 'YPEM1', 'XPEM1', 'YPEM2', 'XPEM2', 'YPEM3', 'XPEM3', 'YPEM4', 'XPEM4', 'YPEM5', 'XPEM5', 'YPEN1', 'XPEN1', 'YPEN2', 'XPEN2', 'YPEN3', 'XPEN3', 'YPEN4', 'XPEN4', 'YPEN5', 'XPEN5', 'YPEO1', 'XPEO1', 'YPEO2', 'XPEO2', 'YPEO3', 'XPEO3', 'XENE', 'YRAY', 'YCOM', 'YPAP', 'FFR', 'FFC', 'IZ', 'AMZ','XCOM']
 gas_dict = copy.deepcopy(pygrad.gas_dict)
 local = ['J','K','F','ELOSS','GAMMA1','APOP1','APOP2','APOP3','APOP4','EN']
@@ -261,7 +264,8 @@ def get_names(sub):
             pygrad.NANISO = int(naniso_match.group(1))
     else:
         name = process_name(names.groups(''))
-    print(name)
+    if verbosity > 0:
+        print(name)
     return name
 
 #Returns the description found in SUB, substituting NAME in for the first two lines.
@@ -292,7 +296,8 @@ def get_do_assignments(sub,dimensions,arrays,var):
         incr = fortran_eval(match[2],var,arrays) if match[2] else 1
         lines = re.findall(find_do_line,match[3])
         for line in lines:
-            print(line)
+            if verbosity > 0:
+                print(line)
             if line[0] not in rot_vars:
                 val =  fortran_eval(line[2],var,arrays,start,end,incr)
                 if line[1]:
@@ -360,62 +365,63 @@ def write_h5(elements):
             else:
                 e.attrs.create(array,data = data[array])
 
-if __name__ == "__main__":
-    with open(filepath, 'r') as f:
-        text = f.read()
+#if __name__ == "__main__":
+with open(filepath, 'r') as f:
+    text = f.read()
 
-    text = re.sub(comments,"\n",text)
-    subs = re.findall(find_csubs,text)
-    arrays = {}
-    dimensions = {}
-    elements = {}
+text = re.sub(comments,"\n",text)
+subs = re.findall(find_csubs,text)
+arrays = {}
+dimensions = {}
+elements = {}
 
-    for sub in subs:
-        i = int(sub[0])
-        if i in gas_dict:
-            dimensions[i] = get_dimensions(sub[1])
-            arrays[i] = {}
-            arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
-            arrays[i] = get_flat_arrays(sub[1],arrays[i],dimensions[i])
-            arrays[i] = get_multi_arrays(sub[1],arrays[i],dimensions[i])
+for sub in subs:
+    i = int(sub[0])
+    if i in gas_dict:
+        dimensions[i] = get_dimensions(sub[1])
+        arrays[i] = {}
+        arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
+        arrays[i] = get_flat_arrays(sub[1],arrays[i],dimensions[i])
+        arrays[i] = get_multi_arrays(sub[1],arrays[i],dimensions[i])
 
-    for gas in gas_dict:
-        formula = gas_dict[gas]['formula']
-        i = 0
-        for pair in formula:
-            element = utils.getSingle(pair)
-            number = pair[element]
-            if element not in elements:
-                elements[element] = get_element_data(element,number,i,arrays[gas],dimensions[gas])
-            i += 1
+for gas in gas_dict:
+    formula = gas_dict[gas]['formula']
+    i = 0
+    for pair in formula:
+        element = utils.getSingle(pair)
+        number = pair[element]
+        if element not in elements:
+            elements[element] = get_element_data(element,number,i,arrays[gas],dimensions[gas])
+        i += 1
 
-    write_h5(elements)
-    subs = re.findall(find_subs,text)
-    arrays = {}
-    dimensions = {}
-    variables = {}
-    for sub in subs:
-        oldnaniso = pygrad.NANISO
-        i = int(sub[0])
-        if i in gas_dict:
-            variables[i] = {}
+write_h5(elements)
+subs = re.findall(find_subs,text)
+arrays = {}
+dimensions = {}
+variables = {}
+for sub in subs:
+    oldnaniso = pygrad.NANISO
+    i = int(sub[0])
+    if i in gas_dict:
+        variables[i] = {}
+        if verbosity > 0:
             print(i)
-            dimensions[i] = get_dimensions(sub[1])
-            arrays[i] = {}
-            for arr in dimensions[i]:
-                arrays[i][arr] = np.zeros(dimensions[i][arr],dtype=utils.checktype(arr))
-            arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
-            for arr in mixer_arrs_first:
-                arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
-            variables[i] = get_vars(sub[1],arrays)
-            variables[i] = get_ind_var(sub[1],'SCLOBY',variables[i],arrays[i],dimensions[i])
-            variables[i] = get_ind_var(sub[1],'RAT',variables[i],arrays[i],dimensions[i])
-            variables[i]['fullname'] = get_names(sub[1])
-            variables[i]['description'] = get_description(sub[1],variables[i]['fullname'])
-            variables[i]['nulldescription'] = get_null_description(sub[1])
-            arrays[i] = get_do_assignments(sub[1],dimensions[i],arrays[i],variables[i])
-            for arr in mixer_arrs_second:
-                arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
-            arrays[i] = get_multi_ind(sub[1],variables[i],arrays[i],dimensions[i])
-            variables[i] = get_fragment(sub[1],'DEG',variables[i],arrays[i],dimensions[i])
-        pygrad.NANISO = oldnaniso
+        dimensions[i] = get_dimensions(sub[1])
+        arrays[i] = {}
+        for arr in dimensions[i]:
+            arrays[i][arr] = np.zeros(dimensions[i][arr],dtype=utils.checktype(arr))
+        arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
+        for arr in mixer_arrs_first:
+            arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
+        variables[i] = get_vars(sub[1],arrays)
+        variables[i] = get_ind_var(sub[1],'SCLOBY',variables[i],arrays[i],dimensions[i])
+        variables[i] = get_ind_var(sub[1],'RAT',variables[i],arrays[i],dimensions[i])
+        variables[i]['fullname'] = get_names(sub[1])
+        variables[i]['description'] = get_description(sub[1],variables[i]['fullname'])
+        variables[i]['nulldescription'] = get_null_description(sub[1])
+        arrays[i] = get_do_assignments(sub[1],dimensions[i],arrays[i],variables[i])
+        for arr in mixer_arrs_second:
+            arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
+        arrays[i] = get_multi_ind(sub[1],variables[i],arrays[i],dimensions[i])
+        variables[i] = get_fragment(sub[1],'DEG',variables[i],arrays[i],dimensions[i])
+    pygrad.NANISO = oldnaniso
