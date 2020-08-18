@@ -1,10 +1,13 @@
 import os,re,h5py, numpy as np,copy
-import utils,pygrad,cascdata
+import utils,pygrad,cascdata,argparse
 
 
 verbosity = 0
 if __name__ == '__main__':
-    verbosity = 1
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v','--verbosity',type=int,default=1)
+    verbosity = parser.parse_args().verbosity
+
 pygrad_home = os.getenv('PYGRAD_HOME')
 filepath = pygrad_home + '/degrad-3.9a.f'
 #Names of all arrays found in MIXERC or its subroutines.
@@ -13,9 +16,9 @@ gas_dict = copy.deepcopy(pygrad.gas_dict)
 local = ['J','K','F','ELOSS','GAMMA1','APOP1','APOP2','APOP3','APOP4','EN']
 rot_vars = ['RSUM','PJ']
 fortran_functions = {'ACOS':'np.arccos','DEXP':'np.exp'}
-mixer_arrs_first = ['EIN','EION']
-mixer_arrs_second = ['E','EOBY','IZBR','NC0','EC0','WKLM','EFL','NG1','EG1','NG2','EG2','LEGAS','ISHELL','SCLN']
-
+mixer_arrs_first = ['EION']
+mixer_arrs_second = ['EIN','E','EOBY','IZBR','NC0','EC0','WKLM','EFL','NG1','EG1','NG2','EG2','LEGAS','ISHELL','SCLN']
+mixer_arrs_complex = ['IZBR']
 #General patterns
 #Comment patterns
 comments = re.compile(r"\n(?:[cC][\s\S]*?\n)+")
@@ -264,7 +267,7 @@ def get_names(sub):
             pygrad.NANISO = int(naniso_match.group(1))
     else:
         name = process_name(names.groups(''))
-    if verbosity > 0:
+    if verbosity > 1:
         print(name)
     return name
 
@@ -296,7 +299,7 @@ def get_do_assignments(sub,dimensions,arrays,var):
         incr = fortran_eval(match[2],var,arrays) if match[2] else 1
         lines = re.findall(find_do_line,match[3])
         for line in lines:
-            if verbosity > 0:
+            if verbosity > 1:
                 print(line)
             if line[0] not in rot_vars:
                 val =  fortran_eval(line[2],var,arrays,start,end,incr)
@@ -315,6 +318,18 @@ def get_ind_arrs(name,sub,dimensions,arrays,var):
     matches = re.findall(pattern,sub)
     for match in matches:
         arrays[name][int(match[0])-1] = fortran_eval(match[1],var,arrays)
+    return arrays
+
+#Get complex individual array assignments of NAME in SUB, using DIMENSIONS, ARRAYS, and VAR for evaluation of expressions.
+def get_complex_ind_arrs(name,sub,dimensions,arrays,var):
+    pattern = re.compile("{}\(([\w]+\+[\w]+)\) *= *([\w/\*\+\-\(\)\.]+)".format(name))
+    if name not in arrays:
+        arrays[name] = np.zeros(dimensions[name],dtype = utils.checktype(name))
+    matches = re.findall(pattern,sub)
+    for match in matches:
+        index = fortran_eval(match[0],var,arrays) - 1
+        val = fortran_eval(match[1],var,arrays)
+        arrays[name][index] = val
     return arrays
 
 #Get the value of NAME in SUB and assign it to VAR, using ARRAYS and DIMENSIONS for
@@ -422,6 +437,8 @@ for sub in subs:
         arrays[i] = get_do_assignments(sub[1],dimensions[i],arrays[i],variables[i])
         for arr in mixer_arrs_second:
             arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
+        for arr in mixer_arrs_complex:
+            arrays[i] = get_complex_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
         arrays[i] = get_multi_ind(sub[1],variables[i],arrays[i],dimensions[i])
         variables[i] = get_fragment(sub[1],'DEG',variables[i],arrays[i],dimensions[i])
     pygrad.NANISO = oldnaniso
