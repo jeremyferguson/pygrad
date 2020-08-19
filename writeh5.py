@@ -3,71 +3,26 @@ import utils,pygrad,cascdata,argparse
 
 
 verbosity = 0
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-v','--verbosity',type=int,default=1)
-    verbosity = parser.parse_args().verbosity
-
 pygrad_home = os.getenv('PYGRAD_HOME')
 filepath = pygrad_home + '/degrad-3.9a.f'
 #Names of all arrays found in MIXERC or its subroutines.
 all_array_keys = ['A','R','INIOC', 'ES', 'PRBSH', 'PRBSHBT', 'YPEK', 'XPEK', 'YPEL1', 'XPEL1', 'YPEL2', 'XPEL2', 'YPEL3', 'XPEL3', 'YPEM1', 'XPEM1', 'YPEM2', 'XPEM2', 'YPEM3', 'XPEM3', 'YPEM4', 'XPEM4', 'YPEM5', 'XPEM5', 'YPEN1', 'XPEN1', 'YPEN2', 'XPEN2', 'YPEN3', 'XPEN3', 'YPEN4', 'XPEN4', 'YPEN5', 'XPEN5', 'YPEO1', 'XPEO1', 'YPEO2', 'XPEO2', 'YPEO3', 'XPEO3', 'XENE', 'YRAY', 'YCOM', 'YPAP', 'FFR', 'FFC', 'IZ', 'AMZ','XCOM']
 gas_dict = copy.deepcopy(pygrad.gas_dict)
 local = ['J','K','F','ELOSS','GAMMA1','APOP1','APOP2','APOP3','APOP4','EN']
-rot_vars = ['RSUM','PJ']
+rot_arrs = ['RSUM','PJ']
 fortran_functions = {'ACOS':'np.arccos','DEXP':'np.exp'}
-mixer_arrs_first = ['EION']
-mixer_arrs_second = ['EIN','E','EOBY','IZBR','NC0','EC0','WKLM','EFL','NG1','EG1','NG2','EG2','LEGAS','ISHELL','SCLN']
+mixer_arrs_first = ['E','EION']
+mixer_arrs_second = ['BEF','KIN','EOBY','IZBR','NC0','EC0','WKLM','EFL','NG1','EG1','NG2','EG2','LEGAS','ISHELL','SCLN']
+mixer_arrs_third = ['ERLVL','EIN']
 mixer_arrs_complex = ['IZBR']
-#General patterns
-#Comment patterns
-comments = re.compile(r"\n(?:[cC][\s\S]*?\n)+")
-
-#Regex patterns for mixerc data
-#One-dimensional arrays in cgas subroutines.
 flat_arrs = ['IZ','AMZ']
-#Pattern to find cgas subroutines in the Fortran file.
-find_csubs = re.compile(r"SUBROUTINE CGAS([0-9]+)([\S\s]*?)END[\s]*\n")
-#Pattern to find data statements within a subroutine.
-find_arrays = re.compile(r"DATA ([A-Z0-9]+)((?:(?:[\/0-9][0-9\.,/*ED\-]+\/?)[\s]+)+)")
-#Pattern to find each individual array element within a data statement.
-find_array_elements = re.compile(r"([0-9]+)\*([0-9\.e\-]+)")
-#Pattern to find all dimension statements within a subroutine.
-find_dimensions = re.compile(r"DIMENSION ([A-Z0-9]+(?:[^\n]+\n[\s]+\/)*[^\n]+)")
-#Pattern fo find all individual dimension assignments within a dimension statement.
-find_dimension_elements = re.compile(r"([A-Z0-9]+)(\([0-9,]+\))")
-#Back part of the pattern to find all assignments to the flat arrays.
-find_flat_arrs_end = r"\(([0-9])\)[\s]*=([0-9\.DE]+)"
-#Full pattern to find assignments to the flat arrays.
-find_flat_arrs = [re.compile("({0})".format(i) + find_flat_arrs_end) for i in flat_arrs]
-#Pattern to find assignment statements of multi-dimensional array elements.
-find_multiarr_elements = re.compile(r"([A-Z]+)\(([\d],[\d,]+)\)\/(?:\n[\s]+\/)?([0-9DE\.\+\-]+)")
+rot_vars = ['B0','QBQA','QBK','GPARA','GORTHO','DBA','DRAT','DBK','AMPV2','AMPV3','APOL','LMAX','AA','DD','FF','A1','B1','A2','EOBFRAC','B0','EATTTH','EATTWD','AMPATT','EATTTH1','EATTWD1','AMPATT1','SCLOBY','RAT','AR','BR']
+arrays = {}
+dimensions = {}
+elements = {}
+variables = {}
 
-#Regex patterns for mixer data
-#Pattern to find gas subroutines in the Fortran file.
-find_subs = re.compile(r"SUBROUTINE GAS([0-9]+)([\S\s]*?)      END[^I]")
-#Pattern to find block of variable assignments.
-find_vars = re.compile(r"(?:[\w]+ *= *[\w\*/\.DE\+\-\(\)]+[\s]+)(?:[\w]+ *= *[\w\*/\.DE\+\-\(\)]+[\s]+)+")
-#Pattern to find individual variable assignments.
-find_assignments = re.compile(r"([\w]+) *= *([\w\.\+\-\*/DE\(\)]+)")
-#Pattern to find the longer names of the gas.
-find_gas_name = re.compile(r"(?:IF\(NANISO\.EQ\.([\d])\) *(?:THEN)?[\s]*\n?[\s]*)?NAME=\'([\s\S]*?)\'(?:[\s]*(?:(?:ELSE)|(?:IF\(NANISO\.EQ\.([\d])\)))[\s]*NAME=\'([\s\S]*?)\')?")
-#Pattern to find naniso.
-find_naniso = re.compile(r"NANISO[ ]*=[ ]*([\d])")
-#Pattern to find description assignments
-find_scrpt = re.compile(r"SCRPT\(([\d])+\)[ ]*[ ]*=[ ]*\'([\s\S]*?)\'")
-#Pattern to find null description assignments
-find_scrptn = re.compile(r"SCRPTN\((?:[\d])+\)[ ]*[ ]*=[ ]*\'([\s\S]*?)\'")
-#Pattern to find the do loop assignment statements
-find_do_loop = re.compile(r"DO *[\d]+ *[JKLN]+ *= *([\w]+),([\w]+),?([\w]+)?[\s]+((?:[\w]+\((?:[\d],)?[JKLN]+\) *= *[\w\.\+\-\*/\(\)]+[\s]+)*(?:[\d]+[\s]+)(?:(?:[\w]+\((?:[\d],)?[JKLN]+\) *= *[\w\.\+\-\*/\(\)]+[\s]+)|(?:CONTINUE)))")
-#Pattern to extract the data from an individual do loop assignment.
-find_do_line = re.compile(r"([\w]+)\(([\d])?,?[JKLN]+\) *= *([\w/\*\+\-\(\)\.]+)")
-#Pattern to find variable assignments from a fragment.
-find_fragment = r"({}[\w]+) *= *([\w/\*\+\-\(\)\.]+)"
-#Pattern to find individual multi-dimensional array assignments.
-find_multi_ind = re.compile(r"([\w]+)\(([\d],[\d,]+)\) *= *([\w/\*\+\-\(\)\.]+)")
-
-def fortran_eval(expr,namespace,arrays,lstart=0,lend=0,lincr=0):
+def fortran_eval(expr,namespace,arrays,lstart=0,lend=0,lincr=1):
     def repl(match):
         def variablesub(expr,space):
             if '(' in expr:
@@ -111,6 +66,8 @@ def fortran_eval(expr,namespace,arrays,lstart=0,lend=0,lincr=0):
 #Search TEXT for all Fortran dimension statements and return all the 
 #array sizes.
 def get_dimensions(text):
+    find_dimensions = re.compile(r"DIMENSION ([A-Z0-9]+(?:[^\n]+\n[\s]+\/)*[^\n]+)")
+    find_dimension_elements = re.compile(r"([A-Z0-9]+)(\([0-9,]+\))")
     dim_statements = re.findall(find_dimensions,text)
     dimensions = {}
     for d in dim_statements:
@@ -126,6 +83,8 @@ def get_dimensions(text):
 #Search TEXT for Fortran data statements and return the array elements in 
 #arrays of size DIMENSIONS.
 def get_arrays(text, dimensions,arrays):
+    find_arrays = re.compile(r"DATA ([A-Z0-9]+)((?:(?:[\/0-9][0-9\.,/*ED\-]+\/?)[\s]+)+)")
+    find_array_elements = re.compile(r"([0-9]+)\*([0-9\.e\-]+)")
     data = re.findall(find_arrays,text)
     for g in data:
         key = g[0]
@@ -152,6 +111,8 @@ def get_arrays(text, dimensions,arrays):
 #Search TEXT for one-dimensional array element assignments and add the data
 #to ARRAYS, using DIMENSIONS to determine the sizes of any new arrays. 
 def get_flat_arrays(text,arrays,dimensions):
+    find_flat_arrs_end = r"\(([0-9])\)[\s]*=([0-9\.DE]+)"
+    find_flat_arrs = [re.compile("({0})".format(i) + find_flat_arrs_end) for i in flat_arrs]
     for assignment in find_flat_arrs:
         flat = re.findall(assignment,text)
         if flat:
@@ -169,6 +130,7 @@ def get_flat_arrays(text,arrays,dimensions):
 #Search TEXT for multi-dimensional array element assignments and add the data
 #to ARRAYS, using DIMENSIONS to determine the sizes of any new arrays. 
 def get_multi_arrays(text,arrays,dimensions):
+    find_multiarr_elements = re.compile(r"([A-Z]+)\(([\d],[\d,]+)\)\/(?:\n[\s]+\/)?([0-9DE\.\+\-]+)")
     multi_assignments = re.findall(find_multiarr_elements,text)
     for a in multi_assignments:
         name = a[0]
@@ -226,8 +188,19 @@ def get_element_data(element,number,position,arrays,dimensions):
             data[key] = np.zeros(dimensions[key],dtype = utils.checktype(key))
     return data
 
+def get_vars(sub,arrays,dimensions):
+    data = get_block_vars(sub,arrays)
+    for var in rot_vars:
+        data = get_ind_var(sub,var,data,arrays,dimensions)
+    data['fullname'] = get_names(sub)
+    data['description'] = get_description(sub,data['fullname'])
+    data['nulldescription'] = get_null_description(sub)
+    return data
+
 #Find all the variable assignments in the block near the beginning of SUB
-def get_vars(sub,arrays):
+def get_block_vars(sub,arrays):
+    find_vars = re.compile(r"(?:[\w]+ *= *[\w\*/\.DE\+\-\(\)]+[\s]+)(?:[\w]+ *= *[\w\*/\.DE\+\-\(\)]+[\s]+)+")
+    find_assignments = re.compile(r"([\w]+) *= *([\w\.\+\-\*/DE\(\)]+)")
     blocks = re.findall(find_vars,sub)
     data = {}
     fullblocks = 0
@@ -256,6 +229,8 @@ def get_names(sub):
         else:
             return groups[1]
 
+    find_gas_name = re.compile(r"(?:IF\(NANISO\.EQ\.([\d])\) *(?:THEN)?[\s]*\n?[\s]*)?NAME=\'([\s\S]*?)\'(?:[\s]*(?:(?:ELSE)|(?:IF\(NANISO\.EQ\.([\d])\)))[\s]*NAME=\'([\s\S]*?)\')?")
+    find_naniso = re.compile(r"NANISO[ ]*=[ ]*([\d])")
     names = re.search(find_gas_name,sub)
     naniso_match = re.search(find_naniso,sub)
     if naniso_match:
@@ -273,6 +248,7 @@ def get_names(sub):
 
 #Returns the description found in SUB, substituting NAME in for the first two lines.
 def get_description(sub,name):
+    find_scrpt = re.compile(r"SCRPT\(([\d])+\)[ ]*[ ]*=[ ]*\'([\s\S]*?)\'")
     matches = re.findall(find_scrpt,sub)
     description = "\n{}\n".format(name)
     for match in matches:
@@ -282,6 +258,7 @@ def get_description(sub,name):
 
 #Returns the null description found in SUB.
 def get_null_description(sub):
+    find_scrptn = re.compile(r"SCRPTN\((?:[\d])+\)[ ]*[ ]*=[ ]*\'([\s\S]*?)\'")
     matches = re.findall(find_scrptn,sub)
     description = ""
     if matches:
@@ -292,6 +269,8 @@ def get_null_description(sub):
 #Returns ARRAYS with added data from the do loop assignments in SUB, using DIMENSIONS
 #to create new arrays as necessary, and VAR to find variables.
 def get_do_assignments(sub,dimensions,arrays,var):
+    find_do_loop = re.compile(r"DO *[\d]+ *[JKLN]+ *= *([\w]+),([\w]+),?([\w]+)?[\s]+((?:(?:(?:[\w]+\((?:[\d],)?[JKLN]+\) *= *[\w\.\+\-\*/\(\)]+)|(?:PENSUM=PENSUM\+PENFRAC\(1,K\)))[\s]+)*(?:[\d]+[\s]+)(?:(?:[\w]+\((?:[\d],)?[JKLN]+\) *= *[\w\.\+\-\*/\(\)]+[\s]+)|(?:CONTINUE)))")
+    find_do_line = re.compile(r"([\w]+)\(([\d])?,?[JKLN]+\) *= *([\w/\*\+\-\(\)\.]+)")
     matches = re.findall(find_do_loop,sub)
     for match in matches:
         start = fortran_eval(match[0],var,arrays) - 1
@@ -301,7 +280,7 @@ def get_do_assignments(sub,dimensions,arrays,var):
         for line in lines:
             if verbosity > 1:
                 print(line)
-            if line[0] not in rot_vars:
+            if line[0] not in rot_arrs:
                 val =  fortran_eval(line[2],var,arrays,start,end,incr)
                 if line[1]:
                     arrays[line[0]][int(line[1])-1,start:end:incr] = val
@@ -313,11 +292,12 @@ def get_do_assignments(sub,dimensions,arrays,var):
 #for evaluation of expressions.
 def get_ind_arrs(name,sub,dimensions,arrays,var):
     pattern = re.compile("{}\(([\d]+)\) *= *([\w/\*\+\-\(\)\.]+)".format(name))
-    if name not in arrays:
-        arrays[name] = np.zeros(dimensions[name],dtype=utils.checktype(name))
-    matches = re.findall(pattern,sub)
-    for match in matches:
-        arrays[name][int(match[0])-1] = fortran_eval(match[1],var,arrays)
+    if name in dimensions:
+        if name not in arrays:
+            arrays[name] = np.zeros(dimensions[name],dtype=utils.checktype(name))
+        matches = re.findall(pattern,sub)
+        for match in matches:
+            arrays[name][int(match[0])-1] = fortran_eval(match[1],var,arrays)
     return arrays
 
 #Get complex individual array assignments of NAME in SUB, using DIMENSIONS, ARRAYS, and VAR for evaluation of expressions.
@@ -336,14 +316,16 @@ def get_complex_ind_arrs(name,sub,dimensions,arrays,var):
 #evaluation of expressions
 def get_ind_var(sub,name,var,arrays,dimensions):
     pattern = re.compile("{} *= *([\w/\*\+\-\(\)\.]+)".format(name))
-    match = re.search(pattern,sub)
-    if match:
-        var[name] = fortran_eval(match[1],var,arrays)
+    matches = re.findall(pattern,sub)
+    if matches:
+        for match in matches:
+            var[name] = fortran_eval(match,var,arrays)
     return var
 
 #Get all variable assignments in SUB that start with the fragment FRAG, using VAR,
 #ARRAYS, and DIMENSIONS for evaluation of expressions
 def get_fragment(sub,frag,var,arrays,dimensions):
+    find_fragment = r"({}[\w]+) *= *([\w/\*\+\-\(\)\.]+)"
     pattern = re.compile(find_fragment.format(frag))
     matches = re.findall(pattern,sub)
     for match in matches:
@@ -353,6 +335,7 @@ def get_fragment(sub,frag,var,arrays,dimensions):
 #Get all the multi-dimensional individual array assignments in SUB, using VAR and ARRAYS
 #to evaluate expressions and DIMENSIONS to make new arrays.
 def get_multi_ind(sub,var,arrays,dimensions):
+    find_multi_ind = re.compile(r"([\w]+)\(([\d],[\d,]+)\) *= *([\w/\*\+\-\(\)\.]+)")
     matches = re.findall(find_multi_ind,sub)
     for match in matches:
         name = match[0]
@@ -365,6 +348,45 @@ def get_multi_ind(sub,var,arrays,dimensions):
         index = int(index_arr[-1]) - 1
         val = fortran_eval(match[2],var,arrays)
         curr[index] = val
+    return arrays
+
+#Get all the different penfra assignments in SUB, using VAR and ARRAYS for expression
+#evaluation and DIMENSIONS to make new arrays.
+def get_penfra_special(sub,var,arrays,dimensions):
+    #Pattern to find a special form of PENFRA
+    find_penfra_if = re.compile(r"DO [\d]+ [JKLN]+=([\w]+),([\w]+)[\s]+((?:PENFRA\([\d],[JLKN]+\)=[\w\.\+\-\*/\(\)]+[\s]+)+)IF\(IPEN.EQ.0\) GO TO [\d]+[\s]+WRITE\([\d]+,[\d]+\) [,\w\.\+\-\*/\(\)]+[\s]+[\d]+ *FORMAT\(['=,\s\w\.\+\-\*/\(\)]+\)[\s]+[\d]+ CONTINUE")
+    if 'PENFRA' not in arrays:
+        arrays['PENFRA'] = np.zeros(dimensions['PENFRA'],dtype = float)
+    if_matches = re.findall(find_penfra_if,sub)
+    penfra_assign = re.compile('PENFRA\(([\d]),([JKLN])\)=([\d\.]+)')
+    for match in if_matches:
+        start = fortran_eval(match[0],var,arrays) - 1
+        end = fortran_eval(match[1],var,arrays)
+        assign_matches = re.findall(penfra_assign,match[2])
+        for m in assign_matches:
+            index = fortran_eval(m[0],var,arrays) - 1
+            val = fortran_eval(m[2],var,arrays)
+            arrays['PENFRA'][index][start:end] = val
+    find_penfra_after = re.compile(r"DO [\d]+ ([JKLN]+)=([\w\+\-\.\*/\(\)]+),([\w\+\-\.\*/\(\)]+)[\s]+DO [\d]+ ([JKLN]+)=([\w\+\-\.\*/\(\)]+),([\w\+\-\.\*/\(\)]+)[\s]+ [\d]+ *PENFRA\([\w\+\-\.\*/\(\)],[\w\+\-\.\*/\(\)]\)=[\w\+\-\.\*/\(\)]+[\s]+((?:PENFRA\([\w\+\-\.\*/\(\)],[\w\+\-\.\*/\(\)]\)=[\w\+\-\.\*/\(\)]+[\s]+)+)")
+    after_matches = re.findall(find_penfra_after,sub)
+    for match in after_matches:
+        local_space = copy.deepcopy(var)
+        local_space[match[0]] = fortran_eval(match[2],var,arrays)
+        local_space[match[3]] = fortran_eval(match[5],var,arrays)
+        assign_matches = re.findall(penfra_assign,match[6])
+        for m in assign_matches:
+            i = fortran_eval(m[0],local_space,arrays) - 1
+            j = fortran_eval(m[1],local_space,arrays) - 1
+            val = fortran_eval(m[2],local_space,arrays)
+            arrays['PENFRA'][i][j] = val
+    return arrays
+
+def do_rot_calcs(sub,var,arrays,dimensions):
+    do_pattern = re.compile("DO ([\d]+) ([JKLN])=([\w]+),([\w]+)([\s\S]*?)\n *\1 *([\S]+)")
+    matches = re.findall(do_pattern,sub)
+    for match in matches:
+        if "ELEV(J)" in match[3]:
+            print(match)
     return arrays
 
 #Write all the data in ELEMENTS to a new hdf5 file.
@@ -380,65 +402,74 @@ def write_h5(elements):
             else:
                 e.attrs.create(array,data = data[array])
 
-#if __name__ == "__main__":
-with open(filepath, 'r') as f:
-    text = f.read()
+def main():
+    global arrays,dimensions,subs,variables
+    with open(filepath, 'r') as f:
+        text = f.read()
+    #Comment pattern
+    comments = re.compile(r"\n(?:[cC][\s\S]*?\n)+")
+    #Pattern to find cgas subroutines in the Fortran file.
+    find_csubs = re.compile(r"SUBROUTINE CGAS([0-9]+)([\S\s]*?)END[\s]*\n")
+    #Pattern to find gas subroutines in the Fortran file.
+    find_subs = re.compile(r"SUBROUTINE GAS([0-9]+)([\S\s]*?)      END[^I]")
+    text = re.sub(comments,"\n",text)
+    subs = re.findall(find_csubs,text)
+    for sub in subs:
+        i = int(sub[0])
+        if i in gas_dict:
+            dimensions[i] = get_dimensions(sub[1])
+            arrays[i] = {}
+            arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
+            arrays[i] = get_flat_arrays(sub[1],arrays[i],dimensions[i])
+            arrays[i] = get_multi_arrays(sub[1],arrays[i],dimensions[i])
 
-text = re.sub(comments,"\n",text)
-subs = re.findall(find_csubs,text)
-arrays = {}
-dimensions = {}
-elements = {}
+    for gas in gas_dict:
+        formula = gas_dict[gas]['formula']
+        i = 0
+        for pair in formula:
+            element = utils.getSingle(pair)
+            number = pair[element]
+            if element not in elements:
+                elements[element] = get_element_data(element,number,i,arrays[gas],dimensions[gas])
+            i += 1
 
-for sub in subs:
-    i = int(sub[0])
-    if i in gas_dict:
-        dimensions[i] = get_dimensions(sub[1])
-        arrays[i] = {}
-        arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
-        arrays[i] = get_flat_arrays(sub[1],arrays[i],dimensions[i])
-        arrays[i] = get_multi_arrays(sub[1],arrays[i],dimensions[i])
+    write_h5(elements)
+    subs = re.findall(find_subs,text)
+    arrays = {}
+    dimensions = {}
+    for sub in subs:
+        oldnaniso = pygrad.NANISO
+        i = int(sub[0])
+        if i in gas_dict:
+            big_loop = re.compile(r"DO [\d]+ [IJ]=1,NSTEP")
+            split = re.search(big_loop,sub[1])
+            top = sub[1][:split.start()]
+            bot = sub[1][split.start():]
+            variables[i] = {}
+            if verbosity > 0:
+                print(i)
+            dimensions[i] = get_dimensions(sub[1])
+            arrays[i] = {}
+            for arr in dimensions[i]:
+                arrays[i][arr] = np.zeros(dimensions[i][arr],dtype=utils.checktype(arr))
+            arrays[i] = get_arrays(top,dimensions[i],arrays[i])
+            for arr in mixer_arrs_first:
+                arrays[i] = get_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
+            variables[i] = get_vars(top,arrays[i],dimensions[i])
+            arrays[i] = get_do_assignments(top,dimensions[i],arrays[i],variables[i])
+            for arr in mixer_arrs_second:
+                arrays[i] = get_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
+            for arr in mixer_arrs_complex:
+                arrays[i] = get_complex_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
+            arrays[i] = get_multi_ind(top,variables[i],arrays[i],dimensions[i])
+            variables[i] = get_fragment(top,'DEG',variables[i],arrays[i],dimensions[i])
+            arrays[i] = get_penfra_special(top,variables[i],arrays[i],dimensions[i])
+            for arr in mixer_arrs_third:
+                arrays[i] = get_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
+        pygrad.NANISO = oldnaniso
 
-for gas in gas_dict:
-    formula = gas_dict[gas]['formula']
-    i = 0
-    for pair in formula:
-        element = utils.getSingle(pair)
-        number = pair[element]
-        if element not in elements:
-            elements[element] = get_element_data(element,number,i,arrays[gas],dimensions[gas])
-        i += 1
-
-write_h5(elements)
-subs = re.findall(find_subs,text)
-arrays = {}
-dimensions = {}
-variables = {}
-for sub in subs:
-    oldnaniso = pygrad.NANISO
-    i = int(sub[0])
-    if i in gas_dict:
-        variables[i] = {}
-        if verbosity > 0:
-            print(i)
-        dimensions[i] = get_dimensions(sub[1])
-        arrays[i] = {}
-        for arr in dimensions[i]:
-            arrays[i][arr] = np.zeros(dimensions[i][arr],dtype=utils.checktype(arr))
-        arrays[i] = get_arrays(sub[1],dimensions[i],arrays[i])
-        for arr in mixer_arrs_first:
-            arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
-        variables[i] = get_vars(sub[1],arrays)
-        variables[i] = get_ind_var(sub[1],'SCLOBY',variables[i],arrays[i],dimensions[i])
-        variables[i] = get_ind_var(sub[1],'RAT',variables[i],arrays[i],dimensions[i])
-        variables[i]['fullname'] = get_names(sub[1])
-        variables[i]['description'] = get_description(sub[1],variables[i]['fullname'])
-        variables[i]['nulldescription'] = get_null_description(sub[1])
-        arrays[i] = get_do_assignments(sub[1],dimensions[i],arrays[i],variables[i])
-        for arr in mixer_arrs_second:
-            arrays[i] = get_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
-        for arr in mixer_arrs_complex:
-            arrays[i] = get_complex_ind_arrs(arr,sub[1],dimensions[i],arrays[i],variables[i])
-        arrays[i] = get_multi_ind(sub[1],variables[i],arrays[i],dimensions[i])
-        variables[i] = get_fragment(sub[1],'DEG',variables[i],arrays[i],dimensions[i])
-    pygrad.NANISO = oldnaniso
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-v','--verbosity',type=int,default=1)
+    verbosity = parser.parse_args().verbosity
+    main()

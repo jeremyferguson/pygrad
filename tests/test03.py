@@ -5,9 +5,13 @@ import numpy as np
 class TestGasFuncs(unittest.TestCase):
     pygrad_home = os.getenv('PYGRAD_HOME')
 
+    @classmethod
+    def setUpClass(cls):
+        writeh5.main()
+
     def checkpartial(self,gas,key,start,mid,end):
-        self.assertGreater(np.sum(writeh5.arrays[gas][key][start:mid]),0,'EIN[{}:{}]'.format(start,mid))
-        self.assertLess(np.sum(writeh5.arrays[gas][key][mid:end]),0,'EIN[{}:{}]'.format(mid,end))
+        self.assertGreater(np.sum(writeh5.arrays[gas][key][start:mid]),0,'{}[{}:{}]'.format(key,start,mid))
+        self.assertLess(np.sum(writeh5.arrays[gas][key][mid:end]),0,'{}[{}:{}]'.format(key,mid,end))
 
     def checksum(self,gas,key):
         self.assertGreater(np.sum(writeh5.arrays[gas][key]),0,key)
@@ -45,16 +49,19 @@ class TestGasFuncs(unittest.TestCase):
         self.checksums(7,arrays)
 
     def testgas8(self):
-        arrays = ['XEN','YELM','YELT','YEPS','XATT','YATT','XVBV4','YVBV4','XVBV2','YVBV2','XVBV1','YVBV1','XVBV3','YVBV3','XVBH1','YVBH1','XVBH2','YVBH2','XION','YION','YINC','XINF','YINF','XINF1','YINF1','XINF2','YINF2','XINF3','YINF3','XINF4','YINF4','XINF5','YINF5','XINF6','YINF6','XINPP','YINPP','XDET','YDET','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XCHD','YCHD','XCHB','YCHB','XHAL','YHAL','XHBE','YHBE','XKSH','YKSH','Z1T','Z6T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
+        arrays = ['XEN','YELM','YELT','YEPS','XATT','YATT','XVBV4','YVBV4','XVBV2','YVBV2','XVBV1','YVBV1','XVBV3','YVBV3','XVBH1','YVBH1','XVBH2','YVBH2','XION','YION','YINC','XINF','YINF','XINF1','YINF1','XINF2','YINF2','XINF3','YINF3','XINF4','YINF4','XINF5','YINF5','XINF6','YINF6','XINPP','YINPP','XDET','YDET','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XCHD','YCHD','XCHB','YCHB','XHAL','YHAL','XHBE','YHBE','XKSH','YKSH','Z1T','Z6T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2']
         self.checksums(8,arrays)
+        self.assertEqual(np.sum(writeh5.arrays[8]['PENFRA']),0)
 
     def testgas9(self):
-        arrays = ['XEN','YMT','YEL','YEPS','XATT1','YATT1','XATT2','YATT2','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVIB4','YVIB4','XVIB5','YVIB5','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XNUL1','YNUL1','XNUL2','YNUL2','XNUL3','YNUL3','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XION10','YION10','XION11','YION11','XION12','YION12','XION13','YION13','XION14','YION14','XION15','YION15','XION16','YION16','XION','YIONG','YIONC','Z1T','Z6T','SCLN','ESPLIT','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
+        arrays = ['XEN','YMT','YEL','YEPS','XATT1','YATT1','XATT2','YATT2','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVIB4','YVIB4','XVIB5','YVIB5','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XNUL1','YNUL1','XNUL2','YNUL2','XNUL3','YNUL3','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XION10','YION10','XION11','YION11','XION12','YION12','XION13','YION13','XION14','YION14','XION15','YION15','XION16','YION16','XION','YIONG','YIONC','Z1T','Z6T','SCLN','ESPLIT','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2']
         self.checksums(9,arrays)
+        self.assertEqual(np.sum(writeh5.arrays[9]['PENFRA']),0)
 
     def testgas10(self):
-        arrays = ['XEN','YMT','YEL','YEPS','XION','YIONG','YIONC','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XION10','YION10','XION11','YION11','XION12','YION12','XION13','YION13','XION14','YION14','XION15','YION15','XION16','YION16','XION17','YION17','XION18','YION18','XION19','YION19','XION20','YION20','XION21','YION21','XION22','YION22','XION23','YION23','XION24','YION24','XATT1','YATT1','XATT2','YATT2','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVIB4','YVIB4','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XTR4','YTR4','XNUL1','YNUL1','XNUL2','YNUL2','Z1T','Z6T','ESPLIT','SCLN','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
+        arrays = ['XEN','YMT','YEL','YEPS','XION','YIONG','YIONC','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XION10','YION10','XION11','YION11','XION12','YION12','XION13','YION13','XION14','YION14','XION15','YION15','XION16','YION16','XION17','YION17','XION18','YION18','XION19','YION19','XION20','YION20','XION21','YION21','XION22','YION22','XION23','YION23','XION24','YION24','XATT1','YATT1','XATT2','YATT2','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVIB4','YVIB4','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','XTR4','YTR4','XNUL1','YNUL1','XNUL2','YNUL2','Z1T','Z6T','ESPLIT','SCLN','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2']
         self.checksums(10,arrays)
+        self.assertEqual(np.sum(writeh5.arrays[10]['PENFRA']),0)
 
     def testgas11(self):
         arrays = ['XEN','YELM','YELT','YEPS','XION','YION','XKSH','YKSH','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVIB4','YVIB4','XVIB5','YVIB5','XEXC1','YEXC1','XEXC2','YEXC2','Z6T','Z1T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
@@ -93,9 +100,10 @@ class TestGasFuncs(unittest.TestCase):
         self.checksums(21,arrays)
 
     def testgas30(self):
-        arrays= ['XEN','YELM','YELT','YEPS','XATT','YAT1','YAT2','YAT3','YAT4','YAT5','YAT6','YAT7','XION','YION','YIN1','YIN2','YIN3','YIN4','YIN5','YIN6','YIN7','XL3SH','YL3SH','XL2SH','YL2SH','XL1SH','YL1SH','XKSHS','YKSHS','XKSHF','YKSHF','XV1V1','YV1V1','XV2V1','YV2V1','XV3V1','YV3V1','XV4V1','YV4V1','XV5V1','YV5V1','XVBV3','YVBV3','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','Z9T','Z16T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
+        arrays= ['XEN','YELM','YELT','YEPS','XATT','YAT1','YAT2','YAT3','YAT4','YAT5','YAT6','YAT7','XION','YION','YIN1','YIN2','YIN3','YIN4','YIN5','YIN6','YIN7','XL3SH','YL3SH','XL2SH','YL2SH','XL1SH','YL1SH','XKSHS','YKSHS','XKSHF','YKSHF','XV1V1','YV1V1','XV2V1','YV2V1','XV3V1','YV3V1','XV4V1','YV4V1','XV5V1','YV5V1','XVBV3','YVBV3','XTR1','YTR1','XTR2','YTR2','XTR3','YTR3','Z9T','Z16T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2']
         self.checksums(30,arrays)
-        self.checkpartial(30,'KIN',0,9,9)
+        self.assertGreater(np.sum(writeh5.arrays[30]['KIN'][:9]),0,'KIN[:9]')
+        self.assertEqual(np.sum(writeh5.arrays[30]['PENFRA']),0)
 
     def testgas31(self):
         arrays = ['XEL','YEL','YMT','YEPS','XVIBH','YVIBH','XATT','YATT1','YATT2','XTRP1','YTRP1','XTRP2','YTRP2','XTRP3','YTRP3','XTRP4','YTRP4','XTRP5','YTRP5','XTRP6','YTRP6','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XKSH','YKSH','XIONC','YIONC','ELEV','AKL','AJL','PJ','ENROT','ENRTS','YEPSR','YMTRT','XSECDUM','Z1T','Z7T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
@@ -117,8 +125,9 @@ class TestGasFuncs(unittest.TestCase):
         self.checkpartial(36,'EIN',0,26,52)
 
     def testgas44(self):
-        arrays = ['XEN','YELM','YELT','YEPS','XION','YION','XKSHC','YKSHC','XKSHN','YKSHN','XTORS','YTORS','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVHAR','YVHAR','XTRP1','YTRP1','XTRP2','YTRP2','XTRP3','YTRP3','Z6T','Z7T','Z1T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
+        arrays = ['XEN','YELM','YELT','YEPS','XION','YION','XKSHC','YKSHC','XKSHN','YKSHN','XTORS','YTORS','XVIB1','YVIB1','XVIB2','YVIB2','XVIB3','YVIB3','XVHAR','YVHAR','XTRP1','YTRP1','XTRP2','YTRP2','XTRP3','YTRP3','Z6T','Z7T','Z1T','EBRM','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2']
         self.checksums(44,arrays)
+        self.assertEqual(np.sum(writeh5.arrays[44]['PENFRA']),0)
 
     def testgas46(self):
         arrays = ['XEL','YEL','YMT','YEPS','XVIBH','YVIBH','XATT1','YATT1','XATT2','YATT2','XATT3','YATT3','XTRP1','YTRP1','XTRP2','YTRP2','XTRP3','YTRP3','XTRP4','YTRP4','XTRP5','YTRP5','XTRP6','YTRP6','XION1','YION1','XION2','YION2','XION3','YION3','XION4','YION4','XION5','YION5','XION6','YION6','XION7','YION7','XION8','YION8','XION9','YION9','XION10','YION10','XION11','YION11','XION12','YION12','XION13','YION13','XION14','YION14','XION15','YION15','XION16','YION16','XION17','YION17','XION18','YION18','XION19','YION19','XION20','YION20','XION21','YION21','XION22','YION22','XION23','YION23','XION24','YION24','XION25','YION25','XION26','YION26','XION27','YION27','XION28','YION28','XION29','YION29','XIONC','YIONC','YIONG','ENROT','ENRTS','YEPSR','YMTRT','Z1T','Z6T','Z8T','EBRM','PJ','E','EOBY','EION','EIN','LEGAS','ISHELL','IZBR','KEL','KIN','NC0','EC0','WKLM','EFL','NG1','NG2','EG1','EG2','PENFRA']
