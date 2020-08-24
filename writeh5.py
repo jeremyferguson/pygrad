@@ -10,13 +10,12 @@ all_array_keys = ['A','R','INIOC', 'ES', 'PRBSH', 'PRBSHBT', 'YPEK', 'XPEK', 'YP
 gas_dict = copy.deepcopy(pygrad.gas_dict)
 local = ['J','K','F','ELOSS','GAMMA1','APOP1','APOP2','APOP3','APOP4','EN']
 rot_arrs = ['RSUM','PJ']
-fortran_functions = {'ACOS':'np.arccos','DEXP':'np.exp'}
+fortran_functions = {'ACOS':'np.arccos','DEXP':'np.exp','DFLOAT':'float'}
 mixer_arrs_first = ['E','EION']
 mixer_arrs_second = ['BEF','KIN','EOBY','IZBR','NC0','EC0','WKLM','EFL','NG1','EG1','NG2','EG2','LEGAS','ISHELL','SCLN']
-mixer_arrs_third = ['ERLVL','EIN']
 mixer_arrs_complex = ['IZBR']
 flat_arrs = ['IZ','AMZ']
-rot_vars = ['B0','QBQA','QBK','GPARA','GORTHO','DBA','DRAT','DBK','AMPV2','AMPV3','APOL','LMAX','AA','DD','FF','A1','B1','A2','EOBFRAC','B0','EATTTH','EATTWD','AMPATT','EATTTH1','EATTWD1','AMPATT1','SCLOBY','RAT','AR','BR']
+rot_vars = ['B0','QBQA','QBK','GPARA','GORTHO','DBA','DRAT','DBK','AMPV2','AMPV3','APOL','LMAX','AA','DD','FF','A1','B1','A2','EOBFRAC','B0','EATTTH','EATTWD','AMPATT','EATTTH1','EATTWD1','AMPATT1','ESCOBY','SCLOBY','RAT','AR','BR','AEXT20','AGST20']
 arrays = {}
 dimensions = {}
 elements = {}
@@ -33,8 +32,11 @@ def fortran_eval(expr,namespace,arrays,lstart=0,lend=0,lincr=1):
                 if index.isdigit():
                     index = int(index) - 1
                     return str(space[arr][index])
-                else:
+                elif index == 'J' and 'J' not in space:
                     return repr(space[arr][lstart:lend:lincr])
+                else:
+                    index = fortran_eval(index) - 1
+                    return str(space[arr][index])
             else:
                 return str(space[expr])
 
@@ -195,6 +197,7 @@ def get_vars(sub,arrays,dimensions):
     data['fullname'] = get_names(sub)
     data['description'] = get_description(sub,data['fullname'])
     data['nulldescription'] = get_null_description(sub)
+    data = get_fragment(sub,'DEG',data,arrays,dimensions)
     return data
 
 #Find all the variable assignments in the block near the beginning of SUB
@@ -381,12 +384,209 @@ def get_penfra_special(sub,var,arrays,dimensions):
             arrays['PENFRA'][i][j] = val
     return arrays
 
-def do_rot_calcs(sub,var,arrays,dimensions):
-    do_pattern = re.compile("DO ([\d]+) ([JKLN])=([\w]+),([\w]+)([\s\S]*?)\n *\1 *([\S]+)")
-    matches = re.findall(do_pattern,sub)
+def get_lambda_frag(frag,sub,var,arrays):
+    pattern = re.compile(r" ({}[A-HJ-Z0-9]+)=([\(\)\w\+\-\.\*/]+)".format(frag))
+    parameters = ['SUM','AKT','TEMPC','TORR']
+    matches = re.findall(pattern,sub)
+    result = []
     for match in matches:
-        if "ELEV(J)" in match[3]:
-            print(match)
+        left = match[0]
+        if left not in var:
+            right = tokenize(match[1])
+            expr = symbol_eval(right,var,arrays)
+            params = [p for p in parameters if p in expr]
+            result.append([left,'lambda {}: {}'.format(",".join(params),expr)])
+    arrays[frag] = result
+    return arrays
+
+#Turn the rest of EXPR into a list and add to TOKENS, using CURR to track the current token.
+def tokenize(expr):
+    def t(curr,expr,tokens):
+        if not expr:
+            return tokens + [curr]
+        if expr[0] not in '*/+-()':
+            return t(curr+expr[0],expr[1:],tokens)
+        elif expr[0] in '*/+-' or curr not in fortran_functions:
+            return t('',expr[1:],tokens + [curr,expr[0]])
+        else:
+            return t('',expr[1:],tokens + [fortran_functions[curr],expr[0]])
+    return t('',expr,[])
+
+#Evaluate EXPR symbolically using VAR and ARRAYS.
+def symbol_eval(expr,var,arrays):
+    k = 0
+    while k < len(expr):
+        token = expr[k]
+        expr[k] = token.replace('D-','e-')
+        if token in var:
+            expr[k] = str(var[token])
+        elif token in pygrad.glob():
+            expr[k] = str(pygrad.glob()[token])
+        elif token in arrays:
+            l = expr[k:].index('(')
+            r = expr[k:].index(')')
+            expr[k+l] = '['
+            expr[k+r] = ']'
+        k += 1
+    string = "".join(expr)
+    pattern = re.compile(r"\[([\w])\]")
+    string = re.sub(pattern,r"[\1-1]",string)
+    return string 
+
+#Carry out the variable assignment in LINE, using VAR, ARRAYS, START,END,INCR, and ITERATOR 
+#for evaluation of expressions.
+def symbol_assign(line,var,arrays,start,end,incr,iterator):
+    left = line[:line.find('=')]
+    right = tokenize(line[line.find('=')+1:])
+    expr = symbol_eval(right,var,arrays)
+    if '(' not in left:
+        var[left] = expr
+    else:
+        wrapped = "lambda AKT: [{} for {} in range({},{},{})]".format(expr,iterator,start,end,incr)
+        arrays['PJ'].append([[start-1,end,incr],wrapped])
+    return var,arrays
+
+#Evaluate all the tokens in EXPR using VAR and ARRAYS.
+def tokens_eval(expr,var,arrays):
+    k = 0
+    while k < len(expr):
+        token = expr[k]
+        expr[k] = token.replace('.D','.e')
+        if token in var:
+            expr[k] = str(var[token])
+        elif token in pygrad.glob():
+            expr[k] = str(pygrad.glob()[token])
+        elif token in arrays:
+            l = expr[k:].index('(')
+            r = expr[k:].index(')')
+            index = fortran_eval(''.join(expr[k+l+1:k+r]),var,arrays) - 1
+            expr[k:k+r+1] = [str(arrays[token][index])]
+        k += 1
+    expr = eval("".join(expr))
+    return expr
+
+#Carry out a normal variable assignment in LINE, using VAR and ARRAYS.
+def normal_assign(line,var,arrays):
+    left = line[:line.find('=')]
+    right = tokenize(line[line.find('=')+1:])
+    expr = tokens_eval(right,var,arrays)
+    if '(' not in left:
+        var[left] = expr
+    else:
+        l = left.index('(')
+        r = left.index(')')
+        name = left[:l]
+        index = fortran_eval(left[l+1:r],var,arrays) - 1
+        arrays[name][index] = expr
+    return var,arrays
+
+#Turn an if statement found in MATCH into a python conditional statement using 
+#VAR and ARRAYS.
+def eval_if(match,var,arrays):
+    cond = match[0] + match[1]
+    cond = cond.replace('\n','')
+    cond = cond.replace(' ','')
+    cond = cond.replace('/','')
+    cond = cond.replace('.EQ.',' == ')
+    cond = cond.replace('.OR.',' or ')
+    cond = cond.replace('(','[')
+    cond = cond.replace(')',']')
+    cond = cond[:-1]
+    thenvar = match[2]
+    thenval = match[3]
+    elseval = var[thenvar]
+    var[thenvar] = "({} if ({}) else {})".format(thenval,cond,elseval)
+    return var
+
+def eval_do_loop(match,var,arrays,dimensions):
+    do_pattern = re.compile(r"DO ([\d]+) ([JKLN])=([\w]+),([\w\+]+),?([\w]+)?([\s\S]*?)\n *\1 *([\S]+)")
+    if_pattern = re.compile(r"IF\(([\w\(\)\.]+)[\s]+((?:\/[\w\.\(\)]+[\s]+)*)([\w]+)=([\d\.]+)")
+    iterator = match[1]
+    start = fortran_eval(match[2],var,arrays)
+    end = fortran_eval(match[3],var,arrays) + 1
+    incr = fortran_eval(match[4],var,arrays) if match[4] else 1
+    for i in range(start,end,incr):
+        var[iterator] = i
+        lines = match[5].strip().split('\n')
+        lines = [j.strip() for j in lines]
+        lines += [match[6].strip()]
+        j = 0
+        while j < len(lines):
+            line = lines[j]
+            if line[:2] == 'DO':
+                loop = re.search(do_pattern, "{}\n {} {}".format(match[5],match[0],match[6]))
+                j += len(loop.group().split('\n'))
+                arrays = eval_do_loop(loop.groups(),var,arrays,dimensions)
+            else:
+                var, arrays = normal_assign(line,var,arrays)
+                j += 1
+    return arrays
+
+def eval_pj_loop(match,var,arrays,dimensions):
+    if_pattern = re.compile(r"IF\(([\w\(\)\.]+)[\s]+((?:\/[\w\.\(\)]+[\s]+)*)([\w]+)=([\d\.]+)")
+    iterator = match[1]
+    start = fortran_eval(match[2],var,arrays)
+    end = fortran_eval(match[3],var,arrays) + 1
+    incr = fortran_eval(match[4],var,arrays) if match[4] else 1
+    lines = match[5].strip().split('\n')
+    lines = [j.strip() for j in lines]
+    lines += [match[6].strip()]
+    j = 0
+    while j < len(lines):
+        line = lines[j]
+        if line[:2] == 'IF':
+            cond = re.search(if_pattern,"{}\n {} {}".format(match[5],match[0],match[6]))
+            j += len(cond.group().split('\n'))
+            var = eval_if(cond.groups(),var,arrays)
+        else:
+            var, arrays = symbol_assign(line,var,arrays,start,end,incr,iterator)
+            j += 1
+    return arrays
+
+def get_sumstart(sub):
+    pattern = re.compile(r' (?:A|R)?SUM=([\d\.]+)')
+    match = re.search(pattern,sub)
+    if match:
+        return float(match[1])
+
+def do_rot_calcs(sub,var,arrays,dimensions):
+    do_pattern = re.compile(r"DO ([\d]+) ([JKLN])=([\w]+),([\w\+]+),?([\w]+)?([\s\S]*?)\n *\1 *([\S]+)")
+    matches = re.findall(do_pattern,sub)
+    elev_arrs = []
+    ein_arrs = []
+    pj_arrs = []
+    for match in matches:
+        elevp = re.compile('ELEV\([A-Z]\)=')
+        if re.findall(elevp,match[5] + match[6]):
+            elev_arrs.append(match)
+        einp = re.compile('EIN\([\w\*\-\+]+\)=')
+        if re.findall(einp,match[5] + match[6]):
+            ein_arrs.append(match)
+        pjp = re.compile('PJ\([A-Z]\)=')
+        if re.findall(pjp,match[5] + match[6]):
+            if 'SUM' not in match[5] + match[6] and 'RSUM' not in match[5] + match[6] and 'ASUM' not in match[5] + match[6]:
+                pj_arrs.append(match)
+    for arr in elev_arrs:
+        local = copy.deepcopy(var)
+        local['L'] = 1
+        arrays = eval_do_loop(arr,local,arrays,dimensions)
+    arrays = get_ind_arrs('EIN',sub,dimensions,arrays,var)
+    for arr in ein_arrs:
+        local = copy.deepcopy(var)
+        arrays = eval_do_loop(arr,local,arrays,dimensions)
+    pj_pattern = re.compile('PJ\(([\d]+)\)=([\d\.]+)')
+    pj_assign = re.findall(pj_pattern,sub)
+    arrays['PJ'] = []
+    for match in pj_assign:
+        arrays['PJ'].append([[int(match[0])-1,int(match[0]),1],"lambda AKT: [{}]".format(match[1])])
+    for arr in pj_arrs:
+        local = copy.deepcopy(var)
+        arrays = eval_pj_loop(arr,local,arrays,dimensions)
+    var['SUMSTART'] = get_sumstart(sub)
+    arrays = get_lambda_frag('FROT',sub,var,arrays)
+    arrays = get_ind_arrs('ERLVL',sub,dimensions,arrays,var)
+    arrays = get_lambda_frag('AP',sub,var,arrays)
+    arrays = get_lambda_frag('FA',sub,var,arrays)
     return arrays
 
 #Write all the data in ELEMENTS to a new hdf5 file.
@@ -462,10 +662,8 @@ def main():
             for arr in mixer_arrs_complex:
                 arrays[i] = get_complex_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
             arrays[i] = get_multi_ind(top,variables[i],arrays[i],dimensions[i])
-            variables[i] = get_fragment(top,'DEG',variables[i],arrays[i],dimensions[i])
             arrays[i] = get_penfra_special(top,variables[i],arrays[i],dimensions[i])
-            for arr in mixer_arrs_third:
-                arrays[i] = get_ind_arrs(arr,top,dimensions[i],arrays[i],variables[i])
+            arrays[i] = do_rot_calcs(top,variables[i],arrays[i],dimensions[i])
         pygrad.NANISO = oldnaniso
 
 if __name__ == '__main__':
