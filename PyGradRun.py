@@ -23,7 +23,7 @@ class PygradRun:
                    'Fractions'              :[90,10],
                    'EField_Vcm'             :100, 
                    'InitialElectronEnergy':5900.0,
-                   'ThermalEnergy'         :2.0,
+                   'ThermalCut'             :2.0,
                    'EnergyCut'              :0.0,
                    'Temperature_C'          :23,
                    'Pressure_Torr'          :750.062,
@@ -99,7 +99,7 @@ class PygradRun:
         DGObject.Pressure_Torr   = Inputs['Pressure_Torr']
         DGObject.BField_Mag   = Inputs['BField_Tesla']
         DGObject.BField_Angle = Inputs['BField_angle']
-        DGObject.ThermalEnergy = Inputs['ThermalEnergy']
+        DGObject.ThermalCut = Inputs['ThermalCut']
         DGObject.EnergyCut = Inputs['EnergyCut']
         DGObject.nDelta = Inputs['nDelta']
         DGObject.imip = Inputs['Imip']

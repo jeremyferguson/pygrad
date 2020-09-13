@@ -44,5 +44,3 @@ You can also go into the `tests` directory and run any of the test files individ
 - Jeremy Ferguson: [github](https://github.com/jeremyferguson)  
 email:jmfergie@gmail.com
 
-## Possible changes from Degrad
-- random number generator

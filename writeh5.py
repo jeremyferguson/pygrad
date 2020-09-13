@@ -589,6 +589,13 @@ def do_rot_calcs(sub,var,arrays,dimensions):
     arrays = get_lambda_frag('FA',sub,var,arrays)
     return arrays
 
+def get_loop_params(sub,var,arrays):
+    ABpattern = r"A=\(([\w]+)\(J\)\-\1\(J\-1\)\)/\(([\w]+)\(J\)\-\2\(J\-1\)\)[\s]+B=\(\2\(J\-1\)\*\1\(J\)\-\2\(J\)\*\1\(J\-1\)\)/\(\2\(J\-1\)-\2\(J\)\)[\s]+{}(?:\(([\d]+),I\))?=\(A\*EN\+B\)(\*1\.D\-16)?"
+    ENpattern = re.compile(r"(IF\(EN\.GT\.(DABS\()?EIN\(1\)\)?\) THEN[\s]+)?GAMMA1=\(EMASS2")
+    gammacond = re.search(ENpattern,sub)
+    gammacond = [bool(gammacond.group(1)),bool(gammacond.group(2))]
+    var['GAMMACOND'] = gammacond
+
 #Write all the data in ELEMENTS to a new hdf5 file.
 def write_h5(elements):
     f = h5py.File('gas_data.hdf5','w')
@@ -637,6 +644,7 @@ def main():
     subs = re.findall(find_subs,text)
     arrays = {}
     dimensions = {}
+    loops = {}
     for sub in subs:
         oldnaniso = pygrad.NANISO
         i = int(sub[0])
@@ -664,8 +672,9 @@ def main():
             arrays[i] = get_multi_ind(top,variables[i],arrays[i],dimensions[i])
             arrays[i] = get_penfra_special(top,variables[i],arrays[i],dimensions[i])
             arrays[i] = do_rot_calcs(top,variables[i],arrays[i],dimensions[i])
+            loops[i] = get_loop_params(bot,variables[i],arrays[i])
         pygrad.NANISO = oldnaniso
-
+        
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-v','--verbosity',type=int,default=1)

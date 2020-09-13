@@ -7,7 +7,7 @@ from PyGasMix.Gasmix cimport Gasmix
 cdef double drand48(double dummy)
 
 cdef class Pygrad:
-    cpdef GetSimFunctions(self, BFieldMag, BFieldAngle, EnableThermalMotion)
+    #cpdef GetSimFunctions(self, BFieldMag, BFieldAngle, EnableThermalMotion)
     cpdef Start(self)
 
     cdef public:
@@ -19,6 +19,8 @@ cdef class Pygrad:
         '''This is the upper limit for the electron energy integration.'''
         double ElectronEnergyStep
         '''PyGrad does the electron energy integration in 20000 steps this variable has the difference in energy between each step.'''
+        double ThermalCut
+        '''PyGrad will track electrons until they fall below this threshold.'''
         double ThermalEnergy
         '''This indicates the amount of energy in the gas (it is equal to the Boltzman constant * absolute tempreture).'''
         double RhydbergConst
@@ -82,6 +84,52 @@ cdef class Pygrad:
         '''Whether gas is isotropic or anistropic'''
         int NANISO
 
+        int last 
+        int tma 
+        int nout 
+
+        #Constants defined in Setup
+        double TwoPi 
+        double RhydbergConst 
+        double PIR2 
+        double ElectronCharge 
+        double ElectronMass 
+        double AMU 
+        double BoltzmannConst_eV 
+        double BoltzmannConst_eVJ 
+        double MassOverChargeDivTen 
+        double ALOSCH 
+        double ZeroCelcius 
+        double OneAtmosphere 
+        double HBAR 
+        double EMS 
+        double VC 
+        double RE 
+        double ALPH 
+        double EOVM 
+        double EMASS2
+        double CONST 
+        double CONST1 
+        double CONST2 
+        double CONST3 
+        double CONST4 
+        double CONST5 
+        int NANISO
+        double A0 
+        double BBCONST
+    
+        #Density Effect Constants
+        double EIAV[80]
+        int nElectrons[80]
+        double X00[80]
+        double X11[80]
+        double AKS[80]
+        double AAA[80] 
+        int ICFLG
+        int IRFLG
+        int IPFLG
+        int IBFLG
+        int LPEFLG
         double PresTempCor
         '''Variable used to calculate the correlation constant between the pressure and tempreture. PresTempCor=ABZERO*Pressure/(ATMOS*(ABZERO+TemperatureC)*100.0D0).'''
         long long Random_Seed
@@ -98,6 +146,12 @@ cdef class Pygrad:
         '''Array used to store the percentage of each gas in the mixture.'''
         Gasmix MixObject
         '''Gas mixer object'''
+      
+    
+        '''Array used to calculate the number of molecules/cm^3 for each gas.'''
+        double MoleculesPerCm3PerGas[6]
+        '''Array used to calculate the VAN for each gas.'''
+        double VMoleculesPerCm3PerGas[6]
         
         '''MSUM'''
         int Msum[10000]
@@ -121,7 +175,10 @@ cdef class Pygrad:
         int Icolnn[60]
         '''TCFMAX'''
         double Tcfmax[10]
-      
+        '''NBREM'''
+        int nbrem[6]
+        '''EBRTOT'''
+        double ebrtot[6]
 
         '''DX'''
         double Dx[100000]

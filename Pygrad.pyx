@@ -56,6 +56,8 @@ cdef class Pygrad:
         memset(self.Time, 0, 1300 * sizeof(double))
         memset(self.Icoll, 0, 30 * sizeof(int))
         memset(self.Tcfmax, 0, 10 * sizeof(double))
+        memset(self.nbrem, 0, 6 * sizeof(int))
+        memset(self.ebrtot, 0, 6 * sizeof(double))
         memset(self.Dx, 0, 100000 * sizeof(double))
         memset(self.Dy, 0, 100000 * sizeof(double))
         memset(self.Dz, 0, 100000 * sizeof(double))
@@ -150,6 +152,7 @@ cdef class Pygrad:
         self.PIR2 = 0.0
         self.RhydbergConst = 0.0
         self.ThermalEnergy = 0.0
+        self.ThermalCut = 0.0
         self.SmallNumber = 1e-20
         self.PresTempCor = 0.0
 
