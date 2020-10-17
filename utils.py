@@ -68,16 +68,3 @@ def checkFortranTests(path,pycode,outfname,places):
                 i += 1
             compArr(testvars, new_fortran,places)
 
-#Set angle cuts on angular distribution and renormalise forward
-def angcut(psct1):
-    angc = 1.0
-    psct2 = psct1
-    if psct1 > 1.0:
-        api = np.pi
-        rads = 2.0 / api
-        cns = psct1-0.5
-        thetac = np.arcsin(2.0*np.sqrt(cns-cns*cns))
-        fac = (1.0-np.cos(thetac))/(np.sin(thetac)*np.sin(thetac))
-        psct2 = (cns*fac) + 0.5
-        angc = thetac * rads
-    return (angc, psct2)
