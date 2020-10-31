@@ -70,7 +70,7 @@ cpdef Mixer(Pygrad object):
                         object.DOUBLE[0][iEnergy] = gasData.Q[2][iEnergy] / gasData.Q[4][iEnergy] - 1.0
                     else:
                         QIndex = 2
-                    object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[QIndex][iEnergy] * object.VMoleculesPerCm3PerGas * object.Beta[iEnergy]
+                    object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[QIndex][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
                     object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
                     object.negas[nProcess - 1] = 1
                     object.legas[nProcess - 1] = 0
@@ -187,7 +187,7 @@ cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
             object.negas[nProcess - 1] = 1
             object.legas[nProcess - 1] = 0
             object.ieshell[nProcess - 1] = 0
-            object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[0] * object.Beta[iEnergy]
+            object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
             object.ScatteringParameter[iEnergy][nProcess] = 0.5
             object.AngleCut[iEnergy][nProcess] = 1.0
             object.AngularModel[nProcess - 1] = 0
