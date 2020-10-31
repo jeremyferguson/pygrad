@@ -34,7 +34,6 @@ cdef class Pygrad:
     It has most of the needed arrays, and variables.
     TODO:Add documentation link for Degrad
     .. note::
-        If the variable has a "NT" at the end, that variable has the same function as its counterpart without a "NT" at the end.
     """
 
     def __init__(self):

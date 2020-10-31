@@ -61,7 +61,6 @@ cdef class Pygrad:
         '''DetectorEfficiency'''
         double SmallNumber
         '''This constant is equal to 1e-20. Used to be a small constant.'''
-        '''Angle between electric and magnetic field'''
         double Phi
         '''Angle between electric and magnetic field'''
         double Theta
@@ -242,26 +241,26 @@ cdef class Pygrad:
         int ClusterDistributionBins300[1000]
 
         '''Average X values.'''
-        double XAverage[100000];
+        double XAverage[100000]
         '''Average Y values.'''
-        double YAverage[100000];
+        double YAverage[100000]
         '''Average Z values.'''
-        double ZAverage[100000];
+        double ZAverage[100000]
         '''Average T values.'''
-        double TAverage[100000];
+        double TAverage[100000]
         '''Average XY values.'''
-        double XYAverage[100000];
+        double XYAverage[100000]
         '''Average XYZ values.'''
-        double XYZAverage[100000];
+        double XYZAverage[100000]
 
         '''Max Range of X'''
-        double XMaxRange[100000];
+        double XMaxRange[100000]
         '''Max Range of Y'''
-        double YMaxRange[100000];
+        double YMaxRange[100000]
         '''Max Range of Z'''
-        double ZMaxRange[100000];
+        double ZMaxRange[100000]
         '''Max Range of XY'''
-        double XYMaxRange[100000];
+        double XYMaxRange[100000]
         
         #Plot distribution bins.
         '''Distribution of r in 2 micron bins'''
