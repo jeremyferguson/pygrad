@@ -11,8 +11,9 @@ import cython
 @cython.nonecheck(False)
 cpdef Mixer(Pygrad object):
     """Loads the initial gas values for the mixture, particularly the momentum cross sections and other related values."""
-    cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow
+    cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow,rGas1
     cdef int iEnergy, GasIndex, iProcess, p, Sum, J, i, j, iIonization, JJ, IL, I
+    cdef Gas gasData
 
     ElectronCharge = 1.60217656e-19
     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
@@ -30,7 +31,7 @@ cpdef Mixer(Pygrad object):
             object.negas[nProcess - 1] = 1
             object.legas[nProcess - 1] = 0
             object.ieshell[nProcess - 1] = 0
-            object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * Object.Beta[iEnergy]
+            object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
             object.AngularCut[iEnergy][nProcess - 1] = 0.0
             if gasData.AngularModel[1] == 1:
@@ -103,7 +104,7 @@ cpdef Mixer(Pygrad object):
                     for kion in range(gasData.N_Ionization):
                         nProcess += 1
                         object.GasExcitationSlots[idg] = nProcess
-                        object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kin][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
+                        object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
@@ -178,7 +179,7 @@ cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy):
                     object.PenningFraction[nProcess - 1][1] = 0.0
                     object.PenningFraction[nProcess - 1][2] = 0.0
 
-cpdef loadInelastic(gasData, idg, nProcess, iEnergy):
+cpdef loadInelasticData(gasData, idg, nProcess, iEnergy):
     if gasData.N_Inelastic != 0:
         for j in range(gasData.N_Inelastic):
             nProcess += 1
