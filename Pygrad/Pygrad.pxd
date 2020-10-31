@@ -45,15 +45,15 @@ cdef class Pygrad:
         '''Which gas has beta decayed identity numbers'''
         int lgas
         '''Which element in kgas has beta decayed identity numbers'''
-        int_t lcmp
+        int lcmp
         '''Whether compton scattering is included'''
-        int_t lray
+        int lray
         '''Wether Rayleigh scattering is included'''
-        int_t lpap
+        int lpap
         '''Whether pair production is included'''
-        int_t lbrm
+        int lbrm
         '''Whether Bremstrahlung is included'''
-        int_t IECascade
+        int IECascade
         '''Whether to use parameterised or exact cascade'''
         int OutputVerbosity 
         '''How much output to write'''
@@ -129,7 +129,7 @@ cdef class Pygrad:
         '''Number of gases in the mixture.'''
         long long EnergySteps
         '''Steps for the electron energy integration.'''
-        int_t Enable_Penning
+        int Enable_Penning
         '''Variable used to indicate the inclusion of penning effects. '''
         double GasIDs[6]
         '''Array used to store the number of the 6 gases in the mixture.'''
