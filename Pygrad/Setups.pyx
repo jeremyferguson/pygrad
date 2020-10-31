@@ -114,16 +114,16 @@ cpdef Setup(Pygrad object):
         object.ElectronEnergyStep = object.FinalElectronEnergy/object.EnergySteps
         object.EHalf = object.EnergySteps/2.0
         for i in range(20000):
-            assignIndex(i,i)
+            assignIndex(object,i,i)
     elif object.FinalElectronEnergy <= 140000.0:
         object.EnergySteps = 1.0
         object.EHalf = 0.5
         for i in range(16000):
-            assignIndex(i,i)
+            assignIndex(object,i,i)
         EnergySteps1 = object.EnergySteps
         object.EnergySteps = (object.FinalElectronEnergy-16000.0)/4000.0
         for i in range(16000,20000):
-            assignIndex(i,i-15999)
+            assignIndex(object,i,i-15999)
         object.EnergySteps = EnergySteps1
     else:
         object.EnergySteps = 1.0
@@ -133,10 +133,10 @@ cpdef Setup(Pygrad object):
         EnergySteps1 = object.EnergySteps
         object.EnergySteps = 20.0
         for i in range(12000,16000):
-            assignIndex(i,i-11999)
+            assignIndex(object,i,i-11999)
         object.EnergySteps = (object.FinalElectronEnergy-92000.0)/4000.0
         for i in range(16000,20000):
-            assignIndex(i,i-15999)
+            assignIndex(object,i,i-15999)
         object.EnergySteps = EnergySteps1
     
     object.AngularSpeedOfRotation = MassOverChargeDivTen * object.BField_Mag * 1e-12
@@ -182,7 +182,7 @@ cpdef calcDensity(Pygrad object):
         sum1 += fracn * object.nElectrons[gasn - 1] * np.log(object.eiav[gasn - 1])
         sumdnom += fracn * object.nElectrons[gasn - 1]
         hsum +=  object.MoleculesPerCm3PerGas[i] * object.nElectrons[gasn-1] 
-    eibar = math.e ** (sum1/sumdnom)
+    eibar = np.e ** (sum1/sumdnom)
     hwp1 = sqrt(4.0 * np.pi * hsum * object.RE ** 3) * object.ALPH * object.EMS
     delden = math.log(eibar/hwp1)
     cbar = 1.0 + 2.0 * delden
