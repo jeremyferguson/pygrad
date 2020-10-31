@@ -152,200 +152,200 @@ cdef class Pygrad:
         
         int numExcitationsPerGas[6]
 
-        '''Array used to calculate the number of molecules/cm^3 for each gas.'''
         double MoleculesPerCm3PerGas[6]
-        '''Array used to calculate the VAN for each gas.'''
+        '''Array used to calculate the number of molecules/cm^3 for each gas.'''
         double VMoleculesPerCm3PerGas[6]
+        '''Array used to calculate the VAN for each gas.'''
         
-        '''MSUM'''
         int Msum[10000]
-        '''MCOMP'''
+        '''MSUM'''
         int Mcomp[10000]
-        '''MRAYL'''
+        '''MCOMP'''
         int Mrayl[10000]
-        '''MPAIR'''
+        '''MRAYL'''
         int Mpair[10000]
-        '''MPHOT'''
+        '''MPAIR'''
         int Mphot[10000]
-        '''MVAC'''
+        '''MPHOT'''
         int Mvac[10000]
-        '''TIME'''
+        '''MVAC'''
         double Time[300]
-        '''ICOLL'''
+        '''TIME'''
         int Icoll[30]
-        '''ICOLN'''
+        '''ICOLL'''
         int Icoln[512]
-        '''ICOLNN'''
+        '''ICOLN'''
         int Icolnn[60]
-        '''TCFMAX'''
+        '''ICOLNN'''
         double Tcfmax[10]
-        '''NBREM'''
+        '''TCFMAX'''
         int nbrem[6]
-        '''EBRTOT'''
+        '''NBREM'''
         double ebrtot[6]
+        '''EBRTOT'''
 
-        '''DX'''
         double Dx[100000]
-        '''DY'''
+        '''DX'''
         double Dy[100000]
-        '''DZ'''
+        '''DY'''
         double Dz[100000]
-        '''DT'''
+        '''DZ'''
         double Dt[100000]
-        '''DXY'''
+        '''DT'''
         double Dxy[100000]
-        '''DXYZ'''
+        '''DXY'''
         double Dxyz[100000]
+        '''DXYZ'''
         
-        '''Energy ar each energy step.'''
         double E[20000]
-        '''The square root of each energy step.'''
+        '''Energy ar each energy step.'''
         double SqrtEnergy[20000]
-        '''Gamma for each step'''
+        '''The square root of each energy step.'''
         double Gamma[20000]
-        '''Beta for each step'''
+        '''Gamma for each step'''
         double Beta[20000]
-        '''Density for each step'''
+        '''Beta for each step'''
         double Density[20000]
+        '''Density for each step'''
 
-        '''RMAX1'''
         double Rmax1[100000]
-        '''TSUM'''
+        '''RMAX1'''
         double Tsum[100000]
-        '''XNEG'''
+        '''TSUM'''
         double Xneg[100000]
-        '''YNEG'''
+        '''XNEG'''
         double Yneg[100000]
-        '''ZNEG'''
+        '''YNEG'''
         double Zneg[100000]
-        '''EDELTA'''
+        '''ZNEG'''
         double Edelta[100000]
-        '''EDELTA2'''
+        '''EDELTA'''
         double Edelta2[100000]
-        '''NCL'''
+        '''EDELTA2'''
         int nClusters[100000]
-        '''NCLEXC'''
+        '''NCL'''
         int nClustersExcitation[100000]
+        '''NCLEXC'''
 
-        '''Electron cluster distributions in bins of 1 '''
         int ClusterDistributionBins1[1000]
-        '''Electron cluster distributions in bins of 3 '''
+        '''Electron cluster distributions in bins of 1 '''
         int ClusterDistributionBins3[1000]
-        '''Electron cluster distributions in bins of 10 '''
+        '''Electron cluster distributions in bins of 3 '''
         int ClusterDistributionBins10[1000]
-        '''Electron cluster distributions in bins of 30 '''
+        '''Electron cluster distributions in bins of 10 '''
         int ClusterDistributionBins30[1000]
-        '''Electron cluster distributions in bins of 100 '''
+        '''Electron cluster distributions in bins of 30 '''
         int ClusterDistributionBins100[1000]
-        '''Electron cluster distributions in bins of 300 '''
+        '''Electron cluster distributions in bins of 100 '''
         int ClusterDistributionBins300[1000]
+        '''Electron cluster distributions in bins of 300 '''
 
-        '''Average X values.'''
         double XAverage[100000]
-        '''Average Y values.'''
+        '''Average X values.'''
         double YAverage[100000]
-        '''Average Z values.'''
+        '''Average Y values.'''
         double ZAverage[100000]
-        '''Average T values.'''
+        '''Average Z values.'''
         double TAverage[100000]
-        '''Average XY values.'''
+        '''Average T values.'''
         double XYAverage[100000]
-        '''Average XYZ values.'''
+        '''Average XY values.'''
         double XYZAverage[100000]
+        '''Average XYZ values.'''
 
-        '''Max Range of X'''
         double XMaxRange[100000]
-        '''Max Range of Y'''
+        '''Max Range of X'''
         double YMaxRange[100000]
-        '''Max Range of Z'''
+        '''Max Range of Y'''
         double ZMaxRange[100000]
-        '''Max Range of XY'''
+        '''Max Range of Z'''
         double XYMaxRange[100000]
+        '''Max Range of XY'''
         
         #Plot distribution bins.
-        '''Distribution of r in 2 micron bins'''
         int RDistributionBins2[31]
-        '''Distribution of r in 10 micron bins'''
+        '''Distribution of r in 2 micron bins'''
         int RDistributionBins10[31]
-        '''Distribution of r in 40 micron bins'''
+        '''Distribution of r in 10 micron bins'''
         int RDistributionBins40[31]
-        '''Distribution of r in 100 micron bins'''
+        '''Distribution of r in 40 micron bins'''
         int RDistributionBins100[31]
-        '''Distribution of r in 400 micron bins'''
+        '''Distribution of r in 100 micron bins'''
         int RDistributionBins400[31]
-        '''Distribution of r in 1000 micron bins'''
+        '''Distribution of r in 400 micron bins'''
         int RDistributionBins1000[31]
-        '''Distribution of r in 4000 micron bins'''
+        '''Distribution of r in 1000 micron bins'''
         int RDistributionBins4000[31]
-        '''Distribution of r in 10000 micron bins'''
+        '''Distribution of r in 4000 micron bins'''
         int RDistributionBins10000[31]
-        '''Distribution of r in 40000 micron bins'''
+        '''Distribution of r in 10000 micron bins'''
         int RDistributionBins40000[31]
-        '''Distribution of r in 100000 micron bins'''
+        '''Distribution of r in 40000 micron bins'''
         int RDistributionBins100000[31]
-        '''Distribution of x in 2 micron bins'''
+        '''Distribution of r in 100000 micron bins'''
         int XDistributionBins2[31]
-        '''Distribution of x in 10 micron bins'''
+        '''Distribution of x in 2 micron bins'''
         int XDistributionBins10[31]
-        '''Distribution of x in 40 micron bins'''
+        '''Distribution of x in 10 micron bins'''
         int XDistributionBins40[31]
-        '''Distribution of x in 100 micron bins'''
+        '''Distribution of x in 40 micron bins'''
         int XDistributionBins100[31]
-        '''Distribution of x in 400 micron bins'''
+        '''Distribution of x in 100 micron bins'''
         int XDistributionBins400[31]
-        '''Distribution of x in 1000 micron bins'''
+        '''Distribution of x in 400 micron bins'''
         int XDistributionBins1000[31]
-        '''Distribution of x in 4000 micron bins'''
+        '''Distribution of x in 1000 micron bins'''
         int XDistributionBins4000[31]
-        '''Distribution of x in 10000 micron bins'''
+        '''Distribution of x in 4000 micron bins'''
         int XDistributionBins10000[31]
-        '''Distribution of x in 40000 micron bins'''
+        '''Distribution of x in 10000 micron bins'''
         int XDistributionBins40000[31]
-        '''Distribution of x in 100000 micron bins'''
+        '''Distribution of x in 40000 micron bins'''
         int XDistributionBins100000[31]
-        '''Distribution of y in 2 micron bins'''
+        '''Distribution of x in 100000 micron bins'''
         int YDistributionBins2[31]
-        '''Distribution of y in 10 micron bins'''
+        '''Distribution of y in 2 micron bins'''
         int YDistributionBins10[31]
-        '''Distribution of y in 40 micron bins'''
+        '''Distribution of y in 10 micron bins'''
         int YDistributionBins40[31]
-        '''Distribution of y in 100 micron bins'''
+        '''Distribution of y in 40 micron bins'''
         int YDistributionBins100[31]
-        '''Distribution of y in 400 micron bins'''
+        '''Distribution of y in 100 micron bins'''
         int YDistributionBins400[31]
-        '''Distribution of y in 1000 micron bins'''
+        '''Distribution of y in 400 micron bins'''
         int YDistributionBins1000[31]
-        '''Distribution of y in 4000 micron bins'''
+        '''Distribution of y in 1000 micron bins'''
         int YDistributionBins4000[31]
-        '''Distribution of y in 10000 micron bins'''
+        '''Distribution of y in 4000 micron bins'''
         int YDistributionBins10000[31]
-        '''Distribution of y in 40000 micron bins'''
+        '''Distribution of y in 10000 micron bins'''
         int YDistributionBins40000[31]
-        '''Distribution of y in 100000 micron bins'''
+        '''Distribution of y in 40000 micron bins'''
         int YDistributionBins100000[31]
-        '''Distribution of z in 2 micron bins'''
+        '''Distribution of y in 100000 micron bins'''
         int ZDistributionBins2[31]
-        '''Distribution of z in 10 micron bins'''
+        '''Distribution of z in 2 micron bins'''
         int ZDistributionBins10[31]
-        '''Distribution of z in 40 micron bins'''
+        '''Distribution of z in 10 micron bins'''
         int ZDistributionBins40[31]
-        '''Distribution of z in 100 micron bins'''
+        '''Distribution of z in 40 micron bins'''
         int ZDistributionBins100[31]
-        '''Distribution of z in 400 micron bins'''
+        '''Distribution of z in 100 micron bins'''
         int ZDistributionBins400[31]
-        '''Distribution of z in 1000 micron bins'''
+        '''Distribution of z in 400 micron bins'''
         int ZDistributionBins1000[31]
-        '''Distribution of z in 4000 micron bins'''
+        '''Distribution of z in 1000 micron bins'''
         int ZDistributionBins4000[31]
-        '''Distribution of z in 10000 micron bins'''
+        '''Distribution of z in 4000 micron bins'''
         int ZDistributionBins10000[31]
-        '''Distribution of z in 40000 micron bins'''
+        '''Distribution of z in 10000 micron bins'''
         int ZDistributionBins40000[31]
-        '''Distribution of z in 100000 micron bins'''
+        '''Distribution of z in 40000 micron bins'''
         int ZDistributionBins100000[31]
-        '''Distribution of electrons in 1eV bins'''
+        '''Distribution of z in 100000 micron bins'''
         int ElectronDistribution1[31] 
-        '''Distribution of electrons in 10eV bins'''
+        '''Distribution of electrons in 1eV bins'''
         int ElectronDistribution10[31] 
-        '''Distribution of electrons in 100eV bins'''
+        '''Distribution of electrons in 10eV bins'''
         int ElectronDistribution100[31] 
+        '''Distribution of electrons in 100eV bins'''

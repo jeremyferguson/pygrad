@@ -1,0 +1,3 @@
+recursive-include Pygrad/ *.pxd *.pyx *.py *.c *.h
+recursive-include Pygrad/MonteFuncs *.pxd *.pyx *.py *.c *.h
+recursive-include Pygrad/C *.pxd *.pyx *.py *.c *.h
