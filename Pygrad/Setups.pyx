@@ -109,11 +109,6 @@ cpdef Setup(Pygrad object):
         object.VMoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * object.CONST3 * ALOSCH
     object.VAN = 100.0 * object.PresTempCor * object.CONST3 * ALOSCH
     
-    cpdef assignIndex(object,i,aj):
-        object.E[i] = object.EHalf + object.EStep * aj
-        object.SqrtEnergy[i] = sqrt(object.E[i])
-        object.Gamma[i] = (object.EMS + object.E[i])/object.EMS
-        object.Beta[i] = sqrt(1.0-1.0/(object.Gamma[i] ** 2))
 
     if object.FinalElectronEnergy <= 20000.0:
         object.ElectronEnergyStep = object.FinalElectronEnergy/object.EnergySteps
@@ -148,6 +143,11 @@ cpdef Setup(Pygrad object):
     if object.BField_Mag != 0.0:
         object.ElectricOverMag = object.EField * 1e-9 / object.BField_Mag
 
+cpdef assignIndex(object,i,aj):
+    object.E[i] = object.EHalf + object.EStep * aj
+    object.SqrtEnergy[i] = sqrt(object.E[i])
+    object.Gamma[i] = (object.EMS + object.E[i])/object.EMS
+    object.Beta[i] = sqrt(1.0-1.0/(object.Gamma[i] ** 2))
 
 #Check if a variable is in a valid range
 def check_var( var, name, low=0, high=1):
