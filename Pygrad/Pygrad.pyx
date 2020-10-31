@@ -40,8 +40,8 @@ cdef class Pygrad:
         '''
         Fill all the variables needed with zeros.This function uses memset as it is fast.
         '''
-        memset(self.icolnn, 0, 60 * sizeof(double))
-        memset(self.icoln, 0, 512 * sizeof(double))
+        memset(self.icolnn, 0, 60 * sizeof(int))
+        memset(self.icoln, 0, 512 * sizeof(int))
         memset(self.GasIDs, 0, 6 * sizeof(double))
         memset(self.GasFractions, 0, 6 * sizeof(double))
         memset(self.E, 0, 20000 * sizeof(double))
@@ -53,7 +53,6 @@ cdef class Pygrad:
         memset(self.TotalCrossSection, 0, 20000 * sizeof(double))
         memset(self.RelativeIonMinusAttachCrossSection, 0, 20000 * sizeof(double))
         memset(self.InelasticCrossSection, 0, 20000 * sizeof(double))
-        memset(self.ElasticCrosSection, 0, 20000 * sizeof(double))
         memset(self.SqrtEnergy, 0, 20000 * sizeof(double))
         memset(self.Msum, 0, 10000 * sizeof(int))
         memset(self.Mcomp, 0, 10000 * sizeof(int))

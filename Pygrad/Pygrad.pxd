@@ -136,6 +136,10 @@ cdef class Pygrad:
         '''Array used to store the number of the 6 gases in the mixture.'''
         double GasFractions[6]
         '''Array used to store the percentage of each gas in the mixture.'''
+        int icoln[512]
+        '''icoln'''
+        int icolnn[60]
+        '''icolnn'''
         Gasmix MixObject
         '''Gas mixer object'''
       
@@ -343,9 +347,9 @@ cdef class Pygrad:
         '''Distribution of z in 40000 micron bins'''
         int ZDistributionBins100000[31]
         '''Distribution of z in 100000 micron bins'''
-        int ElectronDistribution1[31] 
+        int ElectronDistributionBins1[31] 
         '''Distribution of electrons in 1eV bins'''
-        int ElectronDistribution10[31] 
+        int ElectronDistributionBins10[31] 
         '''Distribution of electrons in 10eV bins'''
-        int ElectronDistribution100[31] 
+        int ElectronDistributionBins100[31] 
         '''Distribution of electrons in 100eV bins'''
