@@ -130,10 +130,10 @@ cpdef Mixer(Pygrad object):
                             object.PenningFraction[nProcess - 1][0] = 0.0
                             object.PenningFraction[nProcess - 1][1] = 0.0
                             object.PenningFraction[nProcess - 1][2] = 0.0
-            loadAttachmentData(gasData,idg,nProcess,iEnergy)
-            loadInelasticData(gasData,idg,nProcess,iEnergy)
+            loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
+            loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
 
-cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy):
+cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
     if object.FinalElectronEnergy >= gasData.E[3]:
         if gasData.N_Attachment <= 1:
             nProcess += 1
@@ -179,7 +179,7 @@ cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy):
                     object.PenningFraction[nProcess - 1][1] = 0.0
                     object.PenningFraction[nProcess - 1][2] = 0.0
 
-cpdef loadInelasticData(gasData, idg, nProcess, iEnergy):
+cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
     if gasData.N_Inelastic != 0:
         for j in range(gasData.N_Inelastic):
             nProcess += 1
