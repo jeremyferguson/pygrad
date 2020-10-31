@@ -1,6 +1,6 @@
 from Pygrad cimport Pygrad
 from libc.math cimport sin, cos, acos, asin, log, sqrt
-from PyGasMix.Gasmix cimport Gasmix
+from PyGasMix.Gasmix cimport Gasmix,Gas
 from Ang cimport Ang
 import sys
 import cython
@@ -89,9 +89,9 @@ cpdef Mixer(Pygrad object):
                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
                         object.ScatteringParameter = Ang.ScatteringParameter2
                         object.AngularModel[nProcess - 1] = 1
-                    assignWPL(nProcess,0)
+                    assignWPL(nProcess,0,gasData)
                     if iEnergy == 1:
-                        object.rGas[nProcess - 1] = rgas1
+                        object.rGas[nProcess - 1] = rGas1
                         object.ein[nProcess - 1] = gasData
                         object.ipn[nProcess - 1] = 1
                         L = 2
@@ -119,7 +119,7 @@ cpdef Mixer(Pygrad object):
                         if gasData.AngularModel[2] == 2:
                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
                             object.AngularModel[nProcess - 1] = 2
-                        assignWPL(nProcess, kion)
+                        assignWPL(nProcess, kion,gasData)
                         if iEnergy <= 1:
                             object.rGas[nProcess - 1] = rGas1
                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
@@ -220,7 +220,7 @@ cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
                     object.cminexsc[0] *= object.avpfrac[0][0]
 
 
-cpdef assignWPL(index, gIndex):
+cpdef assignWPL(index, gIndex,gasData):
     object.wpl[index - 1] = gasData.EB1[gIndex]
     object.nc0[index - 1] = gasData.NC0[gIndex]
     object.ec0[index - 1] = gasData.EC0[gIndex]
