@@ -8,18 +8,6 @@ import cython
 @cython.boundscheck(False)
 @cython.wraparound(False)
 
-cdef extern from "C/RM48.h":
-    double DRAND48(double dummy)
-    void RM48(double lenv)
-    void RM48IN(int IJL, int NTOT, intNTOT2)
-
-
-cdef double drand48(double dummy)
-cdef double drand48(double dummy):
-    return DRAND48(dummy)
-cdef void setSeed(int seed):
-    RM48IN(seed, 0, 0)
-    return
 
 cpdef Setup(Pygrad object):
     """
@@ -105,9 +93,9 @@ cpdef Setup(Pygrad object):
         object.Phi = 0.0
         object.Theta = np.pi/2.0
     elif object.BeamDirection == 2:
-        R3 = drand48(0)
+        R3 = Pygrad.drand48(0)
         Phi = object.TwoPi * R3
-        R4 = drand48(0)
+        R4 = Pygrad.drand48(0)
         Theta = np.acos(1-2*R4)
 
     object.drzinit = np.cos(object.Theta)
