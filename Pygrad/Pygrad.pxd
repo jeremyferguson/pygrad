@@ -146,7 +146,7 @@ cdef class Pygrad:
         #Cross section arrays
         double CrossSectionSum[20000]
         double IonizationCrossSection[6][20000]
-        double InelasticCrossSectionperGas[6][250][20000]
+        double InelasticCrossSectionPerGas[6][250][20000]
         double AttachmentSectionSum[20000]
 
         double TotalCrossSection[20000]
