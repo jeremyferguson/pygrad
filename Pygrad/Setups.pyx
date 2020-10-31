@@ -14,6 +14,7 @@ cdef extern from "C/RM48.h":
     void RM48IN(int IJL, int NTOT, intNTOT2)
 
 
+cdef double drand48(double dummy)
 cdef double drand48(double dummy):
     return DRAND48(dummy)
 cdef void setSeed(int seed):
