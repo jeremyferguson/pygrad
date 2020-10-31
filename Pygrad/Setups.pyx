@@ -17,7 +17,7 @@ cpdef Setup(Pygrad object):
     """
     cdef double TotFrac
     object.last = 0
-    object.tma = 100.0
+    object.tmax = 100.0
     object.nout = 10
 
     object.TwoPi = 2.0 * np.pi
@@ -103,11 +103,11 @@ cpdef Setup(Pygrad object):
     object.dryinit = np.sin(object.Theta) * np.sin(object.Phi)
     object.ThermalEnergy = (ZeroCelcius + object.TemperatureCentigrade) * BoltzmannConst_eV
     for i in range(6):
-        object.MoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * ALOSCH
-    object.AN = 100.0 * object.PresTempCor * ALOSCH
+        object.MoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * object.ALOSCH
+    object.AN = 100.0 * object.PresTempCor * object.ALOSCH
     for i in range(6):
-        object.VMoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * object.CONST3 * ALOSCH
-    object.VAN = 100.0 * object.PresTempCor * object.CONST3 * ALOSCH
+        object.VMoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * object.CONST3 * object.ALOSCH
+    object.VAN = 100.0 * object.PresTempCor * object.CONST3 * object.ALOSCH
     
 
     if object.FinalElectronEnergy <= 20000.0:
@@ -116,28 +116,28 @@ cpdef Setup(Pygrad object):
         for i in range(20000):
             assignIndex(object,i,i)
     elif object.FinalElectronEnergy <= 140000.0:
-        object.EnergySteps = 1.0
+        object.ElectronEnergyStep = 1.0
         object.EHalf = 0.5
         for i in range(16000):
             assignIndex(object,i,i)
-        EnergySteps1 = object.EnergySteps
-        object.EnergySteps = (object.FinalElectronEnergy-16000.0)/4000.0
+        EnergySteps1 = object.ElectronEnergyStep
+        object.ElectronEnergyStep = (object.FinalElectronEnergy-16000.0)/4000.0
         for i in range(16000,20000):
             assignIndex(object,i,i-15999)
-        object.EnergySteps = EnergySteps1
+        object.ElectronEnergyStep = EnergySteps1
     else:
-        object.EnergySteps = 1.0
+        object.ElectronEnergyStep = 1.0
         object.EHalf = 0.5
         for i in range(12000):
-            assignIndex(i,i)
-        EnergySteps1 = object.EnergySteps
-        object.EnergySteps = 20.0
+            assignIndex(object,i,i)
+        EnergySteps1 = object.ElectronEnergyStep
+        object.ElectronEnergyStep = 20.0
         for i in range(12000,16000):
             assignIndex(object,i,i-11999)
-        object.EnergySteps = (object.FinalElectronEnergy-92000.0)/4000.0
+        object.ElectronEnergyStep = (object.FinalElectronEnergy-92000.0)/4000.0
         for i in range(16000,20000):
             assignIndex(object,i,i-15999)
-        object.EnergySteps = EnergySteps1
+        object.ElectronEnergyStep = EnergySteps1
     
     object.AngularSpeedOfRotation = MassOverChargeDivTen * object.BField_Mag * 1e-12
     if object.BField_Mag != 0.0:
@@ -209,22 +209,22 @@ cpdef calcDensity(Pygrad object):
             x0=0.326*cbar-1.5
             x1=5.0
         akbar=3.0
-        abar=(cbar-2.0*math.log(10.0)*x0)/((x1-x0)**3)
+        abar=(cbar-2.0*np.log(10.0)*x0)/((x1-x0)**3)
     else:
         akbar=object.AKS[object.ngasn[0]]
         x0=object.X00[object.ngasn[0]]
         x1=object.X11[object.ngasn[0]]
         abar=object.AAA[object.ngasn[0]]
-    dcor = 0.5*math.log10(object.torr*293.15/(760.0*(object.temp+object.ZeroCelsius)))
+    dcor = 0.5*np.log10(object.torr*293.15/(760.0*(object.temp+object.ZeroCelsius)))
     x0 -= dcor
     x1 -= dcor
-    afc = 2.0*math.log(10.0)
+    afc = 2.0*np.log(10.0)
     for i in range(20000):
         bg=object.bet[i]*object.gam[i]
-        x = math.log10(bg)
+        x = np.log10(bg)
         if x < x0:
             object.den[i] = 0.0
         elif x >= x0 and x <= x1:
-            object.den[i] = abar * math.e ** (akbar * math.log(x1 - x)) + afc * x - cbar
+            object.den[i] = abar * math.e ** (akbar * np.log(x1 - x)) + afc * x - cbar
         else:
             object.den[i] = afc * x - cbar

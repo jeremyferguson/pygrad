@@ -83,9 +83,8 @@ cdef class Pygrad:
         '''Whether gas is isotropic or anistropic'''
         int WhichAngularModel
 
-        #TODO:find out where these variables came from
         int last 
-        int tma 
+        double tmax 
         int nout 
 
         #Constants defined in Setup
