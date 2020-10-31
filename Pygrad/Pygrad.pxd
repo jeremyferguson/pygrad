@@ -131,7 +131,7 @@ cdef class Pygrad:
         '''Steps for the electron energy integration.'''
         int Enable_Penning
         '''Variable used to indicate the inclusion of penning effects. '''
-        double GasIDs[6]
+        int GasIDs[6]
         '''Array used to store the number of the 6 gases in the mixture.'''
         double GasFractions[6]
         '''Array used to store the percentage of each gas in the mixture.'''

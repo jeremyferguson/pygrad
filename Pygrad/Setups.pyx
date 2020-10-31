@@ -184,7 +184,7 @@ cpdef calcDensity(Pygrad object):
         hsum +=  object.MoleculesPerCm3PerGas[i] * object.nElectrons[gasn-1] 
     eibar = np.e ** (sum1/sumdnom)
     hwp1 = sqrt(4.0 * np.pi * hsum * object.RE ** 3) * object.ALPH * object.EMS
-    delden = math.log(eibar/hwp1)
+    delden = np.log(eibar/hwp1)
     cbar = 1.0 + 2.0 * delden
     if object.ngas != 1:
         if cbar < 10.0:

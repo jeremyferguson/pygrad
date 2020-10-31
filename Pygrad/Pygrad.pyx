@@ -42,7 +42,7 @@ cdef class Pygrad:
         '''
         memset(self.icolnn, 0, 60 * sizeof(int))
         memset(self.icoln, 0, 512 * sizeof(int))
-        memset(self.GasIDs, 0, 6 * sizeof(double))
+        memset(self.GasIDs, 0, 6 * sizeof(int))
         memset(self.GasFractions, 0, 6 * sizeof(double))
         memset(self.E, 0, 20000 * sizeof(double))
         memset(self.ElasticCrossSection, 0, 20000 * sizeof(double))
