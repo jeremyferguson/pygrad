@@ -1,7 +1,7 @@
 cimport numpy as np
 import math
 from libc.stdlib cimport malloc, free
-from libcpp cimport bool_t as bool_t
+from libcpp cimport bool as bool_t
 from libc.string cimport memset
 from PyGasMix.Gasmix cimport Gasmix
 
