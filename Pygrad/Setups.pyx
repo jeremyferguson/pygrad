@@ -101,7 +101,7 @@ cpdef Setup(Pygrad object):
     object.drzinit = np.cos(object.Theta)
     object.drxinit = np.sin(object.Theta) * np.cos(object.Phi)
     object.dryinit = np.sin(object.Theta) * np.sin(object.Phi)
-    object.ThermalEnergy = (ZeroCelcius + object.TemperatureCentigrade) * BoltzmannConst_eV
+    object.ThermalEnergy = (object.ZeroCelcius + object.TemperatureCentigrade) * BoltzmannConst_eV
     for i in range(6):
         object.MoleculesPerCm3PerGas[i] = object.GasFractions[i] * object.PresTempCor * object.ALOSCH
     object.AN = 100.0 * object.PresTempCor * object.ALOSCH
@@ -165,7 +165,7 @@ cpdef check_parameters(Pygrad object):
         raise ValueError('X-ray energy is too high')
     if object.InitialElectronEnergy <= 0 or object.ThermalEnergy <= 0 or object.EnergyCut < 0:
         raise ValueError('Negative energy')
-    if object.TemperatureCentigrade <= -ZeroCelsius:
+    if object.TemperatureCentigrade <= -object.ZeroCelsius:
         raise ValueError('Absolute zero')
     if object.Pressure_Torr <= 0:
         raise ValueError('Negative pressure')
