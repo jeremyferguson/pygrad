@@ -1,6 +1,7 @@
 cimport numpy as np
 import math
 from libc.stdlib cimport malloc, free
+from libc cimport bool
 from libc.string cimport memset
 from PyGasMix.Gasmix cimport Gasmix
 
@@ -139,7 +140,6 @@ cdef class Pygrad:
         '''Gas mixer object'''
       
         #Cross section arrays
-        double ElasticCrossSection[20000]
         double CrossSectionSum[20000]
         double IonizationCrossSection[6][20000]
         double InelasticCrossSectionperGas[6][250][20000]
