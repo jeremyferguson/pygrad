@@ -8,6 +8,17 @@ import cython
 @cython.boundscheck(False)
 @cython.wraparound(False)
 
+cdef extern from "C/RM48.h":
+    double DRAND48(double dummy)
+    void RM48(double lenv)
+    void RM48IN(int IJL, int NTOT, intNTOT2)
+
+
+cdef double drand48(double dummy):
+    return DRAND48(dummy)
+cdef void setSeed(int seed):
+    RM48IN(seed, 0, 0)
+    return
 
 cpdef Setup(Pygrad object):
     """
@@ -37,7 +48,7 @@ cpdef Setup(Pygrad object):
     object.VC = 299792458.0
     object.RE = 2.8179403267e-13    
     object.ALPH = 137.035999074
-    object.EOVM = np.sqrt(2.0*ElectronCharge/ElectronMass)*100.0 
+    object.EOVM = np.sqrt(2.0*object.ElectronCharge/object.ElectronMass)*100.0 
 
     object.EMASS2 = 1021997.804
     object.CONST = 1.873884e-20
@@ -56,7 +67,7 @@ cpdef Setup(Pygrad object):
     object.X00 = np.array([np.nan,1.70,1.7635,2.2017,2.2017,2.0735,1.7158,1.5630,1.6263,1.5090,1.4339,1.3788,1.6294,0.0,1.7952,1.7541,1.7378,0.0,1.6477,0.0,0.0,1.8639,1.8639,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.6,1.6822,0.0,0.0,0.2529,0.2218,0.2046,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.3788,0.0,0.2046,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     object.AKS = np.array([np.nan,3.00,2.9618,5.8347,5.8347,3.5771,3.4051,2.7414,3.6257,3.6095,3.5920,3.4884,3.3227,0.0,3.5901,3.2913,3.2125,0.0,3.3318,0.0,0.0,5.7273,5.7273,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,3.6464,0.0,0.0,3.5477,3.4834,3.5415,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.4884,0.0,3.5415,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     object.AAA = np.array([np.nan,.18551,.19714,.13443,.13443,.08064,.07446,.23314,.09253,0.09627,0.09916,.10852,.11768,0.0,.08101,.11778,.15349,0.0,.11992,0.0,0.0,.14092,.14092,0.0,0.0,0.0,0.0,0.0,0.0,0.0,.177484,.08315,0.0,0.0,.08970,0.09878,0.09644,0.0,0.0,0.0,0.0,0.0,0.0,0.0,.10852,0.0,0.09644,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-    object.PresTempCor = ZeroCelcius * object.Pressure_Torr / (OneAtmosphere * (ZeroCelcius + object.TemperatureCentigrade) * 100.0)
+    object.PresTempCor = object.ZeroCelcius * object.Pressure_Torr / (object.OneAtmosphere * (object.ZeroCelcius + object.TemperatureCentigrade) * 100.0)
     object.ICFLG=0
     object.IRFLG=0
     object.IPFLG=0
@@ -80,7 +91,7 @@ cpdef Setup(Pygrad object):
     object.EnergySteps = 20000
     check_parameters(object)
     object.Max_Electron_Energy = object.InitialElectronEnergy * 50.0
-    object.FinalElectronEnergy = object.InitialElectronEnergy*1.0001 + 760.0*object.Max_Electron_Energy/object.Pressure_Torr*(object.TemperatureCentigrade+ZeroCelsius)/293.15 + object.EField
+    object.FinalElectronEnergy = object.InitialElectronEnergy*1.0001 + 760.0*object.Max_Electron_Energy/object.Pressure_Torr*(object.TemperatureCentigrade+object.ZeroCelsius)/293.15 + object.EField
     if object.FinalElectronEnergy < 1.01 * object.InitialElectronEnergy:
         object.FinalElectronEnery = 1.01 * object.InitialElectronEnergy
     if object.BeamDirection == 1:
@@ -94,7 +105,7 @@ cpdef Setup(Pygrad object):
         object.Theta = np.pi/2.0
     elif object.BeamDirection == 2:
         R3 = drand48(0)
-        Phi = TwoPi * R3
+        Phi = object.TwoPi * R3
         R4 = drand48(0)
         Theta = np.acos(1-2*R4)
 
@@ -225,6 +236,6 @@ cpdef calcDensity(Pygrad object):
         if x < x0:
             object.den[i] = 0.0
         elif x >= x0 and x <= x1:
-            object.den[i] = abar * math.e ** (akbar * np.log(x1 - x)) + afc * x - cbar
+            object.den[i] = abar * np.e ** (akbar * np.log(x1 - x)) + afc * x - cbar
         else:
             object.den[i] = afc * x - cbar
