@@ -1,7 +1,6 @@
 cimport numpy as np
 import math
 from libc.stdlib cimport malloc, free
-from libcpp cimport bool as bool_t
 from libc.string cimport memset
 from PyGasMix.Gasmix cimport Gasmix
 
@@ -46,15 +45,15 @@ cdef class Pygrad:
         '''Which gas has beta decayed identity numbers'''
         int lgas
         '''Which element in kgas has beta decayed identity numbers'''
-        bool_t lcmp
+        int_t lcmp
         '''Whether compton scattering is included'''
-        bool_t lray
+        int_t lray
         '''Wether Rayleigh scattering is included'''
-        bool_t lpap
+        int_t lpap
         '''Whether pair production is included'''
-        bool_t lbrm
+        int_t lbrm
         '''Whether Bremstrahlung is included'''
-        bool_t IECascade
+        int_t IECascade
         '''Whether to use parameterised or exact cascade'''
         int OutputVerbosity 
         '''How much output to write'''
@@ -130,7 +129,7 @@ cdef class Pygrad:
         '''Number of gases in the mixture.'''
         long long EnergySteps
         '''Steps for the electron energy integration.'''
-        bool_t Enable_Penning
+        int_t Enable_Penning
         '''Variable used to indicate the inclusion of penning effects. '''
         double GasIDs[6]
         '''Array used to store the number of the 6 gases in the mixture.'''
