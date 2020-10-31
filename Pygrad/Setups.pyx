@@ -44,9 +44,9 @@ cpdef Setup(Pygrad object):
     object.CONST1 = MassOverChargeDivTen / 2.0 * 1.0e-19
     object.CONST2 = object.CONST1 * 1.0e-02
     object.CONST3 = sqrt(0.2 * MassOverChargeDivTen) * 1.0e-9
-    object.CONST4 = object.CONST3 * ALOSCH * 1e-15
+    object.CONST4 = object.CONST3 * object.ALOSCH * 1e-15
     object.CONST5 = object.CONST3 / 2.0
-    object.NANISO = 2
+    object.WhichAngularModel = 2
     object.A0 = 0.52917720859e-8
     object.BBCONST=16.0*np.pi*object.A0*object.A0*object.RhydbergConstant*object.RhydbergConstant/object.EMASS2
     
@@ -181,9 +181,9 @@ cpdef calcDensity(Pygrad object):
         fracn = object.GasFractions[i]
         sum1 += fracn * object.nElectrons[gasn - 1] * np.log(object.eiav[gasn - 1])
         sumdnom += fracn * object.nElectrons[gasn - 1]
-        hsum +=  object.MoleculesPerCm3PerGas[i] * nElectrons[gasn-1] 
+        hsum +=  object.MoleculesPerCm3PerGas[i] * object.nElectrons[gasn-1] 
     eibar = math.e ** (sum1/sumdnom)
-    hwp1 = sqrt(4.0 * np.pi * hsum * RE ** 3) * ALPH * EMS
+    hwp1 = sqrt(4.0 * np.pi * hsum * object.RE ** 3) * object.ALPH * object.EMS
     delden = math.log(eibar/hwp1)
     cbar = 1.0 + 2.0 * delden
     if object.ngas != 1:
@@ -211,11 +211,11 @@ cpdef calcDensity(Pygrad object):
         akbar=3.0
         abar=(cbar-2.0*math.log(10.0)*x0)/((x1-x0)**3)
     else:
-        akbar=AKS[object.ngasn[0]]
-        x0=X00[object.ngasn[0]]
-        x1=X11[object.ngasn[0]]
-        abar=AAA[object.ngasn[0]]
-    dcor = 0.5*math.log10(object.torr*293.15/(760.0*(object.temp+ABZERO)))
+        akbar=object.AKS[object.ngasn[0]]
+        x0=object.X00[object.ngasn[0]]
+        x1=object.X11[object.ngasn[0]]
+        abar=object.AAA[object.ngasn[0]]
+    dcor = 0.5*math.log10(object.torr*293.15/(760.0*(object.temp+object.ZeroCelsius)))
     x0 -= dcor
     x1 -= dcor
     afc = 2.0*math.log(10.0)
