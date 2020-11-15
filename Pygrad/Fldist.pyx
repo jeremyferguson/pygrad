@@ -1,5 +1,4 @@
 from Pygrad.Pygrad cimport Pygrad
-from Pygrad cimport PygradException
 from libc.math cimport acos, sqrt
 cimport numpy as np
 import  numpy as np
@@ -17,7 +16,16 @@ cpdef Fldist(Pygrad object):
             object.efl[i] = dist
 
 cpdef calcAbsorption(Pygrad object, int jf, float eph):
-    cdef float xsec[306], xsecc[18], xsecr[18], xsecp[18], absl[306], abslc[18], abslr[18], abslp[18], xsum[360],dummy,dist
+    cdef float xsec[306]
+    cdef float xsecc[18] 
+    cdef float xsecr[18] 
+    cdef float xsecp[18] 
+    cdef float absl[306] 
+    cdef float abslc[18] 
+    cdef float abslr[18]
+    cdef float abslp[18] 
+    cdef float xsum[360]
+    cdef float dummy,dist
     cdef int ishell, kgas, lgas, lcflag, lrflag, lpflag, lpeflag, ephlg, ipt,ipet, ID
     ishell = 0
     kgas = 0
@@ -162,7 +170,7 @@ cpdef calcAbsorption(Pygrad object, int jf, float eph):
             istart = ifin + flagsum * ifinr
             iend = ifin + (flagsum + 1) * ifinr
         else:
-            raise PygradException('Invalid flag value')
+            raise Exception('Invalid flag value')
         for j in range(istart,iend):
             xsum[j] = xsum[istart-1] + xsecp[j-istart+1]
     R1 = Pygrad.drand48(dummy)
@@ -281,7 +289,7 @@ cpdef calcAbsorption(Pygrad object, int jf, float eph):
                 kgas = 6
                 lgas = ID - ipet - ifinr - ifinr - 15
     if ID > ipet + 54:
-        raise PygradException('identifier in absorption calculation is greater than the limit: {}\nProgram stopped.')
+        raise Exception('identifier in absorption calculation is greater than the limit: {}\nProgram stopped.')
     R1 = Pygrad.drand48(dummy)
     dist = -np.log(R1)/(totalAbsLength * 100.0)
     return (ishell, kgas, lgas, dist)

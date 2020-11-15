@@ -174,7 +174,7 @@ def main():
             if element not in elements:
                 elements[element] = get_element_data(element,number,i,arrays[gas],dimensions[gas])
             i += 1
-
+    print(elements.keys())
     write_h5(elements)
         
 if __name__ == '__main__':

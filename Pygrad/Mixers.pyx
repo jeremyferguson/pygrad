@@ -4,6 +4,8 @@ from PyGasMix.Gasmix cimport Gasmix,Gas
 from Ang cimport Ang
 import sys
 import cython
+import numpy as np
+cimport numpy as np
 
 @cython.cdivision(True)
 @cython.boundscheck(False)
@@ -224,9 +226,9 @@ cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
         niso = 1
     bp = object.EField ** 2 * object.CONST1
     f2 = object.EField * object.CONST3
-    elow = tmax * (tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
-    elow = min(elow,smallNumber)
-    ehi = tmax * (tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
+    elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
+    elow = min(elow,object.smallNumber)
+    ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
     ehi = max(20000.0,ehi)
     jone = 1
     jlarge = 20000
@@ -236,14 +238,16 @@ cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
         jlow = max(jlow,jone)
         jhi = min(jhi,jlarge)
         for j in range(jlow,jhi):
-            if tcf[j] >= tcfmax[i]:
-                tcfmax[i] = tcf[j]
+            if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:
+                object.Tcfmax[i] = object.TotalCollisionFrequency[j]
     tlim = 0.0
-    for i in range(1,20001):
-        if tlim < tcf[i]:
-            tlim= tcf[i]
-    for i in range(1,object.EnergySteps + 1):
-        qtot[i]  = an1 * q1[1][i] + an2*q2[1][i] + an3*
+    for i in range(20000):
+        if tlim < object.TotalCollisionFrequency[i]:
+            tlim= object.TotalCollisionFrequency[i]
+    for i in range(object.EnergySteps):
+        object.TotalCrossSection[i]  =  object.MoleculesPerCm3PerGas[0] * object.Q[0][0][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][0][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][0][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][0][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][0][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][0][i]
+        object.ElasticCrossSection[i] = object.MoleculesPerCm3PerGas[0] * object.Q[0][1][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][1][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][1][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][1][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][1][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][1][i]
+
 
 
 cpdef assignWPL(index, gIndex,gasData):

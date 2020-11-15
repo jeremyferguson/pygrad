@@ -101,7 +101,7 @@ cpdef MixerC(Pygrad object):
 #Read all the gas data for GAS in at mixture position I and do some conversions
 #to the proper units.
 cpdef gasmixc(Pygrad object, int gas,int i,dict cgas_data):
-    group = self.f['elements']
+    group = cgas_data['elements']
     if gas == 0:
         return
     if gas not in pygrad.gas_dict:
