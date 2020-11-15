@@ -1,4 +1,5 @@
 from Pygrad.Pygrad cimport Pygrad
+from Pygrad cimport PygradException
 from libc.math cimport acos, sqrt
 cimport numpy as np
 import  numpy as np
@@ -8,24 +9,27 @@ import cython
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cpdef Fldist(Pygrad object):
+    cdef float eph
     for i in range(512):
-        float eph = object.efl[i]
+        eph = object.efl[i]
         if eph != 0.0:
             idum,kdum,ldum,dist = calcAbsorption(object,3,eph)
             object.efl[i] = dist
 
 cpdef calcAbsorption(Pygrad object, int jf, float eph):
-    float xsec[306], xsecc[18], xsecr[18], xsecp[18], absl[306], abslc[18], abslr[18], xsum[360]
-    int ishell = 0
-    int kgas = 0
-    int lgas = 0
-    int dist = 0.0
-    int lcflag = 0
-    int lrflag = 0
-    int lpflag = 0
-    int lpeflag = 0
-    int ephlg = np.log(eph)
-    int ipt = -1
+    cdef float xsec[306], xsecc[18], xsecr[18], xsecp[18], absl[306], abslc[18], abslr[18], abslp[18], xsum[360],dummy,dist
+    cdef int ishell, kgas, lgas, lcflag, lrflag, lpflag, lpeflag, ephlg, ipt,ipet, ID
+    ishell = 0
+    kgas = 0
+    lgas = 0
+    dist = 0.0
+    lcflag = 0
+    lrflag = 0
+    lpflag = 0
+    lpeflag = 0
+    ephlg = np.log(eph)
+    ipt = -1
+    dummy = 0.0
     #calculate photoelectric cross section
     for i in range(object.NumberOfGases):
         for j1 in range(3):
@@ -122,7 +126,7 @@ cpdef calcAbsorption(Pygrad object, int jf, float eph):
     if jf == -1:
         if totalAbsLength > 0.0:
             object.absXray = 1.0e4 / totalAbsLength
-        elif totalAbsLength = 0.0:
+        elif totalAbsLength == 0.0:
             object.absXray = 1.0e15
         return (ishell,kgas,lgas,dist) 
     if totalAbsLength == 0.0:
@@ -161,9 +165,7 @@ cpdef calcAbsorption(Pygrad object, int jf, float eph):
             raise PygradException('Invalid flag value')
         for j in range(istart,iend):
             xsum[j] = xsum[istart-1] + xsecp[j-istart+1]
-    float dummy = 0.0
-    int ID
-    R1 = drand48(dummy)
+    R1 = Pygrad.drand48(dummy)
     for j in range(iend):
         if xsum[j] < R1:
             ID = j
@@ -280,8 +282,7 @@ cpdef calcAbsorption(Pygrad object, int jf, float eph):
                 lgas = ID - ipet - ifinr - ifinr - 15
     if ID > ipet + 54:
         raise PygradException('identifier in absorption calculation is greater than the limit: {}\nProgram stopped.')
-    int dummy
-    R1 = drand48(dummy)
+    R1 = Pygrad.drand48(dummy)
     dist = -np.log(R1)/(totalAbsLength * 100.0)
     return (ishell, kgas, lgas, dist)
 

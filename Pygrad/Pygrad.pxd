@@ -351,3 +351,4 @@ cdef class Pygrad:
         '''Distribution of electrons in 10eV bins'''
         int ElectronDistributionBins100[31] 
         '''Distribution of electrons in 100eV bins'''
+
