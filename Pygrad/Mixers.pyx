@@ -218,6 +218,32 @@ cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
                 if j == gasData.N_Inelastic:
                     object.cminexsc[0] *= object.avpfrac[0][0]
+    kelsum = np.sum(object.WhichAngularModel)
+    kelsum += np.sum(object.KIN)
+    if kelsum > 0:
+        niso = 1
+    bp = object.EField ** 2 * object.CONST1
+    f2 = object.EField * object.CONST3
+    elow = tmax * (tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
+    elow = min(elow,smallNumber)
+    ehi = tmax * (tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
+    ehi = max(20000.0,ehi)
+    jone = 1
+    jlarge = 20000
+    for i in range(1,11):
+        jlow = 20000-2000*(11-i) + 1 + int(elow)
+        jhi = 20000-2000*(10-i) + int(ehi)
+        jlow = max(jlow,jone)
+        jhi = min(jhi,jlarge)
+        for j in range(jlow,jhi):
+            if tcf[j] >= tcfmax[i]:
+                tcfmax[i] = tcf[j]
+    tlim = 0.0
+    for i in range(1,20001):
+        if tlim < tcf[i]:
+            tlim= tcf[i]
+    for i in range(1,object.EnergySteps + 1):
+        qtot[i]  = an1 * q1[1][i] + an2*q2[1][i] + an3*
 
 
 cpdef assignWPL(index, gIndex,gasData):

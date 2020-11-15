@@ -7,8 +7,6 @@ import cython
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-
-
 cpdef Setup(Pygrad object):
     """
     This function sets up the given Pygrad object. It fills the values of the main constants. 

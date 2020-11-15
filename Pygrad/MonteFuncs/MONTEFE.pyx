@@ -17,7 +17,7 @@ cdef double random_uniform(double dummy):
 @cython.cdivision(True)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef run(Pygrad Object):
+cpdef run(Pygrad object):
     xs = np.array(150000,float)
     ys = np.array(150000,float)
     zs = np.array(150000,float)
@@ -30,37 +30,37 @@ cpdef run(Pygrad Object):
     nflgbrmc = np.array(150000,int)
     temp = np.array(20000,float)
     etemp = np.array(1000,float)
-    if (Object.FinalElectronEnergy <= 140000.0):
-        estep1 = (Object.FinalElectronEnergy - 16000.0) / 4000.0
+    if (object.FinalElectronEnergy <= 140000.0):
+        estep1 = (object.FinalElectronEnergy - 16000.0) / 4000.0
     else:
         estep1 = 20.0
-        estep2 = (Object.FinalElectronEnergy - 92000.0) / 4000.0
+        estep2 = (object.FinalElectronEnergy - 92000.0) / 4000.0
     nprint = 0
-    Object.tmax1 = 0.0
+    object.tmax1 = 0.0
     emax = 0.0
     RDummy = randStart
-    CONST9 = Object.CONST3 * 0.01
-    Object.numReals = 0
-    Object.numNull = 0
-    Object.totalElastic = 0
-    Object.totalExcited = 0
-    Object.totalInelastic = 0
+    CONST9 = object.CONST3 * 0.01
+    object.numReals = 0
+    object.numNull = 0
+    object.totalElastic = 0
+    object.totalExcited = 0
+    object.totalInelastic = 0
     nmxadd = 0
     ntempflag = 0
-    bp = Object.EField ** 2 * Object.CONST1
-    f1 = Object.EField * Object.CONST2
-    f2 = Object.EField * Object.CONST3
+    bp = object.EField ** 2 * object.CONST1
+    f1 = object.EField * object.CONST2
+    f2 = object.EField * object.CONST3
     f4 = 2.0 * np.pi
-    theta1 = Object.Theta
-    phi1 = Object.Phi
-    temp = Object.TotalCollisionFrequency + TotalNullCollisionFrequency
+    theta1 = object.Theta
+    phi1 = object.Phi
+    temp = object.TotalCollisionFrequency + TotalNullCollisionFrequency
     tlim = np.min(temp)
     neovfl = 0
     j1 = 0
     for j in range(object.nDelta):
         j1 += 1
         numPrimaries = j1
-        Object.numExcitationsPerGas = np.zeros(6,int)
+        object.numExcitationsPerGas = np.zeros(6,int)
         dcz1 = cos(theta1)
         dcx1 = sin(theta1) * cos(phi1)
         dcy1 = sin(theta1) * sin(phi1)
@@ -68,8 +68,8 @@ cpdef run(Pygrad Object):
         nflgppp = 0
         nflgbrmm = 0
         nflghigh = 0
-        est1 = Object.InitialElectronEnergy
-        e1 = Object.InitialElectronEnergy
+        est1 = object.InitialElectronEnergy
+        e1 = object.InitialElectronEnergy
         x = 0.0
         y = 0.0
         z = 0.0
@@ -83,13 +83,13 @@ cpdef run(Pygrad Object):
         tlast = 0.0
         st = 0.0
         tdash = 0.0
-        if Object.imip != 2:
-            if Object.imip > 2:
-                ibadtot, ibad1 = casres(j11,Object)
+        if object.imip != 2:
+            if object.imip > 2:
+                ibadtot, ibad1 = casres(j11,object)
                 if ibad1 == 1:
                     j1 -= 1
                     continue
-            elif Object.imip == 1:
+            elif object.imip == 1:
                 casrem(j11)
                 est = ecas[0]
                 est2 = est1
@@ -107,36 +107,36 @@ cpdef run(Pygrad Object):
             nflgbrmn = 0
             nflghigh = nglgff
             isdum = 0
-            xs[1:Object.ievntl] = xcas[1:Object.ievntl]
-            ys[1:Object.ievntl] = ycas[1:Object.ievntl]
-            zs[1:Object.ievntl] = zcas[1:Object.ievntl]
-            ts[1:Object.ievntl] = ttl[1:Object.ievntl]
-            es[1:Object.ievntl] = ecas[1:Object.ievntl]
-            dcx[1:Object.ievntl] = drys[1:Object.ievntl]
-            dcy[1:Object.ievntl] = drzs[1:Object.ievntl]
-            nflgfc[1:Object.ievntl] = nflgf[1:Object.ievntl]
-            nflgppc[1:Object.ievntl] = nflgpp[1:Object.ievntl]
-            nflghigh = max(nflghigh,np.max(nflgf[1:Object.ievntl]))
-            nclus = Object.ievntl - 1
+            xs[1:object.ievntl] = xcas[1:object.ievntl]
+            ys[1:object.ievntl] = ycas[1:object.ievntl]
+            zs[1:object.ievntl] = zcas[1:object.ievntl]
+            ts[1:object.ievntl] = ttl[1:object.ievntl]
+            es[1:object.ievntl] = ecas[1:object.ievntl]
+            dcx[1:object.ievntl] = drys[1:object.ievntl]
+            dcy[1:object.ievntl] = drzs[1:object.ievntl]
+            nflgfc[1:object.ievntl] = nflgf[1:object.ievntl]
+            nflgppc[1:object.ievntl] = nflgpp[1:object.ievntl]
+            nflghigh = max(nflghigh,np.max(nflgf[1:object.ievntl]))
+            nclus = object.ievntl - 1
         R5lt = False
         while True:
             R1 = drand48(RDummy)
             T = -log(r1)/ tlim + tdash
             tdash = t
             ap = dcz1 * f2 * sqrt(e1)
-            gam1 = (Object.EMS + E1) / Object.EMS
+            gam1 = (object.EMS + E1) / object.EMS
             bet1 = sqrt(1.0 - 1.0(gam1 * gam1))
-            ap = dcz1 * Object.EField * bet1 * vc * 1.0e-10
+            ap = dcz1 * object.EField * bet1 * vc * 1.0e-10
             bp1 = bp / gam1
             e = e1 + (ap + bp1 * T) * T
             if e < 0.0:
                 e = 0.001
-            if Object.imip == 1:
-                ie = int(e/Object.ElectronEnergyStep) + 1
+            if object.imip == 1:
+                ie = int(e/object.ElectronEnergyStep) + 1
             else:
-                if Object.FinalElectronEnergy <= 20000.0:
-                    ie = int(e/Object.ElectronEnergyStep) + 1
-                elif Object.FinalElectronEnergy <= 140000.0:
+                if object.FinalElectronEnergy <= 20000.0:
+                    ie = int(e/object.ElectronEnergyStep) + 1
+                elif object.FinalElectronEnergy <= 140000.0:
                     if e <= 16000.0:
                         ie = int(e) + 1
                     else:
@@ -150,24 +150,24 @@ cpdef run(Pygrad Object):
                         ie = 16000 + int((e - 92000.0) / estep2)
             ie = min(ie, 20000)
             R5 = drand48(RDummy)
-            test1 = Object.TotalCollisionFrequency[ie - 1] / tlim
+            test1 = object.TotalCollisionFrequency[ie - 1] / tlim
             if R5 <= test1:
                 break
             numNull += 1
             test2 = temp[ie - 1] / tlim
             if R5 < test2:
-                if Object.NPLAST != 0:
+                if object.NPLAST != 0:
                     R2 = drand48(RDummy)
                     i = 0
-                    while Object.CFN[ie - 1, i] < R2:
+                    while object.CFN[ie - 1, i] < R2:
                         i += 1
                     nexcnul += 1
-                    Object.ICOLNN[i] += 1
-                    Object.XSTN[nexcnul] = x
-                    Object.YSTN[nexcnul] = y
-                    Object.ZSTN[nexcnul] = z
-                    Object.TSTN[nexcnul] = t
-                    Object.IDNUL[nexcnul] = i
+                    object.ICOLNN[i] += 1
+                    object.XSTN[nexcnul] = x
+                    object.YSTN[nexcnul] = y
+                    object.ZSTN[nexcnul] = z
+                    object.TSTN[nexcnul] = t
+                    object.IDNUL[nexcnul] = i
         T2 = T * T
         if e > emax:
             emax = e
@@ -176,13 +176,13 @@ cpdef run(Pygrad Object):
         tdash = 0.0
         numReals += 1
         CONST6 = sqrt(e1/e)
-        gam2 = (Object.EMS + e)/Object.EMS
+        gam2 = (object.EMS + e)/object.EMS
         gam12 = (gam1 + gam2) / 2.0
         bet2 = sqrt(1.0 - 1.0 / (gam2 * gam2))
         CONST6 = bet1 / bet2
         dcx2 = dcx1 * CONST6
         dcy2 = dcy1 * CONST6
-        dcz2 = dcz1 * CONST6 + Object.EField * T * 2.0e10 * Object.CONST1/(VC * bet2)
+        dcz2 = dcz1 * CONST6 + object.EField * T * 2.0e10 * object.CONST1/(VC * bet2)
         CONST7 = vc * bet1 * 1.0e-12
         A = T * CONST7
         x = x + dcx1 * a
@@ -191,282 +191,226 @@ cpdef run(Pygrad Object):
         st += t
         it = int(t+1.0)
         it = min(it, 300)
-        Object.Time[it - 1] += 1.0 
+        object.Time[it - 1] += 1.0 
         R2 = drand48(RDummy)
         i = 0
-        while Object.CF[ie - 1,i] < R2:
+        while object.CF[ie - 1,i] < R2:
             i += 1
-        if Object.izbr[i] != 0 and Object.lbrm:
+        if object.izbr[i] != 0 and object.lbrm:
             nflgbrmm = 1
-            ipt = Object.Iarry[i]
-            Object.Icoll[ipt] += 1
-            Object.
+            ipt = object.Iarry[i]
+            object.icoll[ipt] += 1
+            object.icoln[i] += 1
+            kngs = 1
+            while kngs <= object.NumberOfGases and ipt != kngs * 5 - 1:
+                kngs += 1
+            iatomno = object.izbr[i]
+            brems(iatomno,e,dcx2,dcy2,eout,edcx,edcy,edcz,egamma,gdcx,gdcy,gdcz)
+            object.nbrem[kngs] += 1
+            object.ebrtot[kngs] += 1
+            e1 = eout
+            dcx1 = edcx
+            dcy1 = edcy
+            dcz1 = edcz
+            bremscasc(J11,egamma,x,y,z,st,gdcx,gdcy,gdcz,ilow)
+            if ilow != 1: 
+                int flag_190 = 0
+                etsum = 0.0
+                for kbr in range(1, ievntlb + 1):
+                    nclus += 1
+                    if nclus > 150000:
+                        print(nclus, numReals)
+                        return #TODO: this is actually a stop statement
+                    es[nclus] = ecasb[kbr]
+                    etsum += es[nclus]
+                    xs[nclus] = xcasb[kbr]
+                    ys[nclus] = ycasb[kbr]
+                    zs[nclus] = zcasb[kbr]
+                    ts[nclus] = ttb1[kbr]
+                    dcx[nclus] = drxb[kbr]
+                    dcy[nclus] = dryb[kbr]
+                    dcz[nclus] = drzb[kbr]
+                    nflgfc[nclus] = nflgfb[kbr] + nflhigh
+                    nflgppc[nclus] = nflgppb[kbr]
+                    nflgbrmc[nclus] = 2
+                    if nflgfc[nclus] > nflghigh:
+                        nflghigh = nflgfc[nclus]
+                        flag_190 = 1
+                        break
+                if !flag_190:
+                    s1 = 1.0 + gam2 * (rgas[i] - 1.0)
+                    ei = object.ein[i]
+                    if e < ei:
+                        ei = e - 0.0001
+                    if ipn[i] !=0:
+                        if ipn[i] == -1:
+                            netot += 1
+                            nitot += 1
+                            nelec += 1
+                            negion += 1
+                            ipt = object.InteractionType[i]
+                            object.icoll[ipt] += 1
+                            object.icoln[i] += 1
+                            it = int(t+1.0)
+                            it = min(it,J300)
+                            time[it] += 1.0
+                        else:
+                            eistr = ei
+                            if object.ionmodel[i] > 0:
+                                ionsplit(i,e,ei,esec)
+                            else:
+                                R9 = drand48(0)
+                                esec = wpl[i] * tan(R9 * atan((e-ei)/(2.0*wpl[i])))
+                                esec = wpl[i] * (esec\wpl[i]) **0.9524
+                            ei += esec
+                            nclus += 1
+                            nmxadd = max(nclud,nmxadd)
+                            if nclus > 150000:
+                                print("program stopped. nclus = {0}, nreal = {1}".format(nclus, numReals))
+                                return #TODO: should be a stop
+                            xs[nclus] = x
+                            ys[nclus] = y
+                            zs[nclus] = z
+                            ts[nclus] = st
+                            es[nclus] = esec
+                            nflgfc[nclus] = nflgff
+                            nflgppc[nclus] = nflgppp
+                            nflgbrmc[nclus] = nflgbrmm
+                            ntmpflg = 1
+                            ncltmp = nclus
+                            flag_666 = 0
+                            if iecasc != 0 and legas[i] != 0:
+                                kg1 = negas[i]
+                                lg1 = legas[i]
+                                igshel = ieshell[i]
+                                cascadee(J11,kg1,lg1,x,y,z,st,esec,igshel)
+                                etsum = 0.0
+                                for kbr in range(1,ievente+1):
+                                    nclus += 1
+                                    if nclus > 150000:
+                                        print("program stopped. nclus = {0}, nreal = {1}".format(nclus, numReals))
+                                        return #TODO: should be a stop
+                                    es[nclus] = ecase[kbr]
+                                    etsum += es[nclus]
+                                    xs[nclus] = xcase[kbr]
+                                    ys[nclus] = ycase[kbr]
+                                    zs[nclus] = zcase[kbr]
+                                    ts[nclus] = tcase[kbr]
+                                    dcx[nclus] = drxce[kbr]
+                                    dcy[nclus] = dryce[kbr]
+                                    dcz[nclus] = drzce[kbr]
+                                    nflgfc[nclus] = nflgfe[kbr] + nflghigh
+                                    nflgppc[nclus] = nflgppe[kbr]
+                                    nflgbrmc[nclus] = nflgbrmm
+                                    if nflgfc[nclus] > nflghigh:
+                                        nflghigh = nflgfc[nclus]
+                                        flag_666 = 1
+                            if !flag_666:
+                                if eistr > 30.0:
+                                    ifltst = 0
+                                    if wklm[i] >  0.0:
+                                        R9 = drand48(0)
+                                        if R9 < wklm[i]:
+                                            ifltst = 1
+                                    if ifltst == 0:
+                                        naug = nc0[i]
+                                        eavaug = ec0[i] / float(naug)
+                                        for jfl in range(1, nc0[i] + 1):
+                                            nclus += 1
+                                            xs[nclus] = x
+                                            ys[nclus] = y
+                                            zs[nclus] = z
+                                            ts[nclus] = st
+                                            nflgfc[nclus] = nflgff
+                                            nflgppc[nclus] = nflgppp
+                                            nflgbrmc[nclus] = nflgbrmm
+                                            es[nclus] = eavaug
+                                            R3 = drand48(0)
+                                            F3 = 1.0 - 2.0*R3
+                                            theta0 = acos(F3)
+                                            F6 = cos(theta0)
+                                            F5 = sin(theta0)
+                                            R4 = drand48(0)
+                                            phi0 = F4 * R4
+                                            F8 = sin(phi0)
+                                            F9 = cos(phi0)
+                                            dcx[nclus] = F9*F5
+                                            dcy[nclus] = F8*F5
+                                            dcz[nclus] = F6
+                                    else:
+                                        if ng2[i] != 0:
+                                            naug = ng2[i]
+                                            eavaug = eg2[i] / float(naug)
+                                            for jfl in range(1, ng2[i] + 1):
+                                                nclus += 1
+                                                xs[nclus] = x
+                                                ys[nclus] = y
+                                                zs[nclus] = z
+                                                nflgfc[nclus] = nflgff
+                                                nflgppc[nclus] = nflgppp
+                                                nflgbrmc[nclus] = nflgbrmm
+                                                ts[nclus] = st
+                                                es[nclus] = eavaug
+                                                R3 = drand48(0)
+                                                F3 = 1.0-2.0* R3
+                                                theta0 = acos(F3)
+                                                F6 = cos(theta0)
+                                                F5 = sin(theta0)
+                                                R4 = drand48(0)
+                                                phi0 = F4*R4
+                                                F8 = sin(phi0)
+                                                F9 = cos(phi0)
+                                                dcx[nclus] = F9*F5
+                                                dcy[nclus] = F8*F5
+                                                dcz[ncus] = F6
+                                        if ng1[i] != 0:
+                                            naug = ng1[i]
+                                            eavaug = eg1[i] / float(naug)
+                                            R9 = drand48(0)
+                                            dfl = -log(R9) * dstfl[i]
+                                            for jfl in range(1, ng1[i] + 1):
+                                                nclus += 1
+                                                R3 = drand48(0)
+                                                thefl = acos(1.0-2.0*R3)
+                                                R4 = drand48(0)
+                                                phifl = F4*R4
+                                                xs[nclus] = x + dfl * sin(thefl) * cos(phifl)
+                                                ys[nclus] = y+dfl * sin(thefl) * sin(phifl)
+                                                zs[nclus] = z + dfl * cos(thefl)
+                                                nflgfc[nclus] = nflghigh + 1
+                                                nflgppc[nclus] = nflgppp
+                                                nflgbrmc[nclus] = nflgbrmm
+                                                ts[nclus] = st
+                                                es[nclus] = eavaug
+                                                R3 = drand48(0)
+                                                F3 = 1.0 - 2.0 * R3
+                                                theta0 = acos(F3)
+                                                F6 = cos(theta0)
+                                                F5 = sin(theta0)
+                                                R4 = drand48(0)
+                                                phi- = F4 * R4
+                                                F8 = sin(phi0)
+                                                F9 = cos(phi0)
+                                                dcx[nclus] = F9*F5
+                                                dcy[nclus] = F8*F5
+                                                dcz[nclus] = F6
+                                                nflghigh = nflgfc[nclus]
+                            ipt = object.InteractionType[i]
+                            icoll[ipt] += 1
+                            icoln[i] += 1
+                            if ipen == 0 or object.NumberOfGases == 1:
+                            xs[nclus] = x
+                            ys[nclus] = y
+                            zs[nclus] = z
+
+
       J1=0
 C START OF PRIMARY EVENT LOOP 
       DO 210 J11=1,NDELTA
-      R2=drand48(RDUM)
-      IF(IZBR(I).NE.0.AND.LBRM.EQ.1) THEN
-       NFLGBRMM=1
-       IPT=IARRY(I)
-       ICOLL(IPT)=ICOLL(IPT)+1
-       ICOLN(I)=ICOLN(I)+1
-       DO 141 KNGS=1,NGAS
-       IF(IPT.EQ.(KNGS*5)-1) GO TO 142
-  141  CONTINUE
-  142  IATOMNO=IZBR(I) 
-       CALL BREMS(IATOMNO,E,DCX2,DCY2,DCZ2,EOUT,EDCX,EDCY,EDCZ,
-     /EGAMMA,GDCX,GDCY,GDCZ)
-       NBREM(KNGS)=NBREM(KNGS)+1
-       EBRTOT(KNGS)=EBRTOT(KNGS)+EGAMMA
-C GET  NEW DRCOS DRCOSY DRCOSX AND ENERGY OF ELECTRON
-       E1=EOUT
-       DCX1=EDCX
-       DCY1=EDCY
-       DCZ1=EDCZ
-C RUN BREMSSTRAHLUNG GAMMA THROUGH CASCADE THEN STORE CONVERTED 
-C ELECTRONS IN COMMON/CASRSB/
-C
-       CALL BREMSCASC(J11,EGAMMA,X,Y,Z,ST,GDCX,GDCY,GDCZ,ILOW)
-C BREMSSTRAHLUNG ENERGY TOO LOW TO IONISE
        IF(ILOW.EQ.1) GO TO 190
-C    
-C  STORE BREMSSTRAHLUNG DATA IN CLUSTER STORE
-C 
-       ETSUM=0.0     
-       DO 890 KBR=1,IEVNTLB
-       NCLUS=NCLUS+1
-       IF(NCLUS.GT.150000) THEN 
-        WRITE(6,546) NCLUS,NREAL
-        STOP
-       ENDIF    
-       ES(NCLUS)=ECASB(KBR)
-       ETSUM=ETSUM+ES(NCLUS)
-       XS(NCLUS)=XCASB(KBR)
-       YS(NCLUS)=YCASB(KBR)
-       ZS(NCLUS)=ZCASB(KBR)
-       TS(NCLUS)=TTB1(KBR)
-       DCX(NCLUS)=DRXB(KBR)
-       DCY(NCLUS)=DRYB(KBR)
-       DCZ(NCLUS)=DRZB(KBR)
-       NFLGFC(NCLUS)=NFLGFB(KBR)+NFLGHIGH
-       NFLGPPC(NCLUS)=NFLGPPB(KBR)
-       NFLGBRMC(NCLUS)=2
-  890  CONTINUE 
-       IF(NFLGFC(NCLUS).GT.NFLGHIGH) NFLGHIGH=NFLGFC(NCLUS)
-       GO TO 190
-      ENDIF                
-  891 CONTINUE  
-C*****************************************************************
-C     S1=RGAS(I)   
-      S1=1.0D0+GAM2*(RGAS(I)-1.0D0)                                    
-      EI=EIN(I)
-C     WRITE(6,8890) EIN(I),I
-C8890 FORMAT(' EIN=',D12.4,' I=',I3)
-      IF(E.LT.EI) THEN
-      EI=E-0.0001D0
-      ENDIF                                                          
       IF(IPN(I).EQ.0) GO TO 666
-C ATTACHMENT       
       IF(IPN(I).EQ.-1) THEN
-       NETOT=NETOT+1
-       NITOT=NITOT+1
-       NELEC=NELEC+1
-       NEGION=NEGION+1
-       IPT=IARRY(I)
-       ICOLL(IPT)=ICOLL(IPT)+1
-       ICOLN(I)=ICOLN(I)+1 
-       IT=DINT(T+1.0D0)
-       IT=DMIN0(IT,J300)
-       TIME(IT)=TIME(IT)+1.0D0
        GO TO 335
-      ENDIF
-      EISTR=EI
-      IF(IONMODEL(I).GT.0) THEN 
-C CALCULATE SECONDARY ENERGY,ESEC,IN IONISATION COLLISION USING
-C FIVE DIFFERENT MODELS
-       CALL IONSPLIT(I,E,EI,ESEC)
-       GO TO 544
-      ENDIF
-      R9=drand48(RDUM)
-C    USE OPAL PETERSON AND BEATY SPLITTING FACTOR.
-      ESEC=WPL(I)*TAN(R9*ATAN((E-EI)/(2.0D0*WPL(I))))
-      ESEC=WPL(I)*(ESEC/WPL(I))**0.9524
-  544 CONTINUE
-      EI=ESEC+EI 
-C STORE POSITION ,ENERGY, DIRECTION COSINES AND TIME OF GENERATION
-C OF SECONDARY IONISATION ELECTRONS
-      NCLUS=NCLUS+1
-      NMXADD=MAX(NCLUS,NMXADD)
-      IF(NCLUS.GT.150000) THEN 
-      WRITE(6,546) NCLUS,NREAL
- 546  FORMAT(2X,' PROGRAM STOPPED . NCLUS=',I7,' NREAL=',I10)
-      STOP
-      ENDIF     
-      XS(NCLUS)=X       
-      YS(NCLUS)=Y
-      ZS(NCLUS)=Z
-      TS(NCLUS)=ST
-      ES(NCLUS)=ESEC   
-      NFLGFC(NCLUS)=NFLGFF
-      NFLGPPC(NCLUS)=NFLGPPP
-      NFLGBRMC(NCLUS)=NFLGBRMM
-      NTMPFLG=1
-      NCLTMP=NCLUS
-C     ES(NCLUS)=ESEC
-C RANDOMISE SECONDARY ELECTRON DIRECTION
-C     R3=drand48(RDUM)
-C     F3=1.0-2.0D0*R3
-C     THETA0=DACOS(F3)
-C     F6=DCOS(THETA0)
-C     F5=DSIN(THETA0)
-C     R4=drand48(RDUM)
-C     PHI0=F4*R4
-C     F8=DSIN(PHI0)
-C     F9=DCOS(PHI0)               
-C     DCX(NCLUS)=F9*F5
-C     DCY(NCLUS)=F8*F5
-C     DCZ(NCLUS)=F6   
-C*********************************************************
-      IF(IECASC.EQ.0)GO TO 333
-      IF(LEGAS(I).EQ.0) GO TO 333
-C USE COMPLETE CASCADE FOR ELECTRON IONISATION
-      KG1=NEGAS(I)
-      LG1=LEGAS(I)
-      IGSHEL=IESHELL(I)
-      CALL CASCADEE(J11,KG1,LG1,X,Y,Z,ST,ESEC,IGSHEL)
-C
-C STORE CASCADE IN CLUSTER STORE
-C
-      ETSUM=0.0
-      DO 844 KBR=1,IEVENTE
-      NCLUS=NCLUS+1
-      IF(NCLUS.GT.150000) THEN
-       WRITE(6,546) NCLUS,NREAL
-       STOP
-      ENDIF
-      ES(NCLUS)=ECASE(KBR)
-      ETSUM=ETSUM+ES(NCLUS)
-      XS(NCLUS)=XCASE(KBR)
-      YS(NCLUS)=YCASE(KBR)
-      ZS(NCLUS)=ZCASE(KBR)
-      TS(NCLUS)=TCASE(KBR)
-      DCX(NCLUS)=DRXCE(KBR)
-      DCY(NCLUS)=DRYCE(KBR)
-      DCZ(NCLUS)=DRZCE(KBR)
-      NFLGFC(NCLUS)=NFLGFE(KBR)+NFLGHIGH
-      NFLGPPC(NCLUS)=NFLGPPE(KBR)
-      NFLGBRMC(NCLUS)=NFLGBRMM
-  844 CONTINUE
-      IF(NFLGFC(NCLUS).GT.NFLGHIGH) NFLGHIGH=NFLGFC(NCLUS)
-      GO TO 666
-C*********************************************************
-C STORE POSSIBLE SHELL EMISSIONS AUGER OR FLUORESCENCE 
-  333 IF(EISTR.GT.30.0) THEN
-C      WRITE(6,8891) EISTR
-C8891  FORMAT(' EISTR=',D12.4)
-C TEST IF FLUORESCENCE EMISSION
-       IFLTST=0
-       IF(WKLM(I).GT.0.0) THEN
-        R9=drand48(RDUM)
-        IF(R9.LT.WKLM(I)) IFLTST=1
-       ENDIF
-       IF(IFLTST.EQ.0) THEN
-C AUGER EMISSION WITHOUT FLUORESCENCE
-        NAUG=NC0(I)
-        EAVAUG=EC0(I)/DFLOAT(NAUG)
-        DO 700 JFL=1,NC0(I)
-        NCLUS=NCLUS+1
-        XS(NCLUS)=X
-        YS(NCLUS)=Y
-        ZS(NCLUS)=Z
-        TS(NCLUS)=ST
-        NFLGFC(NCLUS)=NFLGFF
-        NFLGPPC(NCLUS)=NFLGPPP
-        NFLGBRMC(NCLUS)=NFLGBRMM
-        ES(NCLUS)=EAVAUG
-        R3=drand48(RDUM)
-        F3=1.0-2.0D0*R3
-        THETA0=DACOS(F3)
-        F6=DCOS(THETA0)
-        F5=DSIN(THETA0)
-        R4=drand48(RDUM)
-        PHI0=F4*R4
-        F8=DSIN(PHI0)
-        F9=DCOS(PHI0)               
-        DCX(NCLUS)=F9*F5
-        DCY(NCLUS)=F8*F5
-        DCZ(NCLUS)=F6
-  700   CONTINUE 
-       ELSE
-C AUGER EMISSION AND FLUORESENCE 
-        IF(NG2(I).EQ.0) GO TO 702
-        NAUG=NG2(I)
-        EAVAUG=EG2(I)/DFLOAT(NAUG)
-        DO 701 JFL=1,NG2(I)
-        NCLUS=NCLUS+1
-        XS(NCLUS)=X
-        YS(NCLUS)=Y
-        ZS(NCLUS)=Z
-        NFLGFC(NCLUS)=NFLGFF
-        NFLGPPC(NCLUS)=NFLGPPP
-        NFLGBRMC(NCLUS)=NFLGBRMM
-        TS(NCLUS)=ST
-        ES(NCLUS)=EAVAUG
-        R3=drand48(RDUM)
-        F3=1.0-2.0D0*R3
-        THETA0=DACOS(F3)
-        F6=DCOS(THETA0)
-        F5=DSIN(THETA0)
-        R4=drand48(RDUM)
-        PHI0=F4*R4
-        F8=DSIN(PHI0)
-        F9=DCOS(PHI0)               
-        DCX(NCLUS)=F9*F5
-        DCY(NCLUS)=F8*F5
-        DCZ(NCLUS)=F6
-  701   CONTINUE
-  702   IF(NG1(I).EQ.0) GO TO 704
-        NAUG=NG1(I)
-        EAVAUG=EG1(I)/DFLOAT(NAUG)
-        R9=drand48(RDUM)
-        DFL=-DLOG(R9)*DSTFL(I)
-        DO 703 JFL=1,NG1(I)
-        NCLUS=NCLUS+1
-        R3=drand48(RDUM)
-        THEFL=DACOS(1.0-2.0D0*R3)
-        R4=drand48(RDUM)
-        PHIFL=F4*R4
-        XS(NCLUS)=X+DFL*DSIN(THEFL)*DCOS(PHIFL)
-        YS(NCLUS)=Y+DFL*DSIN(THEFL)*DSIN(PHIFL)
-        ZS(NCLUS)=Z+DFL*DCOS(THEFL)
-        NFLGFC(NCLUS)=NFLGHIGH+1
-        NFLGPPC(NCLUS)=NFLGPPP
-        NFLGBRMC(NCLUS)=NFLGBRMM
-        TS(NCLUS)=ST
-        ES(NCLUS)=EAVAUG
-        R3=drand48(RDUM)
-        F3=1.0-2.0D0*R3
-        THETA0=DACOS(F3)
-        F6=DCOS(THETA0)
-        F5=DSIN(THETA0)
-        R4=drand48(RDUM)
-        PHI0=F4*R4
-        F8=DSIN(PHI0)
-        F9=DCOS(PHI0)               
-        DCX(NCLUS)=F9*F5
-        DCY(NCLUS)=F8*F5
-        DCZ(NCLUS)=F6
-        NFLGHIGH=NFLGFC(NCLUS)
-  703   CONTINUE
-  704   CONTINUE
-       ENDIF
-      ENDIF
-C                                                                       
-C  GENERATE SCATTERING ANGLES AND UPDATE  LABORATORY COSINES AFTER      
-C   COLLISION ALSO UPDATE ENERGY OF ELECTRON.                           
-C
-  666 IPT=IARRY(I)
-      ICOLL(IPT)=ICOLL(IPT)+1 
       ICOLN(I)=ICOLN(I)+1 
 C IF EXCITATION THEN ADD PROBABILITY ,PENFRA(1,I),OF TRANSFER TO GIVE   
 C IONISATION OF THE OTHER GASES IN MIXTURE
