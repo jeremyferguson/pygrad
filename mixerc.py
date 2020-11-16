@@ -92,6 +92,7 @@ cpdef MixerC(Pygrad object):
     cdef dict cgas_data
     with open(os.getenv('PYGRAD_HOME')+'/cgas_data.npy','r') as f:
         cgas_data = pickle.load(f)
+    print(cgas_data.keys())
 
     i = 0
     for gas in object.GasIDs:
