@@ -1,3 +1,5 @@
+from Pygrad.Pygrad cimport Pygrad
+import numpy as np
 #This file takes the place of the CASCDAT subroutine.  It defines several 
 #arrays related to cascade data.
 cpdef loadData(Pygrad object):
