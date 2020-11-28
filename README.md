@@ -10,7 +10,7 @@
 - make
 
 ## Setup
-	python3 -m pip install --upgrade  git+https://github.com/UTA-REST/PyBoltz.git --user
+	python3 -m pip install --upgrade  git+https://github.com/jeremyferguson/pygrad.git --user
 
 The shell script `config.sh` sets all the necessary environment variables, so it is necessary to run `source config.sh` upon opening a new terminal window.
 
