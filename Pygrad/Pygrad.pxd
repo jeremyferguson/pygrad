@@ -85,7 +85,8 @@ cdef class Pygrad:
 
         '''Arrays used in the mixerc subroutines.'''
         dict mixercArrs
-
+        '''Arrays used in the cascade data subroutines.'''
+        dict cascdata
         int last 
         double tmax 
         int nout 

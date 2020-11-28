@@ -41,7 +41,8 @@ class PygradRun:
                    'lcmp'                   :True,
                    'lray'                   :True,
                    'lpap'                   :True,
-                   'lbrm'                   :True,                   'iecasc'                 :True
+                   'lbrm'                   :True,                   
+                   'iecasc'                 :True
                    }
     '''Dictionary used to store the inputs/settings for the Pygrad simulation.'''
     # Available Gases

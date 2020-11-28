@@ -48,6 +48,41 @@ def compArrLessValue(a,b,place=5):
 def getSingle(d):
     return list(d.keys())[0]
 
+#Return a Pygrad object set up with the parameters found in FNAME at PATH
+def createObject(path,fname):
+    obj = Pygrad()
+    with open(path+fname,'r') as f:
+        text = f.read()
+    params = [line.split(',') for line in text.split('\n')]
+    obj.NumberOfGases = int(params[0][0])
+    obj.nDelta = int(params[0][1])
+    obj.imip = int(params[0][2])
+    obj.BeamDirection = int(params[0][3])
+    obj.Random_Seed = int(params[0][4])
+    obj.InitialElectronEnergy = double(params[0][5])
+    obj.ThermalCut = double(params[0][6])
+    obj.EnergyCut = double(params[0][7])
+    obj.GasIds = [int(i) for i in params[1]]
+    obj.GasFractions = [double(i) for i in params[2][:6]]
+    obj.TemperatureCentigrade = double(params[2][6])
+    obj.Pressure_Torr = double(params[2][7])
+    obj.EField = double(params[3][0])
+    obj.BField_Mag = double(params[3][1])
+    obj.BField_Angle = double(params[3][2])
+    obj.OutputVerbosity = int(params[3][3])
+    obj.Enable_Penning = int(params[3][4])
+    obj.DetectorEfficiency = double(params[4][0])
+    obj.ExcitationWeight = double(params[4][1])
+    obj.kgas = int(params[4][2])
+    obj.lgas = int(params[4][3])
+    obj.lcmp = int(params[4][4])
+    obj.lray = int(params[4][5])
+    obj.lpap = int(params[4][6])
+    obj.lbrm = int(params[4][7])
+    obj.iecasc = int(params[4][8])
+    return obj
+
+
 #Runs PYCODE on a variety of inputs found in PATH and checks all the TESTVARS 
 #against the Fortran outputs found in subdirectories of PATH with OUTFNAME 
 #as the file name, checking to PLACES decimal places for equality.
