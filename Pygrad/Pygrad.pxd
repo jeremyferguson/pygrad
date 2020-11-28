@@ -83,6 +83,9 @@ cdef class Pygrad:
         '''Whether gas is isotropic or anistropic'''
         int WhichAngularModel
 
+        '''Arrays used in the mixerc subroutines.'''
+        dict mixercArrs
+
         int last 
         double tmax 
         int nout 

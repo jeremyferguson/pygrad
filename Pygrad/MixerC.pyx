@@ -1,4 +1,4 @@
-import numpy as np,os,pygrad, h5py, utils
+import numpy as np,os,utils
 
 #Pairs each array found in element data to the higher-dimensional array 
 #in the mixerC class.
@@ -16,14 +16,39 @@ array_pairs = {
         'YCOM':'YCP',
         'A':'AUG',
         'R':'RAD'}
-
+gas_dict = {
+        1: {'name':'CF4','formula':[{'C':1},{'F':4}]},
+        2: {'name':'Argon','formula':[{'Ar':1}]},
+        3: {'name':'Helium-4','formula':[{'He-4':1}]},
+        4: {'name':'Helium-3','formula':[{'He-3':1}]}, 
+        5: {'name':'Neon','formula':[{'Ne':1}]},
+        6: {'name':'Krypton','formula':[{'Kr':1}]},
+        7: {'name':'Xenon','formula':[{'Xe':1}]},
+        8: {'name':'Methane','formula':[{'C':1},{'H':4}]},
+        9: {'name':'Ethane','formula':[{'C':2},{'H':6}]}, 
+        10: {'name':'Propane','formula':[{'C':3},{'H':8}]},
+        11: {'name':'Isobutane','formula':[{'C':4},{'H':10}]},
+        12: {'name':'CO2','formula':[{'C':1},{'O':2}]},
+        14: {'name':'H2O','formula':[{'H':2},{'O':1}]},
+        15: {'name':'Oxygen','formula':[{'O':2}]},
+        16: {'name':'Nitrogen','formula':[{'N':2}]},
+        18: {'name':'Nitrous Oxide','formula':[{'N':2},{'O':1}]},
+        21: {'name':'Hydrogen','formula':[{'H':2}]},
+        30: {'name':'SF6','formula':[{'S':1},{'F':6}]},
+        31: {'name':'NH3','formula':[{'N':1},{'H':3}]},
+        34: {'name':'CH3OH','formula':[{'C':1},{'H':4},{'O':1}]},
+        35: {'name':'C2H5OH','formula':[{'C':2},{'H':6},{'O':1}]},
+        36: {'name':'Iso-Propanol','formula':[{'C':3},{'H':8},{'O':1}]},
+        44: {'name':'TMA','formula':[{'C':3},{'N':1},{'H':9}]},
+        46: {'name':'N-Propanol','formula':[{'C':3},{'H':8},{'O':1}]}}
+shell_order = ['K','L1','L2','L3','M1','M2','M3','M4','M5','N1','N2','N3','N4','N5','O1','O2','O3']
 #This class takes the place of the MIXERC subroutine.  It loads element
 #data on each element in each gas from an hdf5 file.'''
 cpdef MixerC(Pygrad object):
     #Collection of all arrays which store data loaded in for each gas.
     #Arrays are all 6x3 to store data from all 6 gases in the mixture, and 
     #up to 3 elements per gas. Arrays with 17 as a dimension are storing data per shell.
-    cdef dict arrays = {
+    object.mixercArrs = {
             
         #Probability of shell shakeoff from one shell to another.
         "PRSH":np.zeros((6,3,17,17), dtype = float),
@@ -102,51 +127,49 @@ cpdef MixerC(Pygrad object):
 #Read all the gas data for GAS in at mixture position I and do some conversions
 #to the proper units.
 cpdef gasmixc(Pygrad object, int gas,int i,dict cgas_data):
-    group = cgas_data['elements']
     if gas == 0:
         return
-    if gas not in pygrad.gas_dict:
+    if gas not in gas_dict:
         raise PygradException('Invalid gas number: '+ str(gas))
-    #print(gas)
-    formula = pygrad.gas_dict[gas]['formula']
+    formula = gas_dict[gas]['formula']
     j = 0
     for pair in formula:
         element = utils.getSingle(pair)
         number = pair[element]
-        elgroup = group[element]
-        for array in elgroup['mixerc']:
-            self.assignArray(i,j,array,elgroup['mixerc'][array],number)
+        elementData = cgas_data[element]
+        for array:
+            self.assignArray(i,j,array,elementData[array],number)
         k = 1 
-        for occ in self.arrays['INIOCC'][i][j]:
+        for occ in object.mixercArrs['INIOCC'][i][j]:
             if occ > 0.0:
-                self.arrays['ISHLMX'][i][j] = k
+                object.mixercArrs['ISHLMX'][i][j] = k
             k += 1
         attrs = elgroup['mixerc'].attrs
-        self.arrays['IZ'][i,j] = attrs.get('IZ')
-        self.arrays['AMZ'][i,j] = attrs.get('AMZ') * number
-        self.arrays['PRSH'][i,j] /= 100.0
-        self.arrays['PRSHBT'][i,j] /= 100.0
-        self.arrays['PRSH'][i,j] = self.arrays['PRSH'][i][j].T
-        self.arrays['AUG'][i,j,:4] *= 0.0272105
-        self.arrays['AUG'][i,j,4:] *= 0.00272105
-        self.arrays['RAD'][i,j,4:,5:] *= 6.582119e-16
-        self.arrays['YRY'][i,j] = np.log(self.arrays['YRY'][i][j] * number * 1e-24)
-        self.arrays['YCP'][i,j] = np.log(self.arrays['YCP'][i][j] * number * 1e-24)
-        self.arrays['YPP'][i,j] = np.log(self.arrays['YPP'][i][j] * number * 1e-24)
-        self.arrays['XCP'][i,j] = np.log(self.arrays['XCP'][i][j])
+        object.mixercArrs['IZ'][i,j] = attrs.get('IZ')
+        object.mixercArrs['AMZ'][i,j] = attrs.get('AMZ') * number
+        object.mixercArrs['PRSH'][i,j] /= 100.0
+        object.mixercArrs['PRSHBT'][i,j] /= 100.0
+        object.mixercArrs['PRSH'][i,j] = object.mixercArrs['PRSH'][i][j].T
+        object.mixercArrs['AUG'][i,j,:4] *= 0.0272105
+        object.mixercArrs['AUG'][i,j,4:] *= 0.00272105
+        object.mixercArrs['RAD'][i,j,4:,5:] *= 6.582119e-16
+        object.mixercArrs['YRY'][i,j] = np.log(object.mixercArrs['YRY'][i][j] * number * 1e-24)
+        object.mixercArrs['YCP'][i,j] = np.log(object.mixercArrs['YCP'][i][j] * number * 1e-24)
+        object.mixercArrs['YPP'][i,j] = np.log(object.mixercArrs['YPP'][i][j] * number * 1e-24)
+        object.mixercArrs['XCP'][i,j] = np.log(object.mixercArrs['XCP'][i][j])
         j += 1
 
 #Assign ARRAY with NAME as its name to its proper position in the higher-dimensional
 #array at position I,J, with NUMBER as the number of times it appears in the gas molecule.
-def assignArray(self,i,j,name,array,number):
+cpdef assignArray(Pygrad object,int i,int j,string name,np.ndarray array,number):
     if name in array_pairs:
         key = array_pairs[name]
-        self.arrays[key][i][j] = array[()]
+        object.mixercArrs[key][i][j] = array[()]
     else:
         key = name[:3]
-        k = pygrad.shell_order.index(name[3:])
+        k = shell_order.index(name[3:])
         l = array.shape[0]
-        self.arrays[key][i][j][k][:l] = array[:]
+        object.mixercArrs[key][i][j][k][:l] = array[:]
         if key[0] == 'Y':
-            self.arrays[key][i][j][k][:l] *= (1e-24 * number)
-        self.arrays[key][i][j][k][:l] = np.log(self.arrays[key][i][j][k][:l])
+            object.mixercArrs[key][i][j][k][:l] *= (1e-24 * number)
+        object.mixercArrs[key][i][j][k][:l] = np.log(object.mixercArrs[key][i][j][k][:l])
