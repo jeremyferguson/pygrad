@@ -16,7 +16,7 @@ cpdef Mixer(Pygrad object):
     cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow,rGas1
     cdef int iEnergy, GasIndex, iProcess, p, Sum, J, i, j, iIonization, JJ, IL, I
     cdef Gas gasData
-
+    print("mixer beginning")
     ElectronCharge = 1.60217656e-19
     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)

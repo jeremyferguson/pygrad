@@ -2122,7 +2122,6 @@ static const char __pyx_k_EOBY[] = "EOBY";
 static const char __pyx_k_PIR2[] = "PIR2";
 static const char __pyx_k_WPLN[] = "WPLN";
 static const char __pyx_k_file[] = "file";
-static const char __pyx_k_init[] = "init";
 static const char __pyx_k_izbr[] = "izbr";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
@@ -2191,6 +2190,8 @@ static const char __pyx_k_RhydbergConst[] = "RhydbergConst";
 static const char __pyx_k_ThermalEnergy[] = "ThermalEnergy";
 static const char __pyx_k_InteractionType[] = "InteractionType";
 static const char __pyx_k_PenningFraction[] = "PenningFraction";
+static const char __pyx_k_before_for_loop[] = "before for loop";
+static const char __pyx_k_mixer_beginning[] = "mixer beginning";
 static const char __pyx_k_AttCollisionFreq[] = "AttCollisionFreq";
 static const char __pyx_k_IonCollisionFreq[] = "IonCollisionFreq";
 static const char __pyx_k_IonizationEnergy[] = "IonizationEnergy";
@@ -2432,6 +2433,7 @@ static PyObject *__pyx_n_s_WPLN;
 static PyObject *__pyx_n_s_WhichAngularModel;
 static PyObject *__pyx_n_s_Which_Angular_Model;
 static PyObject *__pyx_n_s_avpfrac;
+static PyObject *__pyx_kp_s_before_for_loop;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_cminexsc;
 static PyObject *__pyx_n_s_cminixsc;
@@ -2452,11 +2454,11 @@ static PyObject *__pyx_n_s_idg;
 static PyObject *__pyx_n_s_ieshell;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_index;
-static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_ipn;
 static PyObject *__pyx_n_s_izbr;
 static PyObject *__pyx_n_s_legas;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_kp_s_mixer_beginning;
 static PyObject *__pyx_n_s_nProcess;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_nc0;
@@ -2567,7 +2569,7 @@ static PyObject *__pyx_tuple__58;
  * @cython.nonecheck(False)
  * cpdef Mixer(Pygrad object):             # <<<<<<<<<<<<<<
  *     """Loads the initial gas values for the mixture, particularly the momentum cross sections and other related values."""
- *     print('init')
+ *     cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow,rGas1
  */
 
 static PyObject *__pyx_pw_6Pygrad_6Mixers_1Mixer(PyObject *__pyx_self, PyObject *__pyx_v_object); /*proto*/
@@ -2617,75 +2619,75 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   int __pyx_t_30;
   __Pyx_RefNannySetupContext("Mixer", 0);
 
-  /* "Pygrad/Mixers.pyx":16
- * cpdef Mixer(Pygrad object):
- *     """Loads the initial gas values for the mixture, particularly the momentum cross sections and other related values."""
- *     print('init')             # <<<<<<<<<<<<<<
- *     cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow,rGas1
+  /* "Pygrad/Mixers.pyx":19
  *     cdef int iEnergy, GasIndex, iProcess, p, Sum, J, i, j, iIonization, JJ, IL, I
- */
-  if (__Pyx_PrintOne(0, __pyx_n_s_init) < 0) __PYX_ERR(0, 16, __pyx_L1_error)
-
-  /* "Pygrad/Mixers.pyx":21
  *     cdef Gas gasData
- * 
+ *     print("mixer beginning")             # <<<<<<<<<<<<<<
+ *     ElectronCharge = 1.60217656e-19
+ *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_mixer_beginning) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
+
+  /* "Pygrad/Mixers.pyx":20
+ *     cdef Gas gasData
+ *     print("mixer beginning")
  *     ElectronCharge = 1.60217656e-19             # <<<<<<<<<<<<<<
  *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
  *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
  */
   __pyx_v_ElectronCharge = 1.60217656e-19;
 
-  /* "Pygrad/Mixers.pyx":22
- * 
+  /* "Pygrad/Mixers.pyx":21
+ *     print("mixer beginning")
  *     ElectronCharge = 1.60217656e-19
  *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,             # <<<<<<<<<<<<<<
  *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
  *     object.GasMix.Run()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_InitWithInfo); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_InitWithInfo); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_carray_to_py_int(__pyx_v_object->GasIDs, 6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_carray_to_py_int(__pyx_v_object->GasIDs, 6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_object->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_object->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
 
-  /* "Pygrad/Mixers.pyx":23
+  /* "Pygrad/Mixers.pyx":22
  *     ElectronCharge = 1.60217656e-19
  *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
  *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)             # <<<<<<<<<<<<<<
  *     object.GasMix.Run()
  *     ang = Ang()
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_object->E, 0x4E20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_object->E, 0x4E20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_object->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_object->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->NumberOfGases); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->NumberOfGases); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Which_Angular_Model); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Which_Angular_Model); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = PyFloat_FromDouble(__pyx_v_object->ElectronEnergyStep); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_12 = PyFloat_FromDouble(__pyx_v_object->ElectronEnergyStep); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_13 = PyFloat_FromDouble(__pyx_v_object->Max_Electron_Energy); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_13 = PyFloat_FromDouble(__pyx_v_object->Max_Electron_Energy); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = PyFloat_FromDouble(__pyx_v_object->ThermalEnergy); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_14 = PyFloat_FromDouble(__pyx_v_object->ThermalEnergy); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_object->TemperatureCentigrade); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_object->TemperatureCentigrade); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_16 = PyFloat_FromDouble(__pyx_v_object->Pressure_Torr); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_16 = PyFloat_FromDouble(__pyx_v_object->Pressure_Torr); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_17 = PyFloat_FromDouble(__pyx_v_object->PIR2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_17 = PyFloat_FromDouble(__pyx_v_object->PIR2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_18 = PyFloat_FromDouble(__pyx_v_object->RhydbergConst); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_18 = PyFloat_FromDouble(__pyx_v_object->RhydbergConst); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __pyx_t_19 = NULL;
   __pyx_t_20 = 0;
@@ -2702,7 +2704,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2726,7 +2728,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
     PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -2748,7 +2750,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   } else
   #endif
   {
-    __pyx_t_21 = PyTuple_New(16+__pyx_t_20); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_21 = PyTuple_New(16+__pyx_t_20); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_21);
     if (__pyx_t_19) {
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_19); __pyx_t_19 = NULL;
@@ -2801,23 +2803,23 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     __pyx_t_16 = 0;
     __pyx_t_17 = 0;
     __pyx_t_18 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":24
+  /* "Pygrad/Mixers.pyx":23
  *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
  *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
  *     object.GasMix.Run()             # <<<<<<<<<<<<<<
  *     ang = Ang()
- *     for iEnergy in range(20000):
+ *     print('before for loop')
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Run); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Run); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -2832,26 +2834,35 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_21);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":25
+  /* "Pygrad/Mixers.pyx":24
  *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
  *     object.GasMix.Run()
  *     ang = Ang()             # <<<<<<<<<<<<<<
+ *     print('before for loop')
  *     for iEnergy in range(20000):
- *         object.IonCollisionFreq[iEnergy] = 0.0
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ang = ((struct __pyx_obj_6Pygrad_3Ang_Ang *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":26
+  /* "Pygrad/Mixers.pyx":25
  *     object.GasMix.Run()
  *     ang = Ang()
+ *     print('before for loop')             # <<<<<<<<<<<<<<
+ *     for iEnergy in range(20000):
+ *         object.IonCollisionFreq[iEnergy] = 0.0
+ */
+  if (__Pyx_PrintOne(0, __pyx_kp_s_before_for_loop) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+
+  /* "Pygrad/Mixers.pyx":26
+ *     ang = Ang()
+ *     print('before for loop')
  *     for iEnergy in range(20000):             # <<<<<<<<<<<<<<
  *         object.IonCollisionFreq[iEnergy] = 0.0
  *         object.AttCollisionFreq[iEnergy] = 0.0
@@ -2860,7 +2871,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     __pyx_v_iEnergy = __pyx_t_20;
 
     /* "Pygrad/Mixers.pyx":27
- *     ang = Ang()
+ *     print('before for loop')
  *     for iEnergy in range(20000):
  *         object.IonCollisionFreq[iEnergy] = 0.0             # <<<<<<<<<<<<<<
  *         object.AttCollisionFreq[iEnergy] = 0.0
@@ -4742,7 +4753,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  * @cython.nonecheck(False)
  * cpdef Mixer(Pygrad object):             # <<<<<<<<<<<<<<
  *     """Loads the initial gas values for the mixture, particularly the momentum cross sections and other related values."""
- *     print('init')
+ *     cdef double AttachmentCrossSection[6][4000], ElectronCharge, JHI, JLOW, EnergyHigh, F2, BP, EnergyLow,rGas1
  */
 
   /* function exit code */
@@ -18480,6 +18491,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_WhichAngularModel, __pyx_k_WhichAngularModel, sizeof(__pyx_k_WhichAngularModel), 0, 0, 1, 1},
   {&__pyx_n_s_Which_Angular_Model, __pyx_k_Which_Angular_Model, sizeof(__pyx_k_Which_Angular_Model), 0, 0, 1, 1},
   {&__pyx_n_s_avpfrac, __pyx_k_avpfrac, sizeof(__pyx_k_avpfrac), 0, 0, 1, 1},
+  {&__pyx_kp_s_before_for_loop, __pyx_k_before_for_loop, sizeof(__pyx_k_before_for_loop), 0, 0, 1, 0},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_cminexsc, __pyx_k_cminexsc, sizeof(__pyx_k_cminexsc), 0, 0, 1, 1},
   {&__pyx_n_s_cminixsc, __pyx_k_cminixsc, sizeof(__pyx_k_cminixsc), 0, 0, 1, 1},
@@ -18500,11 +18512,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ieshell, __pyx_k_ieshell, sizeof(__pyx_k_ieshell), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
-  {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
   {&__pyx_n_s_ipn, __pyx_k_ipn, sizeof(__pyx_k_ipn), 0, 0, 1, 1},
   {&__pyx_n_s_izbr, __pyx_k_izbr, sizeof(__pyx_k_izbr), 0, 0, 1, 1},
   {&__pyx_n_s_legas, __pyx_k_legas, sizeof(__pyx_k_legas), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_kp_s_mixer_beginning, __pyx_k_mixer_beginning, sizeof(__pyx_k_mixer_beginning), 0, 0, 1, 0},
   {&__pyx_n_s_nProcess, __pyx_k_nProcess, sizeof(__pyx_k_nProcess), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_nc0, __pyx_k_nc0, sizeof(__pyx_k_nc0), 0, 0, 1, 1},
