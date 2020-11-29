@@ -154,7 +154,9 @@ cdef class Pygrad:
         double RelativeIonMinusAttachCrossSection[20000]
         double InelasticCrossSection[20000]
         double ElasticCrossSection[20000]
-        
+
+        int N_Inelastic[6]
+        double PenningFraction[3][512]
         int numExcitationsPerGas[6]
 
         double MoleculesPerCm3PerGas[6]

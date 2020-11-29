@@ -1285,6 +1285,8 @@ struct __pyx_obj_6Pygrad_6Pygrad_Pygrad {
   double RelativeIonMinusAttachCrossSection[0x4E20];
   double InelasticCrossSection[0x4E20];
   double ElasticCrossSection[0x4E20];
+  int N_Inelastic[6];
+  double PenningFraction[3][0x200];
   int numExcitationsPerGas[6];
   double MoleculesPerCm3PerGas[6];
   double VMoleculesPerCm3PerGas[6];

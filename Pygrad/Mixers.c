@@ -1287,6 +1287,8 @@ struct __pyx_obj_6Pygrad_6Pygrad_Pygrad {
   double RelativeIonMinusAttachCrossSection[0x4E20];
   double InelasticCrossSection[0x4E20];
   double ElasticCrossSection[0x4E20];
+  int N_Inelastic[6];
+  double PenningFraction[3][0x200];
   int numExcitationsPerGas[6];
   double MoleculesPerCm3PerGas[6];
   double VMoleculesPerCm3PerGas[6];
@@ -2050,6 +2052,8 @@ static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x4E20_5d_(double 
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0x4E20_5d_(double (*)[0x4E20], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(double (*)[0xFA][0x4E20], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA_5d__5b_0x4E20_5d_(double (*)[0xFA][0x4E20], Py_ssize_t); /*proto*/
+static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x200_5d_(double (*)[0x200], Py_ssize_t); /*proto*/
+static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0x200_5d_(double (*)[0x200], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0xFA0_5d_(double (*)[0xFA0], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA0_5d_(double (*)[0xFA0], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x122_5d_(double (*)[0x122], Py_ssize_t); /*proto*/
@@ -2433,10 +2437,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   PY_LONG_LONG __pyx_t_23;
   PY_LONG_LONG __pyx_t_24;
   int __pyx_t_25;
-  int __pyx_t_26;
+  Py_ssize_t __pyx_t_26;
   int __pyx_t_27;
   int __pyx_t_28;
   int __pyx_t_29;
+  int __pyx_t_30;
   __Pyx_RefNannySetupContext("Mixer", 0);
 
   /* "Pygrad/Mixers.pyx":19
@@ -2470,9 +2475,9 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_object->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_carray_to_py_int(__pyx_v_object->N_Inelastic, 6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_carray_to_py_double___5b_0x200_5d_(__pyx_v_object->PenningFraction, 3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_object->E, 0x4E20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
@@ -3150,16 +3155,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        ((__pyx_v_object->PenningFraction[0])[__pyx_t_26]) = 0.0;
 
         /* "Pygrad/Mixers.pyx":56
  *                 object.izbr[nProcess - 1] = 0
@@ -3168,16 +3168,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 56, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        ((__pyx_v_object->PenningFraction[1])[__pyx_t_26]) = 0.0;
 
         /* "Pygrad/Mixers.pyx":57
  *                 object.PenningFraction[0][nProcess - 1] = 0.0
@@ -3186,16 +3181,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  *                 object.avpfrac[1][nProcess - 1] = 0.0
  */
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        ((__pyx_v_object->PenningFraction[2])[__pyx_t_26]) = 0.0;
 
         /* "Pygrad/Mixers.pyx":58
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
@@ -3453,8 +3443,8 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
           __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_26 = __pyx_v_iEnergy;
-          __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_t_26, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_27 = __pyx_v_iEnergy;
+          __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_t_27, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
           __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
@@ -3471,7 +3461,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
           __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_t_26, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_t_27, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
@@ -3856,16 +3846,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.PenningFraction[nProcess - 1][1] = 0.0
  *                         object.PenningFraction[nProcess - 1][2] = 0.0
  */
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_17); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 101, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            ((__pyx_v_object->PenningFraction[__pyx_t_26])[0]) = 0.0;
 
             /* "Pygrad/Mixers.pyx":102
  *                         object.izbr[nProcess - 1] = 0
@@ -3874,16 +3859,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.PenningFraction[nProcess - 1][2] = 0.0
  *                 else:
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_17); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 102, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            ((__pyx_v_object->PenningFraction[__pyx_t_26])[1]) = 0.0;
 
             /* "Pygrad/Mixers.pyx":103
  *                         object.PenningFraction[nProcess - 1][0] = 0.0
@@ -3892,16 +3872,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                 else:
  *                     for kion in range(gasData.N_Ionization):
  */
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 103, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 103, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_17); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            ((__pyx_v_object->PenningFraction[__pyx_t_26])[2]) = 0.0;
 
             /* "Pygrad/Mixers.pyx":94
  *                         object.AngularModel[nProcess - 1] = 1
@@ -3930,10 +3905,10 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.GasExcitationSlots[idg] = nProcess
  */
         /*else*/ {
-          __pyx_t_26 = __pyx_v_gasData.N_Ionization;
-          __pyx_t_27 = __pyx_t_26;
-          for (__pyx_t_28 = 0; __pyx_t_28 < __pyx_t_27; __pyx_t_28+=1) {
-            __pyx_v_kion = __pyx_t_28;
+          __pyx_t_27 = __pyx_v_gasData.N_Ionization;
+          __pyx_t_28 = __pyx_t_27;
+          for (__pyx_t_29 = 0; __pyx_t_29 < __pyx_t_28; __pyx_t_29+=1) {
+            __pyx_v_kion = __pyx_t_29;
 
             /* "Pygrad/Mixers.pyx":106
  *                 else:
@@ -3942,10 +3917,10 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.GasExcitationSlots[idg] = nProcess
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-            __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_1);
-            __pyx_t_1 = 0;
+            __pyx_t_17 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 106, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_17);
+            __pyx_t_17 = 0;
 
             /* "Pygrad/Mixers.pyx":107
  *                     for kion in range(gasData.N_Ionization):
@@ -3954,10 +3929,10 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 107, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_17, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
             /* "Pygrad/Mixers.pyx":108
  *                         nProcess += 1
@@ -3966,26 +3941,26 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  */
-            __pyx_t_1 = PyFloat_FromDouble(((((__pyx_v_gasData.IonizationCrossSection[__pyx_v_kion])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_17 = PyFloat_FromDouble(((((__pyx_v_gasData.IonizationCrossSection[__pyx_v_kion])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
             __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_2);
-            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 108, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_21);
             __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_17);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_1);
             __Pyx_GIVEREF(__pyx_t_21);
             PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_21);
-            __pyx_t_17 = 0;
+            __pyx_t_1 = 0;
             __pyx_t_21 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_18, __pyx_t_1) < 0)) __PYX_ERR(0, 108, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_18, __pyx_t_17) < 0)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
             /* "Pygrad/Mixers.pyx":109
  *                         object.GasExcitationSlots[idg] = nProcess
@@ -3994,36 +3969,36 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_29 = __pyx_v_iEnergy;
-            __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_1, __pyx_t_29, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_30 = __pyx_v_iEnergy;
+            __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_17, __pyx_t_30, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
             __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
             __Pyx_GIVEREF(__pyx_t_21);
             PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_21);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_17);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_1);
             __pyx_t_21 = 0;
-            __pyx_t_17 = 0;
-            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = 0;
+            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_16); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_t_16 = PyNumber_InPlaceAdd(__pyx_t_18, __pyx_t_17); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __pyx_t_16 = PyNumber_InPlaceAdd(__pyx_t_18, __pyx_t_1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_t_29, __pyx_t_16, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_17, __pyx_t_30, __pyx_t_16, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
             /* "Pygrad/Mixers.pyx":110
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
@@ -4032,22 +4007,22 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  *                         object.AngularModel[nProcess - 1] = 0
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_17);
             __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 110, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
             __Pyx_GIVEREF(__pyx_t_16);
             PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_17);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_1);
             __pyx_t_16 = 0;
-            __pyx_t_17 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_18, __pyx_float_0_5) < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+            __pyx_t_1 = 0;
+            if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_18, __pyx_float_0_5) < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
             /* "Pygrad/Mixers.pyx":111
@@ -4059,18 +4034,18 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_1);
-            PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_1);
             __Pyx_GIVEREF(__pyx_t_17);
-            PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_17);
-            __pyx_t_1 = 0;
+            PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_17);
+            __Pyx_GIVEREF(__pyx_t_1);
+            PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_1);
             __pyx_t_17 = 0;
+            __pyx_t_1 = 0;
             if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_float_1_0) < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -4135,13 +4110,13 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 115, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 115, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
@@ -4154,18 +4129,18 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = NULL;
+              __pyx_t_1 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
-                __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_16);
-                if (likely(__pyx_t_17)) {
+                __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_16);
+                if (likely(__pyx_t_1)) {
                   PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_16);
-                  __Pyx_INCREF(__pyx_t_17);
+                  __Pyx_INCREF(__pyx_t_1);
                   __Pyx_INCREF(function);
                   __Pyx_DECREF_SET(__pyx_t_16, function);
                 }
               }
-              __pyx_t_18 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_16);
-              __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __pyx_t_18 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_16);
+              __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
               if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 116, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
@@ -4182,13 +4157,13 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               __Pyx_GOTREF(__pyx_t_18);
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 117, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
@@ -4203,13 +4178,13 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               __Pyx_GOTREF(__pyx_t_18);
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 118, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 118, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 118, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 118, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
@@ -4267,13 +4242,13 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 121, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
@@ -4312,11 +4287,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
             __Pyx_GOTREF(__pyx_t_16);
             __pyx_t_18 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 123, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 123, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_17);
+            __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-            __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+            __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
             /* "Pygrad/Mixers.pyx":124
  *                             object.AngularModel[nProcess - 1] = 2
@@ -4335,16 +4310,16 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
  *                             object.ipn[nProcess - 1] = 1
  */
-              __pyx_t_17 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 125, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_t_17) < 0)) __PYX_ERR(0, 125, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_t_1) < 0)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
               /* "Pygrad/Mixers.pyx":126
  *                         if iEnergy <= 1:
@@ -4353,16 +4328,16 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                             object.ipn[nProcess - 1] = 1
  *                             L = 2
  */
-              __pyx_t_17 = PyFloat_FromDouble(((__pyx_v_gasData.IonizationEnergy[__pyx_v_kion]) / __pyx_v_rGas1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 126, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = PyFloat_FromDouble(((__pyx_v_gasData.IonizationEnergy[__pyx_v_kion]) / __pyx_v_rGas1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ein); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_t_17) < 0)) __PYX_ERR(0, 126, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_t_1) < 0)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
               /* "Pygrad/Mixers.pyx":127
  *                             object.rGas[nProcess - 1] = rGas1
@@ -4371,12 +4346,12 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                             L = 2
  *                             object.InteractionType[nProcess - 1] = L
  */
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 127, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 127, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_18, __pyx_int_1) < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_18, __pyx_int_1) < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
               /* "Pygrad/Mixers.pyx":128
@@ -4397,12 +4372,12 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
               __pyx_t_18 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 129, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_1);
               __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
@@ -4428,16 +4403,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                             object.PenningFraction[nProcess - 1][1] = 0.0
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  */
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 131, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 131, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 131, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_16); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              ((__pyx_v_object->PenningFraction[__pyx_t_26])[0]) = 0.0;
 
               /* "Pygrad/Mixers.pyx":132
  *                             object.izbr[nProcess - 1] = 0
@@ -4446,16 +4416,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
  */
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 132, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 132, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_18); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_16, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 132, __pyx_L1_error)
+              __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_16); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+              ((__pyx_v_object->PenningFraction[__pyx_t_26])[1]) = 0.0;
 
               /* "Pygrad/Mixers.pyx":133
  *                             object.PenningFraction[nProcess - 1][0] = 0.0
@@ -4464,16 +4429,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  */
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 133, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 133, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 133, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
+              __pyx_t_26 = __Pyx_PyIndex_AsSsize_t(__pyx_t_16); if (unlikely((__pyx_t_26 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              ((__pyx_v_object->PenningFraction[__pyx_t_26])[2]) = 0.0;
 
               /* "Pygrad/Mixers.pyx":124
  *                             object.AngularModel[nProcess - 1] = 2
@@ -4503,20 +4463,20 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  * 
  */
-      __pyx_t_17 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 134, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
+      __pyx_t_16 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_16);
       __pyx_t_18 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
-      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 134, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
-      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_t_17, __pyx_t_18, __pyx_v_nProcess, __pyx_t_16, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __pyx_t_17 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __pyx_t_2 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_t_16, __pyx_t_18, __pyx_v_nProcess, __pyx_t_1, __pyx_t_17, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-      __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+      __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "Pygrad/Mixers.pyx":135
@@ -4528,19 +4488,19 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
       __pyx_t_2 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_17);
+      __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_16);
       __pyx_t_18 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
-      __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_t_2, __pyx_t_1, __pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 135, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_17);
+      __pyx_t_16 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_t_2, __pyx_t_17, __pyx_v_nProcess, __pyx_t_1, __pyx_t_18, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_16);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+      __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
     }
   }
 
@@ -11325,6 +11285,219 @@ static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA_5d__5b_0x4
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_AddTraceback("carray.to_py.__Pyx_carray_to_tuple_double___5b_0xFA_5d__5b_0x4E20_5d_", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_value);
+  __Pyx_XDECREF(__pyx_v_t);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "carray.to_py":112
+ * 
+ * @cname("__Pyx_carray_to_py_double___5b_0x200_5d_")
+ * cdef inline list __Pyx_carray_to_py_double___5b_0x200_5d_(base_type *v, Py_ssize_t length):             # <<<<<<<<<<<<<<
+ *     cdef size_t i
+ *     cdef object value
+ */
+
+static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x200_5d_(double (*__pyx_v_v)[0x200], Py_ssize_t __pyx_v_length) {
+  size_t __pyx_v_i;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_v_l = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  size_t __pyx_t_2;
+  size_t __pyx_t_3;
+  size_t __pyx_t_4;
+  __Pyx_RefNannySetupContext("__Pyx_carray_to_py_double___5b_0x200_5d_", 0);
+
+  /* "carray.to_py":115
+ *     cdef size_t i
+ *     cdef object value
+ *     l = PyList_New(length)             # <<<<<<<<<<<<<<
+ *     for i in range(<size_t>length):
+ *         value = v[i]
+ */
+  __pyx_t_1 = PyList_New(__pyx_v_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 115, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_l = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "carray.to_py":116
+ *     cdef object value
+ *     l = PyList_New(length)
+ *     for i in range(<size_t>length):             # <<<<<<<<<<<<<<
+ *         value = v[i]
+ *         Py_INCREF(value)
+ */
+  __pyx_t_2 = ((size_t)__pyx_v_length);
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "carray.to_py":117
+ *     l = PyList_New(length)
+ *     for i in range(<size_t>length):
+ *         value = v[i]             # <<<<<<<<<<<<<<
+ *         Py_INCREF(value)
+ *         PyList_SET_ITEM(l, i, value)
+ */
+    __pyx_t_1 = __Pyx_carray_to_py_double((__pyx_v_v[__pyx_v_i]), 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 117, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "carray.to_py":118
+ *     for i in range(<size_t>length):
+ *         value = v[i]
+ *         Py_INCREF(value)             # <<<<<<<<<<<<<<
+ *         PyList_SET_ITEM(l, i, value)
+ *     return l
+ */
+    Py_INCREF(__pyx_v_value);
+
+    /* "carray.to_py":119
+ *         value = v[i]
+ *         Py_INCREF(value)
+ *         PyList_SET_ITEM(l, i, value)             # <<<<<<<<<<<<<<
+ *     return l
+ * 
+ */
+    PyList_SET_ITEM(__pyx_v_l, __pyx_v_i, __pyx_v_value);
+  }
+
+  /* "carray.to_py":120
+ *         Py_INCREF(value)
+ *         PyList_SET_ITEM(l, i, value)
+ *     return l             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_l);
+  __pyx_r = __pyx_v_l;
+  goto __pyx_L0;
+
+  /* "carray.to_py":112
+ * 
+ * @cname("__Pyx_carray_to_py_double___5b_0x200_5d_")
+ * cdef inline list __Pyx_carray_to_py_double___5b_0x200_5d_(base_type *v, Py_ssize_t length):             # <<<<<<<<<<<<<<
+ *     cdef size_t i
+ *     cdef object value
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("carray.to_py.__Pyx_carray_to_py_double___5b_0x200_5d_", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_value);
+  __Pyx_XDECREF(__pyx_v_l);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "carray.to_py":124
+ * 
+ * @cname("__Pyx_carray_to_tuple_double___5b_0x200_5d_")
+ * cdef inline tuple __Pyx_carray_to_tuple_double___5b_0x200_5d_(base_type *v, Py_ssize_t length):             # <<<<<<<<<<<<<<
+ *     cdef size_t i
+ *     cdef object value
+ */
+
+static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0x200_5d_(double (*__pyx_v_v)[0x200], Py_ssize_t __pyx_v_length) {
+  size_t __pyx_v_i;
+  PyObject *__pyx_v_value = 0;
+  PyObject *__pyx_v_t = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  size_t __pyx_t_2;
+  size_t __pyx_t_3;
+  size_t __pyx_t_4;
+  __Pyx_RefNannySetupContext("__Pyx_carray_to_tuple_double___5b_0x200_5d_", 0);
+
+  /* "carray.to_py":127
+ *     cdef size_t i
+ *     cdef object value
+ *     t = PyTuple_New(length)             # <<<<<<<<<<<<<<
+ *     for i in range(<size_t>length):
+ *         value = v[i]
+ */
+  __pyx_t_1 = PyTuple_New(__pyx_v_length); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_t = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "carray.to_py":128
+ *     cdef object value
+ *     t = PyTuple_New(length)
+ *     for i in range(<size_t>length):             # <<<<<<<<<<<<<<
+ *         value = v[i]
+ *         Py_INCREF(value)
+ */
+  __pyx_t_2 = ((size_t)__pyx_v_length);
+  __pyx_t_3 = __pyx_t_2;
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "carray.to_py":129
+ *     t = PyTuple_New(length)
+ *     for i in range(<size_t>length):
+ *         value = v[i]             # <<<<<<<<<<<<<<
+ *         Py_INCREF(value)
+ *         PyTuple_SET_ITEM(t, i, value)
+ */
+    __pyx_t_1 = __Pyx_carray_to_py_double((__pyx_v_v[__pyx_v_i]), 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 129, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_1);
+    __pyx_t_1 = 0;
+
+    /* "carray.to_py":130
+ *     for i in range(<size_t>length):
+ *         value = v[i]
+ *         Py_INCREF(value)             # <<<<<<<<<<<<<<
+ *         PyTuple_SET_ITEM(t, i, value)
+ *     return t
+ */
+    Py_INCREF(__pyx_v_value);
+
+    /* "carray.to_py":131
+ *         value = v[i]
+ *         Py_INCREF(value)
+ *         PyTuple_SET_ITEM(t, i, value)             # <<<<<<<<<<<<<<
+ *     return t
+ */
+    PyTuple_SET_ITEM(__pyx_v_t, __pyx_v_i, __pyx_v_value);
+  }
+
+  /* "carray.to_py":132
+ *         Py_INCREF(value)
+ *         PyTuple_SET_ITEM(t, i, value)
+ *     return t             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_t);
+  __pyx_r = __pyx_v_t;
+  goto __pyx_L0;
+
+  /* "carray.to_py":124
+ * 
+ * @cname("__Pyx_carray_to_tuple_double___5b_0x200_5d_")
+ * cdef inline tuple __Pyx_carray_to_tuple_double___5b_0x200_5d_(base_type *v, Py_ssize_t length):             # <<<<<<<<<<<<<<
+ *     cdef size_t i
+ *     cdef object value
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("carray.to_py.__Pyx_carray_to_tuple_double___5b_0x200_5d_", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_value);
