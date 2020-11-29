@@ -11,6 +11,7 @@ class TestMixer(unittest.TestCase):
         def function(fname):
             print('init')
             obj = utils.createObject(self.mixerTestPath,fname)
+            print(obj.MixObject)
             Mixers.Mixer(obj)
             return [obj.ElasticCrossSection,obj.CrossSectionSum,obj.AttachmentSectionSum,obj.TotalCrossSection,obj.RelativeIonMinusAttachCrossSection,obj.InelasticCrossSection,obj.ElasticCrossSection]
         utils.checkFortranTests(self.mixerTestPath, function,"01",3)

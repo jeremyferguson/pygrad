@@ -1549,6 +1549,14 @@ static int __Pyx_SetItemInt_Generic(PyObject *o, PyObject *j, PyObject *v);
 static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObject *v,
                                                int is_list, int wraparound, int boundscheck);
 
+/* PyIntBinop.proto */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
+#else
+#define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace, zerodivision_check)\
+    (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
+#endif
+
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
     (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
@@ -1570,14 +1578,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
-
-/* PyIntBinop.proto */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
-#else
-#define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace, zerodivision_check)\
-    (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
-#endif
 
 /* PyIntBinop.proto */
 #if !CYTHON_COMPILING_IN_PYPY
@@ -1794,9 +1794,6 @@ static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject 
 #else
 static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
 #endif
-
-/* IncludeStringH.proto */
-#include <string.h>
 
 /* TypeImport.proto */
 #ifndef __PYX_HAVE_RT_ImportType_proto
@@ -2053,10 +2050,6 @@ static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x4E20_5d_(double 
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0x4E20_5d_(double (*)[0x4E20], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(double (*)[0xFA][0x4E20], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA_5d__5b_0x4E20_5d_(double (*)[0xFA][0x4E20], Py_ssize_t); /*proto*/
-static int __Pyx_carray_from_py_double(PyObject *, double *, Py_ssize_t); /*proto*/
-static int __Pyx_carray_from_py_double___5b_0xFA0_5d_(PyObject *, double (*)[0xFA0], Py_ssize_t); /*proto*/
-static int __Pyx_carray_from_py_double___5b_0x122_5d_(PyObject *, double (*)[0x122], Py_ssize_t); /*proto*/
-static __pyx_t_8PyGasMix_3Gas_Gas __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(PyObject *); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0xFA0_5d_(double (*)[0xFA0], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA0_5d_(double (*)[0xFA0], Py_ssize_t); /*proto*/
 static CYTHON_INLINE PyObject *__Pyx_carray_to_py_double___5b_0x122_5d_(double (*)[0x122], Py_ssize_t); /*proto*/
@@ -2071,11 +2064,6 @@ static PyObject *__pyx_builtin_object;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
-static PyObject *__pyx_builtin_TypeError;
-static PyObject *__pyx_builtin_OverflowError;
-static PyObject *__pyx_builtin_enumerate;
-static PyObject *__pyx_builtin_IndexError;
-static PyObject *__pyx_builtin_KeyError;
 static const char __pyx_k_E[] = "E";
 static const char __pyx_k_Q[] = "Q";
 static const char __pyx_k_EG[] = "EG";
@@ -2130,7 +2118,6 @@ static const char __pyx_k_sqrt[] = "sqrt";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_tmax[] = "tmax";
 static const char __pyx_k_wklm[] = "wklm";
-static const char __pyx_k_Gases[] = "Gases";
 static const char __pyx_k_index[] = "index";
 static const char __pyx_k_legas[] = "legas";
 static const char __pyx_k_negas[] = "negas";
@@ -2143,7 +2130,6 @@ static const char __pyx_k_CONST1[] = "CONST1";
 static const char __pyx_k_CONST3[] = "CONST3";
 static const char __pyx_k_DOUBLE[] = "DOUBLE";
 static const char __pyx_k_EField[] = "EField";
-static const char __pyx_k_GasMix[] = "GasMix";
 static const char __pyx_k_N_Null[] = "N_Null";
 static const char __pyx_k_Tcfmax[] = "Tcfmax";
 static const char __pyx_k_ecloss[] = "ecloss";
@@ -2155,19 +2141,15 @@ static const char __pyx_k_gasData[] = "gasData";
 static const char __pyx_k_iEnergy[] = "iEnergy";
 static const char __pyx_k_ieshell[] = "ieshell";
 static const char __pyx_k_AngleCut[] = "AngleCut";
-static const char __pyx_k_KeyError[] = "KeyError";
 static const char __pyx_k_Pressure[] = "Pressure";
 static const char __pyx_k_cminexsc[] = "cminexsc";
 static const char __pyx_k_cminixsc[] = "cminixsc";
 static const char __pyx_k_nProcess[] = "nProcess";
 static const char __pyx_k_GasNumber[] = "GasNumber";
 static const char __pyx_k_ScaleNull[] = "ScaleNull";
-static const char __pyx_k_TypeError[] = "TypeError";
-static const char __pyx_k_enumerate[] = "enumerate";
 static const char __pyx_k_AngularCut[] = "AngularCut";
 static const char __pyx_k_CalcAngCut[] = "CalcAngCut";
 static const char __pyx_k_EnergyStep[] = "EnergyStep";
-static const char __pyx_k_IndexError[] = "IndexError";
 static const char __pyx_k_SqrtEnergy[] = "SqrtEnergy";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
@@ -2185,7 +2167,6 @@ static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_TemperatureC[] = "TemperatureC";
 static const char __pyx_k_EnablePenning[] = "EnablePenning";
 static const char __pyx_k_NumberOfGases[] = "NumberOfGases";
-static const char __pyx_k_OverflowError[] = "OverflowError";
 static const char __pyx_k_RhydbergConst[] = "RhydbergConst";
 static const char __pyx_k_ThermalEnergy[] = "ThermalEnergy";
 static const char __pyx_k_InteractionType[] = "InteractionType";
@@ -2226,61 +2207,10 @@ static const char __pyx_k_PEInelasticCrossSectionPerGas[] = "PEInelasticCrossSec
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
-static const char __pyx_k_No_value_specified_for_struct_at[] = "No value specified for struct attribute 'GasNumber'";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static const char __pyx_k_No_value_specified_for_struct_at_2[] = "No value specified for struct attribute 'N_Inelastic'";
-static const char __pyx_k_No_value_specified_for_struct_at_3[] = "No value specified for struct attribute 'EnergySteps'";
-static const char __pyx_k_No_value_specified_for_struct_at_4[] = "No value specified for struct attribute 'WhichAngularModel'";
-static const char __pyx_k_No_value_specified_for_struct_at_5[] = "No value specified for struct attribute 'N_Attachment'";
-static const char __pyx_k_No_value_specified_for_struct_at_6[] = "No value specified for struct attribute 'N_Null'";
-static const char __pyx_k_No_value_specified_for_struct_at_7[] = "No value specified for struct attribute 'N_Ionization'";
-static const char __pyx_k_No_value_specified_for_struct_at_8[] = "No value specified for struct attribute 'EnablePenning'";
-static const char __pyx_k_No_value_specified_for_struct_at_9[] = "No value specified for struct attribute 'NumberOfGases'";
-static const char __pyx_k_No_value_specified_for_struct_at_10[] = "No value specified for struct attribute 'Pressure'";
-static const char __pyx_k_No_value_specified_for_struct_at_11[] = "No value specified for struct attribute 'TemperatureC'";
-static const char __pyx_k_No_value_specified_for_struct_at_12[] = "No value specified for struct attribute 'RhydbergConst'";
-static const char __pyx_k_No_value_specified_for_struct_at_13[] = "No value specified for struct attribute 'EnergyStep'";
-static const char __pyx_k_No_value_specified_for_struct_at_14[] = "No value specified for struct attribute 'ThermalEnergy'";
-static const char __pyx_k_No_value_specified_for_struct_at_15[] = "No value specified for struct attribute 'FinalEnergy'";
-static const char __pyx_k_No_value_specified_for_struct_at_16[] = "No value specified for struct attribute 'DENS'";
-static const char __pyx_k_No_value_specified_for_struct_at_17[] = "No value specified for struct attribute 'PIR2'";
-static const char __pyx_k_No_value_specified_for_struct_at_18[] = "No value specified for struct attribute 'Q'";
-static const char __pyx_k_No_value_specified_for_struct_at_19[] = "No value specified for struct attribute 'InelasticCrossSectionPerGas'";
-static const char __pyx_k_No_value_specified_for_struct_at_20[] = "No value specified for struct attribute 'E'";
-static const char __pyx_k_No_value_specified_for_struct_at_21[] = "No value specified for struct attribute 'EnergyLevels'";
-static const char __pyx_k_No_value_specified_for_struct_at_22[] = "No value specified for struct attribute 'KIN'";
-static const char __pyx_k_No_value_specified_for_struct_at_23[] = "No value specified for struct attribute 'IonizationCrossSection'";
-static const char __pyx_k_No_value_specified_for_struct_at_24[] = "No value specified for struct attribute 'PEIonizationCrossSection'";
-static const char __pyx_k_No_value_specified_for_struct_at_25[] = "No value specified for struct attribute 'IonizationEnergy'";
-static const char __pyx_k_No_value_specified_for_struct_at_26[] = "No value specified for struct attribute 'PEElasticCrossSection'";
-static const char __pyx_k_No_value_specified_for_struct_at_27[] = "No value specified for struct attribute 'PEInelasticCrossSectionPerGas'";
-static const char __pyx_k_No_value_specified_for_struct_at_28[] = "No value specified for struct attribute 'AngularModel'";
-static const char __pyx_k_No_value_specified_for_struct_at_29[] = "No value specified for struct attribute 'PenningFraction'";
-static const char __pyx_k_No_value_specified_for_struct_at_30[] = "No value specified for struct attribute 'NC0'";
-static const char __pyx_k_No_value_specified_for_struct_at_31[] = "No value specified for struct attribute 'EC0'";
-static const char __pyx_k_No_value_specified_for_struct_at_32[] = "No value specified for struct attribute 'WK'";
-static const char __pyx_k_No_value_specified_for_struct_at_33[] = "No value specified for struct attribute 'EFL'";
-static const char __pyx_k_No_value_specified_for_struct_at_34[] = "No value specified for struct attribute 'NG1'";
-static const char __pyx_k_No_value_specified_for_struct_at_35[] = "No value specified for struct attribute 'EG1'";
-static const char __pyx_k_No_value_specified_for_struct_at_36[] = "No value specified for struct attribute 'NG2'";
-static const char __pyx_k_No_value_specified_for_struct_at_37[] = "No value specified for struct attribute 'EG2'";
-static const char __pyx_k_No_value_specified_for_struct_at_38[] = "No value specified for struct attribute 'AttachmentCrossSection'";
-static const char __pyx_k_No_value_specified_for_struct_at_39[] = "No value specified for struct attribute 'NullCrossSection'";
-static const char __pyx_k_No_value_specified_for_struct_at_40[] = "No value specified for struct attribute 'ScaleNull'";
-static const char __pyx_k_No_value_specified_for_struct_at_41[] = "No value specified for struct attribute 'EG'";
-static const char __pyx_k_No_value_specified_for_struct_at_42[] = "No value specified for struct attribute 'SqrtEnergy'";
-static const char __pyx_k_No_value_specified_for_struct_at_43[] = "No value specified for struct attribute 'QT1'";
-static const char __pyx_k_No_value_specified_for_struct_at_44[] = "No value specified for struct attribute 'QT2'";
-static const char __pyx_k_No_value_specified_for_struct_at_45[] = "No value specified for struct attribute 'QT3'";
-static const char __pyx_k_No_value_specified_for_struct_at_46[] = "No value specified for struct attribute 'QT4'";
-static const char __pyx_k_No_value_specified_for_struct_at_47[] = "No value specified for struct attribute 'DEN'";
-static const char __pyx_k_No_value_specified_for_struct_at_48[] = "No value specified for struct attribute 'EMT'";
-static const char __pyx_k_No_value_specified_for_struct_at_49[] = "No value specified for struct attribute 'ET'";
-static const char __pyx_k_No_value_specified_for_struct_at_50[] = "No value specified for struct attribute 'EAT'";
-static const char __pyx_k_No_value_specified_for_struct_at_51[] = "No value specified for struct attribute 'EOBY'";
 static PyObject *__pyx_n_s_AngCut;
 static PyObject *__pyx_n_s_AngleCut;
 static PyObject *__pyx_n_s_AngularCut;
@@ -2321,11 +2251,8 @@ static PyObject *__pyx_n_s_FinalEnergy;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_GasExcitationSlots;
-static PyObject *__pyx_n_s_GasMix;
 static PyObject *__pyx_n_s_GasNumber;
-static PyObject *__pyx_n_s_Gases;
 static PyObject *__pyx_n_s_ImportError;
-static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_n_s_InelasticCrossSection;
 static PyObject *__pyx_n_s_InelasticCrossSectionPerGas;
 static PyObject *__pyx_n_s_InitWithInfo;
@@ -2335,7 +2262,6 @@ static PyObject *__pyx_n_s_IonizationCrossSection;
 static PyObject *__pyx_n_s_IonizationEnergy;
 static PyObject *__pyx_n_s_Ipn;
 static PyObject *__pyx_n_s_KIN;
-static PyObject *__pyx_n_s_KeyError;
 static PyObject *__pyx_n_s_MoleculesPerCm3PerGas;
 static PyObject *__pyx_n_s_NC0;
 static PyObject *__pyx_n_s_NG1;
@@ -2344,61 +2270,9 @@ static PyObject *__pyx_n_s_N_Attachment;
 static PyObject *__pyx_n_s_N_Inelastic;
 static PyObject *__pyx_n_s_N_Ionization;
 static PyObject *__pyx_n_s_N_Null;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_10;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_11;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_12;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_13;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_14;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_15;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_16;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_17;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_18;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_19;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_2;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_20;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_21;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_22;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_23;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_24;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_25;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_26;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_27;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_28;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_29;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_3;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_30;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_31;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_32;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_33;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_34;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_35;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_36;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_37;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_38;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_39;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_4;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_40;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_41;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_42;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_43;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_44;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_45;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_46;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_47;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_48;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_49;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_5;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_50;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_51;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_6;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_7;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_8;
-static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_9;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_NullCrossSection;
 static PyObject *__pyx_n_s_NumberOfGases;
-static PyObject *__pyx_n_s_OverflowError;
 static PyObject *__pyx_n_s_PEElasticCrossSection;
 static PyObject *__pyx_n_s_PEInelasticCrossSection;
 static PyObject *__pyx_n_s_PEInelasticCrossSectionPerGas;
@@ -2425,7 +2299,6 @@ static PyObject *__pyx_n_s_TemperatureC;
 static PyObject *__pyx_n_s_ThermalEnergy;
 static PyObject *__pyx_n_s_TotalCollisionFrequency;
 static PyObject *__pyx_n_s_TotalCrossSection;
-static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_VMoleculesPerCm3PerGas;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_WK;
@@ -2445,7 +2318,6 @@ static PyObject *__pyx_n_s_eg1;
 static PyObject *__pyx_n_s_eg2;
 static PyObject *__pyx_n_s_ein;
 static PyObject *__pyx_n_s_end;
-static PyObject *__pyx_n_s_enumerate;
 static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_gIndex;
 static PyObject *__pyx_n_s_gasData;
@@ -2511,57 +2383,6 @@ static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
-static PyObject *__pyx_tuple__8;
-static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_tuple__10;
-static PyObject *__pyx_tuple__11;
-static PyObject *__pyx_tuple__12;
-static PyObject *__pyx_tuple__13;
-static PyObject *__pyx_tuple__14;
-static PyObject *__pyx_tuple__15;
-static PyObject *__pyx_tuple__16;
-static PyObject *__pyx_tuple__17;
-static PyObject *__pyx_tuple__18;
-static PyObject *__pyx_tuple__19;
-static PyObject *__pyx_tuple__20;
-static PyObject *__pyx_tuple__21;
-static PyObject *__pyx_tuple__22;
-static PyObject *__pyx_tuple__23;
-static PyObject *__pyx_tuple__24;
-static PyObject *__pyx_tuple__25;
-static PyObject *__pyx_tuple__26;
-static PyObject *__pyx_tuple__27;
-static PyObject *__pyx_tuple__28;
-static PyObject *__pyx_tuple__29;
-static PyObject *__pyx_tuple__30;
-static PyObject *__pyx_tuple__31;
-static PyObject *__pyx_tuple__32;
-static PyObject *__pyx_tuple__33;
-static PyObject *__pyx_tuple__34;
-static PyObject *__pyx_tuple__35;
-static PyObject *__pyx_tuple__36;
-static PyObject *__pyx_tuple__37;
-static PyObject *__pyx_tuple__38;
-static PyObject *__pyx_tuple__39;
-static PyObject *__pyx_tuple__40;
-static PyObject *__pyx_tuple__41;
-static PyObject *__pyx_tuple__42;
-static PyObject *__pyx_tuple__43;
-static PyObject *__pyx_tuple__44;
-static PyObject *__pyx_tuple__45;
-static PyObject *__pyx_tuple__46;
-static PyObject *__pyx_tuple__47;
-static PyObject *__pyx_tuple__48;
-static PyObject *__pyx_tuple__49;
-static PyObject *__pyx_tuple__50;
-static PyObject *__pyx_tuple__51;
-static PyObject *__pyx_tuple__52;
-static PyObject *__pyx_tuple__53;
-static PyObject *__pyx_tuple__54;
-static PyObject *__pyx_tuple__55;
-static PyObject *__pyx_tuple__56;
-static PyObject *__pyx_tuple__57;
-static PyObject *__pyx_tuple__58;
 /* Late includes */
 
 /* "Pygrad/Mixers.pyx":14
@@ -2611,12 +2432,11 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   PY_LONG_LONG __pyx_t_22;
   PY_LONG_LONG __pyx_t_23;
   PY_LONG_LONG __pyx_t_24;
-  __pyx_t_8PyGasMix_3Gas_Gas __pyx_t_25;
+  int __pyx_t_25;
   int __pyx_t_26;
   int __pyx_t_27;
   int __pyx_t_28;
   int __pyx_t_29;
-  int __pyx_t_30;
   __Pyx_RefNannySetupContext("Mixer", 0);
 
   /* "Pygrad/Mixers.pyx":19
@@ -2624,7 +2444,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *     cdef Gas gasData
  *     print("mixer beginning")             # <<<<<<<<<<<<<<
  *     ElectronCharge = 1.60217656e-19
- *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
+ *     object.MixObject.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
  */
   if (__Pyx_PrintOne(0, __pyx_kp_s_mixer_beginning) < 0) __PYX_ERR(0, 19, __pyx_L1_error)
 
@@ -2632,82 +2452,71 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *     cdef Gas gasData
  *     print("mixer beginning")
  *     ElectronCharge = 1.60217656e-19             # <<<<<<<<<<<<<<
- *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
- *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
+ *     object.MixObject.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
+ *     object.MixObject.Run()
  */
   __pyx_v_ElectronCharge = 1.60217656e-19;
 
   /* "Pygrad/Mixers.pyx":21
  *     print("mixer beginning")
  *     ElectronCharge = 1.60217656e-19
- *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,             # <<<<<<<<<<<<<<
- *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
- *     object.GasMix.Run()
+ *     object.MixObject.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)             # <<<<<<<<<<<<<<
+ *     object.MixObject.Run()
+ *     ang = Ang()
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object->MixObject), __pyx_n_s_InitWithInfo); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_InitWithInfo); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_carray_to_py_int(__pyx_v_object->GasIDs, 6); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_carray_to_py_int(__pyx_v_object->GasIDs, 6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_object->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-
-  /* "Pygrad/Mixers.pyx":22
- *     ElectronCharge = 1.60217656e-19
- *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
- *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)             # <<<<<<<<<<<<<<
- *     object.GasMix.Run()
- *     ang = Ang()
- */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_object->E, 0x4E20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_carray_to_py_double(__pyx_v_object->E, 0x4E20); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_object->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_carray_to_py_double(__pyx_v_object->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_9 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->NumberOfGases); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->NumberOfGases); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
-  __pyx_t_10 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_object->EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Which_Angular_Model); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Which_Angular_Model); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_12 = PyFloat_FromDouble(__pyx_v_object->ElectronEnergyStep); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_12 = PyFloat_FromDouble(__pyx_v_object->ElectronEnergyStep); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
-  __pyx_t_13 = PyFloat_FromDouble(__pyx_v_object->Max_Electron_Energy); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_13 = PyFloat_FromDouble(__pyx_v_object->Max_Electron_Energy); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_13);
-  __pyx_t_14 = PyFloat_FromDouble(__pyx_v_object->ThermalEnergy); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_14 = PyFloat_FromDouble(__pyx_v_object->ThermalEnergy); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_14);
-  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_object->TemperatureCentigrade); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_15 = PyFloat_FromDouble(__pyx_v_object->TemperatureCentigrade); if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_15);
-  __pyx_t_16 = PyFloat_FromDouble(__pyx_v_object->Pressure_Torr); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_16 = PyFloat_FromDouble(__pyx_v_object->Pressure_Torr); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_16);
-  __pyx_t_17 = PyFloat_FromDouble(__pyx_v_object->PIR2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_17 = PyFloat_FromDouble(__pyx_v_object->PIR2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_18 = PyFloat_FromDouble(__pyx_v_object->RhydbergConst); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_18 = PyFloat_FromDouble(__pyx_v_object->RhydbergConst); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_18);
   __pyx_t_19 = NULL;
   __pyx_t_20 = 0;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_3);
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_19 = PyMethod_GET_SELF(__pyx_t_2);
     if (likely(__pyx_t_19)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
       __Pyx_INCREF(__pyx_t_19);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
       __pyx_t_20 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_3)) {
-    PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
-    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (PyFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_3, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+    __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2726,12 +2535,12 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_3)) {
-    PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_2, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
-    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_3, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
+    PyObject *__pyx_temp[17] = {__pyx_t_19, __pyx_t_3, __pyx_t_4, __pyx_t_5, __pyx_t_6, __pyx_t_7, __pyx_t_8, __pyx_t_9, __pyx_t_10, __pyx_t_11, __pyx_t_12, __pyx_t_13, __pyx_t_14, __pyx_t_15, __pyx_t_16, __pyx_t_17, __pyx_t_18};
+    __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_20, 16+__pyx_t_20); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_19); __pyx_t_19 = 0;
     __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -2755,8 +2564,8 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     if (__pyx_t_19) {
       __Pyx_GIVEREF(__pyx_t_19); PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_19); __pyx_t_19 = NULL;
     }
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_20, __pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_21, 0+__pyx_t_20, __pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_21, 1+__pyx_t_20, __pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_5);
@@ -2787,7 +2596,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     PyTuple_SET_ITEM(__pyx_t_21, 14+__pyx_t_20, __pyx_t_17);
     __Pyx_GIVEREF(__pyx_t_18);
     PyTuple_SET_ITEM(__pyx_t_21, 15+__pyx_t_20, __pyx_t_18);
-    __pyx_t_2 = 0;
+    __pyx_t_3 = 0;
     __pyx_t_4 = 0;
     __pyx_t_5 = 0;
     __pyx_t_6 = 0;
@@ -2803,64 +2612,61 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     __pyx_t_16 = 0;
     __pyx_t_17 = 0;
     __pyx_t_18 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_21, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":23
- *     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
- *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
- *     object.GasMix.Run()             # <<<<<<<<<<<<<<
+  /* "Pygrad/Mixers.pyx":22
+ *     ElectronCharge = 1.60217656e-19
+ *     object.MixObject.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
+ *     object.MixObject.Run()             # <<<<<<<<<<<<<<
  *     ang = Ang()
  *     print('before for loop')
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_Run); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 23, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_21);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_21))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_21);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object->MixObject), __pyx_n_s_Run); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_21 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_21)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_21);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_21, function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_21);
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
+  __pyx_t_1 = (__pyx_t_21) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_21) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":24
- *             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
- *     object.GasMix.Run()
+  /* "Pygrad/Mixers.pyx":23
+ *     object.MixObject.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
+ *     object.MixObject.Run()
  *     ang = Ang()             # <<<<<<<<<<<<<<
  *     print('before for loop')
  *     for iEnergy in range(20000):
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_ang = ((struct __pyx_obj_6Pygrad_3Ang_Ang *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":25
- *     object.GasMix.Run()
+  /* "Pygrad/Mixers.pyx":24
+ *     object.MixObject.Run()
  *     ang = Ang()
  *     print('before for loop')             # <<<<<<<<<<<<<<
  *     for iEnergy in range(20000):
  *         object.IonCollisionFreq[iEnergy] = 0.0
  */
-  if (__Pyx_PrintOne(0, __pyx_kp_s_before_for_loop) < 0) __PYX_ERR(0, 25, __pyx_L1_error)
+  if (__Pyx_PrintOne(0, __pyx_kp_s_before_for_loop) < 0) __PYX_ERR(0, 24, __pyx_L1_error)
 
-  /* "Pygrad/Mixers.pyx":26
+  /* "Pygrad/Mixers.pyx":25
  *     ang = Ang()
  *     print('before for loop')
  *     for iEnergy in range(20000):             # <<<<<<<<<<<<<<
@@ -2870,45 +2676,45 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
   for (__pyx_t_20 = 0; __pyx_t_20 < 0x4E20; __pyx_t_20+=1) {
     __pyx_v_iEnergy = __pyx_t_20;
 
-    /* "Pygrad/Mixers.pyx":27
+    /* "Pygrad/Mixers.pyx":26
  *     print('before for loop')
  *     for iEnergy in range(20000):
  *         object.IonCollisionFreq[iEnergy] = 0.0             # <<<<<<<<<<<<<<
  *         object.AttCollisionFreq[iEnergy] = 0.0
  *         nProcess = 1
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_iEnergy, __pyx_float_0_0, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 27, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_iEnergy, __pyx_float_0_0, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 26, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "Pygrad/Mixers.pyx":28
+    /* "Pygrad/Mixers.pyx":27
  *     for iEnergy in range(20000):
  *         object.IonCollisionFreq[iEnergy] = 0.0
  *         object.AttCollisionFreq[iEnergy] = 0.0             # <<<<<<<<<<<<<<
  *         nProcess = 1
  *         for idg in range(object.NumberOfGases):
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_iEnergy, __pyx_float_0_0, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 28, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_iEnergy, __pyx_float_0_0, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 27, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "Pygrad/Mixers.pyx":29
+    /* "Pygrad/Mixers.pyx":28
  *         object.IonCollisionFreq[iEnergy] = 0.0
  *         object.AttCollisionFreq[iEnergy] = 0.0
  *         nProcess = 1             # <<<<<<<<<<<<<<
  *         for idg in range(object.NumberOfGases):
- *             gasData = object.GasMix.Gases[idg]
+ *             gasData = object.MixObject.Gases[idg]
  */
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_XDECREF_SET(__pyx_v_nProcess, __pyx_int_1);
 
-    /* "Pygrad/Mixers.pyx":30
+    /* "Pygrad/Mixers.pyx":29
  *         object.AttCollisionFreq[iEnergy] = 0.0
  *         nProcess = 1
  *         for idg in range(object.NumberOfGases):             # <<<<<<<<<<<<<<
- *             gasData = object.GasMix.Gases[idg]
+ *             gasData = object.MixObject.Gases[idg]
  *             object.GasExcitationSlots[idg] = 1
  */
     __pyx_t_22 = __pyx_v_object->NumberOfGases;
@@ -2916,171 +2722,161 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
     for (__pyx_t_24 = 0; __pyx_t_24 < __pyx_t_23; __pyx_t_24+=1) {
       __pyx_v_idg = __pyx_t_24;
 
-      /* "Pygrad/Mixers.pyx":31
+      /* "Pygrad/Mixers.pyx":30
  *         nProcess = 1
  *         for idg in range(object.NumberOfGases):
- *             gasData = object.GasMix.Gases[idg]             # <<<<<<<<<<<<<<
+ *             gasData = object.MixObject.Gases[idg]             # <<<<<<<<<<<<<<
  *             object.GasExcitationSlots[idg] = 1
  *             object.negas[nProcess - 1] = 1
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasMix); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_Gases); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 31, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_idg, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_25 = __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_v_gasData = __pyx_t_25;
+      __pyx_v_gasData = (__pyx_v_object->MixObject->Gases[__pyx_v_idg]);
 
-      /* "Pygrad/Mixers.pyx":32
+      /* "Pygrad/Mixers.pyx":31
  *         for idg in range(object.NumberOfGases):
- *             gasData = object.GasMix.Gases[idg]
+ *             gasData = object.MixObject.Gases[idg]
  *             object.GasExcitationSlots[idg] = 1             # <<<<<<<<<<<<<<
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_idg, __pyx_int_1, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 32, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_idg, __pyx_int_1, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 31, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":33
- *             gasData = object.GasMix.Gases[idg]
+      /* "Pygrad/Mixers.pyx":32
+ *             gasData = object.MixObject.Gases[idg]
  *             object.GasExcitationSlots[idg] = 1
  *             object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 32, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 33, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_1) < 0)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_1) < 0)) __PYX_ERR(0, 32, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "Pygrad/Mixers.pyx":34
+      /* "Pygrad/Mixers.pyx":33
  *             object.GasExcitationSlots[idg] = 1
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *             object.ieshell[nProcess - 1] = 0
  *             object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_legas); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 34, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_legas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 33, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 34, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 33, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":35
+      /* "Pygrad/Mixers.pyx":34
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *             object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 35, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_0) < 0)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 34, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 34, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "Pygrad/Mixers.pyx":36
+      /* "Pygrad/Mixers.pyx":35
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0
  *             object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0
  */
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Q); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_idg, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_idg, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_21 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_object->Beta[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_21, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = PyFloat_FromDouble((__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_collisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_21); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 35, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 35, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = PyFloat_FromDouble((__pyx_v_object->Beta[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_3, __pyx_t_21); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_collisionFrequency); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_3);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-      __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":37
+      /* "Pygrad/Mixers.pyx":36
  *             object.ieshell[nProcess - 1] = 0
  *             object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5             # <<<<<<<<<<<<<<
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0
  *             if gasData.AngularModel[1] == 1:
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 37, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 36, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":38
+      /* "Pygrad/Mixers.pyx":37
  *             object.collisionFrequency[iEnergy][nProcess - 1] = object.Q[idg][1][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *             if gasData.AngularModel[1] == 1:
  *                 ang.ScatteringParameter1 = gasData.PEElasticCrossSection[1][iEnergy]
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 38, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 38, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_float_0_0) < 0)) __PYX_ERR(0, 38, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_float_0_0) < 0)) __PYX_ERR(0, 37, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":39
+      /* "Pygrad/Mixers.pyx":38
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0
  *             if gasData.AngularModel[1] == 1:             # <<<<<<<<<<<<<<
  *                 ang.ScatteringParameter1 = gasData.PEElasticCrossSection[1][iEnergy]
  *                 ang.CalcAngCut()
  */
-      __pyx_t_26 = (((__pyx_v_gasData.AngularModel[1]) == 1.0) != 0);
-      if (__pyx_t_26) {
+      __pyx_t_25 = (((__pyx_v_gasData.AngularModel[1]) == 1.0) != 0);
+      if (__pyx_t_25) {
 
-        /* "Pygrad/Mixers.pyx":40
+        /* "Pygrad/Mixers.pyx":39
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0
  *             if gasData.AngularModel[1] == 1:
  *                 ang.ScatteringParameter1 = gasData.PEElasticCrossSection[1][iEnergy]             # <<<<<<<<<<<<<<
@@ -3089,90 +2885,90 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
         __pyx_v_ang->ScatteringParameter1 = ((__pyx_v_gasData.PEElasticCrossSection[1])[__pyx_v_iEnergy]);
 
-        /* "Pygrad/Mixers.pyx":41
+        /* "Pygrad/Mixers.pyx":40
  *             if gasData.AngularModel[1] == 1:
  *                 ang.ScatteringParameter1 = gasData.PEElasticCrossSection[1][iEnergy]
  *                 ang.CalcAngCut()             # <<<<<<<<<<<<<<
  *                 object.AngularCut[iEnergy][nProcess - 1] = ang.AngCut
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 41, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_3 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_21))) {
-          __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_21);
-          if (likely(__pyx_t_3)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
-            __Pyx_INCREF(__pyx_t_3);
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 40, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_21 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+          __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_2);
+          if (likely(__pyx_t_21)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+            __Pyx_INCREF(__pyx_t_21);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_21, function);
+            __Pyx_DECREF_SET(__pyx_t_2, function);
           }
         }
-        __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_21);
-        __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __pyx_t_1 = (__pyx_t_21) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_21) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+        __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+        if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":42
+        /* "Pygrad/Mixers.pyx":41
  *                 ang.ScatteringParameter1 = gasData.PEElasticCrossSection[1][iEnergy]
  *                 ang.CalcAngCut()
  *                 object.AngularCut[iEnergy][nProcess - 1] = ang.AngCut             # <<<<<<<<<<<<<<
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2
  *                 object.AngularModel[nProcess - 1] = 1
  */
-        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_ang->AngCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_ang->AngCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 41, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularCut); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularCut); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 41, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 42, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 41, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 41, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 42, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":43
+        /* "Pygrad/Mixers.pyx":42
  *                 ang.CalcAngCut()
  *                 object.AngularCut[iEnergy][nProcess - 1] = ang.AngCut
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2             # <<<<<<<<<<<<<<
  *                 object.AngularModel[nProcess - 1] = 1
  *             elif gasData.AngularModel[1] == 2:
  */
-        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_ang->ScatteringParameter2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
+        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_ang->ScatteringParameter2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 43, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":44
+        /* "Pygrad/Mixers.pyx":43
  *                 object.AngularCut[iEnergy][nProcess - 1] = ang.AngCut
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2
  *                 object.AngularModel[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *             elif gasData.AngularModel[1] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 44, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_1) < 0)) __PYX_ERR(0, 44, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 43, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_1) < 0)) __PYX_ERR(0, 43, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":39
+        /* "Pygrad/Mixers.pyx":38
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngularCut[iEnergy][nProcess - 1] = 0.0
  *             if gasData.AngularModel[1] == 1:             # <<<<<<<<<<<<<<
@@ -3182,53 +2978,53 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
         goto __pyx_L7;
       }
 
-      /* "Pygrad/Mixers.pyx":45
+      /* "Pygrad/Mixers.pyx":44
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2
  *                 object.AngularModel[nProcess - 1] = 1
  *             elif gasData.AngularModel[1] == 2:             # <<<<<<<<<<<<<<
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  */
-      __pyx_t_26 = (((__pyx_v_gasData.AngularModel[1]) == 2.0) != 0);
-      if (__pyx_t_26) {
+      __pyx_t_25 = (((__pyx_v_gasData.AngularModel[1]) == 2.0) != 0);
+      if (__pyx_t_25) {
 
-        /* "Pygrad/Mixers.pyx":46
+        /* "Pygrad/Mixers.pyx":45
  *                 object.AngularModel[nProcess - 1] = 1
  *             elif gasData.AngularModel[1] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]             # <<<<<<<<<<<<<<
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:
  */
-        __pyx_t_21 = PyFloat_FromDouble(((__pyx_v_gasData.PEElasticCrossSection[1])[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 46, __pyx_L1_error)
+        __pyx_t_2 = PyFloat_FromDouble(((__pyx_v_gasData.PEElasticCrossSection[1])[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 46, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_t_21) < 0)) __PYX_ERR(0, 46, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_t_2) < 0)) __PYX_ERR(0, 45, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":47
+        /* "Pygrad/Mixers.pyx":46
  *             elif gasData.AngularModel[1] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2             # <<<<<<<<<<<<<<
  *             if iEnergy <= 1:
  *                 rGas1 = 1.0 + gasData.E[1]/2.0
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 47, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 47, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_2) < 0)) __PYX_ERR(0, 47, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_int_2) < 0)) __PYX_ERR(0, 46, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":45
+        /* "Pygrad/Mixers.pyx":44
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = ang.ScatteringParameter2
  *                 object.AngularModel[nProcess - 1] = 1
  *             elif gasData.AngularModel[1] == 2:             # <<<<<<<<<<<<<<
@@ -3238,17 +3034,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
       }
       __pyx_L7:;
 
-      /* "Pygrad/Mixers.pyx":48
+      /* "Pygrad/Mixers.pyx":47
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
  *                 rGas1 = 1.0 + gasData.E[1]/2.0
  *                 object.rGas[nProcess - 1] = rGas1
  */
-      __pyx_t_26 = ((__pyx_v_iEnergy <= 1) != 0);
-      if (__pyx_t_26) {
+      __pyx_t_25 = ((__pyx_v_iEnergy <= 1) != 0);
+      if (__pyx_t_25) {
 
-        /* "Pygrad/Mixers.pyx":49
+        /* "Pygrad/Mixers.pyx":48
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:
  *                 rGas1 = 1.0 + gasData.E[1]/2.0             # <<<<<<<<<<<<<<
@@ -3257,55 +3053,55 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
         __pyx_v_rGas1 = (1.0 + ((__pyx_v_gasData.E[1]) / 2.0));
 
-        /* "Pygrad/Mixers.pyx":50
+        /* "Pygrad/Mixers.pyx":49
  *             if iEnergy <= 1:
  *                 rGas1 = 1.0 + gasData.E[1]/2.0
  *                 object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                 object.Ein[nProcess - 1] = 0.0
  *                 object.Ipn[nProcess - 1] = 0
  */
-        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+        __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 50, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 49, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 50, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 49, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":51
+        /* "Pygrad/Mixers.pyx":50
  *                 rGas1 = 1.0 + gasData.E[1]/2.0
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.Ein[nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.Ipn[nProcess - 1] = 0
  *                 L = 1
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Ein); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Ein); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_float_0_0) < 0)) __PYX_ERR(0, 51, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 50, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 50, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-        /* "Pygrad/Mixers.pyx":52
+        /* "Pygrad/Mixers.pyx":51
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.Ein[nProcess - 1] = 0.0
  *                 object.Ipn[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 L = 1
  *                 object.InteractionType[nProcess - 1] = L
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Ipn); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 52, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_Ipn); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 51, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_21);
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 52, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 51, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":53
+        /* "Pygrad/Mixers.pyx":52
  *                 object.Ein[nProcess - 1] = 0.0
  *                 object.Ipn[nProcess - 1] = 0
  *                 L = 1             # <<<<<<<<<<<<<<
@@ -3314,208 +3110,208 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
         __pyx_v_L = 1;
 
-        /* "Pygrad/Mixers.pyx":54
+        /* "Pygrad/Mixers.pyx":53
  *                 object.Ipn[nProcess - 1] = 0
  *                 L = 1
  *                 object.InteractionType[nProcess - 1] = L             # <<<<<<<<<<<<<<
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[0][nProcess - 1] = 0.0
  */
-        __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 53, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 53, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 53, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":55
+        /* "Pygrad/Mixers.pyx":54
  *                 L = 1
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[0][nProcess - 1] = 0.0
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 55, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_0) < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 54, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":56
+        /* "Pygrad/Mixers.pyx":55
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[0][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 56, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 56, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 56, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 55, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":57
+        /* "Pygrad/Mixers.pyx":56
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[0][nProcess - 1] = 0.0
  *                 object.PenningFraction[1][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 57, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 57, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 56, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 56, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":58
+        /* "Pygrad/Mixers.pyx":57
  *                 object.PenningFraction[0][nProcess - 1] = 0.0
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
  *                 object.PenningFraction[2][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  *                 object.avpfrac[1][nProcess - 1] = 0.0
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 58, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 58, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 57, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 57, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":59
+        /* "Pygrad/Mixers.pyx":58
  *                 object.PenningFraction[1][nProcess - 1] = 0.0
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  *                 object.avpfrac[0][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.avpfrac[1][nProcess - 1] = 0.0
  *                 object.avpfrac[2][nProcess - 1] = 0.0
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 59, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 59, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 58, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":60
+        /* "Pygrad/Mixers.pyx":59
  *                 object.PenningFraction[2][nProcess - 1] = 0.0
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  *                 object.avpfrac[1][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.avpfrac[2][nProcess - 1] = 0.0
  *                 object.cminexsc[0] = gasData.E[3] * object.MoleculesPerCm3PerGas[idg]
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 60, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 60, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 59, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 59, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":61
+        /* "Pygrad/Mixers.pyx":60
  *                 object.avpfrac[0][nProcess - 1] = 0.0
  *                 object.avpfrac[1][nProcess - 1] = 0.0
  *                 object.avpfrac[2][nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.cminexsc[0] = gasData.E[3] * object.MoleculesPerCm3PerGas[idg]
  *                 object.cminixsc[0] = gasData.E[4] * object.MoleculesPerCm3PerGas[idg]
  */
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 61, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 61, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_float_0_0) < 0)) __PYX_ERR(0, 61, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 60, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_float_0_0) < 0)) __PYX_ERR(0, 60, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":62
+        /* "Pygrad/Mixers.pyx":61
  *                 object.avpfrac[1][nProcess - 1] = 0.0
  *                 object.avpfrac[2][nProcess - 1] = 0.0
  *                 object.cminexsc[0] = gasData.E[3] * object.MoleculesPerCm3PerGas[idg]             # <<<<<<<<<<<<<<
  *                 object.cminixsc[0] = gasData.E[4] * object.MoleculesPerCm3PerGas[idg]
  *                 object.ecloss[0] = gasData.E[2]
  */
-        __pyx_t_21 = PyFloat_FromDouble(((__pyx_v_gasData.E[3]) * (__pyx_v_object->MoleculesPerCm3PerGas[__pyx_v_idg]))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 62, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_cminexsc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __pyx_t_2 = PyFloat_FromDouble(((__pyx_v_gasData.E[3]) * (__pyx_v_object->MoleculesPerCm3PerGas[__pyx_v_idg]))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_cminexsc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_21, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 61, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":63
+        /* "Pygrad/Mixers.pyx":62
  *                 object.avpfrac[2][nProcess - 1] = 0.0
  *                 object.cminexsc[0] = gasData.E[3] * object.MoleculesPerCm3PerGas[idg]
  *                 object.cminixsc[0] = gasData.E[4] * object.MoleculesPerCm3PerGas[idg]             # <<<<<<<<<<<<<<
  *                 object.ecloss[0] = gasData.E[2]
  *                 object.WPLN[0] = gasData.E[5]
  */
-        __pyx_t_21 = PyFloat_FromDouble(((__pyx_v_gasData.E[4]) * (__pyx_v_object->MoleculesPerCm3PerGas[__pyx_v_idg]))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 63, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_cminixsc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __pyx_t_2 = PyFloat_FromDouble(((__pyx_v_gasData.E[4]) * (__pyx_v_object->MoleculesPerCm3PerGas[__pyx_v_idg]))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_cminixsc); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_21, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 63, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 62, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":64
+        /* "Pygrad/Mixers.pyx":63
  *                 object.cminexsc[0] = gasData.E[3] * object.MoleculesPerCm3PerGas[idg]
  *                 object.cminixsc[0] = gasData.E[4] * object.MoleculesPerCm3PerGas[idg]
  *                 object.ecloss[0] = gasData.E[2]             # <<<<<<<<<<<<<<
  *                 object.WPLN[0] = gasData.E[5]
  *             if object.FinalElectronEnergy >= gasData.E[2]:
  */
-        __pyx_t_21 = PyFloat_FromDouble((__pyx_v_gasData.E[2])); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 64, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ecloss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
+        __pyx_t_2 = PyFloat_FromDouble((__pyx_v_gasData.E[2])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ecloss); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_21, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 63, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":65
+        /* "Pygrad/Mixers.pyx":64
  *                 object.cminixsc[0] = gasData.E[4] * object.MoleculesPerCm3PerGas[idg]
  *                 object.ecloss[0] = gasData.E[2]
  *                 object.WPLN[0] = gasData.E[5]             # <<<<<<<<<<<<<<
  *             if object.FinalElectronEnergy >= gasData.E[2]:
  *                 if gasData.N_Ionization <= 1:
  */
-        __pyx_t_21 = PyFloat_FromDouble((__pyx_v_gasData.E[5])); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 65, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_WPLN); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+        __pyx_t_2 = PyFloat_FromDouble((__pyx_v_gasData.E[5])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 64, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_WPLN); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_21, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 65, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_t_2, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 64, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-        /* "Pygrad/Mixers.pyx":48
+        /* "Pygrad/Mixers.pyx":47
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEElasticCrossSection[1][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
@@ -3524,61 +3320,61 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
       }
 
-      /* "Pygrad/Mixers.pyx":66
+      /* "Pygrad/Mixers.pyx":65
  *                 object.ecloss[0] = gasData.E[2]
  *                 object.WPLN[0] = gasData.E[5]
  *             if object.FinalElectronEnergy >= gasData.E[2]:             # <<<<<<<<<<<<<<
  *                 if gasData.N_Ionization <= 1:
  *                     nProcess += 1
  */
-      __pyx_t_26 = ((__pyx_v_object->FinalElectronEnergy >= (__pyx_v_gasData.E[2])) != 0);
-      if (__pyx_t_26) {
+      __pyx_t_25 = ((__pyx_v_object->FinalElectronEnergy >= (__pyx_v_gasData.E[2])) != 0);
+      if (__pyx_t_25) {
 
-        /* "Pygrad/Mixers.pyx":67
+        /* "Pygrad/Mixers.pyx":66
  *                 object.WPLN[0] = gasData.E[5]
  *             if object.FinalElectronEnergy >= gasData.E[2]:
  *                 if gasData.N_Ionization <= 1:             # <<<<<<<<<<<<<<
  *                     nProcess += 1
  *                     object.GasExcitationSlots[idg] = nProcess
  */
-        __pyx_t_26 = ((__pyx_v_gasData.N_Ionization <= 1) != 0);
-        if (__pyx_t_26) {
+        __pyx_t_25 = ((__pyx_v_gasData.N_Ionization <= 1) != 0);
+        if (__pyx_t_25) {
 
-          /* "Pygrad/Mixers.pyx":68
+          /* "Pygrad/Mixers.pyx":67
  *             if object.FinalElectronEnergy >= gasData.E[2]:
  *                 if gasData.N_Ionization <= 1:
  *                     nProcess += 1             # <<<<<<<<<<<<<<
  *                     object.GasExcitationSlots[idg] = nProcess
  *                     if object.icount == 1:
  */
-          __pyx_t_21 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 68, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_21);
-          __pyx_t_21 = 0;
+          __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 67, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_2);
+          __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":69
+          /* "Pygrad/Mixers.pyx":68
  *                 if gasData.N_Ionization <= 1:
  *                     nProcess += 1
  *                     object.GasExcitationSlots[idg] = nProcess             # <<<<<<<<<<<<<<
  *                     if object.icount == 1:
  *                         QIndex = 4
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 69, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_21, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 69, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 68, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":70
+          /* "Pygrad/Mixers.pyx":69
  *                     nProcess += 1
  *                     object.GasExcitationSlots[idg] = nProcess
  *                     if object.icount == 1:             # <<<<<<<<<<<<<<
  *                         QIndex = 4
  *                         object.DOUBLE[0][iEnergy] = gasData.Q[2][iEnergy] / gasData.Q[4][iEnergy] - 1.0
  */
-          __pyx_t_26 = ((__pyx_v_object->icount == 1) != 0);
-          if (__pyx_t_26) {
+          __pyx_t_25 = ((__pyx_v_object->icount == 1) != 0);
+          if (__pyx_t_25) {
 
-            /* "Pygrad/Mixers.pyx":71
+            /* "Pygrad/Mixers.pyx":70
  *                     object.GasExcitationSlots[idg] = nProcess
  *                     if object.icount == 1:
  *                         QIndex = 4             # <<<<<<<<<<<<<<
@@ -3587,25 +3383,25 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             __pyx_v_QIndex = 4;
 
-            /* "Pygrad/Mixers.pyx":72
+            /* "Pygrad/Mixers.pyx":71
  *                     if object.icount == 1:
  *                         QIndex = 4
  *                         object.DOUBLE[0][iEnergy] = gasData.Q[2][iEnergy] / gasData.Q[4][iEnergy] - 1.0             # <<<<<<<<<<<<<<
  *                     else:
  *                         QIndex = 2
  */
-            __pyx_t_21 = PyFloat_FromDouble(((((__pyx_v_gasData.Q[2])[__pyx_v_iEnergy]) / ((__pyx_v_gasData.Q[4])[__pyx_v_iEnergy])) - 1.0)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 72, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_DOUBLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+            __pyx_t_2 = PyFloat_FromDouble(((((__pyx_v_gasData.Q[2])[__pyx_v_iEnergy]) / ((__pyx_v_gasData.Q[4])[__pyx_v_iEnergy])) - 1.0)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_DOUBLE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 72, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_3);
+            __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 71, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_21);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_3, __pyx_v_iEnergy, __pyx_t_21, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 72, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_21, __pyx_v_iEnergy, __pyx_t_2, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 71, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "Pygrad/Mixers.pyx":70
+            /* "Pygrad/Mixers.pyx":69
  *                     nProcess += 1
  *                     object.GasExcitationSlots[idg] = nProcess
  *                     if object.icount == 1:             # <<<<<<<<<<<<<<
@@ -3615,7 +3411,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
             goto __pyx_L11;
           }
 
-          /* "Pygrad/Mixers.pyx":74
+          /* "Pygrad/Mixers.pyx":73
  *                         object.DOUBLE[0][iEnergy] = gasData.Q[2][iEnergy] / gasData.Q[4][iEnergy] - 1.0
  *                     else:
  *                         QIndex = 2             # <<<<<<<<<<<<<<
@@ -3627,165 +3423,165 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
           }
           __pyx_L11:;
 
-          /* "Pygrad/Mixers.pyx":75
+          /* "Pygrad/Mixers.pyx":74
  *                     else:
  *                         QIndex = 2
  *                     object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[QIndex][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *                     object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                     object.negas[nProcess - 1] = 1
  */
-          __pyx_t_21 = PyFloat_FromDouble(((((__pyx_v_gasData.Q[__pyx_v_QIndex])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_2 = PyFloat_FromDouble(((((__pyx_v_gasData.Q[__pyx_v_QIndex])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 74, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 74, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_3, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 75, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_21) < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 74, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_21);
+          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_t_2) < 0)) __PYX_ERR(0, 74, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":76
+          /* "Pygrad/Mixers.pyx":75
  *                         QIndex = 2
  *                     object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[QIndex][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                     object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]             # <<<<<<<<<<<<<<
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_26 = __pyx_v_iEnergy;
+          __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_2, __pyx_t_26, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_27 = __pyx_v_iEnergy;
-          __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_21, __pyx_t_27, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_18);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_18, __pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_18, __pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_17);
           __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_3, __pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_t_21, __pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_21, __pyx_t_27, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_t_26, __pyx_t_1, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":77
+          /* "Pygrad/Mixers.pyx":76
  *                     object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[QIndex][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                     object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                     object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 77, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_1) < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_int_1) < 0)) __PYX_ERR(0, 76, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":78
+          /* "Pygrad/Mixers.pyx":77
  *                     object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_legas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_legas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 78, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_0) < 0)) __PYX_ERR(0, 78, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":79
+          /* "Pygrad/Mixers.pyx":78
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ieshell); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 79, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ieshell); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 78, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 79, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 78, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":80
+          /* "Pygrad/Mixers.pyx":79
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5             # <<<<<<<<<<<<<<
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                     object.AngularModel[nProcess - 1] = 0
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 80, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
+          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 80, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 79, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":81
+          /* "Pygrad/Mixers.pyx":80
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0             # <<<<<<<<<<<<<<
  *                     object.AngularModel[nProcess - 1] = 0
  *                     if object.icount == 1:
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 81, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
+          __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_float_1_0) < 0)) __PYX_ERR(0, 81, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_float_1_0) < 0)) __PYX_ERR(0, 80, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":82
+          /* "Pygrad/Mixers.pyx":81
  *                     object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                     object.AngularModel[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     if object.icount == 1:
  *                         pIndex = 4
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 82, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_0) < 0)) __PYX_ERR(0, 82, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 81, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":83
+          /* "Pygrad/Mixers.pyx":82
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                     object.AngularModel[nProcess - 1] = 0
  *                     if object.icount == 1:             # <<<<<<<<<<<<<<
  *                         pIndex = 4
  *                     else:
  */
-          __pyx_t_26 = ((__pyx_v_object->icount == 1) != 0);
-          if (__pyx_t_26) {
+          __pyx_t_25 = ((__pyx_v_object->icount == 1) != 0);
+          if (__pyx_t_25) {
 
-            /* "Pygrad/Mixers.pyx":84
+            /* "Pygrad/Mixers.pyx":83
  *                     object.AngularModel[nProcess - 1] = 0
  *                     if object.icount == 1:
  *                         pIndex = 4             # <<<<<<<<<<<<<<
@@ -3794,7 +3590,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             __pyx_v_pIndex = 4;
 
-            /* "Pygrad/Mixers.pyx":83
+            /* "Pygrad/Mixers.pyx":82
  *                     object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                     object.AngularModel[nProcess - 1] = 0
  *                     if object.icount == 1:             # <<<<<<<<<<<<<<
@@ -3804,7 +3600,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
             goto __pyx_L12;
           }
 
-          /* "Pygrad/Mixers.pyx":86
+          /* "Pygrad/Mixers.pyx":85
  *                         pIndex = 4
  *                     else:
  *                         pIndex = 2             # <<<<<<<<<<<<<<
@@ -3816,118 +3612,118 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
           }
           __pyx_L12:;
 
-          /* "Pygrad/Mixers.pyx":87
+          /* "Pygrad/Mixers.pyx":86
  *                     else:
  *                         pIndex = 2
  *                     object.AngularModel[nProcess - 1] = 2             # <<<<<<<<<<<<<<
  *                     if gasData.AngularModel[pIndex] == 1:
  *                         Ang.ScatteringParameter1 = gasData.PEElasticCrossSection[pIndex][iEnergy]
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 87, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_1, __pyx_int_2) < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_int_2) < 0)) __PYX_ERR(0, 86, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":88
+          /* "Pygrad/Mixers.pyx":87
  *                         pIndex = 2
  *                     object.AngularModel[nProcess - 1] = 2
  *                     if gasData.AngularModel[pIndex] == 1:             # <<<<<<<<<<<<<<
  *                         Ang.ScatteringParameter1 = gasData.PEElasticCrossSection[pIndex][iEnergy]
  *                         Ang.CalcAngCut()
  */
-          __pyx_t_26 = (((__pyx_v_gasData.AngularModel[__pyx_v_pIndex]) == 1.0) != 0);
-          if (__pyx_t_26) {
+          __pyx_t_25 = (((__pyx_v_gasData.AngularModel[__pyx_v_pIndex]) == 1.0) != 0);
+          if (__pyx_t_25) {
 
-            /* "Pygrad/Mixers.pyx":89
+            /* "Pygrad/Mixers.pyx":88
  *                     object.AngularModel[nProcess - 1] = 2
  *                     if gasData.AngularModel[pIndex] == 1:
  *                         Ang.ScatteringParameter1 = gasData.PEElasticCrossSection[pIndex][iEnergy]             # <<<<<<<<<<<<<<
  *                         Ang.CalcAngCut()
  *                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  */
-            __pyx_t_1 = PyFloat_FromDouble(((__pyx_v_gasData.PEElasticCrossSection[__pyx_v_pIndex])[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+            __pyx_t_1 = PyFloat_FromDouble(((__pyx_v_gasData.PEElasticCrossSection[__pyx_v_pIndex])[__pyx_v_iEnergy])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 88, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1, __pyx_t_1) < 0) __PYX_ERR(0, 89, __pyx_L1_error)
+            if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1, __pyx_t_1) < 0) __PYX_ERR(0, 88, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":90
+            /* "Pygrad/Mixers.pyx":89
  *                     if gasData.AngularModel[pIndex] == 1:
  *                         Ang.ScatteringParameter1 = gasData.PEElasticCrossSection[pIndex][iEnergy]
  *                         Ang.CalcAngCut()             # <<<<<<<<<<<<<<
  *                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  *                         object.ScatteringParameter = Ang.ScatteringParameter2
  */
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 90, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
             __pyx_t_17 = NULL;
-            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_21))) {
-              __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_21);
+            if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+              __pyx_t_17 = PyMethod_GET_SELF(__pyx_t_2);
               if (likely(__pyx_t_17)) {
-                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_21);
+                PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
                 __Pyx_INCREF(__pyx_t_17);
                 __Pyx_INCREF(function);
-                __Pyx_DECREF_SET(__pyx_t_21, function);
+                __Pyx_DECREF_SET(__pyx_t_2, function);
               }
             }
-            __pyx_t_1 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_21, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_21);
+            __pyx_t_1 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
             __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-            if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
+            if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":91
+            /* "Pygrad/Mixers.pyx":90
  *                         Ang.ScatteringParameter1 = gasData.PEElasticCrossSection[pIndex][iEnergy]
  *                         Ang.CalcAngCut()
  *                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut             # <<<<<<<<<<<<<<
  *                         object.ScatteringParameter = Ang.ScatteringParameter2
  *                         object.AngularModel[nProcess - 1] = 1
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 90, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_21, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 91, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_2, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 90, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 91, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 90, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 90, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":92
+            /* "Pygrad/Mixers.pyx":91
  *                         Ang.CalcAngCut()
  *                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  *                         object.ScatteringParameter = Ang.ScatteringParameter2             # <<<<<<<<<<<<<<
  *                         object.AngularModel[nProcess - 1] = 1
  *                     assignWPL(nProcess,0,gasData)
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter, __pyx_t_1) < 0) __PYX_ERR(0, 92, __pyx_L1_error)
+            if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter, __pyx_t_1) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":93
+            /* "Pygrad/Mixers.pyx":92
  *                         object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  *                         object.ScatteringParameter = Ang.ScatteringParameter2
  *                         object.AngularModel[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                     assignWPL(nProcess,0,gasData)
  *                     if iEnergy == 1:
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 93, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_1) < 0)) __PYX_ERR(0, 93, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 92, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_1) < 0)) __PYX_ERR(0, 92, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "Pygrad/Mixers.pyx":88
+            /* "Pygrad/Mixers.pyx":87
  *                         pIndex = 2
  *                     object.AngularModel[nProcess - 1] = 2
  *                     if gasData.AngularModel[pIndex] == 1:             # <<<<<<<<<<<<<<
@@ -3936,82 +3732,82 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
           }
 
-          /* "Pygrad/Mixers.pyx":94
+          /* "Pygrad/Mixers.pyx":93
  *                         object.ScatteringParameter = Ang.ScatteringParameter2
  *                         object.AngularModel[nProcess - 1] = 1
  *                     assignWPL(nProcess,0,gasData)             # <<<<<<<<<<<<<<
  *                     if iEnergy == 1:
  *                         object.rGas[nProcess - 1] = rGas1
  */
-          __pyx_t_21 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 94, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_int_0, __pyx_t_21, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+          __pyx_t_2 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_2);
+          __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_int_0, __pyx_t_2, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+          __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":95
+          /* "Pygrad/Mixers.pyx":94
  *                         object.AngularModel[nProcess - 1] = 1
  *                     assignWPL(nProcess,0,gasData)
  *                     if iEnergy == 1:             # <<<<<<<<<<<<<<
  *                         object.rGas[nProcess - 1] = rGas1
  *                         object.ein[nProcess - 1] = gasData
  */
-          __pyx_t_26 = ((__pyx_v_iEnergy == 1) != 0);
-          if (__pyx_t_26) {
+          __pyx_t_25 = ((__pyx_v_iEnergy == 1) != 0);
+          if (__pyx_t_25) {
 
-            /* "Pygrad/Mixers.pyx":96
+            /* "Pygrad/Mixers.pyx":95
  *                     assignWPL(nProcess,0,gasData)
  *                     if iEnergy == 1:
  *                         object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                         object.ein[nProcess - 1] = gasData
  *                         object.ipn[nProcess - 1] = 1
  */
-            __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 95, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 96, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 95, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_17, __pyx_t_1) < 0)) __PYX_ERR(0, 96, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_17, __pyx_t_1) < 0)) __PYX_ERR(0, 95, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":97
+            /* "Pygrad/Mixers.pyx":96
  *                     if iEnergy == 1:
  *                         object.rGas[nProcess - 1] = rGas1
  *                         object.ein[nProcess - 1] = gasData             # <<<<<<<<<<<<<<
  *                         object.ipn[nProcess - 1] = 1
  *                         L = 2
  */
-            __pyx_t_1 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __pyx_t_1 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ein); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ein); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 96, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 97, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_21, __pyx_t_1) < 0)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 96, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":98
+            /* "Pygrad/Mixers.pyx":97
  *                         object.rGas[nProcess - 1] = rGas1
  *                         object.ein[nProcess - 1] = gasData
  *                         object.ipn[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                         L = 2
  *                         object.InteractionType[nProcess -1] = L
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 98, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_21, __pyx_int_1) < 0)) __PYX_ERR(0, 98, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 97, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_2, __pyx_int_1) < 0)) __PYX_ERR(0, 97, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "Pygrad/Mixers.pyx":99
+            /* "Pygrad/Mixers.pyx":98
  *                         object.ein[nProcess - 1] = gasData
  *                         object.ipn[nProcess - 1] = 1
  *                         L = 2             # <<<<<<<<<<<<<<
@@ -4020,94 +3816,94 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             __pyx_v_L = 2;
 
-            /* "Pygrad/Mixers.pyx":100
+            /* "Pygrad/Mixers.pyx":99
  *                         object.ipn[nProcess - 1] = 1
  *                         L = 2
  *                         object.InteractionType[nProcess -1] = L             # <<<<<<<<<<<<<<
  *                         object.izbr[nProcess - 1] = 0
  *                         object.PenningFraction[nProcess - 1][0] = 0.0
  */
-            __pyx_t_21 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 100, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 99, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 100, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 99, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_17, __pyx_t_21) < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_17, __pyx_t_2) < 0)) __PYX_ERR(0, 99, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-            /* "Pygrad/Mixers.pyx":101
+            /* "Pygrad/Mixers.pyx":100
  *                         L = 2
  *                         object.InteractionType[nProcess -1] = L
  *                         object.izbr[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                         object.PenningFraction[nProcess - 1][0] = 0.0
  *                         object.PenningFraction[nProcess - 1][1] = 0.0
  */
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 101, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 100, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 100, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_17, __pyx_int_0) < 0)) __PYX_ERR(0, 101, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_17, __pyx_int_0) < 0)) __PYX_ERR(0, 100, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-            /* "Pygrad/Mixers.pyx":102
+            /* "Pygrad/Mixers.pyx":101
  *                         object.InteractionType[nProcess -1] = L
  *                         object.izbr[nProcess - 1] = 0
  *                         object.PenningFraction[nProcess - 1][0] = 0.0             # <<<<<<<<<<<<<<
  *                         object.PenningFraction[nProcess - 1][1] = 0.0
  *                         object.PenningFraction[nProcess - 1][2] = 0.0
  */
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 102, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_21); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 101, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 101, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":103
+            /* "Pygrad/Mixers.pyx":102
  *                         object.izbr[nProcess - 1] = 0
  *                         object.PenningFraction[nProcess - 1][0] = 0.0
  *                         object.PenningFraction[nProcess - 1][1] = 0.0             # <<<<<<<<<<<<<<
  *                         object.PenningFraction[nProcess - 1][2] = 0.0
  *                 else:
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 103, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_21); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 103, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 102, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 102, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 102, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-            /* "Pygrad/Mixers.pyx":104
+            /* "Pygrad/Mixers.pyx":103
  *                         object.PenningFraction[nProcess - 1][0] = 0.0
  *                         object.PenningFraction[nProcess - 1][1] = 0.0
  *                         object.PenningFraction[nProcess - 1][2] = 0.0             # <<<<<<<<<<<<<<
  *                 else:
  *                     for kion in range(gasData.N_Ionization):
  */
-            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 104, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 103, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 104, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_21); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 104, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 103, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":95
+            /* "Pygrad/Mixers.pyx":94
  *                         object.AngularModel[nProcess - 1] = 1
  *                     assignWPL(nProcess,0,gasData)
  *                     if iEnergy == 1:             # <<<<<<<<<<<<<<
@@ -4116,7 +3912,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
           }
 
-          /* "Pygrad/Mixers.pyx":67
+          /* "Pygrad/Mixers.pyx":66
  *                 object.WPLN[0] = gasData.E[5]
  *             if object.FinalElectronEnergy >= gasData.E[2]:
  *                 if gasData.N_Ionization <= 1:             # <<<<<<<<<<<<<<
@@ -4126,7 +3922,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
           goto __pyx_L10;
         }
 
-        /* "Pygrad/Mixers.pyx":106
+        /* "Pygrad/Mixers.pyx":105
  *                         object.PenningFraction[nProcess - 1][2] = 0.0
  *                 else:
  *                     for kion in range(gasData.N_Ionization):             # <<<<<<<<<<<<<<
@@ -4134,115 +3930,115 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  *                         object.GasExcitationSlots[idg] = nProcess
  */
         /*else*/ {
-          __pyx_t_27 = __pyx_v_gasData.N_Ionization;
-          __pyx_t_28 = __pyx_t_27;
-          for (__pyx_t_29 = 0; __pyx_t_29 < __pyx_t_28; __pyx_t_29+=1) {
-            __pyx_v_kion = __pyx_t_29;
+          __pyx_t_26 = __pyx_v_gasData.N_Ionization;
+          __pyx_t_27 = __pyx_t_26;
+          for (__pyx_t_28 = 0; __pyx_t_28 < __pyx_t_27; __pyx_t_28+=1) {
+            __pyx_v_kion = __pyx_t_28;
 
-            /* "Pygrad/Mixers.pyx":107
+            /* "Pygrad/Mixers.pyx":106
  *                 else:
  *                     for kion in range(gasData.N_Ionization):
  *                         nProcess += 1             # <<<<<<<<<<<<<<
  *                         object.GasExcitationSlots[idg] = nProcess
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-            __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_1);
             __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":108
+            /* "Pygrad/Mixers.pyx":107
  *                     for kion in range(gasData.N_Ionization):
  *                         nProcess += 1
  *                         object.GasExcitationSlots[idg] = nProcess             # <<<<<<<<<<<<<<
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 108, __pyx_L1_error)
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_v_idg, __pyx_v_nProcess, PY_LONG_LONG, 1, __Pyx_PyInt_From_PY_LONG_LONG, 0, 0, 0) < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":109
+            /* "Pygrad/Mixers.pyx":108
  *                         nProcess += 1
  *                         object.GasExcitationSlots[idg] = nProcess
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  */
-            __pyx_t_1 = PyFloat_FromDouble(((((__pyx_v_gasData.IonizationCrossSection[__pyx_v_kion])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __pyx_t_1 = PyFloat_FromDouble(((((__pyx_v_gasData.IonizationCrossSection[__pyx_v_kion])[__pyx_v_iEnergy]) * (__pyx_v_object->VMoleculesPerCm3PerGas[__pyx_v_idg])) * (__pyx_v_object->Beta[__pyx_v_iEnergy]))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_17 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_3);
-            __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __pyx_t_21 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_21);
+            __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 108, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
             __Pyx_GIVEREF(__pyx_t_17);
             PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_17);
-            __Pyx_GIVEREF(__pyx_t_3);
-            PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_3);
+            __Pyx_GIVEREF(__pyx_t_21);
+            PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_21);
             __pyx_t_17 = 0;
-            __pyx_t_3 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_21, __pyx_t_18, __pyx_t_1) < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __pyx_t_21 = 0;
+            if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_18, __pyx_t_1) < 0)) __PYX_ERR(0, 108, __pyx_L1_error)
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":110
+            /* "Pygrad/Mixers.pyx":109
  *                         object.GasExcitationSlots[idg] = nProcess
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]             # <<<<<<<<<<<<<<
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_IonCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_30 = __pyx_v_iEnergy;
-            __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_1, __pyx_t_30, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_29 = __pyx_v_iEnergy;
+            __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_1, __pyx_t_29, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 109, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_2);
+            __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_21);
-            __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 110, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_3);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __Pyx_GIVEREF(__pyx_t_3);
-            PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_3);
+            __Pyx_GIVEREF(__pyx_t_21);
+            PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_21);
             __Pyx_GIVEREF(__pyx_t_17);
             PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_17);
-            __pyx_t_3 = 0;
+            __pyx_t_21 = 0;
             __pyx_t_17 = 0;
-            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_21, __pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_16); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-            __pyx_t_16 = PyNumber_InPlaceAdd(__pyx_t_18, __pyx_t_17); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 110, __pyx_L1_error)
+            __pyx_t_16 = PyNumber_InPlaceAdd(__pyx_t_18, __pyx_t_17); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_t_30, __pyx_t_16, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
+            if (unlikely(__Pyx_SetItemInt(__pyx_t_1, __pyx_t_29, __pyx_t_16, int, 1, __Pyx_PyInt_From_int, 0, 0, 0) < 0)) __PYX_ERR(0, 109, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "Pygrad/Mixers.pyx":111
+            /* "Pygrad/Mixers.pyx":110
  *                         object.CollisionFrequency[iEnergy,nProcess - 1] = gasData.IonizationCrossSection[kion][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5             # <<<<<<<<<<<<<<
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  *                         object.AngularModel[nProcess - 1] = 0
  */
-            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 111, __pyx_L1_error)
+            __pyx_t_18 = PyTuple_New(2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
             __Pyx_GIVEREF(__pyx_t_16);
             PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_16);
@@ -4250,24 +4046,24 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
             PyTuple_SET_ITEM(__pyx_t_18, 1, __pyx_t_17);
             __pyx_t_16 = 0;
             __pyx_t_17 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_18, __pyx_float_0_5) < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_18, __pyx_float_0_5) < 0)) __PYX_ERR(0, 110, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-            /* "Pygrad/Mixers.pyx":112
+            /* "Pygrad/Mixers.pyx":111
  *                         object.IonCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy,nProcess - 1]
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0             # <<<<<<<<<<<<<<
  *                         object.AngularModel[nProcess - 1] = 0
  *                         object.negas[nProcess - 1] = 1
  */
-            __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 112, __pyx_L1_error)
+            __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
-            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 112, __pyx_L1_error)
+            __pyx_t_17 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
-            __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 112, __pyx_L1_error)
+            __pyx_t_16 = PyTuple_New(2); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
             __Pyx_GIVEREF(__pyx_t_1);
             PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_1);
@@ -4275,88 +4071,88 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
             PyTuple_SET_ITEM(__pyx_t_16, 1, __pyx_t_17);
             __pyx_t_1 = 0;
             __pyx_t_17 = 0;
-            if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_float_1_0) < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_float_1_0) < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-            /* "Pygrad/Mixers.pyx":113
+            /* "Pygrad/Mixers.pyx":112
  *                         object.ScatteringParameter[iEnergy,nProcess - 1] = 0.5
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  *                         object.AngularModel[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                         object.negas[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 1:
  */
-            __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 113, __pyx_L1_error)
+            __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 112, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 113, __pyx_L1_error)
+            __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 112, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_int_0) < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_int_0) < 0)) __PYX_ERR(0, 112, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-            /* "Pygrad/Mixers.pyx":114
+            /* "Pygrad/Mixers.pyx":113
  *                         object.AngleCut[iEnergy,nProcess - 1] = 1.0
  *                         object.AngularModel[nProcess - 1] = 0
  *                         object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                         if gasData.AngularModel[2] == 1:
  *                             Ang.ScatteringParameter1[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  */
-            __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 114, __pyx_L1_error)
+            __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_negas); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 113, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 114, __pyx_L1_error)
+            __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 113, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_1) < 0)) __PYX_ERR(0, 114, __pyx_L1_error)
+            if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_1) < 0)) __PYX_ERR(0, 113, __pyx_L1_error)
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-            /* "Pygrad/Mixers.pyx":115
+            /* "Pygrad/Mixers.pyx":114
  *                         object.AngularModel[nProcess - 1] = 0
  *                         object.negas[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 1:             # <<<<<<<<<<<<<<
  *                             Ang.ScatteringParameter1[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             Ang.CalcAngCut()
  */
-            __pyx_t_26 = (((__pyx_v_gasData.AngularModel[2]) == 1.0) != 0);
-            if (__pyx_t_26) {
+            __pyx_t_25 = (((__pyx_v_gasData.AngularModel[2]) == 1.0) != 0);
+            if (__pyx_t_25) {
 
-              /* "Pygrad/Mixers.pyx":116
+              /* "Pygrad/Mixers.pyx":115
  *                         object.negas[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 1:
  *                             Ang.ScatteringParameter1[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]             # <<<<<<<<<<<<<<
  *                             Ang.CalcAngCut()
  *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  */
-              __pyx_t_16 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_16 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, __pyx_v_kion, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, __pyx_v_kion, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "Pygrad/Mixers.pyx":117
+              /* "Pygrad/Mixers.pyx":116
  *                         if gasData.AngularModel[2] == 1:
  *                             Ang.ScatteringParameter1[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             Ang.CalcAngCut()             # <<<<<<<<<<<<<<
  *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  */
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 116, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __pyx_t_17 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_16))) {
@@ -4370,21 +4166,42 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               }
               __pyx_t_18 = (__pyx_t_17) ? __Pyx_PyObject_CallOneArg(__pyx_t_16, __pyx_t_17) : __Pyx_PyObject_CallNoArg(__pyx_t_16);
               __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
-              if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 117, __pyx_L1_error)
+              if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 116, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "Pygrad/Mixers.pyx":118
+              /* "Pygrad/Mixers.pyx":117
  *                             Ang.ScatteringParameter1[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             Ang.CalcAngCut()
  *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut             # <<<<<<<<<<<<<<
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                             object.AngularModel[nProcess - 1] = 1
  */
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngCut); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 118, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngCut); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 117, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 118, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_16);
+              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_17);
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_16);
+              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 117, __pyx_L1_error)
+              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
+              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
+              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
+
+              /* "Pygrad/Mixers.pyx":118
+ *                             Ang.CalcAngCut()
+ *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
+ *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2             # <<<<<<<<<<<<<<
+ *                             object.AngularModel[nProcess - 1] = 1
+ *                         if gasData.AngularModel[2] == 2:
+ */
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 118, __pyx_L1_error)
+              __Pyx_GOTREF(__pyx_t_18);
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 118, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 118, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
@@ -4397,42 +4214,21 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
               /* "Pygrad/Mixers.pyx":119
- *                             Ang.CalcAngCut()
- *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
- *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2             # <<<<<<<<<<<<<<
- *                             object.AngularModel[nProcess - 1] = 1
- *                         if gasData.AngularModel[2] == 2:
- */
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 119, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 119, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 119, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_17);
-              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 119, __pyx_L1_error)
-              __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
-              __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-              __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-
-              /* "Pygrad/Mixers.pyx":120
  *                             object.AngleCut[iEnergy][nProcess - 1] = Ang.AngCut
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                             object.AngularModel[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                         if gasData.AngularModel[2] == 2:
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  */
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 119, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 120, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 119, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_1) < 0)) __PYX_ERR(0, 120, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_1) < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-              /* "Pygrad/Mixers.pyx":115
+              /* "Pygrad/Mixers.pyx":114
  *                         object.AngularModel[nProcess - 1] = 0
  *                         object.negas[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 1:             # <<<<<<<<<<<<<<
@@ -4441,62 +4237,62 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             }
 
-            /* "Pygrad/Mixers.pyx":121
+            /* "Pygrad/Mixers.pyx":120
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                             object.AngularModel[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 2:             # <<<<<<<<<<<<<<
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             object.AngularModel[nProcess - 1] = 2
  */
-            __pyx_t_26 = (((__pyx_v_gasData.AngularModel[2]) == 2.0) != 0);
-            if (__pyx_t_26) {
+            __pyx_t_25 = (((__pyx_v_gasData.AngularModel[2]) == 2.0) != 0);
+            if (__pyx_t_25) {
 
-              /* "Pygrad/Mixers.pyx":122
+              /* "Pygrad/Mixers.pyx":121
  *                             object.AngularModel[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 2:
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]             # <<<<<<<<<<<<<<
  *                             object.AngularModel[nProcess - 1] = 2
  *                         assignWPL(nProcess, kion,gasData)
  */
-              __pyx_t_16 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_16 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(__pyx_t_16, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, __pyx_v_kion, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_GetItemInt(__pyx_t_18, __pyx_v_kion, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ParameterScattering); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_GetItemInt(__pyx_t_16, __pyx_v_iEnergy, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 122, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 121, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "Pygrad/Mixers.pyx":123
+              /* "Pygrad/Mixers.pyx":122
  *                         if gasData.AngularModel[2] == 2:
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             object.AngularModel[nProcess - 1] = 2             # <<<<<<<<<<<<<<
  *                         assignWPL(nProcess, kion,gasData)
  *                         if iEnergy <= 1:
  */
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 122, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 123, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 122, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_2) < 0)) __PYX_ERR(0, 123, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_2) < 0)) __PYX_ERR(0, 122, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-              /* "Pygrad/Mixers.pyx":121
+              /* "Pygrad/Mixers.pyx":120
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                             object.AngularModel[nProcess - 1] = 1
  *                         if gasData.AngularModel[2] == 2:             # <<<<<<<<<<<<<<
@@ -4505,85 +4301,85 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
             }
 
-            /* "Pygrad/Mixers.pyx":124
+            /* "Pygrad/Mixers.pyx":123
  *                             object.ParameterScattering[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[kion][iEnergy]
  *                             object.AngularModel[nProcess - 1] = 2
  *                         assignWPL(nProcess, kion,gasData)             # <<<<<<<<<<<<<<
  *                         if iEnergy <= 1:
  *                             object.rGas[nProcess - 1] = rGas1
  */
-            __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_kion); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 124, __pyx_L1_error)
+            __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_kion); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 123, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_16);
-            __pyx_t_18 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 124, __pyx_L1_error)
+            __pyx_t_18 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 123, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_18);
-            __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 124, __pyx_L1_error)
+            __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 123, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_17);
             __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
             __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
             __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-            /* "Pygrad/Mixers.pyx":125
+            /* "Pygrad/Mixers.pyx":124
  *                             object.AngularModel[nProcess - 1] = 2
  *                         assignWPL(nProcess, kion,gasData)
  *                         if iEnergy <= 1:             # <<<<<<<<<<<<<<
  *                             object.rGas[nProcess - 1] = rGas1
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
  */
-            __pyx_t_26 = ((__pyx_v_iEnergy <= 1) != 0);
-            if (__pyx_t_26) {
+            __pyx_t_25 = ((__pyx_v_iEnergy <= 1) != 0);
+            if (__pyx_t_25) {
 
-              /* "Pygrad/Mixers.pyx":126
+              /* "Pygrad/Mixers.pyx":125
  *                         assignWPL(nProcess, kion,gasData)
  *                         if iEnergy <= 1:
  *                             object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
  *                             object.ipn[nProcess - 1] = 1
  */
-              __pyx_t_17 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 126, __pyx_L1_error)
+              __pyx_t_17 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 126, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_rGas); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 126, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_t_17) < 0)) __PYX_ERR(0, 126, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_t_17) < 0)) __PYX_ERR(0, 125, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-              /* "Pygrad/Mixers.pyx":127
+              /* "Pygrad/Mixers.pyx":126
  *                         if iEnergy <= 1:
  *                             object.rGas[nProcess - 1] = rGas1
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1             # <<<<<<<<<<<<<<
  *                             object.ipn[nProcess - 1] = 1
  *                             L = 2
  */
-              __pyx_t_17 = PyFloat_FromDouble(((__pyx_v_gasData.IonizationEnergy[__pyx_v_kion]) / __pyx_v_rGas1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __pyx_t_17 = PyFloat_FromDouble(((__pyx_v_gasData.IonizationEnergy[__pyx_v_kion]) / __pyx_v_rGas1)); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ein); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ein); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 127, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_t_17) < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_16, __pyx_t_18, __pyx_t_17) < 0)) __PYX_ERR(0, 126, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-              /* "Pygrad/Mixers.pyx":128
+              /* "Pygrad/Mixers.pyx":127
  *                             object.rGas[nProcess - 1] = rGas1
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
  *                             object.ipn[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                             L = 2
  *                             object.InteractionType[nProcess - 1] = L
  */
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 128, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_ipn); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 127, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 128, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 127, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_18, __pyx_int_1) < 0)) __PYX_ERR(0, 128, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_18, __pyx_int_1) < 0)) __PYX_ERR(0, 127, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "Pygrad/Mixers.pyx":129
+              /* "Pygrad/Mixers.pyx":128
  *                             object.ein[nProcess - 1] = gasData.IonizationEnergy[kion]/rGas1
  *                             object.ipn[nProcess - 1] = 1
  *                             L = 2             # <<<<<<<<<<<<<<
@@ -4592,94 +4388,94 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
               __pyx_v_L = 2;
 
-              /* "Pygrad/Mixers.pyx":130
+              /* "Pygrad/Mixers.pyx":129
  *                             object.ipn[nProcess - 1] = 1
  *                             L = 2
  *                             object.InteractionType[nProcess - 1] = L             # <<<<<<<<<<<<<<
  *                             object.izbr[nProcess - 1] = 0
  *                             object.PenningFraction[nProcess - 1][0] = 0.0
  */
-              __pyx_t_18 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 130, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 130, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_17, __pyx_t_16, __pyx_t_18) < 0)) __PYX_ERR(0, 129, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
 
-              /* "Pygrad/Mixers.pyx":131
+              /* "Pygrad/Mixers.pyx":130
  *                             L = 2
  *                             object.InteractionType[nProcess - 1] = L
  *                             object.izbr[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                             object.PenningFraction[nProcess - 1][0] = 0.0
  *                             object.PenningFraction[nProcess - 1][1] = 0.0
  */
-              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 131, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_izbr); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 130, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 131, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 130, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_0) < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
+              if (unlikely(PyObject_SetItem(__pyx_t_18, __pyx_t_16, __pyx_int_0) < 0)) __PYX_ERR(0, 130, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-              /* "Pygrad/Mixers.pyx":132
+              /* "Pygrad/Mixers.pyx":131
  *                             object.InteractionType[nProcess - 1] = L
  *                             object.izbr[nProcess - 1] = 0
  *                             object.PenningFraction[nProcess - 1][0] = 0.0             # <<<<<<<<<<<<<<
  *                             object.PenningFraction[nProcess - 1][1] = 0.0
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  */
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 132, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 132, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 132, __pyx_L1_error)
+              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 131, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-              /* "Pygrad/Mixers.pyx":133
+              /* "Pygrad/Mixers.pyx":132
  *                             object.izbr[nProcess - 1] = 0
  *                             object.PenningFraction[nProcess - 1][0] = 0.0
  *                             object.PenningFraction[nProcess - 1][1] = 0.0             # <<<<<<<<<<<<<<
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
  */
-              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 133, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 133, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_18); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 133, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetItem(__pyx_t_17, __pyx_t_18); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_16, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
+              if (unlikely(__Pyx_SetItemInt(__pyx_t_16, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 132, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
 
-              /* "Pygrad/Mixers.pyx":134
+              /* "Pygrad/Mixers.pyx":133
  *                             object.PenningFraction[nProcess - 1][0] = 0.0
  *                             object.PenningFraction[nProcess - 1][1] = 0.0
  *                             object.PenningFraction[nProcess - 1][2] = 0.0             # <<<<<<<<<<<<<<
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  */
-              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 134, __pyx_L1_error)
+              __pyx_t_16 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_object), __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_16);
-              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 134, __pyx_L1_error)
+              __pyx_t_18 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_18);
-              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 134, __pyx_L1_error)
+              __pyx_t_17 = __Pyx_PyObject_GetItem(__pyx_t_16, __pyx_t_18); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_GOTREF(__pyx_t_17);
               __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
               __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
-              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
+              if (unlikely(__Pyx_SetItemInt(__pyx_t_17, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0) < 0)) __PYX_ERR(0, 133, __pyx_L1_error)
               __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
 
-              /* "Pygrad/Mixers.pyx":125
+              /* "Pygrad/Mixers.pyx":124
  *                             object.AngularModel[nProcess - 1] = 2
  *                         assignWPL(nProcess, kion,gasData)
  *                         if iEnergy <= 1:             # <<<<<<<<<<<<<<
@@ -4691,7 +4487,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
         }
         __pyx_L10:;
 
-        /* "Pygrad/Mixers.pyx":66
+        /* "Pygrad/Mixers.pyx":65
  *                 object.ecloss[0] = gasData.E[2]
  *                 object.WPLN[0] = gasData.E[5]
  *             if object.FinalElectronEnergy >= gasData.E[2]:             # <<<<<<<<<<<<<<
@@ -4700,47 +4496,47 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_Mixer(struct __pyx_obj_6Pygrad_6Pygrad_
  */
       }
 
-      /* "Pygrad/Mixers.pyx":135
+      /* "Pygrad/Mixers.pyx":134
  *                             object.PenningFraction[nProcess - 1][1] = 0.0
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)             # <<<<<<<<<<<<<<
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  * 
  */
-      __pyx_t_17 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_17 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
-      __pyx_t_18 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_18 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
-      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
-      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_1 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_21 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_t_17, __pyx_t_18, __pyx_v_nProcess, __pyx_t_16, __pyx_t_1, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 135, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
+      __pyx_t_2 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_t_17, __pyx_t_18, __pyx_v_nProcess, __pyx_t_16, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "Pygrad/Mixers.pyx":136
+      /* "Pygrad/Mixers.pyx":135
  *                             object.PenningFraction[nProcess - 1][2] = 0.0
  *             loadAttachmentData(gasData,idg,nProcess,iEnergy,rGas1)
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)             # <<<<<<<<<<<<<<
  * 
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
  */
-      __pyx_t_21 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 136, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_2 = __pyx_convert__to_py___pyx_t_8PyGasMix_3Gas_Gas(__pyx_v_gasData); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_idg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_16 = __Pyx_PyInt_From_int(__pyx_v_iEnergy); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_16);
-      __pyx_t_18 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_18 = PyFloat_FromDouble(__pyx_v_rGas1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
-      __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_t_21, __pyx_t_1, __pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_17 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_t_2, __pyx_t_1, __pyx_v_nProcess, __pyx_t_16, __pyx_t_18, 0); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 135, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
-      __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
@@ -4832,7 +4628,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_Mixer(CYTHON_UNUSED PyObject *__pyx_se
   return __pyx_r;
 }
 
-/* "Pygrad/Mixers.pyx":138
+/* "Pygrad/Mixers.pyx":137
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  * 
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):             # <<<<<<<<<<<<<<
@@ -4859,298 +4655,298 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
   __Pyx_RefNannySetupContext("loadAttachmentData", 0);
   __Pyx_INCREF(__pyx_v_nProcess);
 
-  /* "Pygrad/Mixers.pyx":139
+  /* "Pygrad/Mixers.pyx":138
  * 
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if object.FinalElectronEnergy >= gasData.E[3]:             # <<<<<<<<<<<<<<
  *         if gasData.N_Attachment <= 1:
  *             nProcess += 1
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_FinalElectronEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_FinalElectronEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_E); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_t_3, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "Pygrad/Mixers.pyx":140
+    /* "Pygrad/Mixers.pyx":139
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if object.FinalElectronEnergy >= gasData.E[3]:
  *         if gasData.N_Attachment <= 1:             # <<<<<<<<<<<<<<
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Attachment); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Attachment); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_4) {
 
-      /* "Pygrad/Mixers.pyx":141
+      /* "Pygrad/Mixers.pyx":140
  *     if object.FinalElectronEnergy >= gasData.E[3]:
  *         if gasData.N_Attachment <= 1:
  *             nProcess += 1             # <<<<<<<<<<<<<<
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "Pygrad/Mixers.pyx":142
+      /* "Pygrad/Mixers.pyx":141
  *         if gasData.N_Attachment <= 1:
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess             # <<<<<<<<<<<<<<
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "Pygrad/Mixers.pyx":143
+      /* "Pygrad/Mixers.pyx":142
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *             object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_Q); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_Q); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_idg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_idg); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Multiply(__pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_iEnergy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_iEnergy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 143, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_3, __pyx_t_1) < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":144
+      /* "Pygrad/Mixers.pyx":143
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]             # <<<<<<<<<<<<<<
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_INCREF(__pyx_v_iEnergy);
       __pyx_t_3 = __pyx_v_iEnergy;
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_InPlaceAdd(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_5) < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_5) < 0)) __PYX_ERR(0, 143, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":145
+      /* "Pygrad/Mixers.pyx":144
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5             # <<<<<<<<<<<<<<
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *             if iEnergy <= 1:
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_0_5) < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":146
+      /* "Pygrad/Mixers.pyx":145
  *             object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0             # <<<<<<<<<<<<<<
  *             if iEnergy <= 1:
  *                 object.negas[nProcess - 1] = 1
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_1_0) < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_1_0) < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":147
+      /* "Pygrad/Mixers.pyx":146
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
  *                 object.negas[nProcess - 1] = 1
  *                 object.legas[nProcess - 1] = 0
  */
-      __pyx_t_1 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
-      __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
+      __pyx_t_1 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 146, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_4) {
 
-        /* "Pygrad/Mixers.pyx":148
+        /* "Pygrad/Mixers.pyx":147
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *             if iEnergy <= 1:
  *                 object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                 object.legas[nProcess - 1] = 0
  *                 object.ieshell[nProcess - 1] = 0
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_1) < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_1) < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":149
+        /* "Pygrad/Mixers.pyx":148
  *             if iEnergy <= 1:
  *                 object.negas[nProcess - 1] = 1
  *                 object.legas[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.ieshell[nProcess - 1] = 0
  *                 object.AngularModel[nProcess - 1] = 0
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":150
+        /* "Pygrad/Mixers.pyx":149
  *                 object.negas[nProcess - 1] = 1
  *                 object.legas[nProcess - 1] = 0
  *                 object.ieshell[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.AngularModel[nProcess - 1] = 0
  *                 object.rGas[nProcess - 1] = rGas1
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_0) < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_0) < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":151
+        /* "Pygrad/Mixers.pyx":150
  *                 object.legas[nProcess - 1] = 0
  *                 object.ieshell[nProcess - 1] = 0
  *                 object.AngularModel[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = 0.0
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 150, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 150, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":152
+        /* "Pygrad/Mixers.pyx":151
  *                 object.ieshell[nProcess - 1] = 0
  *                 object.AngularModel[nProcess - 1] = 0
  *                 object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                 object.ein[nProcess - 1] = 0.0
  *                 object.ipn[nProcess - 1] = -1
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 151, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":153
+        /* "Pygrad/Mixers.pyx":152
  *                 object.AngularModel[nProcess - 1] = 0
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.ipn[nProcess - 1] = -1
  *                 L = 3
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 152, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 152, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_0_0) < 0)) __PYX_ERR(0, 153, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_float_0_0) < 0)) __PYX_ERR(0, 152, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":154
+        /* "Pygrad/Mixers.pyx":153
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = 0.0
  *                 object.ipn[nProcess - 1] = -1             # <<<<<<<<<<<<<<
  *                 L = 3
  *                 object.InteractionType[nProcess - 1] = L
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_neg_1) < 0)) __PYX_ERR(0, 154, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_int_neg_1) < 0)) __PYX_ERR(0, 153, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":155
+        /* "Pygrad/Mixers.pyx":154
  *                 object.ein[nProcess - 1] = 0.0
  *                 object.ipn[nProcess - 1] = -1
  *                 L = 3             # <<<<<<<<<<<<<<
@@ -5159,94 +4955,94 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  */
         __pyx_v_L = 3;
 
-        /* "Pygrad/Mixers.pyx":156
+        /* "Pygrad/Mixers.pyx":155
  *                 object.ipn[nProcess - 1] = -1
  *                 L = 3
  *                 object.InteractionType[nProcess - 1] = L             # <<<<<<<<<<<<<<
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[nProcess - 1][0] = 0.0
  */
-        __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 156, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_5, __pyx_t_3) < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_5, __pyx_t_3) < 0)) __PYX_ERR(0, 155, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":157
+        /* "Pygrad/Mixers.pyx":156
  *                 L = 3
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][0] = 0.0
  *                 object.PenningFraction[nProcess - 1][1] = 0.0
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 156, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_5, __pyx_int_0) < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_5, __pyx_int_0) < 0)) __PYX_ERR(0, 156, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "Pygrad/Mixers.pyx":158
+        /* "Pygrad/Mixers.pyx":157
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[nProcess - 1][0] = 0.0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][1] = 0.0
  *                 object.PenningFraction[nProcess - 1][2] = 0.0
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 157, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 157, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 157, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":159
+        /* "Pygrad/Mixers.pyx":158
  *                 object.izbr[nProcess - 1] = 0
  *                 object.PenningFraction[nProcess - 1][0] = 0.0
  *                 object.PenningFraction[nProcess - 1][1] = 0.0             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][2] = 0.0
  *         else:
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_5, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_5, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "Pygrad/Mixers.pyx":160
+        /* "Pygrad/Mixers.pyx":159
  *                 object.PenningFraction[nProcess - 1][0] = 0.0
  *                 object.PenningFraction[nProcess - 1][1] = 0.0
  *                 object.PenningFraction[nProcess - 1][2] = 0.0             # <<<<<<<<<<<<<<
  *         else:
  *             for jj in range(gasData.N_Attachment):
  */
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 160, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 159, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 159, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 160, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 159, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 160, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_1, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 159, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":147
+        /* "Pygrad/Mixers.pyx":146
  *             object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *             object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
@@ -5255,7 +5051,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  */
       }
 
-      /* "Pygrad/Mixers.pyx":140
+      /* "Pygrad/Mixers.pyx":139
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if object.FinalElectronEnergy >= gasData.E[3]:
  *         if gasData.N_Attachment <= 1:             # <<<<<<<<<<<<<<
@@ -5265,7 +5061,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
       goto __pyx_L4;
     }
 
-    /* "Pygrad/Mixers.pyx":162
+    /* "Pygrad/Mixers.pyx":161
  *                 object.PenningFraction[nProcess - 1][2] = 0.0
  *         else:
  *             for jj in range(gasData.N_Attachment):             # <<<<<<<<<<<<<<
@@ -5273,18 +5069,18 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  *                 object.GasExcitationSlots[idg] = nProcess
  */
     /*else*/ {
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Attachment); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Attachment); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (likely(PyList_CheckExact(__pyx_t_3)) || PyTuple_CheckExact(__pyx_t_3)) {
         __pyx_t_1 = __pyx_t_3; __Pyx_INCREF(__pyx_t_1); __pyx_t_8 = 0;
         __pyx_t_9 = NULL;
       } else {
-        __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 162, __pyx_L1_error)
+        __pyx_t_8 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 162, __pyx_L1_error)
+        __pyx_t_9 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 161, __pyx_L1_error)
       }
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       for (;;) {
@@ -5292,17 +5088,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
           if (likely(PyList_CheckExact(__pyx_t_1))) {
             if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_1)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_3); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+            __pyx_t_3 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_3); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
             #else
-            __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+            __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             #endif
           } else {
             if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
             #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-            __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_3); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+            __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_8); __Pyx_INCREF(__pyx_t_3); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(0, 161, __pyx_L1_error)
             #else
-            __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+            __pyx_t_3 = PySequence_ITEM(__pyx_t_1, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 161, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_3);
             #endif
           }
@@ -5312,7 +5108,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
             PyObject* exc_type = PyErr_Occurred();
             if (exc_type) {
               if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-              else __PYX_ERR(0, 162, __pyx_L1_error)
+              else __PYX_ERR(0, 161, __pyx_L1_error)
             }
             break;
           }
@@ -5321,262 +5117,262 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
         __Pyx_XDECREF_SET(__pyx_v_jj, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":163
+        /* "Pygrad/Mixers.pyx":162
  *         else:
  *             for jj in range(gasData.N_Attachment):
  *                 nProcess += 1             # <<<<<<<<<<<<<<
  *                 object.GasExcitationSlots[idg] = nProcess
  *                 object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":164
+        /* "Pygrad/Mixers.pyx":163
  *             for jj in range(gasData.N_Attachment):
  *                 nProcess += 1
  *                 object.GasExcitationSlots[idg] = nProcess             # <<<<<<<<<<<<<<
  *                 object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                 object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 164, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-        /* "Pygrad/Mixers.pyx":165
+        /* "Pygrad/Mixers.pyx":164
  *                 nProcess += 1
  *                 object.GasExcitationSlots[idg] = nProcess
  *                 object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *                 object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  */
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_Q); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_Q); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_idg); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_5, __pyx_v_idg); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_5 = PyNumber_Multiply(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_5 = PyNumber_Multiply(__pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = PyNumber_Multiply(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_7 = PyNumber_Multiply(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_iEnergy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_iEnergy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_t_3, __pyx_t_7) < 0)) __PYX_ERR(0, 165, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_5, __pyx_t_3, __pyx_t_7) < 0)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":166
+        /* "Pygrad/Mixers.pyx":165
  *                 object.GasExcitationSlots[idg] = nProcess
  *                 object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                 object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]             # <<<<<<<<<<<<<<
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AttCollisionFreq); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_INCREF(__pyx_v_iEnergy);
         __pyx_t_3 = __pyx_v_iEnergy;
-        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_2 = PyNumber_InPlaceAdd(__pyx_t_5, __pyx_t_10); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 165, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":167
+        /* "Pygrad/Mixers.pyx":166
  *                 object.CollisionFrequency[iEnergy][nProcess - 1] = gasData.Q[3][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *                 object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5             # <<<<<<<<<<<<<<
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                 if iEnergy <= 1:
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_0_5) < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_0_5) < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":168
+        /* "Pygrad/Mixers.pyx":167
  *                 object.AttCollisionFreq[iEnergy] += object.CollisionFrequency[iEnergy][nProcess - 1]
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0             # <<<<<<<<<<<<<<
  *                 if iEnergy <= 1:
  *                     object.negas[nProcess - 1] = 1
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_1_0) < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_1_0) < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":169
+        /* "Pygrad/Mixers.pyx":168
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                 if iEnergy <= 1:             # <<<<<<<<<<<<<<
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0
  */
-        __pyx_t_7 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L1_error)
-        __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
+        __pyx_t_7 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 168, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 168, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         if (__pyx_t_4) {
 
-          /* "Pygrad/Mixers.pyx":170
+          /* "Pygrad/Mixers.pyx":169
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                 if iEnergy <= 1:
  *                     object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0
  */
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_1) < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_1) < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Pygrad/Mixers.pyx":171
+          /* "Pygrad/Mixers.pyx":170
  *                 if iEnergy <= 1:
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.AngularModel[nProcess - 1] = 0
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 170, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_int_0) < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_int_0) < 0)) __PYX_ERR(0, 170, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "Pygrad/Mixers.pyx":172
+          /* "Pygrad/Mixers.pyx":171
  *                     object.negas[nProcess - 1] = 1
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.AngularModel[nProcess - 1] = 0
  *                     object.rGas[nProcess - 1] = rGas1
  */
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_0) < 0)) __PYX_ERR(0, 172, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_0) < 0)) __PYX_ERR(0, 171, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Pygrad/Mixers.pyx":173
+          /* "Pygrad/Mixers.pyx":172
  *                     object.legas[nProcess - 1] = 0
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.AngularModel[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.rGas[nProcess - 1] = rGas1
  *                     object.ein[nProcess - 1] = 0.0
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 172, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_int_0) < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_int_0) < 0)) __PYX_ERR(0, 172, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "Pygrad/Mixers.pyx":174
+          /* "Pygrad/Mixers.pyx":173
  *                     object.ieshell[nProcess - 1] = 0
  *                     object.AngularModel[nProcess - 1] = 0
  *                     object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                     object.ein[nProcess - 1] = 0.0
  *                     object.ipn[nProcess - 1] = -1
  */
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 174, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Pygrad/Mixers.pyx":175
+          /* "Pygrad/Mixers.pyx":174
  *                     object.AngularModel[nProcess - 1] = 0
  *                     object.rGas[nProcess - 1] = rGas1
  *                     object.ein[nProcess - 1] = 0.0             # <<<<<<<<<<<<<<
  *                     object.ipn[nProcess - 1] = -1
  *                     L = 3
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 174, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 175, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 174, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_0_0) < 0)) __PYX_ERR(0, 175, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_7, __pyx_float_0_0) < 0)) __PYX_ERR(0, 174, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "Pygrad/Mixers.pyx":176
+          /* "Pygrad/Mixers.pyx":175
  *                     object.rGas[nProcess - 1] = rGas1
  *                     object.ein[nProcess - 1] = 0.0
  *                     object.ipn[nProcess - 1] = -1             # <<<<<<<<<<<<<<
  *                     L = 3
  *                     object.InteractionType[nProcess - 1] = L
  */
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 176, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 176, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_neg_1) < 0)) __PYX_ERR(0, 176, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_3, __pyx_int_neg_1) < 0)) __PYX_ERR(0, 175, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Pygrad/Mixers.pyx":177
+          /* "Pygrad/Mixers.pyx":176
  *                     object.ein[nProcess - 1] = 0.0
  *                     object.ipn[nProcess - 1] = -1
  *                     L = 3             # <<<<<<<<<<<<<<
@@ -5585,94 +5381,94 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  */
           __pyx_v_L = 3;
 
-          /* "Pygrad/Mixers.pyx":178
+          /* "Pygrad/Mixers.pyx":177
  *                     object.ipn[nProcess - 1] = -1
  *                     L = 3
  *                     object.InteractionType[nProcess - 1] = L             # <<<<<<<<<<<<<<
  *                     object.izbr[nProcess - 1] = 0
  *                     object.PenningFraction[nProcess - 1][0] = 0.0
  */
-          __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 178, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_2, __pyx_t_3) < 0)) __PYX_ERR(0, 178, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_2, __pyx_t_3) < 0)) __PYX_ERR(0, 177, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-          /* "Pygrad/Mixers.pyx":179
+          /* "Pygrad/Mixers.pyx":178
  *                     L = 3
  *                     object.InteractionType[nProcess - 1] = L
  *                     object.izbr[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                     object.PenningFraction[nProcess - 1][0] = 0.0
  *                     object.PenningFraction[nProcess - 1][1] = 0.0
  */
-          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 179, __pyx_L1_error)
+          if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_int_0) < 0)) __PYX_ERR(0, 178, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":180
+          /* "Pygrad/Mixers.pyx":179
  *                     object.InteractionType[nProcess - 1] = L
  *                     object.izbr[nProcess - 1] = 0
  *                     object.PenningFraction[nProcess - 1][0] = 0.0             # <<<<<<<<<<<<<<
  *                     object.PenningFraction[nProcess - 1][1] = 0.0
  *                     object.PenningFraction[nProcess - 1][2] = 0.0
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 179, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 179, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 0, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 179, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "Pygrad/Mixers.pyx":181
+          /* "Pygrad/Mixers.pyx":180
  *                     object.izbr[nProcess - 1] = 0
  *                     object.PenningFraction[nProcess - 1][0] = 0.0
  *                     object.PenningFraction[nProcess - 1][1] = 0.0             # <<<<<<<<<<<<<<
  *                     object.PenningFraction[nProcess - 1][2] = 0.0
  * 
  */
-          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_2, 1, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-          /* "Pygrad/Mixers.pyx":182
+          /* "Pygrad/Mixers.pyx":181
  *                     object.PenningFraction[nProcess - 1][0] = 0.0
  *                     object.PenningFraction[nProcess - 1][1] = 0.0
  *                     object.PenningFraction[nProcess - 1][2] = 0.0             # <<<<<<<<<<<<<<
  * 
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
  */
-          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 182, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
-          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 182, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
-          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 182, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 2, __pyx_float_0_0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-          /* "Pygrad/Mixers.pyx":169
+          /* "Pygrad/Mixers.pyx":168
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = 0.5
  *                 object.AngleCut[iEnergy][nProcess - 1] = 1.0
  *                 if iEnergy <= 1:             # <<<<<<<<<<<<<<
@@ -5681,7 +5477,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  */
         }
 
-        /* "Pygrad/Mixers.pyx":162
+        /* "Pygrad/Mixers.pyx":161
  *                 object.PenningFraction[nProcess - 1][2] = 0.0
  *         else:
  *             for jj in range(gasData.N_Attachment):             # <<<<<<<<<<<<<<
@@ -5693,7 +5489,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
     }
     __pyx_L4:;
 
-    /* "Pygrad/Mixers.pyx":139
+    /* "Pygrad/Mixers.pyx":138
  * 
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if object.FinalElectronEnergy >= gasData.E[3]:             # <<<<<<<<<<<<<<
@@ -5702,7 +5498,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadAttachmentData(PyObject *__pyx_v_ga
  */
   }
 
-  /* "Pygrad/Mixers.pyx":138
+  /* "Pygrad/Mixers.pyx":137
  *             loadInelasticData(gasData,idg,nProcess,iEnergy,rGas1)
  * 
  * cpdef loadAttachmentData(gasData, idg, nProcess, iEnergy,rGas1):             # <<<<<<<<<<<<<<
@@ -5771,29 +5567,29 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_3loadAttachmentData(PyObject *__pyx_se
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_idg)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 1); __PYX_ERR(0, 138, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 1); __PYX_ERR(0, 137, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_nProcess)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 2); __PYX_ERR(0, 138, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 2); __PYX_ERR(0, 137, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_iEnergy)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 3); __PYX_ERR(0, 138, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 3); __PYX_ERR(0, 137, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rGas1)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 4); __PYX_ERR(0, 138, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, 4); __PYX_ERR(0, 137, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "loadAttachmentData") < 0)) __PYX_ERR(0, 138, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "loadAttachmentData") < 0)) __PYX_ERR(0, 137, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -5812,7 +5608,7 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_3loadAttachmentData(PyObject *__pyx_se
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 138, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loadAttachmentData", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 137, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Pygrad.Mixers.loadAttachmentData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5831,7 +5627,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_2loadAttachmentData(CYTHON_UNUSED PyOb
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("loadAttachmentData", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_v_gasData, __pyx_v_idg, __pyx_v_nProcess, __pyx_v_iEnergy, __pyx_v_rGas1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_loadAttachmentData(__pyx_v_gasData, __pyx_v_idg, __pyx_v_nProcess, __pyx_v_iEnergy, __pyx_v_rGas1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5848,7 +5644,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_2loadAttachmentData(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "Pygrad/Mixers.pyx":184
+/* "Pygrad/Mixers.pyx":183
  *                     object.PenningFraction[nProcess - 1][2] = 0.0
  * 
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):             # <<<<<<<<<<<<<<
@@ -5890,41 +5686,41 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __Pyx_RefNannySetupContext("loadInelasticData", 0);
   __Pyx_INCREF(__pyx_v_nProcess);
 
-  /* "Pygrad/Mixers.pyx":185
+  /* "Pygrad/Mixers.pyx":184
  * 
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if gasData.N_Inelastic != 0:             # <<<<<<<<<<<<<<
  *         for j in range(gasData.N_Inelastic):
  *             nProcess += 1
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_NeObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 185, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 184, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "Pygrad/Mixers.pyx":186
+    /* "Pygrad/Mixers.pyx":185
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if gasData.N_Inelastic != 0:
  *         for j in range(gasData.N_Inelastic):             # <<<<<<<<<<<<<<
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
       __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 186, __pyx_L1_error)
+      __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 185, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -5932,17 +5728,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
         if (likely(PyList_CheckExact(__pyx_t_2))) {
           if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 185, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 185, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 185, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -5952,7 +5748,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 186, __pyx_L1_error)
+            else __PYX_ERR(0, 185, __pyx_L1_error)
           }
           break;
         }
@@ -5961,210 +5757,210 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
       __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":187
+      /* "Pygrad/Mixers.pyx":186
  *     if gasData.N_Inelastic != 0:
  *         for j in range(gasData.N_Inelastic):
  *             nProcess += 1             # <<<<<<<<<<<<<<
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.negas[nProcess - 1] = 1
  */
-      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_nProcess, __pyx_int_1, 1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 186, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF_SET(__pyx_v_nProcess, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":188
+      /* "Pygrad/Mixers.pyx":187
  *         for j in range(gasData.N_Inelastic):
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess             # <<<<<<<<<<<<<<
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_GasExcitationSlots); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 188, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_idg, __pyx_v_nProcess) < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":189
+      /* "Pygrad/Mixers.pyx":188
  *             nProcess += 1
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.negas[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_negas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_int_1) < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_int_1) < 0)) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "Pygrad/Mixers.pyx":190
+      /* "Pygrad/Mixers.pyx":189
  *             object.GasExcitationSlots[idg] = nProcess
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *             object.ieshell[nProcess - 1] = 0
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_legas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 189, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 189, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "Pygrad/Mixers.pyx":191
+      /* "Pygrad/Mixers.pyx":190
  *             object.negas[nProcess - 1] = 1
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess] = 0.5
  */
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ieshell); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_int_0) < 0)) __PYX_ERR(0, 191, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_int_0) < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "Pygrad/Mixers.pyx":192
+      /* "Pygrad/Mixers.pyx":191
  *             object.legas[nProcess - 1] = 0
  *             object.ieshell[nProcess - 1] = 0
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]             # <<<<<<<<<<<<<<
  *             object.ScatteringParameter[iEnergy][nProcess] = 0.5
  *             object.AngleCut[iEnergy][nProcess] = 1.0
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InelasticCrossSection); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InelasticCrossSection); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_VMoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_idg); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_idg); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Beta); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_7 = PyNumber_Multiply(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_t_7) < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_t_7) < 0)) __PYX_ERR(0, 191, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "Pygrad/Mixers.pyx":193
+      /* "Pygrad/Mixers.pyx":192
  *             object.ieshell[nProcess - 1] = 0
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess] = 0.5             # <<<<<<<<<<<<<<
  *             object.AngleCut[iEnergy][nProcess] = 1.0
  *             object.AngularModel[nProcess - 1] = 0
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 192, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_v_nProcess, __pyx_float_0_5) < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_v_nProcess, __pyx_float_0_5) < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "Pygrad/Mixers.pyx":194
+      /* "Pygrad/Mixers.pyx":193
  *             object.CollisionFrequency[iEnergy][nProcess - 1] = object.InelasticCrossSection[j][iEnergy] * object.VMoleculesPerCm3PerGas[idg] * object.Beta[iEnergy]
  *             object.ScatteringParameter[iEnergy][nProcess] = 0.5
  *             object.AngleCut[iEnergy][nProcess] = 1.0             # <<<<<<<<<<<<<<
  *             object.AngularModel[nProcess - 1] = 0
  *             if gasData.KIN[j] == 1:
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 194, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 193, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 194, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 193, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_nProcess, __pyx_float_1_0) < 0)) __PYX_ERR(0, 194, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_nProcess, __pyx_float_1_0) < 0)) __PYX_ERR(0, 193, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-      /* "Pygrad/Mixers.pyx":195
+      /* "Pygrad/Mixers.pyx":194
  *             object.ScatteringParameter[iEnergy][nProcess] = 0.5
  *             object.AngleCut[iEnergy][nProcess] = 1.0
  *             object.AngularModel[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *             if gasData.KIN[j] == 1:
  *                 Ang.ScatteringParameter1 = gasData.PEInelasticCrossSection[j][iEnergy]
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_int_0) < 0)) __PYX_ERR(0, 195, __pyx_L1_error)
+      if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_int_0) < 0)) __PYX_ERR(0, 194, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "Pygrad/Mixers.pyx":196
+      /* "Pygrad/Mixers.pyx":195
  *             object.AngleCut[iEnergy][nProcess] = 1.0
  *             object.AngularModel[nProcess - 1] = 0
  *             if gasData.KIN[j] == 1:             # <<<<<<<<<<<<<<
  *                 Ang.ScatteringParameter1 = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 Ang.CalcAngCut()
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_KIN); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_KIN); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 196, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 195, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_EqObjC(__pyx_t_7, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 195, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 196, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 195, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_3) {
 
-        /* "Pygrad/Mixers.pyx":197
+        /* "Pygrad/Mixers.pyx":196
  *             object.AngularModel[nProcess - 1] = 0
  *             if gasData.KIN[j] == 1:
  *                 Ang.ScatteringParameter1 = gasData.PEInelasticCrossSection[j][iEnergy]             # <<<<<<<<<<<<<<
  *                 Ang.CalcAngCut()
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_j); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1, __pyx_t_6) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+        if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter1, __pyx_t_6) < 0) __PYX_ERR(0, 196, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "Pygrad/Mixers.pyx":198
+        /* "Pygrad/Mixers.pyx":197
  *             if gasData.KIN[j] == 1:
  *                 Ang.ScatteringParameter1 = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 Ang.CalcAngCut()             # <<<<<<<<<<<<<<
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_CalcAngCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __pyx_t_1 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
@@ -6178,21 +5974,42 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
         }
         __pyx_t_6 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_7);
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 198, __pyx_L1_error)
+        if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "Pygrad/Mixers.pyx":199
+        /* "Pygrad/Mixers.pyx":198
  *                 Ang.ScatteringParameter1 = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 Ang.CalcAngCut()
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2             # <<<<<<<<<<<<<<
  *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut
  *                 object.AngularModel[nProcess - 1] = 1
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 199, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_ScatteringParameter2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 199, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_7, __pyx_t_6) < 0)) __PYX_ERR(0, 198, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+        /* "Pygrad/Mixers.pyx":199
+ *                 Ang.CalcAngCut()
+ *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
+ *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut             # <<<<<<<<<<<<<<
+ *                 object.AngularModel[nProcess - 1] = 1
+ *             if gasData.KIN[j] == 2:
+ */
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 199, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 199, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
@@ -6205,42 +6022,21 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
         /* "Pygrad/Mixers.pyx":200
- *                 Ang.CalcAngCut()
- *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
- *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut             # <<<<<<<<<<<<<<
- *                 object.AngularModel[nProcess - 1] = 1
- *             if gasData.KIN[j] == 2:
- */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_6Pygrad_3Ang_Ang), __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngleCut); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 200, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 200, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_7, __pyx_t_6) < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-
-        /* "Pygrad/Mixers.pyx":201
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = Ang.ScatteringParameter2
  *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut
  *                 object.AngularModel[nProcess - 1] = 1             # <<<<<<<<<<<<<<
  *             if gasData.KIN[j] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 200, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 201, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 200, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_7, __pyx_int_1) < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_7, __pyx_int_1) < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":196
+        /* "Pygrad/Mixers.pyx":195
  *             object.AngleCut[iEnergy][nProcess] = 1.0
  *             object.AngularModel[nProcess - 1] = 0
  *             if gasData.KIN[j] == 1:             # <<<<<<<<<<<<<<
@@ -6249,68 +6045,68 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
       }
 
-      /* "Pygrad/Mixers.pyx":202
+      /* "Pygrad/Mixers.pyx":201
  *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut
  *                 object.AngularModel[nProcess - 1] = 1
  *             if gasData.KIN[j] == 2:             # <<<<<<<<<<<<<<
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_KIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_KIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_6, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_6, __pyx_int_2, 2, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_3) {
 
-        /* "Pygrad/Mixers.pyx":203
+        /* "Pygrad/Mixers.pyx":202
  *                 object.AngularModel[nProcess - 1] = 1
  *             if gasData.KIN[j] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]             # <<<<<<<<<<<<<<
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PEInelasticCrossSection); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ScatteringParameter); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_iEnergy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_t_7) < 0)) __PYX_ERR(0, 203, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_6, __pyx_t_7) < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":204
+        /* "Pygrad/Mixers.pyx":203
  *             if gasData.KIN[j] == 2:
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2             # <<<<<<<<<<<<<<
  *             if iEnergy <= 1:
  *                 object.rGas[nProcess - 1] = rGas1
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 204, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_int_2) < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_int_2) < 0)) __PYX_ERR(0, 203, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "Pygrad/Mixers.pyx":202
+        /* "Pygrad/Mixers.pyx":201
  *                 object.AngleCut[iEnergy][nProcess - 1] = Ang.AngleCut
  *                 object.AngularModel[nProcess - 1] = 1
  *             if gasData.KIN[j] == 2:             # <<<<<<<<<<<<<<
@@ -6319,58 +6115,58 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
       }
 
-      /* "Pygrad/Mixers.pyx":205
+      /* "Pygrad/Mixers.pyx":204
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1
  */
-      __pyx_t_6 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 205, __pyx_L1_error)
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
+      __pyx_t_6 = PyObject_RichCompare(__pyx_v_iEnergy, __pyx_int_1, Py_LE); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 204, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       if (__pyx_t_3) {
 
-        /* "Pygrad/Mixers.pyx":206
+        /* "Pygrad/Mixers.pyx":205
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:
  *                 object.rGas[nProcess - 1] = rGas1             # <<<<<<<<<<<<<<
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1
  *                 L = 4
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_rGas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 205, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 205, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_7, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_7, __pyx_v_rGas1) < 0)) __PYX_ERR(0, 205, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":207
+        /* "Pygrad/Mixers.pyx":206
  *             if iEnergy <= 1:
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1             # <<<<<<<<<<<<<<
  *                 L = 4
  *                 if gasData.EIN[j] < 0.0:
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 207, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 207, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_v_rGas1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 207, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_v_rGas1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 207, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ein); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_1, __pyx_t_7) < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_6, __pyx_t_1, __pyx_t_7) < 0)) __PYX_ERR(0, 206, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-        /* "Pygrad/Mixers.pyx":208
+        /* "Pygrad/Mixers.pyx":207
  *                 object.rGas[nProcess - 1] = rGas1
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1
  *                 L = 4             # <<<<<<<<<<<<<<
@@ -6379,25 +6175,25 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
         __pyx_v_L = 4;
 
-        /* "Pygrad/Mixers.pyx":209
+        /* "Pygrad/Mixers.pyx":208
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1
  *                 L = 4
  *                 if gasData.EIN[j] < 0.0:             # <<<<<<<<<<<<<<
  *                     L = 5
  *                 object.ipn[nProcess - 1] = 0
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = PyObject_RichCompare(__pyx_t_1, __pyx_float_0_0, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_7 = PyObject_RichCompare(__pyx_t_1, __pyx_float_0_0, Py_LT); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 208, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         if (__pyx_t_3) {
 
-          /* "Pygrad/Mixers.pyx":210
+          /* "Pygrad/Mixers.pyx":209
  *                 L = 4
  *                 if gasData.EIN[j] < 0.0:
  *                     L = 5             # <<<<<<<<<<<<<<
@@ -6406,7 +6202,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
           __pyx_v_L = 5;
 
-          /* "Pygrad/Mixers.pyx":209
+          /* "Pygrad/Mixers.pyx":208
  *                 object.ein[nProcess - 1] = gasData.EIN[j]/rGas1
  *                 L = 4
  *                 if gasData.EIN[j] < 0.0:             # <<<<<<<<<<<<<<
@@ -6415,265 +6211,265 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
         }
 
-        /* "Pygrad/Mixers.pyx":211
+        /* "Pygrad/Mixers.pyx":210
  *                 if gasData.EIN[j] < 0.0:
  *                     L = 5
  *                 object.ipn[nProcess - 1] = 0             # <<<<<<<<<<<<<<
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = gasData.izbr[j]
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ipn); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 210, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_1, __pyx_int_0) < 0)) __PYX_ERR(0, 210, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":212
+        /* "Pygrad/Mixers.pyx":211
  *                     L = 5
  *                 object.ipn[nProcess - 1] = 0
  *                 object.InteractionType[nProcess - 1] = L             # <<<<<<<<<<<<<<
  *                 object.izbr[nProcess - 1] = gasData.izbr[j]
  *                 object.PenningFraction[nProcess - 1][0] = gasData.PenningFraction[0][j]
  */
-        __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_From_long(__pyx_v_L); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 212, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_InteractionType); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 212, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_t_1) < 0)) __PYX_ERR(0, 212, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_t_6, __pyx_t_1) < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":213
+        /* "Pygrad/Mixers.pyx":212
  *                 object.ipn[nProcess - 1] = 0
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = gasData.izbr[j]             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][0] = gasData.PenningFraction[0][j]
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 213, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 212, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_izbr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 213, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 212, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_7, __pyx_t_6) < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_7, __pyx_t_6) < 0)) __PYX_ERR(0, 212, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "Pygrad/Mixers.pyx":214
+        /* "Pygrad/Mixers.pyx":213
  *                 object.InteractionType[nProcess - 1] = L
  *                 object.izbr[nProcess - 1] = gasData.izbr[j]
  *                 object.PenningFraction[nProcess - 1][0] = gasData.PenningFraction[0][j]             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 214, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "Pygrad/Mixers.pyx":215
+        /* "Pygrad/Mixers.pyx":214
  *                 object.izbr[nProcess - 1] = gasData.izbr[j]
  *                 object.PenningFraction[nProcess - 1][0] = gasData.PenningFraction[0][j]
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)             # <<<<<<<<<<<<<<
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_v_j); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = PyNumber_Multiply(__pyx_t_6, __pyx_float_1eneg_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_8 = PyNumber_Multiply(__pyx_t_6, __pyx_float_1eneg_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = PyFloat_FromDouble(sqrt(3.0)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_6 = PyFloat_FromDouble(sqrt(3.0)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyNumber_Divide(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 215, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_7, 1, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 214, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":216
+        /* "Pygrad/Mixers.pyx":215
  *                 object.PenningFraction[nProcess - 1][0] = gasData.PenningFraction[0][j]
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]             # <<<<<<<<<<<<<<
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:
  *                     object.avpfrac[0][0] = object.PenningFraction[0][nProcess - 1]
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 216, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        if (unlikely(__Pyx_SetItemInt(__pyx_t_6, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_t_6, 2, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "Pygrad/Mixers.pyx":217
+        /* "Pygrad/Mixers.pyx":216
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:             # <<<<<<<<<<<<<<
  *                     object.avpfrac[0][0] = object.PenningFraction[0][nProcess - 1]
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]
  */
-        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
-        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_8, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_8);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_1 = PyObject_RichCompare(__pyx_t_6, __pyx_t_8, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 217, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         if (__pyx_t_3) {
 
-          /* "Pygrad/Mixers.pyx":218
+          /* "Pygrad/Mixers.pyx":217
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:
  *                     object.avpfrac[0][0] = object.PenningFraction[0][nProcess - 1]             # <<<<<<<<<<<<<<
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 217, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-          /* "Pygrad/Mixers.pyx":219
+          /* "Pygrad/Mixers.pyx":218
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:
  *                     object.avpfrac[0][0] = object.PenningFraction[0][nProcess - 1]
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]             # <<<<<<<<<<<<<<
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
  *                 if j == gasData.N_Inelastic:
  */
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 219, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-          /* "Pygrad/Mixers.pyx":220
+          /* "Pygrad/Mixers.pyx":219
  *                     object.avpfrac[0][0] = object.PenningFraction[0][nProcess - 1]
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]             # <<<<<<<<<<<<<<
  *                 if j == gasData.N_Inelastic:
  *                     object.cminexsc[0] *= object.avpfrac[0][0]
  */
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_nProcess, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_8, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, 0, __pyx_t_6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 219, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-          /* "Pygrad/Mixers.pyx":217
+          /* "Pygrad/Mixers.pyx":216
  *                 object.PenningFraction[nProcess - 1][1] = gasData.PenningFraction[1][j] * 1e-6 / sqrt(3.0)
  *                 object.PenningFraction[nProcess - 1][2] = gasData.PenningFraction[2][j]
  *                 if object.PenningFraction[nProcess - 1][0] > object.avpfrac[0][0]:             # <<<<<<<<<<<<<<
@@ -6682,50 +6478,50 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
         }
 
-        /* "Pygrad/Mixers.pyx":221
+        /* "Pygrad/Mixers.pyx":220
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
  *                 if j == gasData.N_Inelastic:             # <<<<<<<<<<<<<<
  *                     object.cminexsc[0] *= object.avpfrac[0][0]
  *     kelsum = np.sum(object.WhichAngularModel)
  */
-        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __pyx_t_8 = PyObject_RichCompare(__pyx_v_j, __pyx_t_6, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 221, __pyx_L1_error)
+        __pyx_t_8 = PyObject_RichCompare(__pyx_v_j, __pyx_t_6, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 220, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         if (__pyx_t_3) {
 
-          /* "Pygrad/Mixers.pyx":222
+          /* "Pygrad/Mixers.pyx":221
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
  *                 if j == gasData.N_Inelastic:
  *                     object.cminexsc[0] *= object.avpfrac[0][0]             # <<<<<<<<<<<<<<
  *     kelsum = np.sum(object.WhichAngularModel)
  *     kelsum += np.sum(object.KIN)
  */
-          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_cminexsc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_cminexsc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __pyx_t_9 = 0;
-          __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, __pyx_t_9, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_8, __pyx_t_9, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_avpfrac); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          __pyx_t_7 = PyNumber_InPlaceMultiply(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 222, __pyx_L1_error)
+          __pyx_t_7 = PyNumber_InPlaceMultiply(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, __pyx_t_9, __pyx_t_7, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 222, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_t_8, __pyx_t_9, __pyx_t_7, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 221, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
 
-          /* "Pygrad/Mixers.pyx":221
+          /* "Pygrad/Mixers.pyx":220
  *                     object.avpfrac[1][0] = object.PenningFraction[1][nProcess - 1]
  *                     object.avpfrac[2][0] = object.PenningFraction[2][nProcess - 1]
  *                 if j == gasData.N_Inelastic:             # <<<<<<<<<<<<<<
@@ -6734,7 +6530,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
         }
 
-        /* "Pygrad/Mixers.pyx":205
+        /* "Pygrad/Mixers.pyx":204
  *                 object.ScatteringParameter[iEnergy][nProcess - 1] = gasData.PEInelasticCrossSection[j][iEnergy]
  *                 object.AngularModel[nProcess - 1] = 2
  *             if iEnergy <= 1:             # <<<<<<<<<<<<<<
@@ -6743,7 +6539,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
       }
 
-      /* "Pygrad/Mixers.pyx":186
+      /* "Pygrad/Mixers.pyx":185
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if gasData.N_Inelastic != 0:
  *         for j in range(gasData.N_Inelastic):             # <<<<<<<<<<<<<<
@@ -6753,7 +6549,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "Pygrad/Mixers.pyx":185
+    /* "Pygrad/Mixers.pyx":184
  * 
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):
  *     if gasData.N_Inelastic != 0:             # <<<<<<<<<<<<<<
@@ -6762,19 +6558,19 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
   }
 
-  /* "Pygrad/Mixers.pyx":223
+  /* "Pygrad/Mixers.pyx":222
  *                 if j == gasData.N_Inelastic:
  *                     object.cminexsc[0] *= object.avpfrac[0][0]
  *     kelsum = np.sum(object.WhichAngularModel)             # <<<<<<<<<<<<<<
  *     kelsum += np.sum(object.KIN)
  *     if kelsum > 0:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sum); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sum); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_WhichAngularModel); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 223, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_WhichAngularModel); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -6789,25 +6585,25 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_1, __pyx_t_8) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_v_kelsum = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "Pygrad/Mixers.pyx":224
+  /* "Pygrad/Mixers.pyx":223
  *                     object.cminexsc[0] *= object.avpfrac[0][0]
  *     kelsum = np.sum(object.WhichAngularModel)
  *     kelsum += np.sum(object.KIN)             # <<<<<<<<<<<<<<
  *     if kelsum > 0:
  *         niso = 1
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_sum); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_sum); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_KIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_KIN); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __pyx_t_1 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -6822,28 +6618,28 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_1, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_7);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyNumber_InPlaceAdd(__pyx_v_kelsum, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_8 = PyNumber_InPlaceAdd(__pyx_v_kelsum, __pyx_t_2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 223, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF_SET(__pyx_v_kelsum, __pyx_t_8);
   __pyx_t_8 = 0;
 
-  /* "Pygrad/Mixers.pyx":225
+  /* "Pygrad/Mixers.pyx":224
  *     kelsum = np.sum(object.WhichAngularModel)
  *     kelsum += np.sum(object.KIN)
  *     if kelsum > 0:             # <<<<<<<<<<<<<<
  *         niso = 1
  *     bp = object.EField ** 2 * object.CONST1
  */
-  __pyx_t_8 = PyObject_RichCompare(__pyx_v_kelsum, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 225, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 225, __pyx_L1_error)
+  __pyx_t_8 = PyObject_RichCompare(__pyx_v_kelsum, __pyx_int_0, Py_GT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (__pyx_t_3) {
 
-    /* "Pygrad/Mixers.pyx":226
+    /* "Pygrad/Mixers.pyx":225
  *     kelsum += np.sum(object.KIN)
  *     if kelsum > 0:
  *         niso = 1             # <<<<<<<<<<<<<<
@@ -6852,7 +6648,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
     __pyx_v_niso = 1;
 
-    /* "Pygrad/Mixers.pyx":225
+    /* "Pygrad/Mixers.pyx":224
  *     kelsum = np.sum(object.WhichAngularModel)
  *     kelsum += np.sum(object.KIN)
  *     if kelsum > 0:             # <<<<<<<<<<<<<<
@@ -6861,70 +6657,70 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
   }
 
-  /* "Pygrad/Mixers.pyx":227
+  /* "Pygrad/Mixers.pyx":226
  *     if kelsum > 0:
  *         niso = 1
  *     bp = object.EField ** 2 * object.CONST1             # <<<<<<<<<<<<<<
  *     f2 = object.EField * object.CONST3
  *     elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EField); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EField); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_2 = PyNumber_Power(__pyx_t_8, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Power(__pyx_t_8, __pyx_int_2, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CONST1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CONST1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_v_bp = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "Pygrad/Mixers.pyx":228
+  /* "Pygrad/Mixers.pyx":227
  *         niso = 1
  *     bp = object.EField ** 2 * object.CONST1
  *     f2 = object.EField * object.CONST3             # <<<<<<<<<<<<<<
  *     elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
  *     elow = min(elow,object.smallNumber)
  */
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EField); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EField); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CONST3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_CONST3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_v_f2 = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "Pygrad/Mixers.pyx":229
+  /* "Pygrad/Mixers.pyx":228
  *     bp = object.EField ** 2 * object.CONST1
  *     f2 = object.EField * object.CONST3
  *     elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0             # <<<<<<<<<<<<<<
  *     elow = min(elow,object.smallNumber)
  *     ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_7 = PyNumber_Multiply(__pyx_t_8, __pyx_v_bp); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Multiply(__pyx_t_8, __pyx_v_bp); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = PyNumber_Multiply(__pyx_t_7, __pyx_v_f2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_8 = PyNumber_Multiply(__pyx_t_7, __pyx_v_f2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyFinal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyFinal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_10 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_10 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = NULL;
@@ -6940,42 +6736,42 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __pyx_t_7 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_1, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_10);
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Multiply(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_6 = PyNumber_Multiply(__pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyStep); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyStep); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyNumber_Divide(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyFloat_SubtractObjC(__pyx_t_2, __pyx_float_1_0, 1.0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyFloat_SubtractObjC(__pyx_t_2, __pyx_float_1_0, 1.0, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_elow = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "Pygrad/Mixers.pyx":230
+  /* "Pygrad/Mixers.pyx":229
  *     f2 = object.EField * object.CONST3
  *     elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
  *     elow = min(elow,object.smallNumber)             # <<<<<<<<<<<<<<
  *     ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
  *     ehi = max(20000.0,ehi)
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_smallNumber); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_smallNumber); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_INCREF(__pyx_v_elow);
   __pyx_t_2 = __pyx_v_elow;
-  __pyx_t_8 = PyObject_RichCompare(__pyx_t_6, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 230, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_8 = PyObject_RichCompare(__pyx_t_6, __pyx_t_2, Py_LT); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 229, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   if (__pyx_t_3) {
     __Pyx_INCREF(__pyx_t_6);
@@ -6992,28 +6788,28 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __Pyx_DECREF_SET(__pyx_v_elow, __pyx_t_6);
   __pyx_t_6 = 0;
 
-  /* "Pygrad/Mixers.pyx":231
+  /* "Pygrad/Mixers.pyx":230
  *     elow = object.tmax * (object.tmax * bp * f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep - 1.0
  *     elow = min(elow,object.smallNumber)
  *     ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0             # <<<<<<<<<<<<<<
  *     ehi = max(20000.0,ehi)
  *     jone = 1
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_tmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_v_bp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_v_bp); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_sqrt); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyFinal); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyFinal); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_float_0_5, __pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -7029,33 +6825,33 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __pyx_t_7 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_1) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_1);
   __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = PyNumber_Multiply(__pyx_v_f2, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_10 = PyNumber_Multiply(__pyx_v_f2, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_10 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyStep); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElectronEnergyStep); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_t_10, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-  __pyx_t_7 = __Pyx_PyFloat_AddObjC(__pyx_t_6, __pyx_float_1_0, 1.0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyFloat_AddObjC(__pyx_t_6, __pyx_float_1_0, 1.0, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_v_ehi = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "Pygrad/Mixers.pyx":232
+  /* "Pygrad/Mixers.pyx":231
  *     elow = min(elow,object.smallNumber)
  *     ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
  *     ehi = max(20000.0,ehi)             # <<<<<<<<<<<<<<
@@ -7065,17 +6861,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __Pyx_INCREF(__pyx_v_ehi);
   __pyx_t_7 = __pyx_v_ehi;
   __pyx_t_11 = 20000.0;
-  __pyx_t_10 = PyFloat_FromDouble(__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_10 = PyFloat_FromDouble(__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_7, __pyx_t_10, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_t_7, __pyx_t_10, Py_GT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 232, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 231, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
     __Pyx_INCREF(__pyx_t_7);
     __pyx_t_6 = __pyx_t_7;
   } else {
-    __pyx_t_2 = PyFloat_FromDouble(__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_2 = PyFloat_FromDouble(__pyx_t_11); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_6 = __pyx_t_2;
     __pyx_t_2 = 0;
@@ -7087,7 +6883,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __Pyx_DECREF_SET(__pyx_v_ehi, __pyx_t_7);
   __pyx_t_7 = 0;
 
-  /* "Pygrad/Mixers.pyx":233
+  /* "Pygrad/Mixers.pyx":232
  *     ehi = object.tmax * (object.tmax * bp + f2 * np.sqrt(0.5 * object.ElectronEnergyFinal))/object.ElectronEnergyStep + 1.0
  *     ehi = max(20000.0,ehi)
  *     jone = 1             # <<<<<<<<<<<<<<
@@ -7096,7 +6892,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
   __pyx_v_jone = 1;
 
-  /* "Pygrad/Mixers.pyx":234
+  /* "Pygrad/Mixers.pyx":233
  *     ehi = max(20000.0,ehi)
  *     jone = 1
  *     jlarge = 20000             # <<<<<<<<<<<<<<
@@ -7105,7 +6901,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
   __pyx_v_jlarge = 0x4E20;
 
-  /* "Pygrad/Mixers.pyx":235
+  /* "Pygrad/Mixers.pyx":234
  *     jone = 1
  *     jlarge = 20000
  *     for i in range(1,11):             # <<<<<<<<<<<<<<
@@ -7113,63 +6909,63 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  *         jhi = 20000-2000*(10-i) + int(ehi)
  */
   for (__pyx_t_12 = 1; __pyx_t_12 < 11; __pyx_t_12+=1) {
-    __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_t_12); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_From_long(__pyx_t_12); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "Pygrad/Mixers.pyx":236
+    /* "Pygrad/Mixers.pyx":235
  *     jlarge = 20000
  *     for i in range(1,11):
  *         jlow = 20000-2000*(11-i) + 1 + int(elow)             # <<<<<<<<<<<<<<
  *         jhi = 20000-2000*(10-i) + int(ehi)
  *         jlow = max(jlow,jone)
  */
-    __pyx_t_7 = __Pyx_PyInt_SubtractCObj(__pyx_int_11, __pyx_v_i, 11, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_SubtractCObj(__pyx_int_11, __pyx_v_i, 11, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = PyNumber_Multiply(__pyx_int_2000, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Multiply(__pyx_int_2000, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyInt_SubtractCObj(__pyx_int_20000, __pyx_t_6, 0x4E20, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyInt_SubtractCObj(__pyx_int_20000, __pyx_t_6, 0x4E20, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyInt_AddObjC(__pyx_t_7, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_AddObjC(__pyx_t_7, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_v_elow); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_v_elow); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF_SET(__pyx_v_jlow, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "Pygrad/Mixers.pyx":237
+    /* "Pygrad/Mixers.pyx":236
  *     for i in range(1,11):
  *         jlow = 20000-2000*(11-i) + 1 + int(elow)
  *         jhi = 20000-2000*(10-i) + int(ehi)             # <<<<<<<<<<<<<<
  *         jlow = max(jlow,jone)
  *         jhi = min(jhi,jlarge)
  */
-    __pyx_t_2 = __Pyx_PyInt_SubtractCObj(__pyx_int_10, __pyx_v_i, 10, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_SubtractCObj(__pyx_int_10, __pyx_v_i, 10, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = PyNumber_Multiply(__pyx_int_2000, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Multiply(__pyx_int_2000, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyInt_SubtractCObj(__pyx_int_20000, __pyx_t_7, 0x4E20, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_SubtractCObj(__pyx_int_20000, __pyx_t_7, 0x4E20, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_v_ehi); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyNumber_Int(__pyx_v_ehi); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 237, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 236, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_XDECREF_SET(__pyx_v_jhi, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "Pygrad/Mixers.pyx":238
+    /* "Pygrad/Mixers.pyx":237
  *         jlow = 20000-2000*(11-i) + 1 + int(elow)
  *         jhi = 20000-2000*(10-i) + int(ehi)
  *         jlow = max(jlow,jone)             # <<<<<<<<<<<<<<
@@ -7179,14 +6975,14 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __pyx_t_13 = __pyx_v_jone;
     __Pyx_INCREF(__pyx_v_jlow);
     __pyx_t_6 = __pyx_v_jlow;
-    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 238, __pyx_L1_error)
+    __pyx_t_10 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 238, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 237, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     if (__pyx_t_3) {
-      __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 238, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 237, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __pyx_t_7 = __pyx_t_10;
       __pyx_t_10 = 0;
@@ -7201,7 +6997,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __Pyx_DECREF_SET(__pyx_v_jlow, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "Pygrad/Mixers.pyx":239
+    /* "Pygrad/Mixers.pyx":238
  *         jhi = 20000-2000*(10-i) + int(ehi)
  *         jlow = max(jlow,jone)
  *         jhi = min(jhi,jlarge)             # <<<<<<<<<<<<<<
@@ -7211,14 +7007,14 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __pyx_t_13 = __pyx_v_jlarge;
     __Pyx_INCREF(__pyx_v_jhi);
     __pyx_t_6 = __pyx_v_jhi;
-    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_2 = PyObject_RichCompare(__pyx_t_10, __pyx_t_6, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_2 = PyObject_RichCompare(__pyx_t_10, __pyx_t_6, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 238, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     if (__pyx_t_3) {
-      __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 238, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_t_7 = __pyx_t_2;
       __pyx_t_2 = 0;
@@ -7233,14 +7029,14 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __Pyx_DECREF_SET(__pyx_v_jhi, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "Pygrad/Mixers.pyx":240
+    /* "Pygrad/Mixers.pyx":239
  *         jlow = max(jlow,jone)
  *         jhi = min(jhi,jlarge)
  *         for j in range(jlow,jhi):             # <<<<<<<<<<<<<<
  *             if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:
  *                 object.Tcfmax[i] = object.TotalCollisionFrequency[j]
  */
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_v_jlow);
     __Pyx_GIVEREF(__pyx_v_jlow);
@@ -7248,16 +7044,16 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __Pyx_INCREF(__pyx_v_jhi);
     __Pyx_GIVEREF(__pyx_v_jhi);
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_jhi);
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_6, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
       __pyx_t_6 = __pyx_t_7; __Pyx_INCREF(__pyx_t_6); __pyx_t_4 = 0;
       __pyx_t_5 = NULL;
     } else {
-      __pyx_t_4 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+      __pyx_t_4 = -1; __pyx_t_6 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 239, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_5 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 240, __pyx_L1_error)
+      __pyx_t_5 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 239, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     for (;;) {
@@ -7265,17 +7061,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
         if (likely(PyList_CheckExact(__pyx_t_6))) {
           if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 239, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         } else {
           if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_4); __Pyx_INCREF(__pyx_t_7); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 239, __pyx_L1_error)
           #else
-          __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_6, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           #endif
         }
@@ -7285,7 +7081,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 240, __pyx_L1_error)
+            else __PYX_ERR(0, 239, __pyx_L1_error)
           }
           break;
         }
@@ -7294,49 +7090,49 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
       __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_7);
       __pyx_t_7 = 0;
 
-      /* "Pygrad/Mixers.pyx":241
+      /* "Pygrad/Mixers.pyx":240
  *         jhi = min(jhi,jlarge)
  *         for j in range(jlow,jhi):
  *             if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:             # <<<<<<<<<<<<<<
  *                 object.Tcfmax[i] = object.TotalCollisionFrequency[j]
  *     tlim = 0.0
  */
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Tcfmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Tcfmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-      __pyx_t_7 = PyObject_RichCompare(__pyx_t_2, __pyx_t_10, Py_GE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_7 = PyObject_RichCompare(__pyx_t_2, __pyx_t_10, Py_GE); __Pyx_XGOTREF(__pyx_t_7); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 241, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 240, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       if (__pyx_t_3) {
 
-        /* "Pygrad/Mixers.pyx":242
+        /* "Pygrad/Mixers.pyx":241
  *         for j in range(jlow,jhi):
  *             if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:
  *                 object.Tcfmax[i] = object.TotalCollisionFrequency[j]             # <<<<<<<<<<<<<<
  *     tlim = 0.0
  *     for i in range(20000):
  */
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 242, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 242, __pyx_L1_error)
+        __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_j); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 241, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Tcfmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 242, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Tcfmax); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_i, __pyx_t_10) < 0)) __PYX_ERR(0, 242, __pyx_L1_error)
+        if (unlikely(PyObject_SetItem(__pyx_t_7, __pyx_v_i, __pyx_t_10) < 0)) __PYX_ERR(0, 241, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-        /* "Pygrad/Mixers.pyx":241
+        /* "Pygrad/Mixers.pyx":240
  *         jhi = min(jhi,jlarge)
  *         for j in range(jlow,jhi):
  *             if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:             # <<<<<<<<<<<<<<
@@ -7345,7 +7141,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  */
       }
 
-      /* "Pygrad/Mixers.pyx":240
+      /* "Pygrad/Mixers.pyx":239
  *         jlow = max(jlow,jone)
  *         jhi = min(jhi,jlarge)
  *         for j in range(jlow,jhi):             # <<<<<<<<<<<<<<
@@ -7356,7 +7152,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
 
-  /* "Pygrad/Mixers.pyx":243
+  /* "Pygrad/Mixers.pyx":242
  *             if object.TotalCollisionFrequency[j] >= object.Tcfmax[i]:
  *                 object.Tcfmax[i] = object.TotalCollisionFrequency[j]
  *     tlim = 0.0             # <<<<<<<<<<<<<<
@@ -7366,7 +7162,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   __Pyx_INCREF(__pyx_float_0_0);
   __pyx_v_tlim = __pyx_float_0_0;
 
-  /* "Pygrad/Mixers.pyx":244
+  /* "Pygrad/Mixers.pyx":243
  *                 object.Tcfmax[i] = object.TotalCollisionFrequency[j]
  *     tlim = 0.0
  *     for i in range(20000):             # <<<<<<<<<<<<<<
@@ -7374,45 +7170,45 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
  *             tlim= object.TotalCollisionFrequency[i]
  */
   for (__pyx_t_12 = 0; __pyx_t_12 < 0x4E20; __pyx_t_12+=1) {
-    __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 244, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_12); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 243, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "Pygrad/Mixers.pyx":245
+    /* "Pygrad/Mixers.pyx":244
  *     tlim = 0.0
  *     for i in range(20000):
  *         if tlim < object.TotalCollisionFrequency[i]:             # <<<<<<<<<<<<<<
  *             tlim= object.TotalCollisionFrequency[i]
  *     for i in range(object.EnergySteps):
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyObject_RichCompare(__pyx_v_tlim, __pyx_t_10, Py_LT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_6 = PyObject_RichCompare(__pyx_v_tlim, __pyx_t_10, Py_LT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 245, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 244, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     if (__pyx_t_3) {
 
-      /* "Pygrad/Mixers.pyx":246
+      /* "Pygrad/Mixers.pyx":245
  *     for i in range(20000):
  *         if tlim < object.TotalCollisionFrequency[i]:
  *             tlim= object.TotalCollisionFrequency[i]             # <<<<<<<<<<<<<<
  *     for i in range(object.EnergySteps):
  *         object.TotalCrossSection[i]  =  object.MoleculesPerCm3PerGas[0] * object.Q[0][0][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][0][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][0][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][0][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][0][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][0][i]
  */
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCollisionFrequency); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 245, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 246, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 245, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_DECREF_SET(__pyx_v_tlim, __pyx_t_10);
       __pyx_t_10 = 0;
 
-      /* "Pygrad/Mixers.pyx":245
+      /* "Pygrad/Mixers.pyx":244
  *     tlim = 0.0
  *     for i in range(20000):
  *         if tlim < object.TotalCollisionFrequency[i]:             # <<<<<<<<<<<<<<
@@ -7422,25 +7218,25 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     }
   }
 
-  /* "Pygrad/Mixers.pyx":247
+  /* "Pygrad/Mixers.pyx":246
  *         if tlim < object.TotalCollisionFrequency[i]:
  *             tlim= object.TotalCollisionFrequency[i]
  *     for i in range(object.EnergySteps):             # <<<<<<<<<<<<<<
  *         object.TotalCrossSection[i]  =  object.MoleculesPerCm3PerGas[0] * object.Q[0][0][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][0][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][0][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][0][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][0][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][0][i]
  *         object.ElasticCrossSection[i] = object.MoleculesPerCm3PerGas[0] * object.Q[0][1][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][1][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][1][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][1][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][1][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][1][i]
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_EnergySteps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_t_10); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (likely(PyList_CheckExact(__pyx_t_6)) || PyTuple_CheckExact(__pyx_t_6)) {
     __pyx_t_10 = __pyx_t_6; __Pyx_INCREF(__pyx_t_10); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_6); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 246, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_5 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 246, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   for (;;) {
@@ -7448,17 +7244,17 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
       if (likely(PyList_CheckExact(__pyx_t_10))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 246, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_4); __Pyx_INCREF(__pyx_t_6); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 246, __pyx_L1_error)
         #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+        __pyx_t_6 = PySequence_ITEM(__pyx_t_10, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 246, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
         #endif
       }
@@ -7468,7 +7264,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 247, __pyx_L1_error)
+          else __PYX_ERR(0, 246, __pyx_L1_error)
         }
         break;
       }
@@ -7477,313 +7273,313 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "Pygrad/Mixers.pyx":248
+    /* "Pygrad/Mixers.pyx":247
  *             tlim= object.TotalCollisionFrequency[i]
  *     for i in range(object.EnergySteps):
  *         object.TotalCrossSection[i]  =  object.MoleculesPerCm3PerGas[0] * object.Q[0][0][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][0][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][0][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][0][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][0][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][0][i]             # <<<<<<<<<<<<<<
  *         object.ElasticCrossSection[i] = object.MoleculesPerCm3PerGas[0] * object.Q[0][1][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][1][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][1][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][1][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][1][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][1][i]
  * 
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_6, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCrossSection); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_v_i, __pyx_t_7) < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_1, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_2, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_TotalCrossSection); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_v_i, __pyx_t_7) < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "Pygrad/Mixers.pyx":249
+    /* "Pygrad/Mixers.pyx":248
  *     for i in range(object.EnergySteps):
  *         object.TotalCrossSection[i]  =  object.MoleculesPerCm3PerGas[0] * object.Q[0][0][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][0][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][0][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][0][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][0][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][0][i]
  *         object.ElasticCrossSection[i] = object.MoleculesPerCm3PerGas[0] * object.Q[0][1][i] + object.MoleculesPerCm3PerGas[1] * object.Q[1][1][i] + object.MoleculesPerCm3PerGas[2] * object.Q[2][1][i] + object.MoleculesPerCm3PerGas[3] * object.Q[3][1][i] + object.MoleculesPerCm3PerGas[4] * object.Q[4][1][i] + object.MoleculesPerCm3PerGas[5] * object.Q[5][1][i]             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_7, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_7 = PyNumber_Multiply(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElasticCrossSection); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 249, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_7, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = PyNumber_Add(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_1, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_6 = PyNumber_Add(__pyx_t_7, __pyx_t_1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_MoleculesPerCm3PerGas); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_7 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_Q); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_i); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = PyNumber_Multiply(__pyx_t_7, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ElasticCrossSection); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_v_i, __pyx_t_2) < 0)) __PYX_ERR(0, 248, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "Pygrad/Mixers.pyx":247
+    /* "Pygrad/Mixers.pyx":246
  *         if tlim < object.TotalCollisionFrequency[i]:
  *             tlim= object.TotalCollisionFrequency[i]
  *     for i in range(object.EnergySteps):             # <<<<<<<<<<<<<<
@@ -7793,7 +7589,7 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_loadInelasticData(PyObject *__pyx_v_gas
   }
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "Pygrad/Mixers.pyx":184
+  /* "Pygrad/Mixers.pyx":183
  *                     object.PenningFraction[nProcess - 1][2] = 0.0
  * 
  * cpdef loadInelasticData(gasData, idg, nProcess, iEnergy,rGas1):             # <<<<<<<<<<<<<<
@@ -7870,29 +7666,29 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_5loadInelasticData(PyObject *__pyx_sel
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_idg)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 1); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 1); __PYX_ERR(0, 183, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_nProcess)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 2); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 2); __PYX_ERR(0, 183, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_iEnergy)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 3); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 3); __PYX_ERR(0, 183, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rGas1)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 4); __PYX_ERR(0, 184, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, 4); __PYX_ERR(0, 183, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "loadInelasticData") < 0)) __PYX_ERR(0, 184, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "loadInelasticData") < 0)) __PYX_ERR(0, 183, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 5) {
       goto __pyx_L5_argtuple_error;
@@ -7911,7 +7707,7 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_5loadInelasticData(PyObject *__pyx_sel
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 184, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loadInelasticData", 1, 5, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 183, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Pygrad.Mixers.loadInelasticData", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7930,7 +7726,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_4loadInelasticData(CYTHON_UNUSED PyObj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("loadInelasticData", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_v_gasData, __pyx_v_idg, __pyx_v_nProcess, __pyx_v_iEnergy, __pyx_v_rGas1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_loadInelasticData(__pyx_v_gasData, __pyx_v_idg, __pyx_v_nProcess, __pyx_v_iEnergy, __pyx_v_rGas1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7947,7 +7743,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_4loadInelasticData(CYTHON_UNUSED PyObj
   return __pyx_r;
 }
 
-/* "Pygrad/Mixers.pyx":253
+/* "Pygrad/Mixers.pyx":252
  * 
  * 
  * cpdef assignWPL(index, gIndex,gasData):             # <<<<<<<<<<<<<<
@@ -7964,193 +7760,193 @@ static PyObject *__pyx_f_6Pygrad_6Mixers_assignWPL(PyObject *__pyx_v_index, PyOb
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("assignWPL", 0);
 
-  /* "Pygrad/Mixers.pyx":254
+  /* "Pygrad/Mixers.pyx":253
  * 
  * cpdef assignWPL(index, gIndex,gasData):
  *     object.wpl[index - 1] = gasData.EB1[gIndex]             # <<<<<<<<<<<<<<
  *     object.nc0[index - 1] = gasData.NC0[gIndex]
  *     object.ec0[index - 1] = gasData.EC0[gIndex]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EB1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EB1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_wpl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_wpl); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 254, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 253, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "Pygrad/Mixers.pyx":255
+  /* "Pygrad/Mixers.pyx":254
  * cpdef assignWPL(index, gIndex,gasData):
  *     object.wpl[index - 1] = gasData.EB1[gIndex]
  *     object.nc0[index - 1] = gasData.NC0[gIndex]             # <<<<<<<<<<<<<<
  *     object.ec0[index - 1] = gasData.EC0[gIndex]
  *     object.ng1[index - 1] = gasData.NG1[gIndex]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NC0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NC0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_nc0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_nc0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 255, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 254, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "Pygrad/Mixers.pyx":256
+  /* "Pygrad/Mixers.pyx":255
  *     object.wpl[index - 1] = gasData.EB1[gIndex]
  *     object.nc0[index - 1] = gasData.NC0[gIndex]
  *     object.ec0[index - 1] = gasData.EC0[gIndex]             # <<<<<<<<<<<<<<
  *     object.ng1[index - 1] = gasData.NG1[gIndex]
  *     object.eg1[index - 1] = gasData.EG1[gIndex]
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EC0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EC0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ec0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ec0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 256, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":257
+  /* "Pygrad/Mixers.pyx":256
  *     object.nc0[index - 1] = gasData.NC0[gIndex]
  *     object.ec0[index - 1] = gasData.EC0[gIndex]
  *     object.ng1[index - 1] = gasData.NG1[gIndex]             # <<<<<<<<<<<<<<
  *     object.eg1[index - 1] = gasData.EG1[gIndex]
  *     object.ng2[index - 1] = gasData.NG2[gIndex]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NG1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NG1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ng1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ng1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 257, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "Pygrad/Mixers.pyx":258
+  /* "Pygrad/Mixers.pyx":257
  *     object.ec0[index - 1] = gasData.EC0[gIndex]
  *     object.ng1[index - 1] = gasData.NG1[gIndex]
  *     object.eg1[index - 1] = gasData.EG1[gIndex]             # <<<<<<<<<<<<<<
  *     object.ng2[index - 1] = gasData.NG2[gIndex]
  *     object.eg2[index - 1] = gasData.EG2[gIndex]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EG1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EG1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_eg1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_eg1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 258, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "Pygrad/Mixers.pyx":259
+  /* "Pygrad/Mixers.pyx":258
  *     object.ng1[index - 1] = gasData.NG1[gIndex]
  *     object.eg1[index - 1] = gasData.EG1[gIndex]
  *     object.ng2[index - 1] = gasData.NG2[gIndex]             # <<<<<<<<<<<<<<
  *     object.eg2[index - 1] = gasData.EG2[gIndex]
  *     object.wklm[index - 1] = gasData.WK[gIndex]
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NG2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_NG2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ng2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_ng2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":260
+  /* "Pygrad/Mixers.pyx":259
  *     object.eg1[index - 1] = gasData.EG1[gIndex]
  *     object.ng2[index - 1] = gasData.NG2[gIndex]
  *     object.eg2[index - 1] = gasData.EG2[gIndex]             # <<<<<<<<<<<<<<
  *     object.wklm[index - 1] = gasData.WK[gIndex]
  *     object.efl[index - 1] = gasData.EFL[gIndex]
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EG2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EG2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_v_gIndex); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_eg2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_eg2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_1, __pyx_t_3, __pyx_t_2) < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "Pygrad/Mixers.pyx":261
+  /* "Pygrad/Mixers.pyx":260
  *     object.ng2[index - 1] = gasData.NG2[gIndex]
  *     object.eg2[index - 1] = gasData.EG2[gIndex]
  *     object.wklm[index - 1] = gasData.WK[gIndex]             # <<<<<<<<<<<<<<
  *     object.efl[index - 1] = gasData.EFL[gIndex]
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_WK); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_WK); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_v_gIndex); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_wklm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_wklm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_2, __pyx_t_1, __pyx_t_3) < 0)) __PYX_ERR(0, 260, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "Pygrad/Mixers.pyx":262
+  /* "Pygrad/Mixers.pyx":261
  *     object.eg2[index - 1] = gasData.EG2[gIndex]
  *     object.wklm[index - 1] = gasData.WK[gIndex]
  *     object.efl[index - 1] = gasData.EFL[gIndex]             # <<<<<<<<<<<<<<
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EFL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_gasData, __pyx_n_s_EFL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_3, __pyx_v_gIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_efl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_builtin_object, __pyx_n_s_efl); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 262, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_SubtractObjC(__pyx_v_index, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 262, __pyx_L1_error)
+  if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_t_2, __pyx_t_1) < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Mixers.pyx":253
+  /* "Pygrad/Mixers.pyx":252
  * 
  * 
  * cpdef assignWPL(index, gIndex,gasData):             # <<<<<<<<<<<<<<
@@ -8207,17 +8003,17 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_7assignWPL(PyObject *__pyx_self, PyObj
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_gIndex)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, 1); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, 1); __PYX_ERR(0, 252, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_gasData)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, 2); __PYX_ERR(0, 253, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, 2); __PYX_ERR(0, 252, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "assignWPL") < 0)) __PYX_ERR(0, 253, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "assignWPL") < 0)) __PYX_ERR(0, 252, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -8232,7 +8028,7 @@ static PyObject *__pyx_pw_6Pygrad_6Mixers_7assignWPL(PyObject *__pyx_self, PyObj
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 253, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("assignWPL", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 252, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("Pygrad.Mixers.assignWPL", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8251,7 +8047,7 @@ static PyObject *__pyx_pf_6Pygrad_6Mixers_6assignWPL(CYTHON_UNUSED PyObject *__p
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("assignWPL", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_index, __pyx_v_gIndex, __pyx_v_gasData, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 253, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6Pygrad_6Mixers_assignWPL(__pyx_v_index, __pyx_v_gIndex, __pyx_v_gasData, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11538,6331 +11334,6 @@ static CYTHON_INLINE PyObject *__Pyx_carray_to_tuple_double___5b_0xFA_5d__5b_0x4
   return __pyx_r;
 }
 
-/* "carray.from_py":77
- * 
- * @cname("__Pyx_carray_from_py_double")
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:             # <<<<<<<<<<<<<<
- *     cdef Py_ssize_t i = length
- *     try:
- */
-
-static int __Pyx_carray_from_py_double(PyObject *__pyx_v_o, double *__pyx_v_v, Py_ssize_t __pyx_v_length) {
-  Py_ssize_t __pyx_v_i;
-  PyObject *__pyx_v_item = NULL;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
-  int __pyx_t_5;
-  int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  Py_ssize_t __pyx_t_8;
-  PyObject *(*__pyx_t_9)(PyObject *);
-  PyObject *__pyx_t_10 = NULL;
-  double __pyx_t_11;
-  char const *__pyx_t_12;
-  __Pyx_RefNannySetupContext("__Pyx_carray_from_py_double", 0);
-
-  /* "carray.from_py":78
- * @cname("__Pyx_carray_from_py_double")
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length             # <<<<<<<<<<<<<<
- *     try:
- *         i = len(o)
- */
-  __pyx_v_i = __pyx_v_length;
-
-  /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_1, &__pyx_t_2, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_1);
-    __Pyx_XGOTREF(__pyx_t_2);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "carray.from_py":80
- *     cdef Py_ssize_t i = length
- *     try:
- *         i = len(o)             # <<<<<<<<<<<<<<
- *     except (TypeError, OverflowError):
- *         pass
- */
-      __pyx_t_4 = PyObject_Length(__pyx_v_o); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(2, 80, __pyx_L3_error)
-      __pyx_v_i = __pyx_t_4;
-
-      /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    }
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L8_try_end;
-    __pyx_L3_error:;
-
-    /* "carray.from_py":81
- *     try:
- *         i = len(o)
- *     except (TypeError, OverflowError):             # <<<<<<<<<<<<<<
- *         pass
- *     if i == length:
- */
-    __pyx_t_5 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError) || __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OverflowError);
-    if (__pyx_t_5) {
-      __Pyx_ErrRestore(0,0,0);
-      goto __pyx_L4_exception_handled;
-    }
-    goto __pyx_L5_except_error;
-    __pyx_L5_except_error:;
-
-    /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L4_exception_handled:;
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    __pyx_L8_try_end:;
-  }
-
-  /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-  if (__pyx_t_6) {
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_t_4 = 0;
-    if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
-      __pyx_t_7 = __pyx_v_o; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
-      __pyx_t_9 = NULL;
-    } else {
-      __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 84, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 84, __pyx_L1_error)
-    }
-    for (;;) {
-      if (likely(!__pyx_t_9)) {
-        if (likely(PyList_CheckExact(__pyx_t_7))) {
-          if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        } else {
-          if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        }
-      } else {
-        __pyx_t_10 = __pyx_t_9(__pyx_t_7);
-        if (unlikely(!__pyx_t_10)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(2, 84, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_10);
-      }
-      __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_10);
-      __pyx_t_10 = 0;
-      __pyx_v_i = __pyx_t_4;
-      __pyx_t_4 = (__pyx_t_4 + 1);
-
-      /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      __pyx_t_6 = ((__pyx_v_i >= __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":86
- *         for i, item in enumerate(o):
- *             if i >= length:
- *                 break             # <<<<<<<<<<<<<<
- *             v[i] = item
- *         else:
- */
-        goto __pyx_L11_break;
-
-        /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      }
-
-      /* "carray.from_py":87
- *             if i >= length:
- *                 break
- *             v[i] = item             # <<<<<<<<<<<<<<
- *         else:
- *             i += 1  # convert index to length
- */
-      __pyx_t_11 = __pyx_PyFloat_AsDouble(__pyx_v_item); if (unlikely((__pyx_t_11 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 87, __pyx_L1_error)
-      (__pyx_v_v[__pyx_v_i]) = __pyx_t_11;
-
-      /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    }
-    /*else*/ {
-
-      /* "carray.from_py":89
- *             v[i] = item
- *         else:
- *             i += 1  # convert index to length             # <<<<<<<<<<<<<<
- *             if i == length:
- *                 return 0
- */
-      __pyx_v_i = (__pyx_v_i + 1);
-
-      /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":91
- *             i += 1  # convert index to length
- *             if i == length:
- *                 return 0             # <<<<<<<<<<<<<<
- * 
- *     PyErr_Format(
- */
-        __pyx_r = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        goto __pyx_L0;
-
-        /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      }
-    }
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_L11_break:;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-    /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  }
-
-  /* "carray.from_py":96
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- *          if i >= length else             # <<<<<<<<<<<<<<
- *          "not enough values found during array assignment, expected %zd, got %zd"),
- *         length, i)
- */
-  if (((__pyx_v_i >= __pyx_v_length) != 0)) {
-    __pyx_t_12 = ((char const *)"too many values found during array assignment, expected %zd");
-  } else {
-    __pyx_t_12 = ((char const *)"not enough values found during array assignment, expected %zd, got %zd");
-  }
-
-  /* "carray.from_py":93
- *                 return 0
- * 
- *     PyErr_Format(             # <<<<<<<<<<<<<<
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- */
-  __pyx_t_7 = PyErr_Format(__pyx_builtin_IndexError, __pyx_t_12, __pyx_v_length, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "carray.from_py":77
- * 
- * @cname("__Pyx_carray_from_py_double")
- * cdef int __Pyx_carray_from_py_double(object o, base_type *v, Py_ssize_t length) except -1:             # <<<<<<<<<<<<<<
- *     cdef Py_ssize_t i = length
- *     try:
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("carray.from_py.__Pyx_carray_from_py_double", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_item);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static int __Pyx_carray_from_py_double___5b_0xFA0_5d_(PyObject *__pyx_v_o, double (*__pyx_v_v)[0xFA0], Py_ssize_t __pyx_v_length) {
-  Py_ssize_t __pyx_v_i;
-  PyObject *__pyx_v_item = NULL;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
-  int __pyx_t_5;
-  int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  Py_ssize_t __pyx_t_8;
-  PyObject *(*__pyx_t_9)(PyObject *);
-  PyObject *__pyx_t_10 = NULL;
-  double __pyx_t_11[0xFA0];
-  char const *__pyx_t_12;
-  __Pyx_RefNannySetupContext("__Pyx_carray_from_py_double___5b_0xFA0_5d_", 0);
-
-  /* "carray.from_py":78
- * @cname("__Pyx_carray_from_py_double___5b_0xFA0_5d_")
- * cdef int __Pyx_carray_from_py_double___5b_0xFA0_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length             # <<<<<<<<<<<<<<
- *     try:
- *         i = len(o)
- */
-  __pyx_v_i = __pyx_v_length;
-
-  /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0xFA0_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_1, &__pyx_t_2, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_1);
-    __Pyx_XGOTREF(__pyx_t_2);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "carray.from_py":80
- *     cdef Py_ssize_t i = length
- *     try:
- *         i = len(o)             # <<<<<<<<<<<<<<
- *     except (TypeError, OverflowError):
- *         pass
- */
-      __pyx_t_4 = PyObject_Length(__pyx_v_o); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(2, 80, __pyx_L3_error)
-      __pyx_v_i = __pyx_t_4;
-
-      /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0xFA0_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    }
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L8_try_end;
-    __pyx_L3_error:;
-
-    /* "carray.from_py":81
- *     try:
- *         i = len(o)
- *     except (TypeError, OverflowError):             # <<<<<<<<<<<<<<
- *         pass
- *     if i == length:
- */
-    __pyx_t_5 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError) || __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OverflowError);
-    if (__pyx_t_5) {
-      __Pyx_ErrRestore(0,0,0);
-      goto __pyx_L4_exception_handled;
-    }
-    goto __pyx_L5_except_error;
-    __pyx_L5_except_error:;
-
-    /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0xFA0_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L4_exception_handled:;
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    __pyx_L8_try_end:;
-  }
-
-  /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-  if (__pyx_t_6) {
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_t_4 = 0;
-    if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
-      __pyx_t_7 = __pyx_v_o; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
-      __pyx_t_9 = NULL;
-    } else {
-      __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 84, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 84, __pyx_L1_error)
-    }
-    for (;;) {
-      if (likely(!__pyx_t_9)) {
-        if (likely(PyList_CheckExact(__pyx_t_7))) {
-          if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        } else {
-          if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        }
-      } else {
-        __pyx_t_10 = __pyx_t_9(__pyx_t_7);
-        if (unlikely(!__pyx_t_10)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(2, 84, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_10);
-      }
-      __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_10);
-      __pyx_t_10 = 0;
-      __pyx_v_i = __pyx_t_4;
-      __pyx_t_4 = (__pyx_t_4 + 1);
-
-      /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      __pyx_t_6 = ((__pyx_v_i >= __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":86
- *         for i, item in enumerate(o):
- *             if i >= length:
- *                 break             # <<<<<<<<<<<<<<
- *             v[i] = item
- *         else:
- */
-        goto __pyx_L11_break;
-
-        /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      }
-
-      /* "carray.from_py":87
- *             if i >= length:
- *                 break
- *             v[i] = item             # <<<<<<<<<<<<<<
- *         else:
- *             i += 1  # convert index to length
- */
-      if (unlikely(__Pyx_carray_from_py_double(__pyx_v_item, __pyx_t_11, 0xFA0) < 0)) __PYX_ERR(2, 87, __pyx_L1_error)
-      if (unlikely((0xFA0) != (0xFA0))) {
-        PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-        __PYX_ERR(2, 87, __pyx_L1_error)
-      }
-      memcpy(&((__pyx_v_v[__pyx_v_i])[0]), __pyx_t_11, sizeof((__pyx_v_v[__pyx_v_i])[0]) * (0xFA0));
-
-      /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    }
-    /*else*/ {
-
-      /* "carray.from_py":89
- *             v[i] = item
- *         else:
- *             i += 1  # convert index to length             # <<<<<<<<<<<<<<
- *             if i == length:
- *                 return 0
- */
-      __pyx_v_i = (__pyx_v_i + 1);
-
-      /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":91
- *             i += 1  # convert index to length
- *             if i == length:
- *                 return 0             # <<<<<<<<<<<<<<
- * 
- *     PyErr_Format(
- */
-        __pyx_r = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        goto __pyx_L0;
-
-        /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      }
-    }
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_L11_break:;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-    /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  }
-
-  /* "carray.from_py":96
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- *          if i >= length else             # <<<<<<<<<<<<<<
- *          "not enough values found during array assignment, expected %zd, got %zd"),
- *         length, i)
- */
-  if (((__pyx_v_i >= __pyx_v_length) != 0)) {
-    __pyx_t_12 = ((char const *)"too many values found during array assignment, expected %zd");
-  } else {
-    __pyx_t_12 = ((char const *)"not enough values found during array assignment, expected %zd, got %zd");
-  }
-
-  /* "carray.from_py":93
- *                 return 0
- * 
- *     PyErr_Format(             # <<<<<<<<<<<<<<
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- */
-  __pyx_t_7 = PyErr_Format(__pyx_builtin_IndexError, __pyx_t_12, __pyx_v_length, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "carray.from_py":77
- * 
- * @cname("__Pyx_carray_from_py_double___5b_0xFA0_5d_")
- * cdef int __Pyx_carray_from_py_double___5b_0xFA0_5d_(object o, base_type *v, Py_ssize_t length) except -1:             # <<<<<<<<<<<<<<
- *     cdef Py_ssize_t i = length
- *     try:
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("carray.from_py.__Pyx_carray_from_py_double___5b_0xFA0_5d_", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_item);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static int __Pyx_carray_from_py_double___5b_0x122_5d_(PyObject *__pyx_v_o, double (*__pyx_v_v)[0x122], Py_ssize_t __pyx_v_length) {
-  Py_ssize_t __pyx_v_i;
-  PyObject *__pyx_v_item = NULL;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
-  int __pyx_t_5;
-  int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  Py_ssize_t __pyx_t_8;
-  PyObject *(*__pyx_t_9)(PyObject *);
-  PyObject *__pyx_t_10 = NULL;
-  double __pyx_t_11[0x122];
-  char const *__pyx_t_12;
-  __Pyx_RefNannySetupContext("__Pyx_carray_from_py_double___5b_0x122_5d_", 0);
-
-  /* "carray.from_py":78
- * @cname("__Pyx_carray_from_py_double___5b_0x122_5d_")
- * cdef int __Pyx_carray_from_py_double___5b_0x122_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length             # <<<<<<<<<<<<<<
- *     try:
- *         i = len(o)
- */
-  __pyx_v_i = __pyx_v_length;
-
-  /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0x122_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_1, &__pyx_t_2, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_1);
-    __Pyx_XGOTREF(__pyx_t_2);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "carray.from_py":80
- *     cdef Py_ssize_t i = length
- *     try:
- *         i = len(o)             # <<<<<<<<<<<<<<
- *     except (TypeError, OverflowError):
- *         pass
- */
-      __pyx_t_4 = PyObject_Length(__pyx_v_o); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(2, 80, __pyx_L3_error)
-      __pyx_v_i = __pyx_t_4;
-
-      /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0x122_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    }
-    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L8_try_end;
-    __pyx_L3_error:;
-
-    /* "carray.from_py":81
- *     try:
- *         i = len(o)
- *     except (TypeError, OverflowError):             # <<<<<<<<<<<<<<
- *         pass
- *     if i == length:
- */
-    __pyx_t_5 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_TypeError) || __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OverflowError);
-    if (__pyx_t_5) {
-      __Pyx_ErrRestore(0,0,0);
-      goto __pyx_L4_exception_handled;
-    }
-    goto __pyx_L5_except_error;
-    __pyx_L5_except_error:;
-
-    /* "carray.from_py":79
- * cdef int __Pyx_carray_from_py_double___5b_0x122_5d_(object o, base_type *v, Py_ssize_t length) except -1:
- *     cdef Py_ssize_t i = length
- *     try:             # <<<<<<<<<<<<<<
- *         i = len(o)
- *     except (TypeError, OverflowError):
- */
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L4_exception_handled:;
-    __Pyx_XGIVEREF(__pyx_t_1);
-    __Pyx_XGIVEREF(__pyx_t_2);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
-    __pyx_L8_try_end:;
-  }
-
-  /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-  if (__pyx_t_6) {
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_t_4 = 0;
-    if (likely(PyList_CheckExact(__pyx_v_o)) || PyTuple_CheckExact(__pyx_v_o)) {
-      __pyx_t_7 = __pyx_v_o; __Pyx_INCREF(__pyx_t_7); __pyx_t_8 = 0;
-      __pyx_t_9 = NULL;
-    } else {
-      __pyx_t_8 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_o); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 84, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_7);
-      __pyx_t_9 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 84, __pyx_L1_error)
-    }
-    for (;;) {
-      if (likely(!__pyx_t_9)) {
-        if (likely(PyList_CheckExact(__pyx_t_7))) {
-          if (__pyx_t_8 >= PyList_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        } else {
-          if (__pyx_t_8 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_8); __Pyx_INCREF(__pyx_t_10); __pyx_t_8++; if (unlikely(0 < 0)) __PYX_ERR(2, 84, __pyx_L1_error)
-          #else
-          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_8); __pyx_t_8++; if (unlikely(!__pyx_t_10)) __PYX_ERR(2, 84, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_10);
-          #endif
-        }
-      } else {
-        __pyx_t_10 = __pyx_t_9(__pyx_t_7);
-        if (unlikely(!__pyx_t_10)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(2, 84, __pyx_L1_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_10);
-      }
-      __Pyx_XDECREF_SET(__pyx_v_item, __pyx_t_10);
-      __pyx_t_10 = 0;
-      __pyx_v_i = __pyx_t_4;
-      __pyx_t_4 = (__pyx_t_4 + 1);
-
-      /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      __pyx_t_6 = ((__pyx_v_i >= __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":86
- *         for i, item in enumerate(o):
- *             if i >= length:
- *                 break             # <<<<<<<<<<<<<<
- *             v[i] = item
- *         else:
- */
-        goto __pyx_L11_break;
-
-        /* "carray.from_py":85
- *     if i == length:
- *         for i, item in enumerate(o):
- *             if i >= length:             # <<<<<<<<<<<<<<
- *                 break
- *             v[i] = item
- */
-      }
-
-      /* "carray.from_py":87
- *             if i >= length:
- *                 break
- *             v[i] = item             # <<<<<<<<<<<<<<
- *         else:
- *             i += 1  # convert index to length
- */
-      if (unlikely(__Pyx_carray_from_py_double(__pyx_v_item, __pyx_t_11, 0x122) < 0)) __PYX_ERR(2, 87, __pyx_L1_error)
-      if (unlikely((0x122) != (0x122))) {
-        PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x122), (Py_ssize_t)(0x122));
-        __PYX_ERR(2, 87, __pyx_L1_error)
-      }
-      memcpy(&((__pyx_v_v[__pyx_v_i])[0]), __pyx_t_11, sizeof((__pyx_v_v[__pyx_v_i])[0]) * (0x122));
-
-      /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    }
-    /*else*/ {
-
-      /* "carray.from_py":89
- *             v[i] = item
- *         else:
- *             i += 1  # convert index to length             # <<<<<<<<<<<<<<
- *             if i == length:
- *                 return 0
- */
-      __pyx_v_i = (__pyx_v_i + 1);
-
-      /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      __pyx_t_6 = ((__pyx_v_i == __pyx_v_length) != 0);
-      if (__pyx_t_6) {
-
-        /* "carray.from_py":91
- *             i += 1  # convert index to length
- *             if i == length:
- *                 return 0             # <<<<<<<<<<<<<<
- * 
- *     PyErr_Format(
- */
-        __pyx_r = 0;
-        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-        goto __pyx_L0;
-
-        /* "carray.from_py":90
- *         else:
- *             i += 1  # convert index to length
- *             if i == length:             # <<<<<<<<<<<<<<
- *                 return 0
- * 
- */
-      }
-    }
-
-    /* "carray.from_py":84
- *         pass
- *     if i == length:
- *         for i, item in enumerate(o):             # <<<<<<<<<<<<<<
- *             if i >= length:
- *                 break
- */
-    __pyx_L11_break:;
-    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-    /* "carray.from_py":83
- *     except (TypeError, OverflowError):
- *         pass
- *     if i == length:             # <<<<<<<<<<<<<<
- *         for i, item in enumerate(o):
- *             if i >= length:
- */
-  }
-
-  /* "carray.from_py":96
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- *          if i >= length else             # <<<<<<<<<<<<<<
- *          "not enough values found during array assignment, expected %zd, got %zd"),
- *         length, i)
- */
-  if (((__pyx_v_i >= __pyx_v_length) != 0)) {
-    __pyx_t_12 = ((char const *)"too many values found during array assignment, expected %zd");
-  } else {
-    __pyx_t_12 = ((char const *)"not enough values found during array assignment, expected %zd, got %zd");
-  }
-
-  /* "carray.from_py":93
- *                 return 0
- * 
- *     PyErr_Format(             # <<<<<<<<<<<<<<
- *         IndexError,
- *         ("too many values found during array assignment, expected %zd"
- */
-  __pyx_t_7 = PyErr_Format(__pyx_builtin_IndexError, __pyx_t_12, __pyx_v_length, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 93, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-
-  /* "carray.from_py":77
- * 
- * @cname("__Pyx_carray_from_py_double___5b_0x122_5d_")
- * cdef int __Pyx_carray_from_py_double___5b_0x122_5d_(object o, base_type *v, Py_ssize_t length) except -1:             # <<<<<<<<<<<<<<
- *     cdef Py_ssize_t i = length
- *     try:
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("carray.from_py.__Pyx_carray_from_py_double___5b_0x122_5d_", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_item);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "FromPyStructUtility":11
- * 
- * @cname("__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas")
- * cdef struct_type __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(obj) except *:             # <<<<<<<<<<<<<<
- *     cdef struct_type result
- *     if not PyMapping_Check(obj):
- */
-
-static __pyx_t_8PyGasMix_3Gas_Gas __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(PyObject *__pyx_v_obj) {
-  __pyx_t_8PyGasMix_3Gas_Gas __pyx_v_result;
-  PyObject *__pyx_v_value = NULL;
-  __pyx_t_8PyGasMix_3Gas_Gas __pyx_r;
-  __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  PyObject *__pyx_t_7 = NULL;
-  PyObject *__pyx_t_8 = NULL;
-  PyObject *__pyx_t_9 = NULL;
-  double __pyx_t_10;
-  double __pyx_t_11[6][0xFA0];
-  double __pyx_t_12[0xFA][0xFA0];
-  double __pyx_t_13[6];
-  double __pyx_t_14[0xFA];
-  double __pyx_t_15[30][0xFA0];
-  double __pyx_t_16[30];
-  double __pyx_t_17[3][0x122];
-  double __pyx_t_18[8][0xFA0];
-  double __pyx_t_19[10][0xFA0];
-  double __pyx_t_20[10];
-  double __pyx_t_21[0xFA0];
-  double __pyx_t_22[0xB6];
-  double __pyx_t_23[0x99];
-  __Pyx_RefNannySetupContext("__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", 0);
-
-  /* "FromPyStructUtility":13
- * cdef struct_type __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(obj) except *:
- *     cdef struct_type result
- *     if not PyMapping_Check(obj):             # <<<<<<<<<<<<<<
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
- * 
- */
-  __pyx_t_1 = ((!(PyMapping_Check(__pyx_v_obj) != 0)) != 0);
-  if (__pyx_t_1) {
-
-    /* "FromPyStructUtility":14
- *     cdef struct_type result
- *     if not PyMapping_Check(obj):
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)             # <<<<<<<<<<<<<<
- * 
- *     try:
- */
-    __pyx_t_2 = PyErr_Format(__pyx_builtin_TypeError, ((char const *)"Expected %.16s, got %.200s"), ((char *)"a mapping"), Py_TYPE(__pyx_v_obj)->tp_name); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 14, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "FromPyStructUtility":13
- * cdef struct_type __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(obj) except *:
- *     cdef struct_type result
- *     if not PyMapping_Check(obj):             # <<<<<<<<<<<<<<
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
- * 
- */
-  }
-
-  /* "FromPyStructUtility":16
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
- * 
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['GasNumber']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":17
- * 
- *     try:
- *         value = obj['GasNumber']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_GasNumber); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 17, __pyx_L4_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_v_value = __pyx_t_2;
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":16
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
- * 
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['GasNumber']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L9_try_end;
-    __pyx_L4_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "FromPyStructUtility":18
- *     try:
- *         value = obj['GasNumber']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- *     result.GasNumber = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 18, __pyx_L6_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":19
- *         value = obj['GasNumber']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")             # <<<<<<<<<<<<<<
- *     result.GasNumber = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 19, __pyx_L6_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 19, __pyx_L6_except_error)
-    }
-    goto __pyx_L6_except_error;
-    __pyx_L6_except_error:;
-
-    /* "FromPyStructUtility":16
- *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
- * 
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['GasNumber']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L9_try_end:;
-  }
-
-  /* "FromPyStructUtility":20
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- *     result.GasNumber = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['N_Inelastic']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 20, __pyx_L1_error)
-  __pyx_v_result.GasNumber = __pyx_t_6;
-
-  /* "FromPyStructUtility":21
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- *     result.GasNumber = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Inelastic']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":22
- *     result.GasNumber = value
- *     try:
- *         value = obj['N_Inelastic']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_N_Inelastic); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 22, __pyx_L12_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":21
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- *     result.GasNumber = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Inelastic']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L17_try_end;
-    __pyx_L12_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":23
- *     try:
- *         value = obj['N_Inelastic']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- *     result.N_Inelastic = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 23, __pyx_L14_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":24
- *         value = obj['N_Inelastic']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")             # <<<<<<<<<<<<<<
- *     result.N_Inelastic = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 24, __pyx_L14_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 24, __pyx_L14_except_error)
-    }
-    goto __pyx_L14_except_error;
-    __pyx_L14_except_error:;
-
-    /* "FromPyStructUtility":21
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")
- *     result.GasNumber = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Inelastic']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L17_try_end:;
-  }
-
-  /* "FromPyStructUtility":25
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- *     result.N_Inelastic = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EnergySteps']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 25, __pyx_L1_error)
-  __pyx_v_result.N_Inelastic = __pyx_t_6;
-
-  /* "FromPyStructUtility":26
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- *     result.N_Inelastic = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergySteps']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":27
- *     result.N_Inelastic = value
- *     try:
- *         value = obj['EnergySteps']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EnergySteps); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 27, __pyx_L20_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":26
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- *     result.N_Inelastic = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergySteps']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L25_try_end;
-    __pyx_L20_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":28
- *     try:
- *         value = obj['EnergySteps']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- *     result.EnergySteps = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 28, __pyx_L22_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":29
- *         value = obj['EnergySteps']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")             # <<<<<<<<<<<<<<
- *     result.EnergySteps = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 29, __pyx_L22_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 29, __pyx_L22_except_error)
-    }
-    goto __pyx_L22_except_error;
-    __pyx_L22_except_error:;
-
-    /* "FromPyStructUtility":26
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")
- *     result.N_Inelastic = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergySteps']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L25_try_end:;
-  }
-
-  /* "FromPyStructUtility":30
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- *     result.EnergySteps = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['WhichAngularModel']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 30, __pyx_L1_error)
-  __pyx_v_result.EnergySteps = __pyx_t_6;
-
-  /* "FromPyStructUtility":31
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- *     result.EnergySteps = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WhichAngularModel']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":32
- *     result.EnergySteps = value
- *     try:
- *         value = obj['WhichAngularModel']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_WhichAngularModel); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 32, __pyx_L28_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":31
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- *     result.EnergySteps = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WhichAngularModel']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L33_try_end;
-    __pyx_L28_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":33
- *     try:
- *         value = obj['WhichAngularModel']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- *     result.WhichAngularModel = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 33, __pyx_L30_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":34
- *         value = obj['WhichAngularModel']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")             # <<<<<<<<<<<<<<
- *     result.WhichAngularModel = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 34, __pyx_L30_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 34, __pyx_L30_except_error)
-    }
-    goto __pyx_L30_except_error;
-    __pyx_L30_except_error:;
-
-    /* "FromPyStructUtility":31
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")
- *     result.EnergySteps = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WhichAngularModel']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L33_try_end:;
-  }
-
-  /* "FromPyStructUtility":35
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- *     result.WhichAngularModel = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['N_Attachment']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 35, __pyx_L1_error)
-  __pyx_v_result.WhichAngularModel = __pyx_t_6;
-
-  /* "FromPyStructUtility":36
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- *     result.WhichAngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Attachment']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":37
- *     result.WhichAngularModel = value
- *     try:
- *         value = obj['N_Attachment']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_N_Attachment); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 37, __pyx_L36_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":36
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- *     result.WhichAngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Attachment']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L41_try_end;
-    __pyx_L36_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":38
- *     try:
- *         value = obj['N_Attachment']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- *     result.N_Attachment = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 38, __pyx_L38_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":39
- *         value = obj['N_Attachment']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")             # <<<<<<<<<<<<<<
- *     result.N_Attachment = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 39, __pyx_L38_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 39, __pyx_L38_except_error)
-    }
-    goto __pyx_L38_except_error;
-    __pyx_L38_except_error:;
-
-    /* "FromPyStructUtility":36
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")
- *     result.WhichAngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Attachment']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L41_try_end:;
-  }
-
-  /* "FromPyStructUtility":40
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- *     result.N_Attachment = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['N_Null']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 40, __pyx_L1_error)
-  __pyx_v_result.N_Attachment = __pyx_t_6;
-
-  /* "FromPyStructUtility":41
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- *     result.N_Attachment = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Null']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":42
- *     result.N_Attachment = value
- *     try:
- *         value = obj['N_Null']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_N_Null); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 42, __pyx_L44_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":41
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- *     result.N_Attachment = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Null']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L49_try_end;
-    __pyx_L44_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":43
- *     try:
- *         value = obj['N_Null']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- *     result.N_Null = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 43, __pyx_L46_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":44
- *         value = obj['N_Null']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Null'")             # <<<<<<<<<<<<<<
- *     result.N_Null = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 44, __pyx_L46_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 44, __pyx_L46_except_error)
-    }
-    goto __pyx_L46_except_error;
-    __pyx_L46_except_error:;
-
-    /* "FromPyStructUtility":41
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")
- *     result.N_Attachment = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Null']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L49_try_end:;
-  }
-
-  /* "FromPyStructUtility":45
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- *     result.N_Null = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['N_Ionization']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 45, __pyx_L1_error)
-  __pyx_v_result.N_Null = __pyx_t_6;
-
-  /* "FromPyStructUtility":46
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- *     result.N_Null = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Ionization']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":47
- *     result.N_Null = value
- *     try:
- *         value = obj['N_Ionization']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_N_Ionization); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 47, __pyx_L52_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":46
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- *     result.N_Null = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Ionization']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L57_try_end;
-    __pyx_L52_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":48
- *     try:
- *         value = obj['N_Ionization']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- *     result.N_Ionization = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 48, __pyx_L54_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":49
- *         value = obj['N_Ionization']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")             # <<<<<<<<<<<<<<
- *     result.N_Ionization = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 49, __pyx_L54_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 49, __pyx_L54_except_error)
-    }
-    goto __pyx_L54_except_error;
-    __pyx_L54_except_error:;
-
-    /* "FromPyStructUtility":46
- *         raise ValueError("No value specified for struct attribute 'N_Null'")
- *     result.N_Null = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['N_Ionization']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L57_try_end:;
-  }
-
-  /* "FromPyStructUtility":50
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- *     result.N_Ionization = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EnablePenning']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 50, __pyx_L1_error)
-  __pyx_v_result.N_Ionization = __pyx_t_6;
-
-  /* "FromPyStructUtility":51
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- *     result.N_Ionization = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnablePenning']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":52
- *     result.N_Ionization = value
- *     try:
- *         value = obj['EnablePenning']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EnablePenning); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 52, __pyx_L60_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":51
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- *     result.N_Ionization = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnablePenning']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L65_try_end;
-    __pyx_L60_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":53
- *     try:
- *         value = obj['EnablePenning']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- *     result.EnablePenning = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 53, __pyx_L62_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":54
- *         value = obj['EnablePenning']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")             # <<<<<<<<<<<<<<
- *     result.EnablePenning = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 54, __pyx_L62_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 54, __pyx_L62_except_error)
-    }
-    goto __pyx_L62_except_error;
-    __pyx_L62_except_error:;
-
-    /* "FromPyStructUtility":51
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")
- *     result.N_Ionization = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnablePenning']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L65_try_end:;
-  }
-
-  /* "FromPyStructUtility":55
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- *     result.EnablePenning = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['NumberOfGases']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 55, __pyx_L1_error)
-  __pyx_v_result.EnablePenning = __pyx_t_6;
-
-  /* "FromPyStructUtility":56
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- *     result.EnablePenning = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NumberOfGases']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":57
- *     result.EnablePenning = value
- *     try:
- *         value = obj['NumberOfGases']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_NumberOfGases); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 57, __pyx_L68_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":56
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- *     result.EnablePenning = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NumberOfGases']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L73_try_end;
-    __pyx_L68_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":58
- *     try:
- *         value = obj['NumberOfGases']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- *     result.NumberOfGases = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 58, __pyx_L70_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":59
- *         value = obj['NumberOfGases']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")             # <<<<<<<<<<<<<<
- *     result.NumberOfGases = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 59, __pyx_L70_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 59, __pyx_L70_except_error)
-    }
-    goto __pyx_L70_except_error;
-    __pyx_L70_except_error:;
-
-    /* "FromPyStructUtility":56
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")
- *     result.EnablePenning = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NumberOfGases']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L73_try_end:;
-  }
-
-  /* "FromPyStructUtility":60
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- *     result.NumberOfGases = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['Pressure']
- */
-  __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 60, __pyx_L1_error)
-  __pyx_v_result.NumberOfGases = __pyx_t_6;
-
-  /* "FromPyStructUtility":61
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- *     result.NumberOfGases = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Pressure']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":62
- *     result.NumberOfGases = value
- *     try:
- *         value = obj['Pressure']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_Pressure); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 62, __pyx_L76_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":61
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- *     result.NumberOfGases = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Pressure']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L81_try_end;
-    __pyx_L76_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":63
- *     try:
- *         value = obj['Pressure']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- *     result.Pressure = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 63, __pyx_L78_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":64
- *         value = obj['Pressure']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Pressure'")             # <<<<<<<<<<<<<<
- *     result.Pressure = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 64, __pyx_L78_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 64, __pyx_L78_except_error)
-    }
-    goto __pyx_L78_except_error;
-    __pyx_L78_except_error:;
-
-    /* "FromPyStructUtility":61
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")
- *     result.NumberOfGases = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Pressure']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L81_try_end:;
-  }
-
-  /* "FromPyStructUtility":65
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- *     result.Pressure = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['TemperatureC']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 65, __pyx_L1_error)
-  __pyx_v_result.Pressure = __pyx_t_10;
-
-  /* "FromPyStructUtility":66
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- *     result.Pressure = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['TemperatureC']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":67
- *     result.Pressure = value
- *     try:
- *         value = obj['TemperatureC']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_TemperatureC); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 67, __pyx_L84_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":66
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- *     result.Pressure = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['TemperatureC']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L89_try_end;
-    __pyx_L84_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":68
- *     try:
- *         value = obj['TemperatureC']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- *     result.TemperatureC = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 68, __pyx_L86_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":69
- *         value = obj['TemperatureC']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")             # <<<<<<<<<<<<<<
- *     result.TemperatureC = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__18, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 69, __pyx_L86_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 69, __pyx_L86_except_error)
-    }
-    goto __pyx_L86_except_error;
-    __pyx_L86_except_error:;
-
-    /* "FromPyStructUtility":66
- *         raise ValueError("No value specified for struct attribute 'Pressure'")
- *     result.Pressure = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['TemperatureC']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L89_try_end:;
-  }
-
-  /* "FromPyStructUtility":70
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- *     result.TemperatureC = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['RhydbergConst']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 70, __pyx_L1_error)
-  __pyx_v_result.TemperatureC = __pyx_t_10;
-
-  /* "FromPyStructUtility":71
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- *     result.TemperatureC = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['RhydbergConst']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":72
- *     result.TemperatureC = value
- *     try:
- *         value = obj['RhydbergConst']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_RhydbergConst); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 72, __pyx_L92_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":71
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- *     result.TemperatureC = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['RhydbergConst']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L97_try_end;
-    __pyx_L92_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":73
- *     try:
- *         value = obj['RhydbergConst']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- *     result.RhydbergConst = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 73, __pyx_L94_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":74
- *         value = obj['RhydbergConst']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")             # <<<<<<<<<<<<<<
- *     result.RhydbergConst = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__19, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 74, __pyx_L94_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 74, __pyx_L94_except_error)
-    }
-    goto __pyx_L94_except_error;
-    __pyx_L94_except_error:;
-
-    /* "FromPyStructUtility":71
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")
- *     result.TemperatureC = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['RhydbergConst']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L97_try_end:;
-  }
-
-  /* "FromPyStructUtility":75
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- *     result.RhydbergConst = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EnergyStep']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 75, __pyx_L1_error)
-  __pyx_v_result.RhydbergConst = __pyx_t_10;
-
-  /* "FromPyStructUtility":76
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- *     result.RhydbergConst = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyStep']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":77
- *     result.RhydbergConst = value
- *     try:
- *         value = obj['EnergyStep']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EnergyStep); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 77, __pyx_L100_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":76
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- *     result.RhydbergConst = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyStep']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L105_try_end;
-    __pyx_L100_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":78
- *     try:
- *         value = obj['EnergyStep']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- *     result.EnergyStep = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 78, __pyx_L102_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":79
- *         value = obj['EnergyStep']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")             # <<<<<<<<<<<<<<
- *     result.EnergyStep = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__20, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 79, __pyx_L102_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 79, __pyx_L102_except_error)
-    }
-    goto __pyx_L102_except_error;
-    __pyx_L102_except_error:;
-
-    /* "FromPyStructUtility":76
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")
- *     result.RhydbergConst = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyStep']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L105_try_end:;
-  }
-
-  /* "FromPyStructUtility":80
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- *     result.EnergyStep = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['ThermalEnergy']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 80, __pyx_L1_error)
-  __pyx_v_result.EnergyStep = __pyx_t_10;
-
-  /* "FromPyStructUtility":81
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- *     result.EnergyStep = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ThermalEnergy']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":82
- *     result.EnergyStep = value
- *     try:
- *         value = obj['ThermalEnergy']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_ThermalEnergy); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 82, __pyx_L108_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":81
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- *     result.EnergyStep = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ThermalEnergy']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L113_try_end;
-    __pyx_L108_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":83
- *     try:
- *         value = obj['ThermalEnergy']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- *     result.ThermalEnergy = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 83, __pyx_L110_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":84
- *         value = obj['ThermalEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")             # <<<<<<<<<<<<<<
- *     result.ThermalEnergy = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__21, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 84, __pyx_L110_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 84, __pyx_L110_except_error)
-    }
-    goto __pyx_L110_except_error;
-    __pyx_L110_except_error:;
-
-    /* "FromPyStructUtility":81
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")
- *     result.EnergyStep = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ThermalEnergy']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L113_try_end:;
-  }
-
-  /* "FromPyStructUtility":85
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- *     result.ThermalEnergy = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['FinalEnergy']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 85, __pyx_L1_error)
-  __pyx_v_result.ThermalEnergy = __pyx_t_10;
-
-  /* "FromPyStructUtility":86
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- *     result.ThermalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['FinalEnergy']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":87
- *     result.ThermalEnergy = value
- *     try:
- *         value = obj['FinalEnergy']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_FinalEnergy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 87, __pyx_L116_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":86
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- *     result.ThermalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['FinalEnergy']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L121_try_end;
-    __pyx_L116_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":88
- *     try:
- *         value = obj['FinalEnergy']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- *     result.FinalEnergy = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 88, __pyx_L118_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":89
- *         value = obj['FinalEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")             # <<<<<<<<<<<<<<
- *     result.FinalEnergy = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__22, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 89, __pyx_L118_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 89, __pyx_L118_except_error)
-    }
-    goto __pyx_L118_except_error;
-    __pyx_L118_except_error:;
-
-    /* "FromPyStructUtility":86
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")
- *     result.ThermalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['FinalEnergy']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L121_try_end:;
-  }
-
-  /* "FromPyStructUtility":90
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- *     result.FinalEnergy = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['DENS']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 90, __pyx_L1_error)
-  __pyx_v_result.FinalEnergy = __pyx_t_10;
-
-  /* "FromPyStructUtility":91
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- *     result.FinalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DENS']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":92
- *     result.FinalEnergy = value
- *     try:
- *         value = obj['DENS']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_DENS); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 92, __pyx_L124_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":91
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- *     result.FinalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DENS']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L129_try_end;
-    __pyx_L124_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":93
- *     try:
- *         value = obj['DENS']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- *     result.DENS = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 93, __pyx_L126_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":94
- *         value = obj['DENS']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DENS'")             # <<<<<<<<<<<<<<
- *     result.DENS = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__23, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 94, __pyx_L126_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 94, __pyx_L126_except_error)
-    }
-    goto __pyx_L126_except_error;
-    __pyx_L126_except_error:;
-
-    /* "FromPyStructUtility":91
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")
- *     result.FinalEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DENS']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L129_try_end:;
-  }
-
-  /* "FromPyStructUtility":95
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- *     result.DENS = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['PIR2']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 95, __pyx_L1_error)
-  __pyx_v_result.DENS = __pyx_t_10;
-
-  /* "FromPyStructUtility":96
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- *     result.DENS = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PIR2']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":97
- *     result.DENS = value
- *     try:
- *         value = obj['PIR2']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_PIR2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 97, __pyx_L132_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":96
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- *     result.DENS = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PIR2']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L137_try_end;
-    __pyx_L132_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":98
- *     try:
- *         value = obj['PIR2']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- *     result.PIR2 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 98, __pyx_L134_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":99
- *         value = obj['PIR2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PIR2'")             # <<<<<<<<<<<<<<
- *     result.PIR2 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__24, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 99, __pyx_L134_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 99, __pyx_L134_except_error)
-    }
-    goto __pyx_L134_except_error;
-    __pyx_L134_except_error:;
-
-    /* "FromPyStructUtility":96
- *         raise ValueError("No value specified for struct attribute 'DENS'")
- *     result.DENS = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PIR2']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L137_try_end:;
-  }
-
-  /* "FromPyStructUtility":100
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- *     result.PIR2 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['Q']
- */
-  __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 100, __pyx_L1_error)
-  __pyx_v_result.PIR2 = __pyx_t_10;
-
-  /* "FromPyStructUtility":101
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- *     result.PIR2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Q']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":102
- *     result.PIR2 = value
- *     try:
- *         value = obj['Q']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Q'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_Q); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 102, __pyx_L140_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":101
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- *     result.PIR2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Q']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L145_try_end;
-    __pyx_L140_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":103
- *     try:
- *         value = obj['Q']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'Q'")
- *     result.Q = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 103, __pyx_L142_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":104
- *         value = obj['Q']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Q'")             # <<<<<<<<<<<<<<
- *     result.Q = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__25, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 104, __pyx_L142_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 104, __pyx_L142_except_error)
-    }
-    goto __pyx_L142_except_error;
-    __pyx_L142_except_error:;
-
-    /* "FromPyStructUtility":101
- *         raise ValueError("No value specified for struct attribute 'PIR2'")
- *     result.PIR2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['Q']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L145_try_end:;
-  }
-
-  /* "FromPyStructUtility":105
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Q'")
- *     result.Q = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['InelasticCrossSectionPerGas']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_11, 6) < 0)) __PYX_ERR(2, 105, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.Q[0]), __pyx_t_11, sizeof(__pyx_v_result.Q[0]) * (6));
-
-  /* "FromPyStructUtility":106
- *         raise ValueError("No value specified for struct attribute 'Q'")
- *     result.Q = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":107
- *     result.Q = value
- *     try:
- *         value = obj['InelasticCrossSectionPerGas']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_InelasticCrossSectionPerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 107, __pyx_L148_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":106
- *         raise ValueError("No value specified for struct attribute 'Q'")
- *     result.Q = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L153_try_end;
-    __pyx_L148_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":108
- *     try:
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- *     result.InelasticCrossSectionPerGas = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 108, __pyx_L150_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":109
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")             # <<<<<<<<<<<<<<
- *     result.InelasticCrossSectionPerGas = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__26, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 109, __pyx_L150_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 109, __pyx_L150_except_error)
-    }
-    goto __pyx_L150_except_error;
-    __pyx_L150_except_error:;
-
-    /* "FromPyStructUtility":106
- *         raise ValueError("No value specified for struct attribute 'Q'")
- *     result.Q = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L153_try_end:;
-  }
-
-  /* "FromPyStructUtility":110
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- *     result.InelasticCrossSectionPerGas = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['E']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_12, 0xFA) < 0)) __PYX_ERR(2, 110, __pyx_L1_error)
-  if (unlikely((0xFA) != (0xFA))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA), (Py_ssize_t)(0xFA));
-    __PYX_ERR(2, 110, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.InelasticCrossSectionPerGas[0]), __pyx_t_12, sizeof(__pyx_v_result.InelasticCrossSectionPerGas[0]) * (0xFA));
-
-  /* "FromPyStructUtility":111
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- *     result.InelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['E']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":112
- *     result.InelasticCrossSectionPerGas = value
- *     try:
- *         value = obj['E']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'E'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_E); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 112, __pyx_L156_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":111
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- *     result.InelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['E']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L161_try_end;
-    __pyx_L156_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":113
- *     try:
- *         value = obj['E']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'E'")
- *     result.E = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 113, __pyx_L158_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":114
- *         value = obj['E']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'E'")             # <<<<<<<<<<<<<<
- *     result.E = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__27, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 114, __pyx_L158_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 114, __pyx_L158_except_error)
-    }
-    goto __pyx_L158_except_error;
-    __pyx_L158_except_error:;
-
-    /* "FromPyStructUtility":111
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")
- *     result.InelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['E']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L161_try_end:;
-  }
-
-  /* "FromPyStructUtility":115
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'E'")
- *     result.E = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EnergyLevels']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_13, 6) < 0)) __PYX_ERR(2, 115, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.E[0]), __pyx_t_13, sizeof(__pyx_v_result.E[0]) * (6));
-
-  /* "FromPyStructUtility":116
- *         raise ValueError("No value specified for struct attribute 'E'")
- *     result.E = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyLevels']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":117
- *     result.E = value
- *     try:
- *         value = obj['EnergyLevels']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EnergyLevels); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 117, __pyx_L164_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":116
- *         raise ValueError("No value specified for struct attribute 'E'")
- *     result.E = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyLevels']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L169_try_end;
-    __pyx_L164_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":118
- *     try:
- *         value = obj['EnergyLevels']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- *     result.EnergyLevels = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 118, __pyx_L166_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":119
- *         value = obj['EnergyLevels']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")             # <<<<<<<<<<<<<<
- *     result.EnergyLevels = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__28, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 119, __pyx_L166_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 119, __pyx_L166_except_error)
-    }
-    goto __pyx_L166_except_error;
-    __pyx_L166_except_error:;
-
-    /* "FromPyStructUtility":116
- *         raise ValueError("No value specified for struct attribute 'E'")
- *     result.E = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EnergyLevels']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L169_try_end:;
-  }
-
-  /* "FromPyStructUtility":120
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- *     result.EnergyLevels = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['KIN']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_14, 0xFA) < 0)) __PYX_ERR(2, 120, __pyx_L1_error)
-  if (unlikely((0xFA) != (0xFA))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA), (Py_ssize_t)(0xFA));
-    __PYX_ERR(2, 120, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.EnergyLevels[0]), __pyx_t_14, sizeof(__pyx_v_result.EnergyLevels[0]) * (0xFA));
-
-  /* "FromPyStructUtility":121
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- *     result.EnergyLevels = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['KIN']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":122
- *     result.EnergyLevels = value
- *     try:
- *         value = obj['KIN']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_KIN); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 122, __pyx_L172_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":121
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- *     result.EnergyLevels = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['KIN']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L177_try_end;
-    __pyx_L172_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":123
- *     try:
- *         value = obj['KIN']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- *     result.KIN = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 123, __pyx_L174_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":124
- *         value = obj['KIN']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'KIN'")             # <<<<<<<<<<<<<<
- *     result.KIN = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__29, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 124, __pyx_L174_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 124, __pyx_L174_except_error)
-    }
-    goto __pyx_L174_except_error;
-    __pyx_L174_except_error:;
-
-    /* "FromPyStructUtility":121
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")
- *     result.EnergyLevels = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['KIN']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L177_try_end:;
-  }
-
-  /* "FromPyStructUtility":125
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- *     result.KIN = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['IonizationCrossSection']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_14, 0xFA) < 0)) __PYX_ERR(2, 125, __pyx_L1_error)
-  if (unlikely((0xFA) != (0xFA))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA), (Py_ssize_t)(0xFA));
-    __PYX_ERR(2, 125, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.KIN[0]), __pyx_t_14, sizeof(__pyx_v_result.KIN[0]) * (0xFA));
-
-  /* "FromPyStructUtility":126
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- *     result.KIN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationCrossSection']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":127
- *     result.KIN = value
- *     try:
- *         value = obj['IonizationCrossSection']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_IonizationCrossSection); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 127, __pyx_L180_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":126
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- *     result.KIN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationCrossSection']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L185_try_end;
-    __pyx_L180_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":128
- *     try:
- *         value = obj['IonizationCrossSection']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- *     result.IonizationCrossSection = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 128, __pyx_L182_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":129
- *         value = obj['IonizationCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")             # <<<<<<<<<<<<<<
- *     result.IonizationCrossSection = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__30, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 129, __pyx_L182_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 129, __pyx_L182_except_error)
-    }
-    goto __pyx_L182_except_error;
-    __pyx_L182_except_error:;
-
-    /* "FromPyStructUtility":126
- *         raise ValueError("No value specified for struct attribute 'KIN'")
- *     result.KIN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationCrossSection']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L185_try_end:;
-  }
-
-  /* "FromPyStructUtility":130
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- *     result.IonizationCrossSection = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['PEIonizationCrossSection']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_15, 30) < 0)) __PYX_ERR(2, 130, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.IonizationCrossSection[0]), __pyx_t_15, sizeof(__pyx_v_result.IonizationCrossSection[0]) * (30));
-
-  /* "FromPyStructUtility":131
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- *     result.IonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":132
- *     result.IonizationCrossSection = value
- *     try:
- *         value = obj['PEIonizationCrossSection']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_PEIonizationCrossSection); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 132, __pyx_L188_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":131
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- *     result.IonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L193_try_end;
-    __pyx_L188_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":133
- *     try:
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- *     result.PEIonizationCrossSection = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 133, __pyx_L190_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":134
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")             # <<<<<<<<<<<<<<
- *     result.PEIonizationCrossSection = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__31, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 134, __pyx_L190_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 134, __pyx_L190_except_error)
-    }
-    goto __pyx_L190_except_error;
-    __pyx_L190_except_error:;
-
-    /* "FromPyStructUtility":131
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")
- *     result.IonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L193_try_end:;
-  }
-
-  /* "FromPyStructUtility":135
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- *     result.PEIonizationCrossSection = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['IonizationEnergy']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_15, 30) < 0)) __PYX_ERR(2, 135, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.PEIonizationCrossSection[0]), __pyx_t_15, sizeof(__pyx_v_result.PEIonizationCrossSection[0]) * (30));
-
-  /* "FromPyStructUtility":136
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- *     result.PEIonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationEnergy']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":137
- *     result.PEIonizationCrossSection = value
- *     try:
- *         value = obj['IonizationEnergy']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_IonizationEnergy); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 137, __pyx_L196_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":136
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- *     result.PEIonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationEnergy']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L201_try_end;
-    __pyx_L196_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":138
- *     try:
- *         value = obj['IonizationEnergy']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- *     result.IonizationEnergy = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 138, __pyx_L198_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":139
- *         value = obj['IonizationEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")             # <<<<<<<<<<<<<<
- *     result.IonizationEnergy = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__32, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 139, __pyx_L198_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 139, __pyx_L198_except_error)
-    }
-    goto __pyx_L198_except_error;
-    __pyx_L198_except_error:;
-
-    /* "FromPyStructUtility":136
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")
- *     result.PEIonizationCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['IonizationEnergy']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L201_try_end:;
-  }
-
-  /* "FromPyStructUtility":140
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- *     result.IonizationEnergy = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['PEElasticCrossSection']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 140, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.IonizationEnergy[0]), __pyx_t_16, sizeof(__pyx_v_result.IonizationEnergy[0]) * (30));
-
-  /* "FromPyStructUtility":141
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- *     result.IonizationEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":142
- *     result.IonizationEnergy = value
- *     try:
- *         value = obj['PEElasticCrossSection']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_PEElasticCrossSection); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 142, __pyx_L204_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":141
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- *     result.IonizationEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L209_try_end;
-    __pyx_L204_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":143
- *     try:
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- *     result.PEElasticCrossSection = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 143, __pyx_L206_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":144
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")             # <<<<<<<<<<<<<<
- *     result.PEElasticCrossSection = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 144, __pyx_L206_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 144, __pyx_L206_except_error)
-    }
-    goto __pyx_L206_except_error;
-    __pyx_L206_except_error:;
-
-    /* "FromPyStructUtility":141
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")
- *     result.IonizationEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L209_try_end:;
-  }
-
-  /* "FromPyStructUtility":145
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- *     result.PEElasticCrossSection = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['PEInelasticCrossSectionPerGas']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_11, 6) < 0)) __PYX_ERR(2, 145, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.PEElasticCrossSection[0]), __pyx_t_11, sizeof(__pyx_v_result.PEElasticCrossSection[0]) * (6));
-
-  /* "FromPyStructUtility":146
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- *     result.PEElasticCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":147
- *     result.PEElasticCrossSection = value
- *     try:
- *         value = obj['PEInelasticCrossSectionPerGas']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_PEInelasticCrossSectionPerGas); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 147, __pyx_L212_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":146
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- *     result.PEElasticCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L217_try_end;
-    __pyx_L212_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":148
- *     try:
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- *     result.PEInelasticCrossSectionPerGas = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 148, __pyx_L214_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":149
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")             # <<<<<<<<<<<<<<
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 149, __pyx_L214_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 149, __pyx_L214_except_error)
-    }
-    goto __pyx_L214_except_error;
-    __pyx_L214_except_error:;
-
-    /* "FromPyStructUtility":146
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")
- *     result.PEElasticCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L217_try_end:;
-  }
-
-  /* "FromPyStructUtility":150
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- *     result.PEInelasticCrossSectionPerGas = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['AngularModel']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_12, 0xFA) < 0)) __PYX_ERR(2, 150, __pyx_L1_error)
-  if (unlikely((0xFA) != (0xFA))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA), (Py_ssize_t)(0xFA));
-    __PYX_ERR(2, 150, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.PEInelasticCrossSectionPerGas[0]), __pyx_t_12, sizeof(__pyx_v_result.PEInelasticCrossSectionPerGas[0]) * (0xFA));
-
-  /* "FromPyStructUtility":151
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AngularModel']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":152
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:
- *         value = obj['AngularModel']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_AngularModel); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 152, __pyx_L220_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":151
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AngularModel']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L225_try_end;
-    __pyx_L220_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":153
- *     try:
- *         value = obj['AngularModel']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- *     result.AngularModel = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 153, __pyx_L222_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":154
- *         value = obj['AngularModel']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")             # <<<<<<<<<<<<<<
- *     result.AngularModel = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__35, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 154, __pyx_L222_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 154, __pyx_L222_except_error)
-    }
-    goto __pyx_L222_except_error;
-    __pyx_L222_except_error:;
-
-    /* "FromPyStructUtility":151
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AngularModel']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L225_try_end:;
-  }
-
-  /* "FromPyStructUtility":155
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- *     result.AngularModel = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['PenningFraction']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_13, 6) < 0)) __PYX_ERR(2, 155, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.AngularModel[0]), __pyx_t_13, sizeof(__pyx_v_result.AngularModel[0]) * (6));
-
-  /* "FromPyStructUtility":156
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- *     result.AngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PenningFraction']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":157
- *     result.AngularModel = value
- *     try:
- *         value = obj['PenningFraction']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_PenningFraction); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 157, __pyx_L228_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":156
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- *     result.AngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PenningFraction']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L233_try_end;
-    __pyx_L228_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":158
- *     try:
- *         value = obj['PenningFraction']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- *     result.PenningFraction = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 158, __pyx_L230_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":159
- *         value = obj['PenningFraction']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")             # <<<<<<<<<<<<<<
- *     result.PenningFraction = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__36, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 159, __pyx_L230_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 159, __pyx_L230_except_error)
-    }
-    goto __pyx_L230_except_error;
-    __pyx_L230_except_error:;
-
-    /* "FromPyStructUtility":156
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")
- *     result.AngularModel = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['PenningFraction']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L233_try_end:;
-  }
-
-  /* "FromPyStructUtility":160
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- *     result.PenningFraction = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['NC0']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0x122_5d_(__pyx_v_value, __pyx_t_17, 3) < 0)) __PYX_ERR(2, 160, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.PenningFraction[0]), __pyx_t_17, sizeof(__pyx_v_result.PenningFraction[0]) * (3));
-
-  /* "FromPyStructUtility":161
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- *     result.PenningFraction = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NC0']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":162
- *     result.PenningFraction = value
- *     try:
- *         value = obj['NC0']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_NC0); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 162, __pyx_L236_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":161
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- *     result.PenningFraction = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NC0']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L241_try_end;
-    __pyx_L236_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":163
- *     try:
- *         value = obj['NC0']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- *     result.NC0 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 163, __pyx_L238_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":164
- *         value = obj['NC0']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NC0'")             # <<<<<<<<<<<<<<
- *     result.NC0 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__37, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 164, __pyx_L238_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 164, __pyx_L238_except_error)
-    }
-    goto __pyx_L238_except_error;
-    __pyx_L238_except_error:;
-
-    /* "FromPyStructUtility":161
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")
- *     result.PenningFraction = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NC0']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L241_try_end:;
-  }
-
-  /* "FromPyStructUtility":165
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- *     result.NC0 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EC0']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 165, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.NC0[0]), __pyx_t_16, sizeof(__pyx_v_result.NC0[0]) * (30));
-
-  /* "FromPyStructUtility":166
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- *     result.NC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EC0']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":167
- *     result.NC0 = value
- *     try:
- *         value = obj['EC0']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EC0); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 167, __pyx_L244_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":166
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- *     result.NC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EC0']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L249_try_end;
-    __pyx_L244_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":168
- *     try:
- *         value = obj['EC0']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- *     result.EC0 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 168, __pyx_L246_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":169
- *         value = obj['EC0']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EC0'")             # <<<<<<<<<<<<<<
- *     result.EC0 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__38, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 169, __pyx_L246_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 169, __pyx_L246_except_error)
-    }
-    goto __pyx_L246_except_error;
-    __pyx_L246_except_error:;
-
-    /* "FromPyStructUtility":166
- *         raise ValueError("No value specified for struct attribute 'NC0'")
- *     result.NC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EC0']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L249_try_end:;
-  }
-
-  /* "FromPyStructUtility":170
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- *     result.EC0 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['WK']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 170, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.EC0[0]), __pyx_t_16, sizeof(__pyx_v_result.EC0[0]) * (30));
-
-  /* "FromPyStructUtility":171
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- *     result.EC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WK']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":172
- *     result.EC0 = value
- *     try:
- *         value = obj['WK']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WK'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_WK); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 172, __pyx_L252_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":171
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- *     result.EC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WK']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L257_try_end;
-    __pyx_L252_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":173
- *     try:
- *         value = obj['WK']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'WK'")
- *     result.WK = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 173, __pyx_L254_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":174
- *         value = obj['WK']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WK'")             # <<<<<<<<<<<<<<
- *     result.WK = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__39, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 174, __pyx_L254_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 174, __pyx_L254_except_error)
-    }
-    goto __pyx_L254_except_error;
-    __pyx_L254_except_error:;
-
-    /* "FromPyStructUtility":171
- *         raise ValueError("No value specified for struct attribute 'EC0'")
- *     result.EC0 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['WK']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L257_try_end:;
-  }
-
-  /* "FromPyStructUtility":175
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WK'")
- *     result.WK = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EFL']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 175, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.WK[0]), __pyx_t_16, sizeof(__pyx_v_result.WK[0]) * (30));
-
-  /* "FromPyStructUtility":176
- *         raise ValueError("No value specified for struct attribute 'WK'")
- *     result.WK = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EFL']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":177
- *     result.WK = value
- *     try:
- *         value = obj['EFL']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EFL); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 177, __pyx_L260_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":176
- *         raise ValueError("No value specified for struct attribute 'WK'")
- *     result.WK = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EFL']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L265_try_end;
-    __pyx_L260_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":178
- *     try:
- *         value = obj['EFL']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- *     result.EFL = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 178, __pyx_L262_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":179
- *         value = obj['EFL']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EFL'")             # <<<<<<<<<<<<<<
- *     result.EFL = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__40, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 179, __pyx_L262_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 179, __pyx_L262_except_error)
-    }
-    goto __pyx_L262_except_error;
-    __pyx_L262_except_error:;
-
-    /* "FromPyStructUtility":176
- *         raise ValueError("No value specified for struct attribute 'WK'")
- *     result.WK = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EFL']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L265_try_end:;
-  }
-
-  /* "FromPyStructUtility":180
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- *     result.EFL = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['NG1']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 180, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.EFL[0]), __pyx_t_16, sizeof(__pyx_v_result.EFL[0]) * (30));
-
-  /* "FromPyStructUtility":181
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- *     result.EFL = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG1']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":182
- *     result.EFL = value
- *     try:
- *         value = obj['NG1']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_NG1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 182, __pyx_L268_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":181
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- *     result.EFL = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG1']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L273_try_end;
-    __pyx_L268_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":183
- *     try:
- *         value = obj['NG1']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- *     result.NG1 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 183, __pyx_L270_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":184
- *         value = obj['NG1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG1'")             # <<<<<<<<<<<<<<
- *     result.NG1 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__41, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 184, __pyx_L270_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 184, __pyx_L270_except_error)
-    }
-    goto __pyx_L270_except_error;
-    __pyx_L270_except_error:;
-
-    /* "FromPyStructUtility":181
- *         raise ValueError("No value specified for struct attribute 'EFL'")
- *     result.EFL = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG1']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L273_try_end:;
-  }
-
-  /* "FromPyStructUtility":185
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- *     result.NG1 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EG1']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 185, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.NG1[0]), __pyx_t_16, sizeof(__pyx_v_result.NG1[0]) * (30));
-
-  /* "FromPyStructUtility":186
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- *     result.NG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG1']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":187
- *     result.NG1 = value
- *     try:
- *         value = obj['EG1']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EG1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 187, __pyx_L276_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":186
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- *     result.NG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG1']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L281_try_end;
-    __pyx_L276_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":188
- *     try:
- *         value = obj['EG1']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- *     result.EG1 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 188, __pyx_L278_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":189
- *         value = obj['EG1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG1'")             # <<<<<<<<<<<<<<
- *     result.EG1 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__42, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 189, __pyx_L278_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 189, __pyx_L278_except_error)
-    }
-    goto __pyx_L278_except_error;
-    __pyx_L278_except_error:;
-
-    /* "FromPyStructUtility":186
- *         raise ValueError("No value specified for struct attribute 'NG1'")
- *     result.NG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG1']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L281_try_end:;
-  }
-
-  /* "FromPyStructUtility":190
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- *     result.EG1 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['NG2']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 190, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.EG1[0]), __pyx_t_16, sizeof(__pyx_v_result.EG1[0]) * (30));
-
-  /* "FromPyStructUtility":191
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- *     result.EG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG2']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":192
- *     result.EG1 = value
- *     try:
- *         value = obj['NG2']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_NG2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 192, __pyx_L284_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":191
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- *     result.EG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG2']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L289_try_end;
-    __pyx_L284_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":193
- *     try:
- *         value = obj['NG2']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- *     result.NG2 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 193, __pyx_L286_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":194
- *         value = obj['NG2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG2'")             # <<<<<<<<<<<<<<
- *     result.NG2 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__43, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 194, __pyx_L286_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 194, __pyx_L286_except_error)
-    }
-    goto __pyx_L286_except_error;
-    __pyx_L286_except_error:;
-
-    /* "FromPyStructUtility":191
- *         raise ValueError("No value specified for struct attribute 'EG1'")
- *     result.EG1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NG2']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L289_try_end:;
-  }
-
-  /* "FromPyStructUtility":195
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- *     result.NG2 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EG2']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 195, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.NG2[0]), __pyx_t_16, sizeof(__pyx_v_result.NG2[0]) * (30));
-
-  /* "FromPyStructUtility":196
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- *     result.NG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG2']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":197
- *     result.NG2 = value
- *     try:
- *         value = obj['EG2']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EG2); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 197, __pyx_L292_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":196
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- *     result.NG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG2']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L297_try_end;
-    __pyx_L292_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":198
- *     try:
- *         value = obj['EG2']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- *     result.EG2 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 198, __pyx_L294_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":199
- *         value = obj['EG2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG2'")             # <<<<<<<<<<<<<<
- *     result.EG2 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__44, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 199, __pyx_L294_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 199, __pyx_L294_except_error)
-    }
-    goto __pyx_L294_except_error;
-    __pyx_L294_except_error:;
-
-    /* "FromPyStructUtility":196
- *         raise ValueError("No value specified for struct attribute 'NG2'")
- *     result.NG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG2']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L297_try_end:;
-  }
-
-  /* "FromPyStructUtility":200
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- *     result.EG2 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['AttachmentCrossSection']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 200, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.EG2[0]), __pyx_t_16, sizeof(__pyx_v_result.EG2[0]) * (30));
-
-  /* "FromPyStructUtility":201
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- *     result.EG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":202
- *     result.EG2 = value
- *     try:
- *         value = obj['AttachmentCrossSection']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_AttachmentCrossSection); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 202, __pyx_L300_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":201
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- *     result.EG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L305_try_end;
-    __pyx_L300_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":203
- *     try:
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- *     result.AttachmentCrossSection = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 203, __pyx_L302_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":204
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")             # <<<<<<<<<<<<<<
- *     result.AttachmentCrossSection = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__45, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 204, __pyx_L302_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 204, __pyx_L302_except_error)
-    }
-    goto __pyx_L302_except_error;
-    __pyx_L302_except_error:;
-
-    /* "FromPyStructUtility":201
- *         raise ValueError("No value specified for struct attribute 'EG2'")
- *     result.EG2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L305_try_end:;
-  }
-
-  /* "FromPyStructUtility":205
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- *     result.AttachmentCrossSection = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['NullCrossSection']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_18, 8) < 0)) __PYX_ERR(2, 205, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.AttachmentCrossSection[0]), __pyx_t_18, sizeof(__pyx_v_result.AttachmentCrossSection[0]) * (8));
-
-  /* "FromPyStructUtility":206
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- *     result.AttachmentCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NullCrossSection']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":207
- *     result.AttachmentCrossSection = value
- *     try:
- *         value = obj['NullCrossSection']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_NullCrossSection); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 207, __pyx_L308_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":206
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- *     result.AttachmentCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NullCrossSection']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L313_try_end;
-    __pyx_L308_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":208
- *     try:
- *         value = obj['NullCrossSection']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- *     result.NullCrossSection = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 208, __pyx_L310_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":209
- *         value = obj['NullCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")             # <<<<<<<<<<<<<<
- *     result.NullCrossSection = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__46, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 209, __pyx_L310_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 209, __pyx_L310_except_error)
-    }
-    goto __pyx_L310_except_error;
-    __pyx_L310_except_error:;
-
-    /* "FromPyStructUtility":206
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")
- *     result.AttachmentCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['NullCrossSection']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L313_try_end:;
-  }
-
-  /* "FromPyStructUtility":210
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- *     result.NullCrossSection = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['ScaleNull']
- */
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA0_5d_(__pyx_v_value, __pyx_t_19, 10) < 0)) __PYX_ERR(2, 210, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.NullCrossSection[0]), __pyx_t_19, sizeof(__pyx_v_result.NullCrossSection[0]) * (10));
-
-  /* "FromPyStructUtility":211
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- *     result.NullCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ScaleNull']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":212
- *     result.NullCrossSection = value
- *     try:
- *         value = obj['ScaleNull']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_ScaleNull); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 212, __pyx_L316_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":211
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- *     result.NullCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ScaleNull']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L321_try_end;
-    __pyx_L316_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":213
- *     try:
- *         value = obj['ScaleNull']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- *     result.ScaleNull = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 213, __pyx_L318_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":214
- *         value = obj['ScaleNull']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")             # <<<<<<<<<<<<<<
- *     result.ScaleNull = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__47, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 214, __pyx_L318_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 214, __pyx_L318_except_error)
-    }
-    goto __pyx_L318_except_error;
-    __pyx_L318_except_error:;
-
-    /* "FromPyStructUtility":211
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")
- *     result.NullCrossSection = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ScaleNull']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L321_try_end:;
-  }
-
-  /* "FromPyStructUtility":215
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- *     result.ScaleNull = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EG']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_20, 10) < 0)) __PYX_ERR(2, 215, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.ScaleNull[0]), __pyx_t_20, sizeof(__pyx_v_result.ScaleNull[0]) * (10));
-
-  /* "FromPyStructUtility":216
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- *     result.ScaleNull = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":217
- *     result.ScaleNull = value
- *     try:
- *         value = obj['EG']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EG); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 217, __pyx_L324_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":216
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- *     result.ScaleNull = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L329_try_end;
-    __pyx_L324_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":218
- *     try:
- *         value = obj['EG']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EG'")
- *     result.EG = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 218, __pyx_L326_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":219
- *         value = obj['EG']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG'")             # <<<<<<<<<<<<<<
- *     result.EG = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__48, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 219, __pyx_L326_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 219, __pyx_L326_except_error)
-    }
-    goto __pyx_L326_except_error;
-    __pyx_L326_except_error:;
-
-    /* "FromPyStructUtility":216
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")
- *     result.ScaleNull = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EG']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L329_try_end:;
-  }
-
-  /* "FromPyStructUtility":220
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG'")
- *     result.EG = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['SqrtEnergy']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 220, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 220, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.EG[0]), __pyx_t_21, sizeof(__pyx_v_result.EG[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":221
- *         raise ValueError("No value specified for struct attribute 'EG'")
- *     result.EG = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['SqrtEnergy']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":222
- *     result.EG = value
- *     try:
- *         value = obj['SqrtEnergy']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_SqrtEnergy); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 222, __pyx_L332_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":221
- *         raise ValueError("No value specified for struct attribute 'EG'")
- *     result.EG = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['SqrtEnergy']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L337_try_end;
-    __pyx_L332_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":223
- *     try:
- *         value = obj['SqrtEnergy']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- *     result.SqrtEnergy = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 223, __pyx_L334_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":224
- *         value = obj['SqrtEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")             # <<<<<<<<<<<<<<
- *     result.SqrtEnergy = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__49, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 224, __pyx_L334_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 224, __pyx_L334_except_error)
-    }
-    goto __pyx_L334_except_error;
-    __pyx_L334_except_error:;
-
-    /* "FromPyStructUtility":221
- *         raise ValueError("No value specified for struct attribute 'EG'")
- *     result.EG = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['SqrtEnergy']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L337_try_end:;
-  }
-
-  /* "FromPyStructUtility":225
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- *     result.SqrtEnergy = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['QT1']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 225, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 225, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.SqrtEnergy[0]), __pyx_t_21, sizeof(__pyx_v_result.SqrtEnergy[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":226
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- *     result.SqrtEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT1']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":227
- *     result.SqrtEnergy = value
- *     try:
- *         value = obj['QT1']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_QT1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 227, __pyx_L340_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":226
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- *     result.SqrtEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT1']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L345_try_end;
-    __pyx_L340_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":228
- *     try:
- *         value = obj['QT1']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- *     result.QT1 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 228, __pyx_L342_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":229
- *         value = obj['QT1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT1'")             # <<<<<<<<<<<<<<
- *     result.QT1 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__50, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 229, __pyx_L342_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 229, __pyx_L342_except_error)
-    }
-    goto __pyx_L342_except_error;
-    __pyx_L342_except_error:;
-
-    /* "FromPyStructUtility":226
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")
- *     result.SqrtEnergy = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT1']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L345_try_end:;
-  }
-
-  /* "FromPyStructUtility":230
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- *     result.QT1 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['QT2']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 230, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 230, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.QT1[0]), __pyx_t_21, sizeof(__pyx_v_result.QT1[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":231
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- *     result.QT1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT2']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":232
- *     result.QT1 = value
- *     try:
- *         value = obj['QT2']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_QT2); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 232, __pyx_L348_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":231
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- *     result.QT1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT2']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L353_try_end;
-    __pyx_L348_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":233
- *     try:
- *         value = obj['QT2']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- *     result.QT2 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 233, __pyx_L350_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":234
- *         value = obj['QT2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT2'")             # <<<<<<<<<<<<<<
- *     result.QT2 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__51, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 234, __pyx_L350_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 234, __pyx_L350_except_error)
-    }
-    goto __pyx_L350_except_error;
-    __pyx_L350_except_error:;
-
-    /* "FromPyStructUtility":231
- *         raise ValueError("No value specified for struct attribute 'QT1'")
- *     result.QT1 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT2']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L353_try_end:;
-  }
-
-  /* "FromPyStructUtility":235
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- *     result.QT2 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['QT3']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 235, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 235, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.QT2[0]), __pyx_t_21, sizeof(__pyx_v_result.QT2[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":236
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- *     result.QT2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT3']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":237
- *     result.QT2 = value
- *     try:
- *         value = obj['QT3']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_QT3); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 237, __pyx_L356_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":236
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- *     result.QT2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT3']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L361_try_end;
-    __pyx_L356_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":238
- *     try:
- *         value = obj['QT3']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- *     result.QT3 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 238, __pyx_L358_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":239
- *         value = obj['QT3']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT3'")             # <<<<<<<<<<<<<<
- *     result.QT3 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__52, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 239, __pyx_L358_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 239, __pyx_L358_except_error)
-    }
-    goto __pyx_L358_except_error;
-    __pyx_L358_except_error:;
-
-    /* "FromPyStructUtility":236
- *         raise ValueError("No value specified for struct attribute 'QT2'")
- *     result.QT2 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT3']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L361_try_end:;
-  }
-
-  /* "FromPyStructUtility":240
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- *     result.QT3 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['QT4']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 240, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 240, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.QT3[0]), __pyx_t_21, sizeof(__pyx_v_result.QT3[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":241
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- *     result.QT3 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT4']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":242
- *     result.QT3 = value
- *     try:
- *         value = obj['QT4']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_QT4); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 242, __pyx_L364_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":241
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- *     result.QT3 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT4']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L369_try_end;
-    __pyx_L364_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":243
- *     try:
- *         value = obj['QT4']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- *     result.QT4 = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 243, __pyx_L366_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":244
- *         value = obj['QT4']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT4'")             # <<<<<<<<<<<<<<
- *     result.QT4 = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__53, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 244, __pyx_L366_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 244, __pyx_L366_except_error)
-    }
-    goto __pyx_L366_except_error;
-    __pyx_L366_except_error:;
-
-    /* "FromPyStructUtility":241
- *         raise ValueError("No value specified for struct attribute 'QT3'")
- *     result.QT3 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['QT4']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L369_try_end:;
-  }
-
-  /* "FromPyStructUtility":245
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- *     result.QT4 = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['DEN']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 245, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 245, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.QT4[0]), __pyx_t_21, sizeof(__pyx_v_result.QT4[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":246
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- *     result.QT4 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DEN']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":247
- *     result.QT4 = value
- *     try:
- *         value = obj['DEN']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_DEN); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 247, __pyx_L372_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":246
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- *     result.QT4 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DEN']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L377_try_end;
-    __pyx_L372_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":248
- *     try:
- *         value = obj['DEN']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- *     result.DEN = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 248, __pyx_L374_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":249
- *         value = obj['DEN']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DEN'")             # <<<<<<<<<<<<<<
- *     result.DEN = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__54, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 249, __pyx_L374_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 249, __pyx_L374_except_error)
-    }
-    goto __pyx_L374_except_error;
-    __pyx_L374_except_error:;
-
-    /* "FromPyStructUtility":246
- *         raise ValueError("No value specified for struct attribute 'QT4'")
- *     result.QT4 = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['DEN']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L377_try_end:;
-  }
-
-  /* "FromPyStructUtility":250
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- *     result.DEN = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EMT']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_21, 0xFA0) < 0)) __PYX_ERR(2, 250, __pyx_L1_error)
-  if (unlikely((0xFA0) != (0xFA0))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xFA0), (Py_ssize_t)(0xFA0));
-    __PYX_ERR(2, 250, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.DEN[0]), __pyx_t_21, sizeof(__pyx_v_result.DEN[0]) * (0xFA0));
-
-  /* "FromPyStructUtility":251
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- *     result.DEN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EMT']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":252
- *     result.DEN = value
- *     try:
- *         value = obj['EMT']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EMT); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 252, __pyx_L380_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":251
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- *     result.DEN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EMT']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L385_try_end;
-    __pyx_L380_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":253
- *     try:
- *         value = obj['EMT']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- *     result.EMT = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 253, __pyx_L382_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":254
- *         value = obj['EMT']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EMT'")             # <<<<<<<<<<<<<<
- *     result.EMT = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__55, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 254, __pyx_L382_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 254, __pyx_L382_except_error)
-    }
-    goto __pyx_L382_except_error;
-    __pyx_L382_except_error:;
-
-    /* "FromPyStructUtility":251
- *         raise ValueError("No value specified for struct attribute 'DEN'")
- *     result.DEN = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EMT']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L385_try_end:;
-  }
-
-  /* "FromPyStructUtility":255
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- *     result.EMT = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['ET']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_22, 0xB6) < 0)) __PYX_ERR(2, 255, __pyx_L1_error)
-  if (unlikely((0xB6) != (0xB6))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xB6), (Py_ssize_t)(0xB6));
-    __PYX_ERR(2, 255, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.EMT[0]), __pyx_t_22, sizeof(__pyx_v_result.EMT[0]) * (0xB6));
-
-  /* "FromPyStructUtility":256
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- *     result.EMT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ET']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":257
- *     result.EMT = value
- *     try:
- *         value = obj['ET']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ET'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_ET); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 257, __pyx_L388_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":256
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- *     result.EMT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ET']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L393_try_end;
-    __pyx_L388_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":258
- *     try:
- *         value = obj['ET']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'ET'")
- *     result.ET = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 258, __pyx_L390_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":259
- *         value = obj['ET']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ET'")             # <<<<<<<<<<<<<<
- *     result.ET = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__56, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 259, __pyx_L390_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 259, __pyx_L390_except_error)
-    }
-    goto __pyx_L390_except_error;
-    __pyx_L390_except_error:;
-
-    /* "FromPyStructUtility":256
- *         raise ValueError("No value specified for struct attribute 'EMT'")
- *     result.EMT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['ET']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L393_try_end:;
-  }
-
-  /* "FromPyStructUtility":260
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ET'")
- *     result.ET = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EAT']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_23, 0x99) < 0)) __PYX_ERR(2, 260, __pyx_L1_error)
-  if (unlikely((0x99) != (0x99))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x99), (Py_ssize_t)(0x99));
-    __PYX_ERR(2, 260, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.ET[0]), __pyx_t_23, sizeof(__pyx_v_result.ET[0]) * (0x99));
-
-  /* "FromPyStructUtility":261
- *         raise ValueError("No value specified for struct attribute 'ET'")
- *     result.ET = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EAT']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_5, &__pyx_t_4, &__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_3);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":262
- *     result.ET = value
- *     try:
- *         value = obj['EAT']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- */
-      __pyx_t_8 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EAT); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 262, __pyx_L396_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_8);
-      __pyx_t_8 = 0;
-
-      /* "FromPyStructUtility":261
- *         raise ValueError("No value specified for struct attribute 'ET'")
- *     result.ET = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EAT']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    goto __pyx_L401_try_end;
-    __pyx_L396_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":263
- *     try:
- *         value = obj['EAT']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- *     result.EAT = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 263, __pyx_L398_except_error)
-      __Pyx_GOTREF(__pyx_t_8);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_2);
-
-      /* "FromPyStructUtility":264
- *         value = obj['EAT']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EAT'")             # <<<<<<<<<<<<<<
- *     result.EAT = value
- *     try:
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__57, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 264, __pyx_L398_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 264, __pyx_L398_except_error)
-    }
-    goto __pyx_L398_except_error;
-    __pyx_L398_except_error:;
-
-    /* "FromPyStructUtility":261
- *         raise ValueError("No value specified for struct attribute 'ET'")
- *     result.ET = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EAT']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_ExceptionReset(__pyx_t_5, __pyx_t_4, __pyx_t_3);
-    goto __pyx_L1_error;
-    __pyx_L401_try_end:;
-  }
-
-  /* "FromPyStructUtility":265
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- *     result.EAT = value             # <<<<<<<<<<<<<<
- *     try:
- *         value = obj['EOBY']
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_22, 0xB6) < 0)) __PYX_ERR(2, 265, __pyx_L1_error)
-  if (unlikely((0xB6) != (0xB6))) {
-    PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0xB6), (Py_ssize_t)(0xB6));
-    __PYX_ERR(2, 265, __pyx_L1_error)
-  }
-  memcpy(&(__pyx_v_result.EAT[0]), __pyx_t_22, sizeof(__pyx_v_result.EAT[0]) * (0xB6));
-
-  /* "FromPyStructUtility":266
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- *     result.EAT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EOBY']
- *     except KeyError:
- */
-  {
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
-    __Pyx_XGOTREF(__pyx_t_3);
-    __Pyx_XGOTREF(__pyx_t_4);
-    __Pyx_XGOTREF(__pyx_t_5);
-    /*try:*/ {
-
-      /* "FromPyStructUtility":267
- *     result.EAT = value
- *     try:
- *         value = obj['EOBY']             # <<<<<<<<<<<<<<
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EOBY'")
- */
-      __pyx_t_2 = __Pyx_PyObject_Dict_GetItem(__pyx_v_obj, __pyx_n_s_EOBY); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 267, __pyx_L404_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF_SET(__pyx_v_value, __pyx_t_2);
-      __pyx_t_2 = 0;
-
-      /* "FromPyStructUtility":266
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- *     result.EAT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EOBY']
- *     except KeyError:
- */
-    }
-    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    goto __pyx_L409_try_end;
-    __pyx_L404_error:;
-    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-
-    /* "FromPyStructUtility":268
- *     try:
- *         value = obj['EOBY']
- *     except KeyError:             # <<<<<<<<<<<<<<
- *         raise ValueError("No value specified for struct attribute 'EOBY'")
- *     result.EOBY = value
- */
-    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
-    if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 268, __pyx_L406_except_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_GOTREF(__pyx_t_7);
-      __Pyx_GOTREF(__pyx_t_8);
-
-      /* "FromPyStructUtility":269
- *         value = obj['EOBY']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EOBY'")             # <<<<<<<<<<<<<<
- *     result.EOBY = value
- *     return result
- */
-      __pyx_t_9 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__58, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(2, 269, __pyx_L406_except_error)
-      __Pyx_GOTREF(__pyx_t_9);
-      __Pyx_Raise(__pyx_t_9, 0, 0, 0);
-      __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __PYX_ERR(2, 269, __pyx_L406_except_error)
-    }
-    goto __pyx_L406_except_error;
-    __pyx_L406_except_error:;
-
-    /* "FromPyStructUtility":266
- *         raise ValueError("No value specified for struct attribute 'EAT'")
- *     result.EAT = value
- *     try:             # <<<<<<<<<<<<<<
- *         value = obj['EOBY']
- *     except KeyError:
- */
-    __Pyx_XGIVEREF(__pyx_t_3);
-    __Pyx_XGIVEREF(__pyx_t_4);
-    __Pyx_XGIVEREF(__pyx_t_5);
-    __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
-    goto __pyx_L1_error;
-    __pyx_L409_try_end:;
-  }
-
-  /* "FromPyStructUtility":270
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EOBY'")
- *     result.EOBY = value             # <<<<<<<<<<<<<<
- *     return result
- * 
- */
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_16, 30) < 0)) __PYX_ERR(2, 270, __pyx_L1_error)
-  memcpy(&(__pyx_v_result.EOBY[0]), __pyx_t_16, sizeof(__pyx_v_result.EOBY[0]) * (30));
-
-  /* "FromPyStructUtility":271
- *         raise ValueError("No value specified for struct attribute 'EOBY'")
- *     result.EOBY = value
- *     return result             # <<<<<<<<<<<<<<
- * 
- * 
- */
-  __pyx_r = __pyx_v_result;
-  goto __pyx_L0;
-
-  /* "FromPyStructUtility":11
- * 
- * @cname("__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas")
- * cdef struct_type __pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas(obj) except *:             # <<<<<<<<<<<<<<
- *     cdef struct_type result
- *     if not PyMapping_Check(obj):
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py___pyx_t_8PyGasMix_3Gas_Gas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_pretend_to_initialize(&__pyx_r);
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_value);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
 /* "carray.to_py":112
  * 
  * @cname("__Pyx_carray_to_py_double___5b_0xFA0_5d_")
@@ -18379,11 +11850,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_GasExcitationSlots, __pyx_k_GasExcitationSlots, sizeof(__pyx_k_GasExcitationSlots), 0, 0, 1, 1},
-  {&__pyx_n_s_GasMix, __pyx_k_GasMix, sizeof(__pyx_k_GasMix), 0, 0, 1, 1},
   {&__pyx_n_s_GasNumber, __pyx_k_GasNumber, sizeof(__pyx_k_GasNumber), 0, 0, 1, 1},
-  {&__pyx_n_s_Gases, __pyx_k_Gases, sizeof(__pyx_k_Gases), 0, 0, 1, 1},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
-  {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
   {&__pyx_n_s_InelasticCrossSection, __pyx_k_InelasticCrossSection, sizeof(__pyx_k_InelasticCrossSection), 0, 0, 1, 1},
   {&__pyx_n_s_InelasticCrossSectionPerGas, __pyx_k_InelasticCrossSectionPerGas, sizeof(__pyx_k_InelasticCrossSectionPerGas), 0, 0, 1, 1},
   {&__pyx_n_s_InitWithInfo, __pyx_k_InitWithInfo, sizeof(__pyx_k_InitWithInfo), 0, 0, 1, 1},
@@ -18393,7 +11861,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_IonizationEnergy, __pyx_k_IonizationEnergy, sizeof(__pyx_k_IonizationEnergy), 0, 0, 1, 1},
   {&__pyx_n_s_Ipn, __pyx_k_Ipn, sizeof(__pyx_k_Ipn), 0, 0, 1, 1},
   {&__pyx_n_s_KIN, __pyx_k_KIN, sizeof(__pyx_k_KIN), 0, 0, 1, 1},
-  {&__pyx_n_s_KeyError, __pyx_k_KeyError, sizeof(__pyx_k_KeyError), 0, 0, 1, 1},
   {&__pyx_n_s_MoleculesPerCm3PerGas, __pyx_k_MoleculesPerCm3PerGas, sizeof(__pyx_k_MoleculesPerCm3PerGas), 0, 0, 1, 1},
   {&__pyx_n_s_NC0, __pyx_k_NC0, sizeof(__pyx_k_NC0), 0, 0, 1, 1},
   {&__pyx_n_s_NG1, __pyx_k_NG1, sizeof(__pyx_k_NG1), 0, 0, 1, 1},
@@ -18402,61 +11869,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_N_Inelastic, __pyx_k_N_Inelastic, sizeof(__pyx_k_N_Inelastic), 0, 0, 1, 1},
   {&__pyx_n_s_N_Ionization, __pyx_k_N_Ionization, sizeof(__pyx_k_N_Ionization), 0, 0, 1, 1},
   {&__pyx_n_s_N_Null, __pyx_k_N_Null, sizeof(__pyx_k_N_Null), 0, 0, 1, 1},
-  {&__pyx_kp_s_No_value_specified_for_struct_at, __pyx_k_No_value_specified_for_struct_at, sizeof(__pyx_k_No_value_specified_for_struct_at), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_10, __pyx_k_No_value_specified_for_struct_at_10, sizeof(__pyx_k_No_value_specified_for_struct_at_10), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_11, __pyx_k_No_value_specified_for_struct_at_11, sizeof(__pyx_k_No_value_specified_for_struct_at_11), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_12, __pyx_k_No_value_specified_for_struct_at_12, sizeof(__pyx_k_No_value_specified_for_struct_at_12), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_13, __pyx_k_No_value_specified_for_struct_at_13, sizeof(__pyx_k_No_value_specified_for_struct_at_13), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_14, __pyx_k_No_value_specified_for_struct_at_14, sizeof(__pyx_k_No_value_specified_for_struct_at_14), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_15, __pyx_k_No_value_specified_for_struct_at_15, sizeof(__pyx_k_No_value_specified_for_struct_at_15), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_16, __pyx_k_No_value_specified_for_struct_at_16, sizeof(__pyx_k_No_value_specified_for_struct_at_16), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_17, __pyx_k_No_value_specified_for_struct_at_17, sizeof(__pyx_k_No_value_specified_for_struct_at_17), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_18, __pyx_k_No_value_specified_for_struct_at_18, sizeof(__pyx_k_No_value_specified_for_struct_at_18), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_19, __pyx_k_No_value_specified_for_struct_at_19, sizeof(__pyx_k_No_value_specified_for_struct_at_19), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_2, __pyx_k_No_value_specified_for_struct_at_2, sizeof(__pyx_k_No_value_specified_for_struct_at_2), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_20, __pyx_k_No_value_specified_for_struct_at_20, sizeof(__pyx_k_No_value_specified_for_struct_at_20), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_21, __pyx_k_No_value_specified_for_struct_at_21, sizeof(__pyx_k_No_value_specified_for_struct_at_21), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_22, __pyx_k_No_value_specified_for_struct_at_22, sizeof(__pyx_k_No_value_specified_for_struct_at_22), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_23, __pyx_k_No_value_specified_for_struct_at_23, sizeof(__pyx_k_No_value_specified_for_struct_at_23), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_24, __pyx_k_No_value_specified_for_struct_at_24, sizeof(__pyx_k_No_value_specified_for_struct_at_24), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_25, __pyx_k_No_value_specified_for_struct_at_25, sizeof(__pyx_k_No_value_specified_for_struct_at_25), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_26, __pyx_k_No_value_specified_for_struct_at_26, sizeof(__pyx_k_No_value_specified_for_struct_at_26), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_27, __pyx_k_No_value_specified_for_struct_at_27, sizeof(__pyx_k_No_value_specified_for_struct_at_27), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_28, __pyx_k_No_value_specified_for_struct_at_28, sizeof(__pyx_k_No_value_specified_for_struct_at_28), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_29, __pyx_k_No_value_specified_for_struct_at_29, sizeof(__pyx_k_No_value_specified_for_struct_at_29), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_3, __pyx_k_No_value_specified_for_struct_at_3, sizeof(__pyx_k_No_value_specified_for_struct_at_3), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_30, __pyx_k_No_value_specified_for_struct_at_30, sizeof(__pyx_k_No_value_specified_for_struct_at_30), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_31, __pyx_k_No_value_specified_for_struct_at_31, sizeof(__pyx_k_No_value_specified_for_struct_at_31), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_32, __pyx_k_No_value_specified_for_struct_at_32, sizeof(__pyx_k_No_value_specified_for_struct_at_32), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_33, __pyx_k_No_value_specified_for_struct_at_33, sizeof(__pyx_k_No_value_specified_for_struct_at_33), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_34, __pyx_k_No_value_specified_for_struct_at_34, sizeof(__pyx_k_No_value_specified_for_struct_at_34), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_35, __pyx_k_No_value_specified_for_struct_at_35, sizeof(__pyx_k_No_value_specified_for_struct_at_35), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_36, __pyx_k_No_value_specified_for_struct_at_36, sizeof(__pyx_k_No_value_specified_for_struct_at_36), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_37, __pyx_k_No_value_specified_for_struct_at_37, sizeof(__pyx_k_No_value_specified_for_struct_at_37), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_38, __pyx_k_No_value_specified_for_struct_at_38, sizeof(__pyx_k_No_value_specified_for_struct_at_38), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_39, __pyx_k_No_value_specified_for_struct_at_39, sizeof(__pyx_k_No_value_specified_for_struct_at_39), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_4, __pyx_k_No_value_specified_for_struct_at_4, sizeof(__pyx_k_No_value_specified_for_struct_at_4), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_40, __pyx_k_No_value_specified_for_struct_at_40, sizeof(__pyx_k_No_value_specified_for_struct_at_40), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_41, __pyx_k_No_value_specified_for_struct_at_41, sizeof(__pyx_k_No_value_specified_for_struct_at_41), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_42, __pyx_k_No_value_specified_for_struct_at_42, sizeof(__pyx_k_No_value_specified_for_struct_at_42), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_43, __pyx_k_No_value_specified_for_struct_at_43, sizeof(__pyx_k_No_value_specified_for_struct_at_43), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_44, __pyx_k_No_value_specified_for_struct_at_44, sizeof(__pyx_k_No_value_specified_for_struct_at_44), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_45, __pyx_k_No_value_specified_for_struct_at_45, sizeof(__pyx_k_No_value_specified_for_struct_at_45), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_46, __pyx_k_No_value_specified_for_struct_at_46, sizeof(__pyx_k_No_value_specified_for_struct_at_46), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_47, __pyx_k_No_value_specified_for_struct_at_47, sizeof(__pyx_k_No_value_specified_for_struct_at_47), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_48, __pyx_k_No_value_specified_for_struct_at_48, sizeof(__pyx_k_No_value_specified_for_struct_at_48), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_49, __pyx_k_No_value_specified_for_struct_at_49, sizeof(__pyx_k_No_value_specified_for_struct_at_49), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_5, __pyx_k_No_value_specified_for_struct_at_5, sizeof(__pyx_k_No_value_specified_for_struct_at_5), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_50, __pyx_k_No_value_specified_for_struct_at_50, sizeof(__pyx_k_No_value_specified_for_struct_at_50), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_51, __pyx_k_No_value_specified_for_struct_at_51, sizeof(__pyx_k_No_value_specified_for_struct_at_51), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_6, __pyx_k_No_value_specified_for_struct_at_6, sizeof(__pyx_k_No_value_specified_for_struct_at_6), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_7, __pyx_k_No_value_specified_for_struct_at_7, sizeof(__pyx_k_No_value_specified_for_struct_at_7), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_8, __pyx_k_No_value_specified_for_struct_at_8, sizeof(__pyx_k_No_value_specified_for_struct_at_8), 0, 0, 1, 0},
-  {&__pyx_kp_s_No_value_specified_for_struct_at_9, __pyx_k_No_value_specified_for_struct_at_9, sizeof(__pyx_k_No_value_specified_for_struct_at_9), 0, 0, 1, 0},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_NullCrossSection, __pyx_k_NullCrossSection, sizeof(__pyx_k_NullCrossSection), 0, 0, 1, 1},
   {&__pyx_n_s_NumberOfGases, __pyx_k_NumberOfGases, sizeof(__pyx_k_NumberOfGases), 0, 0, 1, 1},
-  {&__pyx_n_s_OverflowError, __pyx_k_OverflowError, sizeof(__pyx_k_OverflowError), 0, 0, 1, 1},
   {&__pyx_n_s_PEElasticCrossSection, __pyx_k_PEElasticCrossSection, sizeof(__pyx_k_PEElasticCrossSection), 0, 0, 1, 1},
   {&__pyx_n_s_PEInelasticCrossSection, __pyx_k_PEInelasticCrossSection, sizeof(__pyx_k_PEInelasticCrossSection), 0, 0, 1, 1},
   {&__pyx_n_s_PEInelasticCrossSectionPerGas, __pyx_k_PEInelasticCrossSectionPerGas, sizeof(__pyx_k_PEInelasticCrossSectionPerGas), 0, 0, 1, 1},
@@ -18483,7 +11898,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ThermalEnergy, __pyx_k_ThermalEnergy, sizeof(__pyx_k_ThermalEnergy), 0, 0, 1, 1},
   {&__pyx_n_s_TotalCollisionFrequency, __pyx_k_TotalCollisionFrequency, sizeof(__pyx_k_TotalCollisionFrequency), 0, 0, 1, 1},
   {&__pyx_n_s_TotalCrossSection, __pyx_k_TotalCrossSection, sizeof(__pyx_k_TotalCrossSection), 0, 0, 1, 1},
-  {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_VMoleculesPerCm3PerGas, __pyx_k_VMoleculesPerCm3PerGas, sizeof(__pyx_k_VMoleculesPerCm3PerGas), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_WK, __pyx_k_WK, sizeof(__pyx_k_WK), 0, 0, 1, 1},
@@ -18503,7 +11917,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_eg2, __pyx_k_eg2, sizeof(__pyx_k_eg2), 0, 0, 1, 1},
   {&__pyx_n_s_ein, __pyx_k_ein, sizeof(__pyx_k_ein), 0, 0, 1, 1},
   {&__pyx_n_s_end, __pyx_k_end, sizeof(__pyx_k_end), 0, 0, 1, 1},
-  {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
   {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_gIndex, __pyx_k_gIndex, sizeof(__pyx_k_gIndex), 0, 0, 1, 1},
   {&__pyx_n_s_gasData, __pyx_k_gasData, sizeof(__pyx_k_gasData), 0, 0, 1, 1},
@@ -18547,16 +11960,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 26, __pyx_L1_error)
-  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 139, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 138, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 272, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 856, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1038, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(2, 81, __pyx_L1_error)
-  __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(2, 81, __pyx_L1_error)
-  __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(2, 84, __pyx_L1_error)
-  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(2, 94, __pyx_L1_error)
-  __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(2, 18, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -18642,567 +12050,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 1044, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-
-  /* "FromPyStructUtility":19
- *         value = obj['GasNumber']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'GasNumber'")             # <<<<<<<<<<<<<<
- *     result.GasNumber = value
- *     try:
- */
-  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(2, 19, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__8);
-  __Pyx_GIVEREF(__pyx_tuple__8);
-
-  /* "FromPyStructUtility":24
- *         value = obj['N_Inelastic']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Inelastic'")             # <<<<<<<<<<<<<<
- *     result.N_Inelastic = value
- *     try:
- */
-  __pyx_tuple__9 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_2); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(2, 24, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-
-  /* "FromPyStructUtility":29
- *         value = obj['EnergySteps']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergySteps'")             # <<<<<<<<<<<<<<
- *     result.EnergySteps = value
- *     try:
- */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_3); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 29, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
-
-  /* "FromPyStructUtility":34
- *         value = obj['WhichAngularModel']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WhichAngularModel'")             # <<<<<<<<<<<<<<
- *     result.WhichAngularModel = value
- *     try:
- */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_4); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 34, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
-
-  /* "FromPyStructUtility":39
- *         value = obj['N_Attachment']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Attachment'")             # <<<<<<<<<<<<<<
- *     result.N_Attachment = value
- *     try:
- */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_5); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 39, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
-
-  /* "FromPyStructUtility":44
- *         value = obj['N_Null']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Null'")             # <<<<<<<<<<<<<<
- *     result.N_Null = value
- *     try:
- */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_6); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 44, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-
-  /* "FromPyStructUtility":49
- *         value = obj['N_Ionization']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'N_Ionization'")             # <<<<<<<<<<<<<<
- *     result.N_Ionization = value
- *     try:
- */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_7); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 49, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
-
-  /* "FromPyStructUtility":54
- *         value = obj['EnablePenning']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnablePenning'")             # <<<<<<<<<<<<<<
- *     result.EnablePenning = value
- *     try:
- */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_8); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(2, 54, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
-
-  /* "FromPyStructUtility":59
- *         value = obj['NumberOfGases']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NumberOfGases'")             # <<<<<<<<<<<<<<
- *     result.NumberOfGases = value
- *     try:
- */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_9); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
-
-  /* "FromPyStructUtility":64
- *         value = obj['Pressure']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Pressure'")             # <<<<<<<<<<<<<<
- *     result.Pressure = value
- *     try:
- */
-  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_10); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(2, 64, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-
-  /* "FromPyStructUtility":69
- *         value = obj['TemperatureC']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'TemperatureC'")             # <<<<<<<<<<<<<<
- *     result.TemperatureC = value
- *     try:
- */
-  __pyx_tuple__18 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_11); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(2, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__18);
-  __Pyx_GIVEREF(__pyx_tuple__18);
-
-  /* "FromPyStructUtility":74
- *         value = obj['RhydbergConst']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'RhydbergConst'")             # <<<<<<<<<<<<<<
- *     result.RhydbergConst = value
- *     try:
- */
-  __pyx_tuple__19 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_12); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(2, 74, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-
-  /* "FromPyStructUtility":79
- *         value = obj['EnergyStep']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyStep'")             # <<<<<<<<<<<<<<
- *     result.EnergyStep = value
- *     try:
- */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_13); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(2, 79, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__20);
-  __Pyx_GIVEREF(__pyx_tuple__20);
-
-  /* "FromPyStructUtility":84
- *         value = obj['ThermalEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ThermalEnergy'")             # <<<<<<<<<<<<<<
- *     result.ThermalEnergy = value
- *     try:
- */
-  __pyx_tuple__21 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_14); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(2, 84, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-
-  /* "FromPyStructUtility":89
- *         value = obj['FinalEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'FinalEnergy'")             # <<<<<<<<<<<<<<
- *     result.FinalEnergy = value
- *     try:
- */
-  __pyx_tuple__22 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_15); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(2, 89, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__22);
-  __Pyx_GIVEREF(__pyx_tuple__22);
-
-  /* "FromPyStructUtility":94
- *         value = obj['DENS']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DENS'")             # <<<<<<<<<<<<<<
- *     result.DENS = value
- *     try:
- */
-  __pyx_tuple__23 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_16); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(2, 94, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__23);
-  __Pyx_GIVEREF(__pyx_tuple__23);
-
-  /* "FromPyStructUtility":99
- *         value = obj['PIR2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PIR2'")             # <<<<<<<<<<<<<<
- *     result.PIR2 = value
- *     try:
- */
-  __pyx_tuple__24 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_17); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(2, 99, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__24);
-  __Pyx_GIVEREF(__pyx_tuple__24);
-
-  /* "FromPyStructUtility":104
- *         value = obj['Q']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'Q'")             # <<<<<<<<<<<<<<
- *     result.Q = value
- *     try:
- */
-  __pyx_tuple__25 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_18); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(2, 104, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__25);
-  __Pyx_GIVEREF(__pyx_tuple__25);
-
-  /* "FromPyStructUtility":109
- *         value = obj['InelasticCrossSectionPerGas']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'InelasticCrossSectionPerGas'")             # <<<<<<<<<<<<<<
- *     result.InelasticCrossSectionPerGas = value
- *     try:
- */
-  __pyx_tuple__26 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_19); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(2, 109, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__26);
-  __Pyx_GIVEREF(__pyx_tuple__26);
-
-  /* "FromPyStructUtility":114
- *         value = obj['E']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'E'")             # <<<<<<<<<<<<<<
- *     result.E = value
- *     try:
- */
-  __pyx_tuple__27 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_20); if (unlikely(!__pyx_tuple__27)) __PYX_ERR(2, 114, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__27);
-  __Pyx_GIVEREF(__pyx_tuple__27);
-
-  /* "FromPyStructUtility":119
- *         value = obj['EnergyLevels']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EnergyLevels'")             # <<<<<<<<<<<<<<
- *     result.EnergyLevels = value
- *     try:
- */
-  __pyx_tuple__28 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_21); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(2, 119, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__28);
-  __Pyx_GIVEREF(__pyx_tuple__28);
-
-  /* "FromPyStructUtility":124
- *         value = obj['KIN']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'KIN'")             # <<<<<<<<<<<<<<
- *     result.KIN = value
- *     try:
- */
-  __pyx_tuple__29 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_22); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(2, 124, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__29);
-  __Pyx_GIVEREF(__pyx_tuple__29);
-
-  /* "FromPyStructUtility":129
- *         value = obj['IonizationCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationCrossSection'")             # <<<<<<<<<<<<<<
- *     result.IonizationCrossSection = value
- *     try:
- */
-  __pyx_tuple__30 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_23); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(2, 129, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__30);
-  __Pyx_GIVEREF(__pyx_tuple__30);
-
-  /* "FromPyStructUtility":134
- *         value = obj['PEIonizationCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEIonizationCrossSection'")             # <<<<<<<<<<<<<<
- *     result.PEIonizationCrossSection = value
- *     try:
- */
-  __pyx_tuple__31 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_24); if (unlikely(!__pyx_tuple__31)) __PYX_ERR(2, 134, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__31);
-  __Pyx_GIVEREF(__pyx_tuple__31);
-
-  /* "FromPyStructUtility":139
- *         value = obj['IonizationEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'IonizationEnergy'")             # <<<<<<<<<<<<<<
- *     result.IonizationEnergy = value
- *     try:
- */
-  __pyx_tuple__32 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_25); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(2, 139, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__32);
-  __Pyx_GIVEREF(__pyx_tuple__32);
-
-  /* "FromPyStructUtility":144
- *         value = obj['PEElasticCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEElasticCrossSection'")             # <<<<<<<<<<<<<<
- *     result.PEElasticCrossSection = value
- *     try:
- */
-  __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_26); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(2, 144, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__33);
-  __Pyx_GIVEREF(__pyx_tuple__33);
-
-  /* "FromPyStructUtility":149
- *         value = obj['PEInelasticCrossSectionPerGas']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PEInelasticCrossSectionPerGas'")             # <<<<<<<<<<<<<<
- *     result.PEInelasticCrossSectionPerGas = value
- *     try:
- */
-  __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_27); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(2, 149, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__34);
-  __Pyx_GIVEREF(__pyx_tuple__34);
-
-  /* "FromPyStructUtility":154
- *         value = obj['AngularModel']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AngularModel'")             # <<<<<<<<<<<<<<
- *     result.AngularModel = value
- *     try:
- */
-  __pyx_tuple__35 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_28); if (unlikely(!__pyx_tuple__35)) __PYX_ERR(2, 154, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__35);
-  __Pyx_GIVEREF(__pyx_tuple__35);
-
-  /* "FromPyStructUtility":159
- *         value = obj['PenningFraction']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'PenningFraction'")             # <<<<<<<<<<<<<<
- *     result.PenningFraction = value
- *     try:
- */
-  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_29); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(2, 159, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__36);
-  __Pyx_GIVEREF(__pyx_tuple__36);
-
-  /* "FromPyStructUtility":164
- *         value = obj['NC0']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NC0'")             # <<<<<<<<<<<<<<
- *     result.NC0 = value
- *     try:
- */
-  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_30); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(2, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__37);
-  __Pyx_GIVEREF(__pyx_tuple__37);
-
-  /* "FromPyStructUtility":169
- *         value = obj['EC0']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EC0'")             # <<<<<<<<<<<<<<
- *     result.EC0 = value
- *     try:
- */
-  __pyx_tuple__38 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_31); if (unlikely(!__pyx_tuple__38)) __PYX_ERR(2, 169, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__38);
-  __Pyx_GIVEREF(__pyx_tuple__38);
-
-  /* "FromPyStructUtility":174
- *         value = obj['WK']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'WK'")             # <<<<<<<<<<<<<<
- *     result.WK = value
- *     try:
- */
-  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_32); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(2, 174, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__39);
-  __Pyx_GIVEREF(__pyx_tuple__39);
-
-  /* "FromPyStructUtility":179
- *         value = obj['EFL']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EFL'")             # <<<<<<<<<<<<<<
- *     result.EFL = value
- *     try:
- */
-  __pyx_tuple__40 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_33); if (unlikely(!__pyx_tuple__40)) __PYX_ERR(2, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__40);
-  __Pyx_GIVEREF(__pyx_tuple__40);
-
-  /* "FromPyStructUtility":184
- *         value = obj['NG1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG1'")             # <<<<<<<<<<<<<<
- *     result.NG1 = value
- *     try:
- */
-  __pyx_tuple__41 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_34); if (unlikely(!__pyx_tuple__41)) __PYX_ERR(2, 184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__41);
-  __Pyx_GIVEREF(__pyx_tuple__41);
-
-  /* "FromPyStructUtility":189
- *         value = obj['EG1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG1'")             # <<<<<<<<<<<<<<
- *     result.EG1 = value
- *     try:
- */
-  __pyx_tuple__42 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_35); if (unlikely(!__pyx_tuple__42)) __PYX_ERR(2, 189, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__42);
-  __Pyx_GIVEREF(__pyx_tuple__42);
-
-  /* "FromPyStructUtility":194
- *         value = obj['NG2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NG2'")             # <<<<<<<<<<<<<<
- *     result.NG2 = value
- *     try:
- */
-  __pyx_tuple__43 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_36); if (unlikely(!__pyx_tuple__43)) __PYX_ERR(2, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__43);
-  __Pyx_GIVEREF(__pyx_tuple__43);
-
-  /* "FromPyStructUtility":199
- *         value = obj['EG2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG2'")             # <<<<<<<<<<<<<<
- *     result.EG2 = value
- *     try:
- */
-  __pyx_tuple__44 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_37); if (unlikely(!__pyx_tuple__44)) __PYX_ERR(2, 199, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__44);
-  __Pyx_GIVEREF(__pyx_tuple__44);
-
-  /* "FromPyStructUtility":204
- *         value = obj['AttachmentCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'AttachmentCrossSection'")             # <<<<<<<<<<<<<<
- *     result.AttachmentCrossSection = value
- *     try:
- */
-  __pyx_tuple__45 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_38); if (unlikely(!__pyx_tuple__45)) __PYX_ERR(2, 204, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__45);
-  __Pyx_GIVEREF(__pyx_tuple__45);
-
-  /* "FromPyStructUtility":209
- *         value = obj['NullCrossSection']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'NullCrossSection'")             # <<<<<<<<<<<<<<
- *     result.NullCrossSection = value
- *     try:
- */
-  __pyx_tuple__46 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_39); if (unlikely(!__pyx_tuple__46)) __PYX_ERR(2, 209, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__46);
-  __Pyx_GIVEREF(__pyx_tuple__46);
-
-  /* "FromPyStructUtility":214
- *         value = obj['ScaleNull']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ScaleNull'")             # <<<<<<<<<<<<<<
- *     result.ScaleNull = value
- *     try:
- */
-  __pyx_tuple__47 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_40); if (unlikely(!__pyx_tuple__47)) __PYX_ERR(2, 214, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__47);
-  __Pyx_GIVEREF(__pyx_tuple__47);
-
-  /* "FromPyStructUtility":219
- *         value = obj['EG']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EG'")             # <<<<<<<<<<<<<<
- *     result.EG = value
- *     try:
- */
-  __pyx_tuple__48 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_41); if (unlikely(!__pyx_tuple__48)) __PYX_ERR(2, 219, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__48);
-  __Pyx_GIVEREF(__pyx_tuple__48);
-
-  /* "FromPyStructUtility":224
- *         value = obj['SqrtEnergy']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'SqrtEnergy'")             # <<<<<<<<<<<<<<
- *     result.SqrtEnergy = value
- *     try:
- */
-  __pyx_tuple__49 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_42); if (unlikely(!__pyx_tuple__49)) __PYX_ERR(2, 224, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__49);
-  __Pyx_GIVEREF(__pyx_tuple__49);
-
-  /* "FromPyStructUtility":229
- *         value = obj['QT1']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT1'")             # <<<<<<<<<<<<<<
- *     result.QT1 = value
- *     try:
- */
-  __pyx_tuple__50 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_43); if (unlikely(!__pyx_tuple__50)) __PYX_ERR(2, 229, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__50);
-  __Pyx_GIVEREF(__pyx_tuple__50);
-
-  /* "FromPyStructUtility":234
- *         value = obj['QT2']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT2'")             # <<<<<<<<<<<<<<
- *     result.QT2 = value
- *     try:
- */
-  __pyx_tuple__51 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_44); if (unlikely(!__pyx_tuple__51)) __PYX_ERR(2, 234, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__51);
-  __Pyx_GIVEREF(__pyx_tuple__51);
-
-  /* "FromPyStructUtility":239
- *         value = obj['QT3']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT3'")             # <<<<<<<<<<<<<<
- *     result.QT3 = value
- *     try:
- */
-  __pyx_tuple__52 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_45); if (unlikely(!__pyx_tuple__52)) __PYX_ERR(2, 239, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__52);
-  __Pyx_GIVEREF(__pyx_tuple__52);
-
-  /* "FromPyStructUtility":244
- *         value = obj['QT4']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'QT4'")             # <<<<<<<<<<<<<<
- *     result.QT4 = value
- *     try:
- */
-  __pyx_tuple__53 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_46); if (unlikely(!__pyx_tuple__53)) __PYX_ERR(2, 244, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__53);
-  __Pyx_GIVEREF(__pyx_tuple__53);
-
-  /* "FromPyStructUtility":249
- *         value = obj['DEN']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'DEN'")             # <<<<<<<<<<<<<<
- *     result.DEN = value
- *     try:
- */
-  __pyx_tuple__54 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_47); if (unlikely(!__pyx_tuple__54)) __PYX_ERR(2, 249, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__54);
-  __Pyx_GIVEREF(__pyx_tuple__54);
-
-  /* "FromPyStructUtility":254
- *         value = obj['EMT']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EMT'")             # <<<<<<<<<<<<<<
- *     result.EMT = value
- *     try:
- */
-  __pyx_tuple__55 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_48); if (unlikely(!__pyx_tuple__55)) __PYX_ERR(2, 254, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__55);
-  __Pyx_GIVEREF(__pyx_tuple__55);
-
-  /* "FromPyStructUtility":259
- *         value = obj['ET']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'ET'")             # <<<<<<<<<<<<<<
- *     result.ET = value
- *     try:
- */
-  __pyx_tuple__56 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_49); if (unlikely(!__pyx_tuple__56)) __PYX_ERR(2, 259, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__56);
-  __Pyx_GIVEREF(__pyx_tuple__56);
-
-  /* "FromPyStructUtility":264
- *         value = obj['EAT']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EAT'")             # <<<<<<<<<<<<<<
- *     result.EAT = value
- *     try:
- */
-  __pyx_tuple__57 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_50); if (unlikely(!__pyx_tuple__57)) __PYX_ERR(2, 264, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__57);
-  __Pyx_GIVEREF(__pyx_tuple__57);
-
-  /* "FromPyStructUtility":269
- *         value = obj['EOBY']
- *     except KeyError:
- *         raise ValueError("No value specified for struct attribute 'EOBY'")             # <<<<<<<<<<<<<<
- *     result.EOBY = value
- *     return result
- */
-  __pyx_tuple__58 = PyTuple_Pack(1, __pyx_kp_s_No_value_specified_for_struct_at_51); if (unlikely(!__pyx_tuple__58)) __PYX_ERR(2, 269, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__58);
-  __Pyx_GIVEREF(__pyx_tuple__58);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -19940,93 +12787,6 @@ static CYTHON_INLINE int __Pyx_SetItemInt_Fast(PyObject *o, Py_ssize_t i, PyObje
     return __Pyx_SetItemInt_Generic(o, PyInt_FromSsize_t(i), v);
 }
 
-/* GetItemInt */
-static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyList_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyTuple_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
-                        return NULL;
-                    PyErr_Clear();
-                }
-            }
-            return m->sq_item(o, i);
-        }
-    }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
-    }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
 /* PyIntBinop */
 #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, int inplace, int zerodivision_check) {
@@ -20150,6 +12910,93 @@ static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_U
     return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
 }
 #endif
+
+/* GetItemInt */
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyList_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyTuple_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+}
 
 /* PyIntBinop */
 #if !CYTHON_COMPILING_IN_PYPY
