@@ -51,6 +51,7 @@ def getSingle(d):
 
 #Return a Pygrad object set up with the parameters found in FNAME at PATH
 def createObject(path,fname):
+    print('init')
     obj = Pygrad()
     with open(path+fname,'r') as f:
         text = f.read()

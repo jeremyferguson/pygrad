@@ -21,8 +21,8 @@ cpdef Mixer(Pygrad object):
     object.GasMix.InitWithInfo(object.GasIDs, object.InelasticCrossSectionPerGas, object.N_Inelastic,
             object.PenningFraction, object.E, object.SqrtEnergy, object.NumberOfGases, object.EnergySteps, object.Which_Angular_Model, object.ElectronEnergyStep, object.Max_Electron_Energy, object.ThermalEnergy, object.TemperatureCentigrade, object.Pressure_Torr, object.PIR2, object.RhydbergConst)
     object.GasMix.Run()
-
     ang = Ang()
+    print('before for loop')
     for iEnergy in range(20000):
         object.IonCollisionFreq[iEnergy] = 0.0
         object.AttCollisionFreq[iEnergy] = 0.0

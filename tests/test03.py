@@ -9,6 +9,7 @@ class TestMixer(unittest.TestCase):
 
     def testMixer(self):
         def function(fname):
+            print('init')
             obj = utils.createObject(self.mixerTestPath,fname)
             Mixers.Mixer(obj)
             return [obj.ElasticCrossSection,obj.CrossSectionSum,obj.AttachmentSectionSum,obj.TotalCrossSection,obj.RelativeIonMinusAttachCrossSection,obj.InelasticCrossSection,obj.ElasticCrossSection]
