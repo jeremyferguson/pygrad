@@ -165,7 +165,6 @@ cdef class Pygrad:
 
         # Dynamically set
         self.EnergySteps = 0
-        self.AnisotropicDetected = 0
         self.Max_Electron_Energy = 0.0
         self.ElectronEnergyStep = 0
         self.InitialElectronEnergy = 0.0

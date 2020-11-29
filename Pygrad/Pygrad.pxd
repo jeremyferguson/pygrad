@@ -82,7 +82,6 @@ cdef class Pygrad:
         double CONST5 
         '''Whether gas is isotropic or anistropic'''
         int WhichAngularModel
-
         '''Arrays used in the mixerc subroutines.'''
         dict mixercArrs
         '''Arrays used in the cascade data subroutines.'''

@@ -1,5 +1,6 @@
 import unittest,os
-import pygrad,utils,mixerc
+from Pygrad.Pygrad import Pygrad
+from Pygrad import utils,MixerC
 
 #A class to test the MixerC class
 class TestMixerC(unittest.TestCase):
@@ -9,10 +10,9 @@ class TestMixerC(unittest.TestCase):
     #Returns a generic function for passing into the checkFortranTests function.
     def mixerCStart(self,keys):
         def start(fname):
-            main = pygrad.Main(self.mixercTestPath + fname)
-            mix = mixerc.MixerC(main)
-            mix.mixc()
-            return [mix.arrays[key] for key in keys]
+            obj = utils.createObject(self.mixercTestPath,fname)
+            MixerC.MixerC(obj)
+            return [obj.mixercArrs[key] for key in keys]
         return start
 
     def testMixerC1(self):

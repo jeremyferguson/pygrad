@@ -1,4 +1,7 @@
+import pickle
 import numpy as np,os,utils
+cimport numpy as np
+from Pygrad.Pygrad cimport Pygrad
 
 #Pairs each array found in element data to the higher-dimensional array 
 #in the mixerC class.
@@ -115,9 +118,8 @@ cpdef MixerC(Pygrad object):
         "FRMFC":np.zeros((6,3,45), dtype = float)}
 
     cdef dict cgas_data
-    with open(os.getenv('PYGRAD_HOME')+'/cgas_data.npy','r') as f:
+    with open(os.getenv('PYGRAD_HOME')+'/Pygrad/cgas_data.npy','rb') as f:
         cgas_data = pickle.load(f)
-    print(cgas_data.keys())
 
     i = 0
     for gas in object.GasIDs:
@@ -130,23 +132,23 @@ cpdef gasmixc(Pygrad object, int gas,int i,dict cgas_data):
     if gas == 0:
         return
     if gas not in gas_dict:
-        raise PygradException('Invalid gas number: '+ str(gas))
+        raise Exception('Invalid gas number: '+ str(gas))
     formula = gas_dict[gas]['formula']
     j = 0
     for pair in formula:
         element = utils.getSingle(pair)
         number = pair[element]
         elementData = cgas_data[element]
-        for array:
-            self.assignArray(i,j,array,elementData[array],number)
+        for array in elementData:
+            if array != 'IZ' and array != 'AMZ':
+                assignArray(object,i,j,array,elementData[array],number)
         k = 1 
         for occ in object.mixercArrs['INIOCC'][i][j]:
             if occ > 0.0:
                 object.mixercArrs['ISHLMX'][i][j] = k
             k += 1
-        attrs = elgroup['mixerc'].attrs
-        object.mixercArrs['IZ'][i,j] = attrs.get('IZ')
-        object.mixercArrs['AMZ'][i,j] = attrs.get('AMZ') * number
+        object.mixercArrs['IZ'][i,j] = elementData['IZ']
+        object.mixercArrs['AMZ'][i,j] = elementData['AMZ'] * number
         object.mixercArrs['PRSH'][i,j] /= 100.0
         object.mixercArrs['PRSHBT'][i,j] /= 100.0
         object.mixercArrs['PRSH'][i,j] = object.mixercArrs['PRSH'][i][j].T
@@ -161,7 +163,7 @@ cpdef gasmixc(Pygrad object, int gas,int i,dict cgas_data):
 
 #Assign ARRAY with NAME as its name to its proper position in the higher-dimensional
 #array at position I,J, with NUMBER as the number of times it appears in the gas molecule.
-cpdef assignArray(Pygrad object,int i,int j,string name,np.ndarray array,number):
+cpdef assignArray(Pygrad object,int i,int j,str name,np.ndarray array,number):
     if name in array_pairs:
         key = array_pairs[name]
         object.mixercArrs[key][i][j] = array[()]

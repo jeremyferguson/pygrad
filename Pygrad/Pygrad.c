@@ -1235,6 +1235,8 @@ struct __pyx_obj_6Pygrad_6Pygrad_Pygrad {
   double CONST4;
   double CONST5;
   int WhichAngularModel;
+  PyObject *mixercArrs;
+  PyObject *cascdata;
   int last;
   double tmax;
   int nout;
@@ -1468,15 +1470,6 @@ static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
 
 /* KeywordStringCheck.proto */
 static int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
-
-/* PyObjectSetAttrStr.proto */
-#if CYTHON_USE_TYPE_SLOTS
-#define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o, n, NULL)
-static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value);
-#else
-#define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
-#define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
-#endif
 
 /* PyFunctionFastCall.proto */
 #if CYTHON_FAST_PYCALL
@@ -2040,22 +2033,20 @@ static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_AnisotropicDetected[] = "AnisotropicDetected";
 static const char __pyx_k_pyx_unpickle_Pygrad[] = "__pyx_unpickle_Pygrad";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
-static const char __pyx_k_Incompatible_checksums_s_vs_0xc1[] = "Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistribution""Bins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))";
+static const char __pyx_k_Incompatible_checksums_s_vs_0x5d[] = "Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistribution""Bins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not Fortran contiguous";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static PyObject *__pyx_n_s_AnisotropicDetected;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor;
 static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_ImportError;
-static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xc1;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x5d;
 static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_OverflowError;
@@ -2174,6 +2165,12 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6CONST5___get__(struct __pyx_o
 static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6CONST5_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_17WhichAngularModel___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
 static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_17WhichAngularModel_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_4__del__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_4__del__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4last___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
 static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4last_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4tmax___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self); /* proto */
@@ -2474,7 +2471,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tp_new_6Pygrad_6Pygrad_Pygrad(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
-static PyObject *__pyx_int_202617947;
+static PyObject *__pyx_int_97988834;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -3666,31 +3663,22 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad___init__(struct __pyx_obj_6Pygrad_6P
  * 
  *         # Dynamically set
  *         self.EnergySteps = 0             # <<<<<<<<<<<<<<
- *         self.AnisotropicDetected = 0
  *         self.Max_Electron_Energy = 0.0
+ *         self.ElectronEnergyStep = 0
  */
   __pyx_v_self->EnergySteps = 0;
 
   /* "Pygrad/Pygrad.pyx":168
  *         # Dynamically set
  *         self.EnergySteps = 0
- *         self.AnisotropicDetected = 0             # <<<<<<<<<<<<<<
- *         self.Max_Electron_Energy = 0.0
- *         self.ElectronEnergyStep = 0
- */
-  if (__Pyx_PyObject_SetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_AnisotropicDetected, __pyx_int_0) < 0) __PYX_ERR(0, 168, __pyx_L1_error)
-
-  /* "Pygrad/Pygrad.pyx":169
- *         self.EnergySteps = 0
- *         self.AnisotropicDetected = 0
  *         self.Max_Electron_Energy = 0.0             # <<<<<<<<<<<<<<
  *         self.ElectronEnergyStep = 0
  *         self.InitialElectronEnergy = 0.0
  */
   __pyx_v_self->Max_Electron_Energy = 0.0;
 
-  /* "Pygrad/Pygrad.pyx":170
- *         self.AnisotropicDetected = 0
+  /* "Pygrad/Pygrad.pyx":169
+ *         self.EnergySteps = 0
  *         self.Max_Electron_Energy = 0.0
  *         self.ElectronEnergyStep = 0             # <<<<<<<<<<<<<<
  *         self.InitialElectronEnergy = 0.0
@@ -3698,7 +3686,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad___init__(struct __pyx_obj_6Pygrad_6P
  */
   __pyx_v_self->ElectronEnergyStep = 0.0;
 
-  /* "Pygrad/Pygrad.pyx":171
+  /* "Pygrad/Pygrad.pyx":170
  *         self.Max_Electron_Energy = 0.0
  *         self.ElectronEnergyStep = 0
  *         self.InitialElectronEnergy = 0.0             # <<<<<<<<<<<<<<
@@ -3707,7 +3695,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad___init__(struct __pyx_obj_6Pygrad_6P
  */
   __pyx_v_self->InitialElectronEnergy = 0.0;
 
-  /* "Pygrad/Pygrad.pyx":173
+  /* "Pygrad/Pygrad.pyx":172
  *         self.InitialElectronEnergy = 0.0
  * 
  *         self.Random_Seed = 54217137             # <<<<<<<<<<<<<<
@@ -3716,14 +3704,14 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad___init__(struct __pyx_obj_6Pygrad_6P
  */
   __pyx_v_self->Random_Seed = 0x33B49B1;
 
-  /* "Pygrad/Pygrad.pyx":174
+  /* "Pygrad/Pygrad.pyx":173
  * 
  *         self.Random_Seed = 54217137
  *         self.MixObject = Gasmix()             # <<<<<<<<<<<<<<
  * 
  *     cpdef Start(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_8PyGasMix_6Gasmix_Gasmix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(((PyObject *)__pyx_ptype_8PyGasMix_6Gasmix_Gasmix)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v_self->MixObject);
@@ -3751,7 +3739,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad___init__(struct __pyx_obj_6Pygrad_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pyx":176
+/* "Pygrad/Pygrad.pyx":175
  *         self.MixObject = Gasmix()
  * 
  *     cpdef Start(self):             # <<<<<<<<<<<<<<
@@ -3778,7 +3766,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(struct __pyx_obj_6Pygrad_
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_Start); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_Start); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_6Pygrad_6Pygrad_6Pygrad_3Start)) {
         __Pyx_XDECREF(__pyx_r);
@@ -3795,7 +3783,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(struct __pyx_obj_6Pygrad_
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 176, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 175, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __pyx_r = __pyx_t_2;
@@ -3816,26 +3804,26 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(struct __pyx_obj_6Pygrad_
     #endif
   }
 
-  /* "Pygrad/Pygrad.pyx":177
+  /* "Pygrad/Pygrad.pyx":176
  * 
  *     cpdef Start(self):
  *         setSeed(self.RandomSeed)             # <<<<<<<<<<<<<<
  *         Setups.setup(self)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_RandomSeed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_RandomSeed); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 177, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_f_6Pygrad_6Pygrad_setSeed(__pyx_t_5);
 
-  /* "Pygrad/Pygrad.pyx":178
+  /* "Pygrad/Pygrad.pyx":177
  *     cpdef Start(self):
  *         setSeed(self.RandomSeed)
  *         Setups.setup(self)             # <<<<<<<<<<<<<<
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Setups); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Setups); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setup); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_setup); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -3850,12 +3838,12 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(struct __pyx_obj_6Pygrad_
   }
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, ((PyObject *)__pyx_v_self)) : __Pyx_PyObject_CallOneArg(__pyx_t_3, ((PyObject *)__pyx_v_self));
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 178, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "Pygrad/Pygrad.pyx":176
+  /* "Pygrad/Pygrad.pyx":175
  *         self.MixObject = Gasmix()
  * 
  *     cpdef Start(self):             # <<<<<<<<<<<<<<
@@ -3898,7 +3886,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Start(struct __pyx_obj_6Pygra
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("Start", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6Pygrad_6Pygrad_6Pygrad_Start(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6579,8 +6567,8 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6CONST5_2__set__(struct __pyx_obj_6P
  *         double CONST5
  *         '''Whether gas is isotropic or anistropic'''
  *         int WhichAngularModel             # <<<<<<<<<<<<<<
- * 
- *         int last
+ *         '''Arrays used in the mixerc subroutines.'''
+ *         dict mixercArrs
  */
 
 /* Python wrapper */
@@ -6653,7 +6641,217 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_17WhichAngularModel_2__set__(struct 
 
 /* "Pygrad/Pygrad.pxd":86
  *         int WhichAngularModel
- * 
+ *         '''Arrays used in the mixerc subroutines.'''
+ *         dict mixercArrs             # <<<<<<<<<<<<<<
+ *         '''Arrays used in the cascade data subroutines.'''
+ *         dict cascdata
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs___get__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->mixercArrs);
+  __pyx_r = __pyx_v_self->mixercArrs;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_2__set__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->mixercArrs);
+  __Pyx_DECREF(__pyx_v_self->mixercArrs);
+  __pyx_v_self->mixercArrs = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("Pygrad.Pygrad.Pygrad.mixercArrs.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_4__del__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_4__del__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->mixercArrs);
+  __Pyx_DECREF(__pyx_v_self->mixercArrs);
+  __pyx_v_self->mixercArrs = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "Pygrad/Pygrad.pxd":88
+ *         dict mixercArrs
+ *         '''Arrays used in the cascade data subroutines.'''
+ *         dict cascdata             # <<<<<<<<<<<<<<
+ *         int last
+ *         double tmax
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata___get__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata___get__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->cascdata);
+  __pyx_r = __pyx_v_self->cascdata;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_2__set__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_2__set__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  if (!(likely(PyDict_CheckExact(__pyx_v_value))||((__pyx_v_value) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_v_value)->tp_name), 0))) __PYX_ERR(1, 88, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->cascdata);
+  __Pyx_DECREF(__pyx_v_self->cascdata);
+  __pyx_v_self->cascdata = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("Pygrad.Pygrad.Pygrad.cascdata.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_4__del__(((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8cascdata_4__del__(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->cascdata);
+  __Pyx_DECREF(__pyx_v_self->cascdata);
+  __pyx_v_self->cascdata = ((PyObject*)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "Pygrad/Pygrad.pxd":89
+ *         '''Arrays used in the cascade data subroutines.'''
+ *         dict cascdata
  *         int last             # <<<<<<<<<<<<<<
  *         double tmax
  *         int nout
@@ -6678,7 +6876,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4last___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->last); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->last); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 89, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6713,7 +6911,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4last_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 86, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 89, __pyx_L1_error)
   __pyx_v_self->last = __pyx_t_1;
 
   /* function exit code */
@@ -6727,8 +6925,8 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4last_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":87
- * 
+/* "Pygrad/Pygrad.pxd":90
+ *         dict cascdata
  *         int last
  *         double tmax             # <<<<<<<<<<<<<<
  *         int nout
@@ -6754,7 +6952,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4tmax___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->tmax); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 87, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->tmax); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6789,7 +6987,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4tmax_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 87, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 90, __pyx_L1_error)
   __pyx_v_self->tmax = __pyx_t_1;
 
   /* function exit code */
@@ -6803,7 +7001,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4tmax_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":88
+/* "Pygrad/Pygrad.pxd":91
  *         int last
  *         double tmax
  *         int nout             # <<<<<<<<<<<<<<
@@ -6830,7 +7028,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4nout___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->nout); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 88, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->nout); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6865,7 +7063,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4nout_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 88, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 91, __pyx_L1_error)
   __pyx_v_self->nout = __pyx_t_1;
 
   /* function exit code */
@@ -6879,7 +7077,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4nout_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":91
+/* "Pygrad/Pygrad.pxd":94
  * 
  *         #Constants defined in Setup
  *         double TwoPi             # <<<<<<<<<<<<<<
@@ -6906,7 +7104,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5TwoPi___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->TwoPi); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->TwoPi); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 94, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6941,7 +7139,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5TwoPi_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 91, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 94, __pyx_L1_error)
   __pyx_v_self->TwoPi = __pyx_t_1;
 
   /* function exit code */
@@ -6955,7 +7153,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5TwoPi_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":92
+/* "Pygrad/Pygrad.pxd":95
  *         #Constants defined in Setup
  *         double TwoPi
  *         double PIR2             # <<<<<<<<<<<<<<
@@ -6982,7 +7180,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4PIR2___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->PIR2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->PIR2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 95, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7017,7 +7215,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4PIR2_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 92, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 95, __pyx_L1_error)
   __pyx_v_self->PIR2 = __pyx_t_1;
 
   /* function exit code */
@@ -7031,7 +7229,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4PIR2_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":93
+/* "Pygrad/Pygrad.pxd":96
  *         double TwoPi
  *         double PIR2
  *         double ElectronCharge             # <<<<<<<<<<<<<<
@@ -7058,7 +7256,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_14ElectronCharge___get__(struc
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ElectronCharge); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 93, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ElectronCharge); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7093,7 +7291,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_14ElectronCharge_2__set__(struct __p
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 93, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 96, __pyx_L1_error)
   __pyx_v_self->ElectronCharge = __pyx_t_1;
 
   /* function exit code */
@@ -7107,7 +7305,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_14ElectronCharge_2__set__(struct __p
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":94
+/* "Pygrad/Pygrad.pxd":97
  *         double PIR2
  *         double ElectronCharge
  *         double ElectronMass             # <<<<<<<<<<<<<<
@@ -7134,7 +7332,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_12ElectronMass___get__(struct 
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ElectronMass); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 94, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ElectronMass); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7169,7 +7367,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_12ElectronMass_2__set__(struct __pyx
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 94, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 97, __pyx_L1_error)
   __pyx_v_self->ElectronMass = __pyx_t_1;
 
   /* function exit code */
@@ -7183,7 +7381,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_12ElectronMass_2__set__(struct __pyx
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":95
+/* "Pygrad/Pygrad.pxd":98
  *         double ElectronCharge
  *         double ElectronMass
  *         double AMU             # <<<<<<<<<<<<<<
@@ -7210,7 +7408,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AMU___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->AMU); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 95, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->AMU); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 98, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7245,7 +7443,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AMU_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 95, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 98, __pyx_L1_error)
   __pyx_v_self->AMU = __pyx_t_1;
 
   /* function exit code */
@@ -7259,7 +7457,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AMU_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":96
+/* "Pygrad/Pygrad.pxd":99
  *         double ElectronMass
  *         double AMU
  *         double MassOverChargeDivTen             # <<<<<<<<<<<<<<
@@ -7286,7 +7484,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20MassOverChargeDivTen___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->MassOverChargeDivTen); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 96, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->MassOverChargeDivTen); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7321,7 +7519,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20MassOverChargeDivTen_2__set__(stru
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 96, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 99, __pyx_L1_error)
   __pyx_v_self->MassOverChargeDivTen = __pyx_t_1;
 
   /* function exit code */
@@ -7335,7 +7533,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20MassOverChargeDivTen_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":97
+/* "Pygrad/Pygrad.pxd":100
  *         double AMU
  *         double MassOverChargeDivTen
  *         double ALOSCH             # <<<<<<<<<<<<<<
@@ -7362,7 +7560,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ALOSCH___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ALOSCH); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 97, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ALOSCH); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7397,7 +7595,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ALOSCH_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 97, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 100, __pyx_L1_error)
   __pyx_v_self->ALOSCH = __pyx_t_1;
 
   /* function exit code */
@@ -7411,7 +7609,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ALOSCH_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":98
+/* "Pygrad/Pygrad.pxd":101
  *         double MassOverChargeDivTen
  *         double ALOSCH
  *         double ZeroCelcius             # <<<<<<<<<<<<<<
@@ -7438,7 +7636,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_11ZeroCelcius___get__(struct _
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ZeroCelcius); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 98, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ZeroCelcius); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7473,7 +7671,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11ZeroCelcius_2__set__(struct __pyx_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 98, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 101, __pyx_L1_error)
   __pyx_v_self->ZeroCelcius = __pyx_t_1;
 
   /* function exit code */
@@ -7487,7 +7685,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11ZeroCelcius_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":99
+/* "Pygrad/Pygrad.pxd":102
  *         double ALOSCH
  *         double ZeroCelcius
  *         double OneAtmosphere             # <<<<<<<<<<<<<<
@@ -7514,7 +7712,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_13OneAtmosphere___get__(struct
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->OneAtmosphere); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 99, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->OneAtmosphere); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7549,7 +7747,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_13OneAtmosphere_2__set__(struct __py
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 99, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 102, __pyx_L1_error)
   __pyx_v_self->OneAtmosphere = __pyx_t_1;
 
   /* function exit code */
@@ -7563,7 +7761,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_13OneAtmosphere_2__set__(struct __py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":100
+/* "Pygrad/Pygrad.pxd":103
  *         double ZeroCelcius
  *         double OneAtmosphere
  *         double HBAR             # <<<<<<<<<<<<<<
@@ -7590,7 +7788,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4HBAR___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->HBAR); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 100, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->HBAR); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7625,7 +7823,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4HBAR_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 100, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 103, __pyx_L1_error)
   __pyx_v_self->HBAR = __pyx_t_1;
 
   /* function exit code */
@@ -7639,7 +7837,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4HBAR_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":101
+/* "Pygrad/Pygrad.pxd":104
  *         double OneAtmosphere
  *         double HBAR
  *         double EMS             # <<<<<<<<<<<<<<
@@ -7666,7 +7864,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3EMS___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EMS); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 101, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EMS); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7701,7 +7899,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3EMS_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 101, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 104, __pyx_L1_error)
   __pyx_v_self->EMS = __pyx_t_1;
 
   /* function exit code */
@@ -7715,7 +7913,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3EMS_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":102
+/* "Pygrad/Pygrad.pxd":105
  *         double HBAR
  *         double EMS
  *         double VC             # <<<<<<<<<<<<<<
@@ -7742,7 +7940,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2VC___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->VC); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 102, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->VC); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7777,7 +7975,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2VC_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 102, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 105, __pyx_L1_error)
   __pyx_v_self->VC = __pyx_t_1;
 
   /* function exit code */
@@ -7791,7 +7989,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2VC_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":103
+/* "Pygrad/Pygrad.pxd":106
  *         double EMS
  *         double VC
  *         double RE             # <<<<<<<<<<<<<<
@@ -7818,7 +8016,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2RE___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->RE); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 103, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->RE); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7853,7 +8051,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2RE_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 103, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 106, __pyx_L1_error)
   __pyx_v_self->RE = __pyx_t_1;
 
   /* function exit code */
@@ -7867,7 +8065,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2RE_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":104
+/* "Pygrad/Pygrad.pxd":107
  *         double VC
  *         double RE
  *         double ALPH             # <<<<<<<<<<<<<<
@@ -7894,7 +8092,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4ALPH___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ALPH); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 104, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->ALPH); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -7929,7 +8127,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4ALPH_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 104, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 107, __pyx_L1_error)
   __pyx_v_self->ALPH = __pyx_t_1;
 
   /* function exit code */
@@ -7943,7 +8141,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4ALPH_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":105
+/* "Pygrad/Pygrad.pxd":108
  *         double RE
  *         double ALPH
  *         double EOVM             # <<<<<<<<<<<<<<
@@ -7970,7 +8168,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EOVM___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EOVM); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 105, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EOVM); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 108, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8005,7 +8203,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EOVM_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 105, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 108, __pyx_L1_error)
   __pyx_v_self->EOVM = __pyx_t_1;
 
   /* function exit code */
@@ -8019,7 +8217,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EOVM_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":106
+/* "Pygrad/Pygrad.pxd":109
  *         double ALPH
  *         double EOVM
  *         double EMASS2             # <<<<<<<<<<<<<<
@@ -8046,7 +8244,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6EMASS2___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EMASS2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 106, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->EMASS2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 109, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8081,7 +8279,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6EMASS2_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 106, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 109, __pyx_L1_error)
   __pyx_v_self->EMASS2 = __pyx_t_1;
 
   /* function exit code */
@@ -8095,7 +8293,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6EMASS2_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":107
+/* "Pygrad/Pygrad.pxd":110
  *         double EOVM
  *         double EMASS2
  *         double CONST             # <<<<<<<<<<<<<<
@@ -8122,7 +8320,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5CONST___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->CONST); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 107, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->CONST); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 110, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8157,7 +8355,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5CONST_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 107, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 110, __pyx_L1_error)
   __pyx_v_self->CONST = __pyx_t_1;
 
   /* function exit code */
@@ -8171,7 +8369,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5CONST_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":108
+/* "Pygrad/Pygrad.pxd":111
  *         double EMASS2
  *         double CONST
  *         double A0             # <<<<<<<<<<<<<<
@@ -8198,7 +8396,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2A0___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 108, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 111, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8233,7 +8431,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2A0_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 108, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 111, __pyx_L1_error)
   __pyx_v_self->A0 = __pyx_t_1;
 
   /* function exit code */
@@ -8247,7 +8445,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2A0_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":109
+/* "Pygrad/Pygrad.pxd":112
  *         double CONST
  *         double A0
  *         double BBCONST             # <<<<<<<<<<<<<<
@@ -8274,7 +8472,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_7BBCONST___get__(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->BBCONST); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 109, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->BBCONST); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 112, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8309,7 +8507,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7BBCONST_2__set__(struct __pyx_obj_6
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 109, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 112, __pyx_L1_error)
   __pyx_v_self->BBCONST = __pyx_t_1;
 
   /* function exit code */
@@ -8323,7 +8521,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7BBCONST_2__set__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":112
+/* "Pygrad/Pygrad.pxd":115
  * 
  *         #Density Effect Constants
  *         double EIAV[80]             # <<<<<<<<<<<<<<
@@ -8350,7 +8548,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EIAV___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->EIAV, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 112, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->EIAV, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8385,7 +8583,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EIAV_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 112, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 115, __pyx_L1_error)
   memcpy(&(__pyx_v_self->EIAV[0]), __pyx_t_1, sizeof(__pyx_v_self->EIAV[0]) * (80));
 
   /* function exit code */
@@ -8399,7 +8597,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4EIAV_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":113
+/* "Pygrad/Pygrad.pxd":116
  *         #Density Effect Constants
  *         double EIAV[80]
  *         int nElectrons[80]             # <<<<<<<<<<<<<<
@@ -8426,7 +8624,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10nElectrons___get__(struct __
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nElectrons, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 113, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nElectrons, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8461,7 +8659,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10nElectrons_2__set__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 113, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 116, __pyx_L1_error)
   memcpy(&(__pyx_v_self->nElectrons[0]), __pyx_t_1, sizeof(__pyx_v_self->nElectrons[0]) * (80));
 
   /* function exit code */
@@ -8475,7 +8673,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10nElectrons_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":114
+/* "Pygrad/Pygrad.pxd":117
  *         double EIAV[80]
  *         int nElectrons[80]
  *         double X00[80]             # <<<<<<<<<<<<<<
@@ -8502,7 +8700,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X00___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->X00, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 114, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->X00, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8537,7 +8735,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X00_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 114, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 117, __pyx_L1_error)
   memcpy(&(__pyx_v_self->X00[0]), __pyx_t_1, sizeof(__pyx_v_self->X00[0]) * (80));
 
   /* function exit code */
@@ -8551,7 +8749,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X00_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":115
+/* "Pygrad/Pygrad.pxd":118
  *         int nElectrons[80]
  *         double X00[80]
  *         double X11[80]             # <<<<<<<<<<<<<<
@@ -8578,7 +8776,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X11___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->X11, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 115, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->X11, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 118, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8613,7 +8811,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X11_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 115, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 118, __pyx_L1_error)
   memcpy(&(__pyx_v_self->X11[0]), __pyx_t_1, sizeof(__pyx_v_self->X11[0]) * (80));
 
   /* function exit code */
@@ -8627,7 +8825,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3X11_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":116
+/* "Pygrad/Pygrad.pxd":119
  *         double X00[80]
  *         double X11[80]
  *         double AKS[80]             # <<<<<<<<<<<<<<
@@ -8654,7 +8852,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AKS___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AKS, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 116, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AKS, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8689,7 +8887,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AKS_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 116, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 119, __pyx_L1_error)
   memcpy(&(__pyx_v_self->AKS[0]), __pyx_t_1, sizeof(__pyx_v_self->AKS[0]) * (80));
 
   /* function exit code */
@@ -8703,7 +8901,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AKS_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":117
+/* "Pygrad/Pygrad.pxd":120
  *         double X11[80]
  *         double AKS[80]
  *         double AAA[80]             # <<<<<<<<<<<<<<
@@ -8730,7 +8928,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AAA___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AAA, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 117, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AAA, 80); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8765,7 +8963,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AAA_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[80];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 117, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 80) < 0)) __PYX_ERR(1, 120, __pyx_L1_error)
   memcpy(&(__pyx_v_self->AAA[0]), __pyx_t_1, sizeof(__pyx_v_self->AAA[0]) * (80));
 
   /* function exit code */
@@ -8779,7 +8977,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3AAA_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":118
+/* "Pygrad/Pygrad.pxd":121
  *         double AKS[80]
  *         double AAA[80]
  *         int ICFLG             # <<<<<<<<<<<<<<
@@ -8806,7 +9004,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5ICFLG___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->ICFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 118, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->ICFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8841,7 +9039,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5ICFLG_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 118, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 121, __pyx_L1_error)
   __pyx_v_self->ICFLG = __pyx_t_1;
 
   /* function exit code */
@@ -8855,7 +9053,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5ICFLG_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":119
+/* "Pygrad/Pygrad.pxd":122
  *         double AAA[80]
  *         int ICFLG
  *         int IRFLG             # <<<<<<<<<<<<<<
@@ -8882,7 +9080,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IRFLG___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IRFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 119, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IRFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 122, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8917,7 +9115,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IRFLG_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 119, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 122, __pyx_L1_error)
   __pyx_v_self->IRFLG = __pyx_t_1;
 
   /* function exit code */
@@ -8931,7 +9129,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IRFLG_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":120
+/* "Pygrad/Pygrad.pxd":123
  *         int ICFLG
  *         int IRFLG
  *         int IPFLG             # <<<<<<<<<<<<<<
@@ -8958,7 +9156,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IPFLG___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IPFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 120, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IPFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -8993,7 +9191,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IPFLG_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 120, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 123, __pyx_L1_error)
   __pyx_v_self->IPFLG = __pyx_t_1;
 
   /* function exit code */
@@ -9007,7 +9205,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IPFLG_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":121
+/* "Pygrad/Pygrad.pxd":124
  *         int IRFLG
  *         int IPFLG
  *         int IBFLG             # <<<<<<<<<<<<<<
@@ -9034,7 +9232,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IBFLG___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IBFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 121, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->IBFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9069,7 +9267,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IBFLG_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 121, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 124, __pyx_L1_error)
   __pyx_v_self->IBFLG = __pyx_t_1;
 
   /* function exit code */
@@ -9083,7 +9281,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5IBFLG_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":122
+/* "Pygrad/Pygrad.pxd":125
  *         int IPFLG
  *         int IBFLG
  *         int LPEFLG             # <<<<<<<<<<<<<<
@@ -9110,7 +9308,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6LPEFLG___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->LPEFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 122, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->LPEFLG); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9145,7 +9343,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6LPEFLG_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 122, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 125, __pyx_L1_error)
   __pyx_v_self->LPEFLG = __pyx_t_1;
 
   /* function exit code */
@@ -9159,7 +9357,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6LPEFLG_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":123
+/* "Pygrad/Pygrad.pxd":126
  *         int IBFLG
  *         int LPEFLG
  *         double PresTempCor             # <<<<<<<<<<<<<<
@@ -9186,7 +9384,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_11PresTempCor___get__(struct _
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->PresTempCor); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 123, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->PresTempCor); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9221,7 +9419,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11PresTempCor_2__set__(struct __pyx_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 123, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsDouble(__pyx_v_value); if (unlikely((__pyx_t_1 == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 126, __pyx_L1_error)
   __pyx_v_self->PresTempCor = __pyx_t_1;
 
   /* function exit code */
@@ -9235,7 +9433,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11PresTempCor_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":125
+/* "Pygrad/Pygrad.pxd":128
  *         double PresTempCor
  *         '''Variable used to calculate the correlation constant between the pressure and tempreture. PresTempCor=ABZERO*Pressure/(ATMOS*(ABZERO+TemperatureC)*100.0D0).'''
  *         long long Random_Seed             # <<<<<<<<<<<<<<
@@ -9262,7 +9460,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_11Random_Seed___get__(struct _
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->Random_Seed); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 125, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->Random_Seed); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 128, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9297,7 +9495,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11Random_Seed_2__set__(struct __pyx_
   __Pyx_RefNannyDeclarations
   PY_LONG_LONG __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 125, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 128, __pyx_L1_error)
   __pyx_v_self->Random_Seed = __pyx_t_1;
 
   /* function exit code */
@@ -9311,7 +9509,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11Random_Seed_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":127
+/* "Pygrad/Pygrad.pxd":130
  *         long long Random_Seed
  *         '''Random number generator seed. Not used at the moment.'''
  *         long long NumberOfGases             # <<<<<<<<<<<<<<
@@ -9338,7 +9536,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_13NumberOfGases___get__(struct
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->NumberOfGases); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->NumberOfGases); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9373,7 +9571,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_13NumberOfGases_2__set__(struct __py
   __Pyx_RefNannyDeclarations
   PY_LONG_LONG __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 130, __pyx_L1_error)
   __pyx_v_self->NumberOfGases = __pyx_t_1;
 
   /* function exit code */
@@ -9387,7 +9585,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_13NumberOfGases_2__set__(struct __py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":129
+/* "Pygrad/Pygrad.pxd":132
  *         long long NumberOfGases
  *         '''Number of gases in the mixture.'''
  *         long long EnergySteps             # <<<<<<<<<<<<<<
@@ -9414,7 +9612,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_11EnergySteps___get__(struct _
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->EnergySteps); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 129, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_PY_LONG_LONG(__pyx_v_self->EnergySteps); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9449,7 +9647,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11EnergySteps_2__set__(struct __pyx_
   __Pyx_RefNannyDeclarations
   PY_LONG_LONG __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 129, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_v_value); if (unlikely((__pyx_t_1 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(1, 132, __pyx_L1_error)
   __pyx_v_self->EnergySteps = __pyx_t_1;
 
   /* function exit code */
@@ -9463,7 +9661,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_11EnergySteps_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":131
+/* "Pygrad/Pygrad.pxd":134
  *         long long EnergySteps
  *         '''Steps for the electron energy integration.'''
  *         int Enable_Penning             # <<<<<<<<<<<<<<
@@ -9490,7 +9688,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_14Enable_Penning___get__(struc
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->Enable_Penning); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 131, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->Enable_Penning); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9525,7 +9723,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_14Enable_Penning_2__set__(struct __p
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 131, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 134, __pyx_L1_error)
   __pyx_v_self->Enable_Penning = __pyx_t_1;
 
   /* function exit code */
@@ -9539,7 +9737,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_14Enable_Penning_2__set__(struct __p
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":133
+/* "Pygrad/Pygrad.pxd":136
  *         int Enable_Penning
  *         '''Variable used to indicate the inclusion of penning effects. '''
  *         int GasIDs[6]             # <<<<<<<<<<<<<<
@@ -9566,7 +9764,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6GasIDs___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->GasIDs, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 133, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->GasIDs, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9601,7 +9799,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6GasIDs_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 133, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 136, __pyx_L1_error)
   memcpy(&(__pyx_v_self->GasIDs[0]), __pyx_t_1, sizeof(__pyx_v_self->GasIDs[0]) * (6));
 
   /* function exit code */
@@ -9615,7 +9813,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6GasIDs_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":135
+/* "Pygrad/Pygrad.pxd":138
  *         int GasIDs[6]
  *         '''Array used to store the number of the 6 gases in the mixture.'''
  *         double GasFractions[6]             # <<<<<<<<<<<<<<
@@ -9642,7 +9840,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_12GasFractions___get__(struct 
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->GasFractions, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 135, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->GasFractions, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9677,7 +9875,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_12GasFractions_2__set__(struct __pyx
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 135, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 138, __pyx_L1_error)
   memcpy(&(__pyx_v_self->GasFractions[0]), __pyx_t_1, sizeof(__pyx_v_self->GasFractions[0]) * (6));
 
   /* function exit code */
@@ -9691,7 +9889,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_12GasFractions_2__set__(struct __pyx
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":137
+/* "Pygrad/Pygrad.pxd":140
  *         double GasFractions[6]
  *         '''Array used to store the percentage of each gas in the mixture.'''
  *         int icoln[512]             # <<<<<<<<<<<<<<
@@ -9718,7 +9916,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5icoln___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->icoln, 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 137, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->icoln, 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9753,10 +9951,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5icoln_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x200];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x200) < 0)) __PYX_ERR(1, 137, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x200) < 0)) __PYX_ERR(1, 140, __pyx_L1_error)
   if (unlikely((0x200) != (0x200))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x200), (Py_ssize_t)(0x200));
-    __PYX_ERR(1, 137, __pyx_L1_error)
+    __PYX_ERR(1, 140, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->icoln[0]), __pyx_t_1, sizeof(__pyx_v_self->icoln[0]) * (0x200));
 
@@ -9771,7 +9969,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5icoln_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":139
+/* "Pygrad/Pygrad.pxd":142
  *         int icoln[512]
  *         '''icoln'''
  *         int icolnn[60]             # <<<<<<<<<<<<<<
@@ -9798,7 +9996,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6icolnn___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->icolnn, 60); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 139, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->icolnn, 60); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 142, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -9833,7 +10031,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6icolnn_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[60];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 60) < 0)) __PYX_ERR(1, 139, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 60) < 0)) __PYX_ERR(1, 142, __pyx_L1_error)
   memcpy(&(__pyx_v_self->icolnn[0]), __pyx_t_1, sizeof(__pyx_v_self->icolnn[0]) * (60));
 
   /* function exit code */
@@ -9847,7 +10045,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6icolnn_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":141
+/* "Pygrad/Pygrad.pxd":144
  *         int icolnn[60]
  *         '''icolnn'''
  *         Gasmix MixObject             # <<<<<<<<<<<<<<
@@ -9902,7 +10100,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9MixObject_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_8PyGasMix_6Gasmix_Gasmix))))) __PYX_ERR(1, 141, __pyx_L1_error)
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_8PyGasMix_6Gasmix_Gasmix))))) __PYX_ERR(1, 144, __pyx_L1_error)
   __pyx_t_1 = __pyx_v_value;
   __Pyx_INCREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -9952,7 +10150,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9MixObject_4__del__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":145
+/* "Pygrad/Pygrad.pxd":148
  * 
  *         #Cross section arrays
  *         double CrossSectionSum[20000]             # <<<<<<<<<<<<<<
@@ -9979,7 +10177,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_15CrossSectionSum___get__(stru
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->CrossSectionSum, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 145, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->CrossSectionSum, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10014,10 +10212,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_15CrossSectionSum_2__set__(struct __
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 145, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 148, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 145, __pyx_L1_error)
+    __PYX_ERR(1, 148, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->CrossSectionSum[0]), __pyx_t_1, sizeof(__pyx_v_self->CrossSectionSum[0]) * (0x4E20));
 
@@ -10032,7 +10230,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_15CrossSectionSum_2__set__(struct __
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":146
+/* "Pygrad/Pygrad.pxd":149
  *         #Cross section arrays
  *         double CrossSectionSum[20000]
  *         double IonizationCrossSection[6][20000]             # <<<<<<<<<<<<<<
@@ -10059,7 +10257,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22IonizationCrossSection___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double___5b_0x4E20_5d_(__pyx_v_self->IonizationCrossSection, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 146, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double___5b_0x4E20_5d_(__pyx_v_self->IonizationCrossSection, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 149, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10094,7 +10292,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22IonizationCrossSection_2__set__(st
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6][0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double___5b_0x4E20_5d_(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 146, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double___5b_0x4E20_5d_(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 149, __pyx_L1_error)
   memcpy(&(__pyx_v_self->IonizationCrossSection[0]), __pyx_t_1, sizeof(__pyx_v_self->IonizationCrossSection[0]) * (6));
 
   /* function exit code */
@@ -10108,7 +10306,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22IonizationCrossSection_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":147
+/* "Pygrad/Pygrad.pxd":150
  *         double CrossSectionSum[20000]
  *         double IonizationCrossSection[6][20000]
  *         double InelasticCrossSectionPerGas[6][250][20000]             # <<<<<<<<<<<<<<
@@ -10135,7 +10333,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_27InelasticCrossSectionPerGas_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_self->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 147, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_self->InelasticCrossSectionPerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 150, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10170,7 +10368,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_27InelasticCrossSectionPerGas_2__set
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6][0xFA][0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 147, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double___5b_0xFA_5d__5b_0x4E20_5d_(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 150, __pyx_L1_error)
   memcpy(&(__pyx_v_self->InelasticCrossSectionPerGas[0]), __pyx_t_1, sizeof(__pyx_v_self->InelasticCrossSectionPerGas[0]) * (6));
 
   /* function exit code */
@@ -10184,7 +10382,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_27InelasticCrossSectionPerGas_2__set
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":148
+/* "Pygrad/Pygrad.pxd":151
  *         double IonizationCrossSection[6][20000]
  *         double InelasticCrossSectionPerGas[6][250][20000]
  *         double AttachmentSectionSum[20000]             # <<<<<<<<<<<<<<
@@ -10211,7 +10409,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20AttachmentSectionSum___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AttachmentSectionSum, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->AttachmentSectionSum, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 151, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10246,10 +10444,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20AttachmentSectionSum_2__set__(stru
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 148, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 151, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 148, __pyx_L1_error)
+    __PYX_ERR(1, 151, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->AttachmentSectionSum[0]), __pyx_t_1, sizeof(__pyx_v_self->AttachmentSectionSum[0]) * (0x4E20));
 
@@ -10264,7 +10462,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20AttachmentSectionSum_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":150
+/* "Pygrad/Pygrad.pxd":153
  *         double AttachmentSectionSum[20000]
  * 
  *         double TotalCrossSection[20000]             # <<<<<<<<<<<<<<
@@ -10291,7 +10489,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_17TotalCrossSection___get__(st
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->TotalCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 150, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->TotalCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10326,10 +10524,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_17TotalCrossSection_2__set__(struct 
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 150, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 153, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 150, __pyx_L1_error)
+    __PYX_ERR(1, 153, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->TotalCrossSection[0]), __pyx_t_1, sizeof(__pyx_v_self->TotalCrossSection[0]) * (0x4E20));
 
@@ -10344,7 +10542,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_17TotalCrossSection_2__set__(struct 
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":151
+/* "Pygrad/Pygrad.pxd":154
  * 
  *         double TotalCrossSection[20000]
  *         double RelativeIonMinusAttachCrossSection[20000]             # <<<<<<<<<<<<<<
@@ -10371,7 +10569,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_34RelativeIonMinusAttachCrossS
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->RelativeIonMinusAttachCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 151, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->RelativeIonMinusAttachCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10406,10 +10604,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_34RelativeIonMinusAttachCrossSection
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 151, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 154, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 151, __pyx_L1_error)
+    __PYX_ERR(1, 154, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->RelativeIonMinusAttachCrossSection[0]), __pyx_t_1, sizeof(__pyx_v_self->RelativeIonMinusAttachCrossSection[0]) * (0x4E20));
 
@@ -10424,7 +10622,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_34RelativeIonMinusAttachCrossSection
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":152
+/* "Pygrad/Pygrad.pxd":155
  *         double TotalCrossSection[20000]
  *         double RelativeIonMinusAttachCrossSection[20000]
  *         double InelasticCrossSection[20000]             # <<<<<<<<<<<<<<
@@ -10451,7 +10649,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21InelasticCrossSection___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->InelasticCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 152, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->InelasticCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10486,10 +10684,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21InelasticCrossSection_2__set__(str
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 152, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 155, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 152, __pyx_L1_error)
+    __PYX_ERR(1, 155, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->InelasticCrossSection[0]), __pyx_t_1, sizeof(__pyx_v_self->InelasticCrossSection[0]) * (0x4E20));
 
@@ -10504,7 +10702,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21InelasticCrossSection_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":153
+/* "Pygrad/Pygrad.pxd":156
  *         double RelativeIonMinusAttachCrossSection[20000]
  *         double InelasticCrossSection[20000]
  *         double ElasticCrossSection[20000]             # <<<<<<<<<<<<<<
@@ -10531,7 +10729,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ElasticCrossSection___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ElasticCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 153, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ElasticCrossSection, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 156, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10566,10 +10764,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ElasticCrossSection_2__set__(struc
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 153, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 156, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 153, __pyx_L1_error)
+    __PYX_ERR(1, 156, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ElasticCrossSection[0]), __pyx_t_1, sizeof(__pyx_v_self->ElasticCrossSection[0]) * (0x4E20));
 
@@ -10584,7 +10782,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ElasticCrossSection_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":155
+/* "Pygrad/Pygrad.pxd":158
  *         double ElasticCrossSection[20000]
  * 
  *         int numExcitationsPerGas[6]             # <<<<<<<<<<<<<<
@@ -10611,7 +10809,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20numExcitationsPerGas___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->numExcitationsPerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 155, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->numExcitationsPerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 158, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10646,7 +10844,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20numExcitationsPerGas_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 155, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 158, __pyx_L1_error)
   memcpy(&(__pyx_v_self->numExcitationsPerGas[0]), __pyx_t_1, sizeof(__pyx_v_self->numExcitationsPerGas[0]) * (6));
 
   /* function exit code */
@@ -10660,7 +10858,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20numExcitationsPerGas_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":157
+/* "Pygrad/Pygrad.pxd":160
  *         int numExcitationsPerGas[6]
  * 
  *         double MoleculesPerCm3PerGas[6]             # <<<<<<<<<<<<<<
@@ -10687,7 +10885,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21MoleculesPerCm3PerGas___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->MoleculesPerCm3PerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 157, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->MoleculesPerCm3PerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10722,7 +10920,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21MoleculesPerCm3PerGas_2__set__(str
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 157, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 160, __pyx_L1_error)
   memcpy(&(__pyx_v_self->MoleculesPerCm3PerGas[0]), __pyx_t_1, sizeof(__pyx_v_self->MoleculesPerCm3PerGas[0]) * (6));
 
   /* function exit code */
@@ -10736,7 +10934,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21MoleculesPerCm3PerGas_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":159
+/* "Pygrad/Pygrad.pxd":162
  *         double MoleculesPerCm3PerGas[6]
  *         '''Array used to calculate the number of molecules/cm^3 for each gas.'''
  *         double VMoleculesPerCm3PerGas[6]             # <<<<<<<<<<<<<<
@@ -10763,7 +10961,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22VMoleculesPerCm3PerGas___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->VMoleculesPerCm3PerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 159, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->VMoleculesPerCm3PerGas, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10798,7 +10996,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22VMoleculesPerCm3PerGas_2__set__(st
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 159, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 162, __pyx_L1_error)
   memcpy(&(__pyx_v_self->VMoleculesPerCm3PerGas[0]), __pyx_t_1, sizeof(__pyx_v_self->VMoleculesPerCm3PerGas[0]) * (6));
 
   /* function exit code */
@@ -10812,7 +11010,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22VMoleculesPerCm3PerGas_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":162
+/* "Pygrad/Pygrad.pxd":165
  *         '''Array used to calculate the VAN for each gas.'''
  * 
  *         int Msum[10000]             # <<<<<<<<<<<<<<
@@ -10839,7 +11037,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Msum___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Msum, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 162, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Msum, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 165, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10874,10 +11072,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Msum_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 162, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 165, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 162, __pyx_L1_error)
+    __PYX_ERR(1, 165, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Msum[0]), __pyx_t_1, sizeof(__pyx_v_self->Msum[0]) * (0x2710));
 
@@ -10892,7 +11090,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Msum_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":164
+/* "Pygrad/Pygrad.pxd":167
  *         int Msum[10000]
  *         '''MSUM'''
  *         int Mcomp[10000]             # <<<<<<<<<<<<<<
@@ -10919,7 +11117,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mcomp___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mcomp, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 164, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mcomp, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 167, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10954,10 +11152,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mcomp_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 164, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 167, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 164, __pyx_L1_error)
+    __PYX_ERR(1, 167, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Mcomp[0]), __pyx_t_1, sizeof(__pyx_v_self->Mcomp[0]) * (0x2710));
 
@@ -10972,7 +11170,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mcomp_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":166
+/* "Pygrad/Pygrad.pxd":169
  *         int Mcomp[10000]
  *         '''MCOMP'''
  *         int Mrayl[10000]             # <<<<<<<<<<<<<<
@@ -10999,7 +11197,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mrayl___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mrayl, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 166, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mrayl, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 169, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11034,10 +11232,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mrayl_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 166, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 169, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 166, __pyx_L1_error)
+    __PYX_ERR(1, 169, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Mrayl[0]), __pyx_t_1, sizeof(__pyx_v_self->Mrayl[0]) * (0x2710));
 
@@ -11052,7 +11250,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mrayl_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":168
+/* "Pygrad/Pygrad.pxd":171
  *         int Mrayl[10000]
  *         '''MRAYL'''
  *         int Mpair[10000]             # <<<<<<<<<<<<<<
@@ -11079,7 +11277,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mpair___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mpair, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 168, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mpair, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 171, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11114,10 +11312,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mpair_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 168, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 171, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 168, __pyx_L1_error)
+    __PYX_ERR(1, 171, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Mpair[0]), __pyx_t_1, sizeof(__pyx_v_self->Mpair[0]) * (0x2710));
 
@@ -11132,7 +11330,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mpair_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":170
+/* "Pygrad/Pygrad.pxd":173
  *         int Mpair[10000]
  *         '''MPAIR'''
  *         int Mphot[10000]             # <<<<<<<<<<<<<<
@@ -11159,7 +11357,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mphot___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mphot, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 170, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mphot, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 173, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11194,10 +11392,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mphot_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 170, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 173, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 170, __pyx_L1_error)
+    __PYX_ERR(1, 173, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Mphot[0]), __pyx_t_1, sizeof(__pyx_v_self->Mphot[0]) * (0x2710));
 
@@ -11212,7 +11410,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Mphot_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":172
+/* "Pygrad/Pygrad.pxd":175
  *         int Mphot[10000]
  *         '''MPHOT'''
  *         int Mvac[10000]             # <<<<<<<<<<<<<<
@@ -11239,7 +11437,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Mvac___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mvac, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 172, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Mvac, 0x2710); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 175, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11274,10 +11472,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Mvac_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x2710];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 172, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x2710) < 0)) __PYX_ERR(1, 175, __pyx_L1_error)
   if (unlikely((0x2710) != (0x2710))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x2710), (Py_ssize_t)(0x2710));
-    __PYX_ERR(1, 172, __pyx_L1_error)
+    __PYX_ERR(1, 175, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Mvac[0]), __pyx_t_1, sizeof(__pyx_v_self->Mvac[0]) * (0x2710));
 
@@ -11292,7 +11490,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Mvac_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":174
+/* "Pygrad/Pygrad.pxd":177
  *         int Mvac[10000]
  *         '''MVAC'''
  *         double Time[300]             # <<<<<<<<<<<<<<
@@ -11319,7 +11517,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Time___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Time, 0x12C); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 174, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Time, 0x12C); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11354,10 +11552,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Time_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x12C];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x12C) < 0)) __PYX_ERR(1, 174, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x12C) < 0)) __PYX_ERR(1, 177, __pyx_L1_error)
   if (unlikely((0x12C) != (0x12C))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x12C), (Py_ssize_t)(0x12C));
-    __PYX_ERR(1, 174, __pyx_L1_error)
+    __PYX_ERR(1, 177, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Time[0]), __pyx_t_1, sizeof(__pyx_v_self->Time[0]) * (0x12C));
 
@@ -11372,7 +11570,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Time_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":176
+/* "Pygrad/Pygrad.pxd":179
  *         double Time[300]
  *         '''TIME'''
  *         int Icoll[30]             # <<<<<<<<<<<<<<
@@ -11399,7 +11597,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoll___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icoll, 30); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 176, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icoll, 30); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11434,7 +11632,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoll_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[30];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 30) < 0)) __PYX_ERR(1, 176, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 30) < 0)) __PYX_ERR(1, 179, __pyx_L1_error)
   memcpy(&(__pyx_v_self->Icoll[0]), __pyx_t_1, sizeof(__pyx_v_self->Icoll[0]) * (30));
 
   /* function exit code */
@@ -11448,7 +11646,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoll_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":178
+/* "Pygrad/Pygrad.pxd":181
  *         int Icoll[30]
  *         '''ICOLL'''
  *         int Icoln[512]             # <<<<<<<<<<<<<<
@@ -11475,7 +11673,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoln___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icoln, 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 178, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icoln, 0x200); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 181, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11510,10 +11708,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoln_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x200];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x200) < 0)) __PYX_ERR(1, 178, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x200) < 0)) __PYX_ERR(1, 181, __pyx_L1_error)
   if (unlikely((0x200) != (0x200))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x200), (Py_ssize_t)(0x200));
-    __PYX_ERR(1, 178, __pyx_L1_error)
+    __PYX_ERR(1, 181, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Icoln[0]), __pyx_t_1, sizeof(__pyx_v_self->Icoln[0]) * (0x200));
 
@@ -11528,7 +11726,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Icoln_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":180
+/* "Pygrad/Pygrad.pxd":183
  *         int Icoln[512]
  *         '''ICOLN'''
  *         int Icolnn[60]             # <<<<<<<<<<<<<<
@@ -11555,7 +11753,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Icolnn___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icolnn, 60); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 180, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->Icolnn, 60); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 183, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11590,7 +11788,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Icolnn_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[60];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 60) < 0)) __PYX_ERR(1, 180, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 60) < 0)) __PYX_ERR(1, 183, __pyx_L1_error)
   memcpy(&(__pyx_v_self->Icolnn[0]), __pyx_t_1, sizeof(__pyx_v_self->Icolnn[0]) * (60));
 
   /* function exit code */
@@ -11604,7 +11802,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Icolnn_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":182
+/* "Pygrad/Pygrad.pxd":185
  *         int Icolnn[60]
  *         '''ICOLNN'''
  *         double Tcfmax[10]             # <<<<<<<<<<<<<<
@@ -11631,7 +11829,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Tcfmax___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Tcfmax, 10); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 182, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Tcfmax, 10); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11666,7 +11864,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Tcfmax_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[10];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 10) < 0)) __PYX_ERR(1, 182, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 10) < 0)) __PYX_ERR(1, 185, __pyx_L1_error)
   memcpy(&(__pyx_v_self->Tcfmax[0]), __pyx_t_1, sizeof(__pyx_v_self->Tcfmax[0]) * (10));
 
   /* function exit code */
@@ -11680,7 +11878,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Tcfmax_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":184
+/* "Pygrad/Pygrad.pxd":187
  *         double Tcfmax[10]
  *         '''TCFMAX'''
  *         int nbrem[6]             # <<<<<<<<<<<<<<
@@ -11707,7 +11905,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5nbrem___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nbrem, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 184, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nbrem, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 187, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11742,7 +11940,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5nbrem_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 184, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 187, __pyx_L1_error)
   memcpy(&(__pyx_v_self->nbrem[0]), __pyx_t_1, sizeof(__pyx_v_self->nbrem[0]) * (6));
 
   /* function exit code */
@@ -11756,7 +11954,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5nbrem_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":186
+/* "Pygrad/Pygrad.pxd":189
  *         int nbrem[6]
  *         '''NBREM'''
  *         double ebrtot[6]             # <<<<<<<<<<<<<<
@@ -11783,7 +11981,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ebrtot___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ebrtot, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 186, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ebrtot, 6); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 189, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11818,7 +12016,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ebrtot_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[6];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 186, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 6) < 0)) __PYX_ERR(1, 189, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ebrtot[0]), __pyx_t_1, sizeof(__pyx_v_self->ebrtot[0]) * (6));
 
   /* function exit code */
@@ -11832,7 +12030,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6ebrtot_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":189
+/* "Pygrad/Pygrad.pxd":192
  *         '''EBRTOT'''
  * 
  *         double Dx[100000]             # <<<<<<<<<<<<<<
@@ -11859,7 +12057,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dx___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dx, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 189, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dx, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11894,10 +12092,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dx_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 189, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 192, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 189, __pyx_L1_error)
+    __PYX_ERR(1, 192, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dx[0]), __pyx_t_1, sizeof(__pyx_v_self->Dx[0]) * (0x186A0));
 
@@ -11912,7 +12110,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dx_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":191
+/* "Pygrad/Pygrad.pxd":194
  *         double Dx[100000]
  *         '''DX'''
  *         double Dy[100000]             # <<<<<<<<<<<<<<
@@ -11939,7 +12137,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dy___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dy, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 191, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dy, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11974,10 +12172,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dy_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 191, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 194, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 191, __pyx_L1_error)
+    __PYX_ERR(1, 194, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dy[0]), __pyx_t_1, sizeof(__pyx_v_self->Dy[0]) * (0x186A0));
 
@@ -11992,7 +12190,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dy_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":193
+/* "Pygrad/Pygrad.pxd":196
  *         double Dy[100000]
  *         '''DY'''
  *         double Dz[100000]             # <<<<<<<<<<<<<<
@@ -12019,7 +12217,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dz___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dz, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 193, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dz, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12054,10 +12252,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dz_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 193, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 196, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 193, __pyx_L1_error)
+    __PYX_ERR(1, 196, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dz[0]), __pyx_t_1, sizeof(__pyx_v_self->Dz[0]) * (0x186A0));
 
@@ -12072,7 +12270,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dz_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":195
+/* "Pygrad/Pygrad.pxd":198
  *         double Dz[100000]
  *         '''DZ'''
  *         double Dt[100000]             # <<<<<<<<<<<<<<
@@ -12099,7 +12297,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dt___get__(struct __pyx_obj_6
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dt, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 195, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dt, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 198, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12134,10 +12332,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dt_2__set__(struct __pyx_obj_6Pygra
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 195, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 198, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 195, __pyx_L1_error)
+    __PYX_ERR(1, 198, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dt[0]), __pyx_t_1, sizeof(__pyx_v_self->Dt[0]) * (0x186A0));
 
@@ -12152,7 +12350,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_2Dt_2__set__(struct __pyx_obj_6Pygra
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":197
+/* "Pygrad/Pygrad.pxd":200
  *         double Dt[100000]
  *         '''DT'''
  *         double Dxy[100000]             # <<<<<<<<<<<<<<
@@ -12179,7 +12377,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_3Dxy___get__(struct __pyx_obj_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dxy, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 197, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dxy, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12214,10 +12412,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3Dxy_2__set__(struct __pyx_obj_6Pygr
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 197, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 200, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 197, __pyx_L1_error)
+    __PYX_ERR(1, 200, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dxy[0]), __pyx_t_1, sizeof(__pyx_v_self->Dxy[0]) * (0x186A0));
 
@@ -12232,7 +12430,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_3Dxy_2__set__(struct __pyx_obj_6Pygr
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":199
+/* "Pygrad/Pygrad.pxd":202
  *         double Dxy[100000]
  *         '''DXY'''
  *         double Dxyz[100000]             # <<<<<<<<<<<<<<
@@ -12259,7 +12457,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Dxyz___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dxyz, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Dxyz, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 202, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12294,10 +12492,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Dxyz_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 199, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 202, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 199, __pyx_L1_error)
+    __PYX_ERR(1, 202, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Dxyz[0]), __pyx_t_1, sizeof(__pyx_v_self->Dxyz[0]) * (0x186A0));
 
@@ -12312,7 +12510,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Dxyz_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":202
+/* "Pygrad/Pygrad.pxd":205
  *         '''DXYZ'''
  * 
  *         double E[20000]             # <<<<<<<<<<<<<<
@@ -12339,7 +12537,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_1E___get__(struct __pyx_obj_6P
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->E, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 202, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->E, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12374,10 +12572,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_1E_2__set__(struct __pyx_obj_6Pygrad
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 202, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 205, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 202, __pyx_L1_error)
+    __PYX_ERR(1, 205, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->E[0]), __pyx_t_1, sizeof(__pyx_v_self->E[0]) * (0x4E20));
 
@@ -12392,7 +12590,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_1E_2__set__(struct __pyx_obj_6Pygrad
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":204
+/* "Pygrad/Pygrad.pxd":207
  *         double E[20000]
  *         '''Energy ar each energy step.'''
  *         double SqrtEnergy[20000]             # <<<<<<<<<<<<<<
@@ -12419,7 +12617,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10SqrtEnergy___get__(struct __
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 204, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->SqrtEnergy, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12454,10 +12652,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10SqrtEnergy_2__set__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 204, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 207, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 204, __pyx_L1_error)
+    __PYX_ERR(1, 207, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->SqrtEnergy[0]), __pyx_t_1, sizeof(__pyx_v_self->SqrtEnergy[0]) * (0x4E20));
 
@@ -12472,7 +12670,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10SqrtEnergy_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":206
+/* "Pygrad/Pygrad.pxd":209
  *         double SqrtEnergy[20000]
  *         '''The square root of each energy step.'''
  *         double Gamma[20000]             # <<<<<<<<<<<<<<
@@ -12499,7 +12697,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Gamma___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Gamma, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Gamma, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12534,10 +12732,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Gamma_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 206, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 209, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 206, __pyx_L1_error)
+    __PYX_ERR(1, 209, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Gamma[0]), __pyx_t_1, sizeof(__pyx_v_self->Gamma[0]) * (0x4E20));
 
@@ -12552,7 +12750,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Gamma_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":208
+/* "Pygrad/Pygrad.pxd":211
  *         double Gamma[20000]
  *         '''Gamma for each step'''
  *         double Beta[20000]             # <<<<<<<<<<<<<<
@@ -12579,7 +12777,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Beta___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Beta, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 208, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Beta, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 211, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12614,10 +12812,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Beta_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 208, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 211, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 208, __pyx_L1_error)
+    __PYX_ERR(1, 211, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Beta[0]), __pyx_t_1, sizeof(__pyx_v_self->Beta[0]) * (0x4E20));
 
@@ -12632,7 +12830,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Beta_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":210
+/* "Pygrad/Pygrad.pxd":213
  *         double Beta[20000]
  *         '''Beta for each step'''
  *         double Density[20000]             # <<<<<<<<<<<<<<
@@ -12659,7 +12857,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Density___get__(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Density, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 210, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Density, 0x4E20); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12694,10 +12892,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Density_2__set__(struct __pyx_obj_6
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x4E20];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 210, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x4E20) < 0)) __PYX_ERR(1, 213, __pyx_L1_error)
   if (unlikely((0x4E20) != (0x4E20))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x4E20), (Py_ssize_t)(0x4E20));
-    __PYX_ERR(1, 210, __pyx_L1_error)
+    __PYX_ERR(1, 213, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Density[0]), __pyx_t_1, sizeof(__pyx_v_self->Density[0]) * (0x4E20));
 
@@ -12712,7 +12910,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Density_2__set__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":213
+/* "Pygrad/Pygrad.pxd":216
  *         '''Density for each step'''
  * 
  *         double Rmax1[100000]             # <<<<<<<<<<<<<<
@@ -12739,7 +12937,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Rmax1___get__(struct __pyx_ob
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Rmax1, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 213, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Rmax1, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12774,10 +12972,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Rmax1_2__set__(struct __pyx_obj_6Py
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 213, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 216, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 213, __pyx_L1_error)
+    __PYX_ERR(1, 216, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Rmax1[0]), __pyx_t_1, sizeof(__pyx_v_self->Rmax1[0]) * (0x186A0));
 
@@ -12792,7 +12990,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_5Rmax1_2__set__(struct __pyx_obj_6Py
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":215
+/* "Pygrad/Pygrad.pxd":218
  *         double Rmax1[100000]
  *         '''RMAX1'''
  *         double Tsum[100000]             # <<<<<<<<<<<<<<
@@ -12819,7 +13017,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Tsum___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Tsum, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 215, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Tsum, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12854,10 +13052,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Tsum_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 215, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 218, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 215, __pyx_L1_error)
+    __PYX_ERR(1, 218, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Tsum[0]), __pyx_t_1, sizeof(__pyx_v_self->Tsum[0]) * (0x186A0));
 
@@ -12872,7 +13070,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Tsum_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":217
+/* "Pygrad/Pygrad.pxd":220
  *         double Tsum[100000]
  *         '''TSUM'''
  *         double Xneg[100000]             # <<<<<<<<<<<<<<
@@ -12899,7 +13097,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Xneg___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Xneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Xneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12934,10 +13132,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Xneg_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 217, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 220, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 217, __pyx_L1_error)
+    __PYX_ERR(1, 220, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Xneg[0]), __pyx_t_1, sizeof(__pyx_v_self->Xneg[0]) * (0x186A0));
 
@@ -12952,7 +13150,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Xneg_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":219
+/* "Pygrad/Pygrad.pxd":222
  *         double Xneg[100000]
  *         '''XNEG'''
  *         double Yneg[100000]             # <<<<<<<<<<<<<<
@@ -12979,7 +13177,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Yneg___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Yneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 219, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Yneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13014,10 +13212,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Yneg_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 219, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 222, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 219, __pyx_L1_error)
+    __PYX_ERR(1, 222, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Yneg[0]), __pyx_t_1, sizeof(__pyx_v_self->Yneg[0]) * (0x186A0));
 
@@ -13032,7 +13230,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Yneg_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":221
+/* "Pygrad/Pygrad.pxd":224
  *         double Yneg[100000]
  *         '''YNEG'''
  *         double Zneg[100000]             # <<<<<<<<<<<<<<
@@ -13059,7 +13257,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Zneg___get__(struct __pyx_obj
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Zneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 221, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Zneg, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13094,10 +13292,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Zneg_2__set__(struct __pyx_obj_6Pyg
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 221, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 224, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 221, __pyx_L1_error)
+    __PYX_ERR(1, 224, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Zneg[0]), __pyx_t_1, sizeof(__pyx_v_self->Zneg[0]) * (0x186A0));
 
@@ -13112,7 +13310,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_4Zneg_2__set__(struct __pyx_obj_6Pyg
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":223
+/* "Pygrad/Pygrad.pxd":226
  *         double Zneg[100000]
  *         '''ZNEG'''
  *         double Edelta[100000]             # <<<<<<<<<<<<<<
@@ -13139,7 +13337,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Edelta___get__(struct __pyx_o
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Edelta, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 223, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Edelta, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 226, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13174,10 +13372,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Edelta_2__set__(struct __pyx_obj_6P
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 223, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 226, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 223, __pyx_L1_error)
+    __PYX_ERR(1, 226, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Edelta[0]), __pyx_t_1, sizeof(__pyx_v_self->Edelta[0]) * (0x186A0));
 
@@ -13192,7 +13390,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_6Edelta_2__set__(struct __pyx_obj_6P
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":225
+/* "Pygrad/Pygrad.pxd":228
  *         double Edelta[100000]
  *         '''EDELTA'''
  *         double Edelta2[100000]             # <<<<<<<<<<<<<<
@@ -13219,7 +13417,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Edelta2___get__(struct __pyx_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Edelta2, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 225, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->Edelta2, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 228, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13254,10 +13452,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Edelta2_2__set__(struct __pyx_obj_6
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 225, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 228, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 225, __pyx_L1_error)
+    __PYX_ERR(1, 228, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->Edelta2[0]), __pyx_t_1, sizeof(__pyx_v_self->Edelta2[0]) * (0x186A0));
 
@@ -13272,7 +13470,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_7Edelta2_2__set__(struct __pyx_obj_6
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":227
+/* "Pygrad/Pygrad.pxd":230
  *         double Edelta2[100000]
  *         '''EDELTA2'''
  *         int nClusters[100000]             # <<<<<<<<<<<<<<
@@ -13299,7 +13497,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_9nClusters___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nClusters, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 227, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nClusters, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 230, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13334,10 +13532,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9nClusters_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 227, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 230, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 227, __pyx_L1_error)
+    __PYX_ERR(1, 230, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->nClusters[0]), __pyx_t_1, sizeof(__pyx_v_self->nClusters[0]) * (0x186A0));
 
@@ -13352,7 +13550,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9nClusters_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":229
+/* "Pygrad/Pygrad.pxd":232
  *         int nClusters[100000]
  *         '''NCL'''
  *         int nClustersExcitation[100000]             # <<<<<<<<<<<<<<
@@ -13379,7 +13577,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19nClustersExcitation___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nClustersExcitation, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 229, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->nClustersExcitation, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 232, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13414,10 +13612,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19nClustersExcitation_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 229, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 232, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 229, __pyx_L1_error)
+    __PYX_ERR(1, 232, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->nClustersExcitation[0]), __pyx_t_1, sizeof(__pyx_v_self->nClustersExcitation[0]) * (0x186A0));
 
@@ -13432,7 +13630,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19nClustersExcitation_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":232
+/* "Pygrad/Pygrad.pxd":235
  *         '''NCLEXC'''
  * 
  *         int ClusterDistributionBins1[1000]             # <<<<<<<<<<<<<<
@@ -13459,7 +13657,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins1___g
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins1, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 232, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins1, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13494,10 +13692,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins1_2__set__(
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 232, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 235, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 232, __pyx_L1_error)
+    __PYX_ERR(1, 235, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins1[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins1[0]) * (0x3E8));
 
@@ -13512,7 +13710,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins1_2__set__(
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":234
+/* "Pygrad/Pygrad.pxd":237
  *         int ClusterDistributionBins1[1000]
  *         '''Electron cluster distributions in bins of 1 '''
  *         int ClusterDistributionBins3[1000]             # <<<<<<<<<<<<<<
@@ -13539,7 +13737,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins3___g
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins3, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 234, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins3, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13574,10 +13772,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins3_2__set__(
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 234, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 237, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 234, __pyx_L1_error)
+    __PYX_ERR(1, 237, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins3[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins3[0]) * (0x3E8));
 
@@ -13592,7 +13790,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_24ClusterDistributionBins3_2__set__(
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":236
+/* "Pygrad/Pygrad.pxd":239
  *         int ClusterDistributionBins3[1000]
  *         '''Electron cluster distributions in bins of 3 '''
  *         int ClusterDistributionBins10[1000]             # <<<<<<<<<<<<<<
@@ -13619,7 +13817,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins10___
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins10, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 236, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins10, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 239, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13654,10 +13852,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins10_2__set__
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 236, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 239, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 236, __pyx_L1_error)
+    __PYX_ERR(1, 239, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins10[0]) * (0x3E8));
 
@@ -13672,7 +13870,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins10_2__set__
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":238
+/* "Pygrad/Pygrad.pxd":241
  *         int ClusterDistributionBins10[1000]
  *         '''Electron cluster distributions in bins of 10 '''
  *         int ClusterDistributionBins30[1000]             # <<<<<<<<<<<<<<
@@ -13699,7 +13897,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins30___
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins30, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 238, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins30, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13734,10 +13932,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins30_2__set__
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 238, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 241, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 238, __pyx_L1_error)
+    __PYX_ERR(1, 241, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins30[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins30[0]) * (0x3E8));
 
@@ -13752,7 +13950,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ClusterDistributionBins30_2__set__
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":240
+/* "Pygrad/Pygrad.pxd":243
  *         int ClusterDistributionBins30[1000]
  *         '''Electron cluster distributions in bins of 30 '''
  *         int ClusterDistributionBins100[1000]             # <<<<<<<<<<<<<<
@@ -13779,7 +13977,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins100__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins100, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 240, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins100, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 243, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13814,10 +14012,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins100_2__set_
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 240, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 243, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 240, __pyx_L1_error)
+    __PYX_ERR(1, 243, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins100[0]) * (0x3E8));
 
@@ -13832,7 +14030,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins100_2__set_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":242
+/* "Pygrad/Pygrad.pxd":245
  *         int ClusterDistributionBins100[1000]
  *         '''Electron cluster distributions in bins of 100 '''
  *         int ClusterDistributionBins300[1000]             # <<<<<<<<<<<<<<
@@ -13859,7 +14057,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins300__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins300, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 242, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ClusterDistributionBins300, 0x3E8); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13894,10 +14092,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins300_2__set_
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[0x3E8];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 242, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 0x3E8) < 0)) __PYX_ERR(1, 245, __pyx_L1_error)
   if (unlikely((0x3E8) != (0x3E8))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x3E8), (Py_ssize_t)(0x3E8));
-    __PYX_ERR(1, 242, __pyx_L1_error)
+    __PYX_ERR(1, 245, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ClusterDistributionBins300[0]), __pyx_t_1, sizeof(__pyx_v_self->ClusterDistributionBins300[0]) * (0x3E8));
 
@@ -13912,7 +14110,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ClusterDistributionBins300_2__set_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":245
+/* "Pygrad/Pygrad.pxd":248
  *         '''Electron cluster distributions in bins of 300 '''
  * 
  *         double XAverage[100000]             # <<<<<<<<<<<<<<
@@ -13939,7 +14137,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8XAverage___get__(struct __pyx
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 245, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 248, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13974,10 +14172,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8XAverage_2__set__(struct __pyx_obj_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 245, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 248, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 245, __pyx_L1_error)
+    __PYX_ERR(1, 248, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->XAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->XAverage[0]) * (0x186A0));
 
@@ -13992,7 +14190,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8XAverage_2__set__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":247
+/* "Pygrad/Pygrad.pxd":250
  *         double XAverage[100000]
  *         '''Average X values.'''
  *         double YAverage[100000]             # <<<<<<<<<<<<<<
@@ -14019,7 +14217,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8YAverage___get__(struct __pyx
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->YAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 247, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->YAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 250, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14054,10 +14252,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8YAverage_2__set__(struct __pyx_obj_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 247, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 250, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 247, __pyx_L1_error)
+    __PYX_ERR(1, 250, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->YAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->YAverage[0]) * (0x186A0));
 
@@ -14072,7 +14270,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8YAverage_2__set__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":249
+/* "Pygrad/Pygrad.pxd":252
  *         double YAverage[100000]
  *         '''Average Y values.'''
  *         double ZAverage[100000]             # <<<<<<<<<<<<<<
@@ -14099,7 +14297,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8ZAverage___get__(struct __pyx
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ZAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 249, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ZAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 252, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14134,10 +14332,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8ZAverage_2__set__(struct __pyx_obj_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 249, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 252, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 249, __pyx_L1_error)
+    __PYX_ERR(1, 252, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ZAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->ZAverage[0]) * (0x186A0));
 
@@ -14152,7 +14350,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8ZAverage_2__set__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":251
+/* "Pygrad/Pygrad.pxd":254
  *         double ZAverage[100000]
  *         '''Average Z values.'''
  *         double TAverage[100000]             # <<<<<<<<<<<<<<
@@ -14179,7 +14377,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_8TAverage___get__(struct __pyx
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->TAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 251, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->TAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 254, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14214,10 +14412,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8TAverage_2__set__(struct __pyx_obj_
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 251, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 254, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 251, __pyx_L1_error)
+    __PYX_ERR(1, 254, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->TAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->TAverage[0]) * (0x186A0));
 
@@ -14232,7 +14430,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_8TAverage_2__set__(struct __pyx_obj_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":253
+/* "Pygrad/Pygrad.pxd":256
  *         double TAverage[100000]
  *         '''Average T values.'''
  *         double XYAverage[100000]             # <<<<<<<<<<<<<<
@@ -14259,7 +14457,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XYAverage___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 253, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14294,10 +14492,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XYAverage_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 253, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 256, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 253, __pyx_L1_error)
+    __PYX_ERR(1, 256, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->XYAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->XYAverage[0]) * (0x186A0));
 
@@ -14312,7 +14510,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XYAverage_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":255
+/* "Pygrad/Pygrad.pxd":258
  *         double XYAverage[100000]
  *         '''Average XY values.'''
  *         double XYZAverage[100000]             # <<<<<<<<<<<<<<
@@ -14339,7 +14537,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYZAverage___get__(struct __
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYZAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 255, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYZAverage, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14374,10 +14572,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYZAverage_2__set__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 255, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 258, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 255, __pyx_L1_error)
+    __PYX_ERR(1, 258, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->XYZAverage[0]), __pyx_t_1, sizeof(__pyx_v_self->XYZAverage[0]) * (0x186A0));
 
@@ -14392,7 +14590,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYZAverage_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":258
+/* "Pygrad/Pygrad.pxd":261
  *         '''Average XYZ values.'''
  * 
  *         double XMaxRange[100000]             # <<<<<<<<<<<<<<
@@ -14419,7 +14617,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XMaxRange___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 261, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14454,10 +14652,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XMaxRange_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 258, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 261, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 258, __pyx_L1_error)
+    __PYX_ERR(1, 261, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->XMaxRange[0]), __pyx_t_1, sizeof(__pyx_v_self->XMaxRange[0]) * (0x186A0));
 
@@ -14472,7 +14670,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9XMaxRange_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":260
+/* "Pygrad/Pygrad.pxd":263
  *         double XMaxRange[100000]
  *         '''Max Range of X'''
  *         double YMaxRange[100000]             # <<<<<<<<<<<<<<
@@ -14499,7 +14697,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_9YMaxRange___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->YMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 260, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->YMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 263, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14534,10 +14732,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9YMaxRange_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 260, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 263, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 260, __pyx_L1_error)
+    __PYX_ERR(1, 263, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->YMaxRange[0]), __pyx_t_1, sizeof(__pyx_v_self->YMaxRange[0]) * (0x186A0));
 
@@ -14552,7 +14750,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9YMaxRange_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":262
+/* "Pygrad/Pygrad.pxd":265
  *         double YMaxRange[100000]
  *         '''Max Range of Y'''
  *         double ZMaxRange[100000]             # <<<<<<<<<<<<<<
@@ -14579,7 +14777,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_9ZMaxRange___get__(struct __py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ZMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 262, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->ZMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 265, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14614,10 +14812,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9ZMaxRange_2__set__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 262, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 265, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 262, __pyx_L1_error)
+    __PYX_ERR(1, 265, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->ZMaxRange[0]), __pyx_t_1, sizeof(__pyx_v_self->ZMaxRange[0]) * (0x186A0));
 
@@ -14632,7 +14830,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_9ZMaxRange_2__set__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":264
+/* "Pygrad/Pygrad.pxd":267
  *         double ZMaxRange[100000]
  *         '''Max Range of Z'''
  *         double XYMaxRange[100000]             # <<<<<<<<<<<<<<
@@ -14659,7 +14857,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYMaxRange___get__(struct __
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 264, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_double(__pyx_v_self->XYMaxRange, 0x186A0); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 267, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14694,10 +14892,10 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYMaxRange_2__set__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   double __pyx_t_1[0x186A0];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 264, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_double(__pyx_v_value, __pyx_t_1, 0x186A0) < 0)) __PYX_ERR(1, 267, __pyx_L1_error)
   if (unlikely((0x186A0) != (0x186A0))) {
     PyErr_Format(PyExc_ValueError, "Assignment to slice of wrong length, expected %" CYTHON_FORMAT_SSIZE_T "d, got %" CYTHON_FORMAT_SSIZE_T "d", (Py_ssize_t)(0x186A0), (Py_ssize_t)(0x186A0));
-    __PYX_ERR(1, 264, __pyx_L1_error)
+    __PYX_ERR(1, 267, __pyx_L1_error)
   }
   memcpy(&(__pyx_v_self->XYMaxRange[0]), __pyx_t_1, sizeof(__pyx_v_self->XYMaxRange[0]) * (0x186A0));
 
@@ -14712,7 +14910,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_10XYMaxRange_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":268
+/* "Pygrad/Pygrad.pxd":271
  * 
  *         #Plot distribution bins.
  *         int RDistributionBins2[31]             # <<<<<<<<<<<<<<
@@ -14739,7 +14937,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_18RDistributionBins2___get__(s
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 268, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 271, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14774,7 +14972,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18RDistributionBins2_2__set__(struct
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 268, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 271, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins2[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins2[0]) * (31));
 
   /* function exit code */
@@ -14788,7 +14986,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18RDistributionBins2_2__set__(struct
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":270
+/* "Pygrad/Pygrad.pxd":273
  *         int RDistributionBins2[31]
  *         '''Distribution of r in 2 micron bins'''
  *         int RDistributionBins10[31]             # <<<<<<<<<<<<<<
@@ -14815,7 +15013,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins10___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 270, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 273, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14850,7 +15048,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins10_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 270, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 273, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins10[0]) * (31));
 
   /* function exit code */
@@ -14864,7 +15062,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins10_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":272
+/* "Pygrad/Pygrad.pxd":275
  *         int RDistributionBins10[31]
  *         '''Distribution of r in 10 micron bins'''
  *         int RDistributionBins40[31]             # <<<<<<<<<<<<<<
@@ -14891,7 +15089,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins40___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 272, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 275, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -14926,7 +15124,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins40_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 272, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 275, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins40[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins40[0]) * (31));
 
   /* function exit code */
@@ -14940,7 +15138,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19RDistributionBins40_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":274
+/* "Pygrad/Pygrad.pxd":277
  *         int RDistributionBins40[31]
  *         '''Distribution of r in 40 micron bins'''
  *         int RDistributionBins100[31]             # <<<<<<<<<<<<<<
@@ -14967,7 +15165,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins100___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 274, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 277, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15002,7 +15200,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins100_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 274, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 277, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins100[0]) * (31));
 
   /* function exit code */
@@ -15016,7 +15214,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins100_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":276
+/* "Pygrad/Pygrad.pxd":279
  *         int RDistributionBins100[31]
  *         '''Distribution of r in 100 micron bins'''
  *         int RDistributionBins400[31]             # <<<<<<<<<<<<<<
@@ -15043,7 +15241,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins400___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 276, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15078,7 +15276,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins400_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 276, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 279, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins400[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins400[0]) * (31));
 
   /* function exit code */
@@ -15092,7 +15290,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20RDistributionBins400_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":278
+/* "Pygrad/Pygrad.pxd":281
  *         int RDistributionBins400[31]
  *         '''Distribution of r in 400 micron bins'''
  *         int RDistributionBins1000[31]             # <<<<<<<<<<<<<<
@@ -15119,7 +15317,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins1000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 278, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 281, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15154,7 +15352,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins1000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 278, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 281, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins1000[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins1000[0]) * (31));
 
   /* function exit code */
@@ -15168,7 +15366,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins1000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":280
+/* "Pygrad/Pygrad.pxd":283
  *         int RDistributionBins1000[31]
  *         '''Distribution of r in 1000 micron bins'''
  *         int RDistributionBins4000[31]             # <<<<<<<<<<<<<<
@@ -15195,7 +15393,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins4000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 280, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 283, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15230,7 +15428,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins4000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 280, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 283, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins4000[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins4000[0]) * (31));
 
   /* function exit code */
@@ -15244,7 +15442,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21RDistributionBins4000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":282
+/* "Pygrad/Pygrad.pxd":285
  *         int RDistributionBins4000[31]
  *         '''Distribution of r in 4000 micron bins'''
  *         int RDistributionBins10000[31]             # <<<<<<<<<<<<<<
@@ -15271,7 +15469,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins10000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 282, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 285, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15306,7 +15504,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins10000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 282, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 285, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins10000[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins10000[0]) * (31));
 
   /* function exit code */
@@ -15320,7 +15518,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins10000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":284
+/* "Pygrad/Pygrad.pxd":287
  *         int RDistributionBins10000[31]
  *         '''Distribution of r in 10000 micron bins'''
  *         int RDistributionBins40000[31]             # <<<<<<<<<<<<<<
@@ -15347,7 +15545,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins40000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 284, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 287, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15382,7 +15580,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins40000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 284, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 287, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins40000[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins40000[0]) * (31));
 
   /* function exit code */
@@ -15396,7 +15594,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22RDistributionBins40000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":286
+/* "Pygrad/Pygrad.pxd":289
  *         int RDistributionBins40000[31]
  *         '''Distribution of r in 40000 micron bins'''
  *         int RDistributionBins100000[31]             # <<<<<<<<<<<<<<
@@ -15423,7 +15621,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_23RDistributionBins100000___ge
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 286, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->RDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 289, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15458,7 +15656,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23RDistributionBins100000_2__set__(s
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 286, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 289, __pyx_L1_error)
   memcpy(&(__pyx_v_self->RDistributionBins100000[0]), __pyx_t_1, sizeof(__pyx_v_self->RDistributionBins100000[0]) * (31));
 
   /* function exit code */
@@ -15472,7 +15670,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23RDistributionBins100000_2__set__(s
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":288
+/* "Pygrad/Pygrad.pxd":291
  *         int RDistributionBins100000[31]
  *         '''Distribution of r in 100000 micron bins'''
  *         int XDistributionBins2[31]             # <<<<<<<<<<<<<<
@@ -15499,7 +15697,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_18XDistributionBins2___get__(s
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 288, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 291, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15534,7 +15732,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18XDistributionBins2_2__set__(struct
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 288, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 291, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins2[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins2[0]) * (31));
 
   /* function exit code */
@@ -15548,7 +15746,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18XDistributionBins2_2__set__(struct
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":290
+/* "Pygrad/Pygrad.pxd":293
  *         int XDistributionBins2[31]
  *         '''Distribution of x in 2 micron bins'''
  *         int XDistributionBins10[31]             # <<<<<<<<<<<<<<
@@ -15575,7 +15773,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins10___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 290, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 293, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15610,7 +15808,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins10_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 290, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 293, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins10[0]) * (31));
 
   /* function exit code */
@@ -15624,7 +15822,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins10_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":292
+/* "Pygrad/Pygrad.pxd":295
  *         int XDistributionBins10[31]
  *         '''Distribution of x in 10 micron bins'''
  *         int XDistributionBins40[31]             # <<<<<<<<<<<<<<
@@ -15651,7 +15849,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins40___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 292, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 295, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15686,7 +15884,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins40_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 292, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 295, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins40[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins40[0]) * (31));
 
   /* function exit code */
@@ -15700,7 +15898,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19XDistributionBins40_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":294
+/* "Pygrad/Pygrad.pxd":297
  *         int XDistributionBins40[31]
  *         '''Distribution of x in 40 micron bins'''
  *         int XDistributionBins100[31]             # <<<<<<<<<<<<<<
@@ -15727,7 +15925,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins100___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 294, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 297, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15762,7 +15960,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins100_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 294, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 297, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins100[0]) * (31));
 
   /* function exit code */
@@ -15776,7 +15974,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins100_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":296
+/* "Pygrad/Pygrad.pxd":299
  *         int XDistributionBins100[31]
  *         '''Distribution of x in 100 micron bins'''
  *         int XDistributionBins400[31]             # <<<<<<<<<<<<<<
@@ -15803,7 +16001,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins400___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 296, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 299, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15838,7 +16036,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins400_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 296, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 299, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins400[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins400[0]) * (31));
 
   /* function exit code */
@@ -15852,7 +16050,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20XDistributionBins400_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":298
+/* "Pygrad/Pygrad.pxd":301
  *         int XDistributionBins400[31]
  *         '''Distribution of x in 400 micron bins'''
  *         int XDistributionBins1000[31]             # <<<<<<<<<<<<<<
@@ -15879,7 +16077,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins1000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 298, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 301, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15914,7 +16112,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins1000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 298, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 301, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins1000[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins1000[0]) * (31));
 
   /* function exit code */
@@ -15928,7 +16126,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins1000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":300
+/* "Pygrad/Pygrad.pxd":303
  *         int XDistributionBins1000[31]
  *         '''Distribution of x in 1000 micron bins'''
  *         int XDistributionBins4000[31]             # <<<<<<<<<<<<<<
@@ -15955,7 +16153,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins4000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 300, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 303, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -15990,7 +16188,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins4000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 300, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 303, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins4000[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins4000[0]) * (31));
 
   /* function exit code */
@@ -16004,7 +16202,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21XDistributionBins4000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":302
+/* "Pygrad/Pygrad.pxd":305
  *         int XDistributionBins4000[31]
  *         '''Distribution of x in 4000 micron bins'''
  *         int XDistributionBins10000[31]             # <<<<<<<<<<<<<<
@@ -16031,7 +16229,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins10000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 302, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 305, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16066,7 +16264,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins10000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 302, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 305, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins10000[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins10000[0]) * (31));
 
   /* function exit code */
@@ -16080,7 +16278,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins10000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":304
+/* "Pygrad/Pygrad.pxd":307
  *         int XDistributionBins10000[31]
  *         '''Distribution of x in 10000 micron bins'''
  *         int XDistributionBins40000[31]             # <<<<<<<<<<<<<<
@@ -16107,7 +16305,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins40000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 304, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 307, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16142,7 +16340,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins40000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 304, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 307, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins40000[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins40000[0]) * (31));
 
   /* function exit code */
@@ -16156,7 +16354,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22XDistributionBins40000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":306
+/* "Pygrad/Pygrad.pxd":309
  *         int XDistributionBins40000[31]
  *         '''Distribution of x in 40000 micron bins'''
  *         int XDistributionBins100000[31]             # <<<<<<<<<<<<<<
@@ -16183,7 +16381,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_23XDistributionBins100000___ge
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 306, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->XDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 309, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16218,7 +16416,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23XDistributionBins100000_2__set__(s
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 306, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 309, __pyx_L1_error)
   memcpy(&(__pyx_v_self->XDistributionBins100000[0]), __pyx_t_1, sizeof(__pyx_v_self->XDistributionBins100000[0]) * (31));
 
   /* function exit code */
@@ -16232,7 +16430,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23XDistributionBins100000_2__set__(s
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":308
+/* "Pygrad/Pygrad.pxd":311
  *         int XDistributionBins100000[31]
  *         '''Distribution of x in 100000 micron bins'''
  *         int YDistributionBins2[31]             # <<<<<<<<<<<<<<
@@ -16259,7 +16457,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_18YDistributionBins2___get__(s
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 308, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 311, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16294,7 +16492,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18YDistributionBins2_2__set__(struct
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 308, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 311, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins2[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins2[0]) * (31));
 
   /* function exit code */
@@ -16308,7 +16506,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18YDistributionBins2_2__set__(struct
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":310
+/* "Pygrad/Pygrad.pxd":313
  *         int YDistributionBins2[31]
  *         '''Distribution of y in 2 micron bins'''
  *         int YDistributionBins10[31]             # <<<<<<<<<<<<<<
@@ -16335,7 +16533,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins10___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 310, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 313, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16370,7 +16568,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins10_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 310, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 313, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins10[0]) * (31));
 
   /* function exit code */
@@ -16384,7 +16582,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins10_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":312
+/* "Pygrad/Pygrad.pxd":315
  *         int YDistributionBins10[31]
  *         '''Distribution of y in 10 micron bins'''
  *         int YDistributionBins40[31]             # <<<<<<<<<<<<<<
@@ -16411,7 +16609,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins40___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 312, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 315, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16446,7 +16644,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins40_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 312, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 315, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins40[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins40[0]) * (31));
 
   /* function exit code */
@@ -16460,7 +16658,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19YDistributionBins40_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":314
+/* "Pygrad/Pygrad.pxd":317
  *         int YDistributionBins40[31]
  *         '''Distribution of y in 40 micron bins'''
  *         int YDistributionBins100[31]             # <<<<<<<<<<<<<<
@@ -16487,7 +16685,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins100___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 314, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 317, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16522,7 +16720,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins100_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 314, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 317, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins100[0]) * (31));
 
   /* function exit code */
@@ -16536,7 +16734,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins100_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":316
+/* "Pygrad/Pygrad.pxd":319
  *         int YDistributionBins100[31]
  *         '''Distribution of y in 100 micron bins'''
  *         int YDistributionBins400[31]             # <<<<<<<<<<<<<<
@@ -16563,7 +16761,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins400___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 316, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 319, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16598,7 +16796,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins400_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 316, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 319, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins400[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins400[0]) * (31));
 
   /* function exit code */
@@ -16612,7 +16810,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20YDistributionBins400_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":318
+/* "Pygrad/Pygrad.pxd":321
  *         int YDistributionBins400[31]
  *         '''Distribution of y in 400 micron bins'''
  *         int YDistributionBins1000[31]             # <<<<<<<<<<<<<<
@@ -16639,7 +16837,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins1000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 318, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16674,7 +16872,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins1000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 318, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 321, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins1000[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins1000[0]) * (31));
 
   /* function exit code */
@@ -16688,7 +16886,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins1000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":320
+/* "Pygrad/Pygrad.pxd":323
  *         int YDistributionBins1000[31]
  *         '''Distribution of y in 1000 micron bins'''
  *         int YDistributionBins4000[31]             # <<<<<<<<<<<<<<
@@ -16715,7 +16913,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins4000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 320, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16750,7 +16948,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins4000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 320, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 323, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins4000[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins4000[0]) * (31));
 
   /* function exit code */
@@ -16764,7 +16962,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21YDistributionBins4000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":322
+/* "Pygrad/Pygrad.pxd":325
  *         int YDistributionBins4000[31]
  *         '''Distribution of y in 4000 micron bins'''
  *         int YDistributionBins10000[31]             # <<<<<<<<<<<<<<
@@ -16791,7 +16989,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins10000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 322, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 325, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16826,7 +17024,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins10000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 322, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 325, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins10000[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins10000[0]) * (31));
 
   /* function exit code */
@@ -16840,7 +17038,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins10000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":324
+/* "Pygrad/Pygrad.pxd":327
  *         int YDistributionBins10000[31]
  *         '''Distribution of y in 10000 micron bins'''
  *         int YDistributionBins40000[31]             # <<<<<<<<<<<<<<
@@ -16867,7 +17065,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins40000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 324, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 327, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16902,7 +17100,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins40000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 324, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 327, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins40000[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins40000[0]) * (31));
 
   /* function exit code */
@@ -16916,7 +17114,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22YDistributionBins40000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":326
+/* "Pygrad/Pygrad.pxd":329
  *         int YDistributionBins40000[31]
  *         '''Distribution of y in 40000 micron bins'''
  *         int YDistributionBins100000[31]             # <<<<<<<<<<<<<<
@@ -16943,7 +17141,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_23YDistributionBins100000___ge
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 326, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->YDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 329, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -16978,7 +17176,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23YDistributionBins100000_2__set__(s
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 326, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 329, __pyx_L1_error)
   memcpy(&(__pyx_v_self->YDistributionBins100000[0]), __pyx_t_1, sizeof(__pyx_v_self->YDistributionBins100000[0]) * (31));
 
   /* function exit code */
@@ -16992,7 +17190,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23YDistributionBins100000_2__set__(s
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":328
+/* "Pygrad/Pygrad.pxd":331
  *         int YDistributionBins100000[31]
  *         '''Distribution of y in 100000 micron bins'''
  *         int ZDistributionBins2[31]             # <<<<<<<<<<<<<<
@@ -17019,7 +17217,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_18ZDistributionBins2___get__(s
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 328, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins2, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 331, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17054,7 +17252,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18ZDistributionBins2_2__set__(struct
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 328, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 331, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins2[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins2[0]) * (31));
 
   /* function exit code */
@@ -17068,7 +17266,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_18ZDistributionBins2_2__set__(struct
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":330
+/* "Pygrad/Pygrad.pxd":333
  *         int ZDistributionBins2[31]
  *         '''Distribution of z in 2 micron bins'''
  *         int ZDistributionBins10[31]             # <<<<<<<<<<<<<<
@@ -17095,7 +17293,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins10___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 330, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 333, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17130,7 +17328,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins10_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 330, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 333, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins10[0]) * (31));
 
   /* function exit code */
@@ -17144,7 +17342,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins10_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":332
+/* "Pygrad/Pygrad.pxd":335
  *         int ZDistributionBins10[31]
  *         '''Distribution of z in 10 micron bins'''
  *         int ZDistributionBins40[31]             # <<<<<<<<<<<<<<
@@ -17171,7 +17369,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins40___get__(
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 332, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins40, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 335, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17206,7 +17404,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins40_2__set__(struc
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 332, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 335, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins40[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins40[0]) * (31));
 
   /* function exit code */
@@ -17220,7 +17418,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_19ZDistributionBins40_2__set__(struc
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":334
+/* "Pygrad/Pygrad.pxd":337
  *         int ZDistributionBins40[31]
  *         '''Distribution of z in 40 micron bins'''
  *         int ZDistributionBins100[31]             # <<<<<<<<<<<<<<
@@ -17247,7 +17445,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins100___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 334, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 337, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17282,7 +17480,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins100_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 334, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 337, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins100[0]) * (31));
 
   /* function exit code */
@@ -17296,7 +17494,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins100_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":336
+/* "Pygrad/Pygrad.pxd":339
  *         int ZDistributionBins100[31]
  *         '''Distribution of z in 100 micron bins'''
  *         int ZDistributionBins400[31]             # <<<<<<<<<<<<<<
@@ -17323,7 +17521,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins400___get__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 336, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins400, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 339, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17358,7 +17556,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins400_2__set__(stru
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 336, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 339, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins400[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins400[0]) * (31));
 
   /* function exit code */
@@ -17372,7 +17570,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_20ZDistributionBins400_2__set__(stru
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":338
+/* "Pygrad/Pygrad.pxd":341
  *         int ZDistributionBins400[31]
  *         '''Distribution of z in 400 micron bins'''
  *         int ZDistributionBins1000[31]             # <<<<<<<<<<<<<<
@@ -17399,7 +17597,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins1000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 338, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins1000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 341, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17434,7 +17632,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins1000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 338, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 341, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins1000[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins1000[0]) * (31));
 
   /* function exit code */
@@ -17448,7 +17646,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins1000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":340
+/* "Pygrad/Pygrad.pxd":343
  *         int ZDistributionBins1000[31]
  *         '''Distribution of z in 1000 micron bins'''
  *         int ZDistributionBins4000[31]             # <<<<<<<<<<<<<<
@@ -17475,7 +17673,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins4000___get_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 340, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins4000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 343, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17510,7 +17708,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins4000_2__set__(str
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 340, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 343, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins4000[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins4000[0]) * (31));
 
   /* function exit code */
@@ -17524,7 +17722,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_21ZDistributionBins4000_2__set__(str
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":342
+/* "Pygrad/Pygrad.pxd":345
  *         int ZDistributionBins4000[31]
  *         '''Distribution of z in 4000 micron bins'''
  *         int ZDistributionBins10000[31]             # <<<<<<<<<<<<<<
@@ -17551,7 +17749,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins10000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 342, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins10000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 345, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17586,7 +17784,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins10000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 342, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 345, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins10000[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins10000[0]) * (31));
 
   /* function exit code */
@@ -17600,7 +17798,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins10000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":344
+/* "Pygrad/Pygrad.pxd":347
  *         int ZDistributionBins10000[31]
  *         '''Distribution of z in 10000 micron bins'''
  *         int ZDistributionBins40000[31]             # <<<<<<<<<<<<<<
@@ -17627,7 +17825,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins40000___get
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 344, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins40000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 347, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17662,7 +17860,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins40000_2__set__(st
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 344, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 347, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins40000[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins40000[0]) * (31));
 
   /* function exit code */
@@ -17676,7 +17874,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_22ZDistributionBins40000_2__set__(st
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":346
+/* "Pygrad/Pygrad.pxd":349
  *         int ZDistributionBins40000[31]
  *         '''Distribution of z in 40000 micron bins'''
  *         int ZDistributionBins100000[31]             # <<<<<<<<<<<<<<
@@ -17703,7 +17901,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_23ZDistributionBins100000___ge
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 346, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ZDistributionBins100000, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 349, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17738,7 +17936,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23ZDistributionBins100000_2__set__(s
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 346, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 349, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ZDistributionBins100000[0]), __pyx_t_1, sizeof(__pyx_v_self->ZDistributionBins100000[0]) * (31));
 
   /* function exit code */
@@ -17752,7 +17950,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_23ZDistributionBins100000_2__set__(s
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":348
+/* "Pygrad/Pygrad.pxd":351
  *         int ZDistributionBins100000[31]
  *         '''Distribution of z in 100000 micron bins'''
  *         int ElectronDistributionBins1[31]             # <<<<<<<<<<<<<<
@@ -17779,7 +17977,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ElectronDistributionBins1___
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins1, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 348, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins1, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 351, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17814,7 +18012,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ElectronDistributionBins1_2__set__
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 348, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 351, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ElectronDistributionBins1[0]), __pyx_t_1, sizeof(__pyx_v_self->ElectronDistributionBins1[0]) * (31));
 
   /* function exit code */
@@ -17828,7 +18026,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_25ElectronDistributionBins1_2__set__
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":350
+/* "Pygrad/Pygrad.pxd":353
  *         int ElectronDistributionBins1[31]
  *         '''Distribution of electrons in 1eV bins'''
  *         int ElectronDistributionBins10[31]             # <<<<<<<<<<<<<<
@@ -17855,7 +18053,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ElectronDistributionBins10__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 350, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins10, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 353, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17890,7 +18088,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ElectronDistributionBins10_2__set_
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 350, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 353, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ElectronDistributionBins10[0]), __pyx_t_1, sizeof(__pyx_v_self->ElectronDistributionBins10[0]) * (31));
 
   /* function exit code */
@@ -17904,7 +18102,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_26ElectronDistributionBins10_2__set_
   return __pyx_r;
 }
 
-/* "Pygrad/Pygrad.pxd":352
+/* "Pygrad/Pygrad.pxd":355
  *         int ElectronDistributionBins10[31]
  *         '''Distribution of electrons in 10eV bins'''
  *         int ElectronDistributionBins100[31]             # <<<<<<<<<<<<<<
@@ -17931,7 +18129,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_27ElectronDistributionBins100_
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 352, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_carray_to_py_int(__pyx_v_self->ElectronDistributionBins100, 31); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 355, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -17966,7 +18164,7 @@ static int __pyx_pf_6Pygrad_6Pygrad_6Pygrad_27ElectronDistributionBins100_2__set
   __Pyx_RefNannyDeclarations
   int __pyx_t_1[31];
   __Pyx_RefNannySetupContext("__set__", 0);
-  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 352, __pyx_L1_error)
+  if (unlikely(__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 31) < 0)) __PYX_ERR(1, 355, __pyx_L1_error)
   memcpy(&(__pyx_v_self->ElectronDistributionBins100[0]), __pyx_t_1, sizeof(__pyx_v_self->ElectronDistributionBins100[0]) * (31));
 
   /* function exit code */
@@ -18189,12 +18387,13 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
   PyObject *__pyx_t_182 = NULL;
   int __pyx_t_183;
   int __pyx_t_184;
+  int __pyx_t_185;
   __Pyx_RefNannySetupContext("__reduce_cython__", 0);
 
   /* "(tree fragment)":5
  *     cdef object _dict
  *     cdef bint use_setstate
- *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)             # <<<<<<<<<<<<<<
+ *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.cascdata, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.mixercArrs, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)             # <<<<<<<<<<<<<<
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:
  */
@@ -18560,7 +18759,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
   __Pyx_GOTREF(__pyx_t_180);
   __pyx_t_181 = PyFloat_FromDouble(__pyx_v_self->tmax); if (unlikely(!__pyx_t_181)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_181);
-  __pyx_t_182 = PyTuple_New(182); if (unlikely(!__pyx_t_182)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_182 = PyTuple_New(184); if (unlikely(!__pyx_t_182)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_182);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_182, 0, __pyx_t_1);
@@ -18887,46 +19086,52 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
   PyTuple_SET_ITEM(__pyx_t_182, 160, __pyx_t_160);
   __Pyx_GIVEREF(__pyx_t_161);
   PyTuple_SET_ITEM(__pyx_t_182, 161, __pyx_t_161);
+  __Pyx_INCREF(__pyx_v_self->cascdata);
+  __Pyx_GIVEREF(__pyx_v_self->cascdata);
+  PyTuple_SET_ITEM(__pyx_t_182, 162, __pyx_v_self->cascdata);
   __Pyx_GIVEREF(__pyx_t_162);
-  PyTuple_SET_ITEM(__pyx_t_182, 162, __pyx_t_162);
+  PyTuple_SET_ITEM(__pyx_t_182, 163, __pyx_t_162);
   __Pyx_GIVEREF(__pyx_t_163);
-  PyTuple_SET_ITEM(__pyx_t_182, 163, __pyx_t_163);
+  PyTuple_SET_ITEM(__pyx_t_182, 164, __pyx_t_163);
   __Pyx_GIVEREF(__pyx_t_164);
-  PyTuple_SET_ITEM(__pyx_t_182, 164, __pyx_t_164);
+  PyTuple_SET_ITEM(__pyx_t_182, 165, __pyx_t_164);
   __Pyx_GIVEREF(__pyx_t_165);
-  PyTuple_SET_ITEM(__pyx_t_182, 165, __pyx_t_165);
+  PyTuple_SET_ITEM(__pyx_t_182, 166, __pyx_t_165);
   __Pyx_GIVEREF(__pyx_t_166);
-  PyTuple_SET_ITEM(__pyx_t_182, 166, __pyx_t_166);
+  PyTuple_SET_ITEM(__pyx_t_182, 167, __pyx_t_166);
   __Pyx_GIVEREF(__pyx_t_167);
-  PyTuple_SET_ITEM(__pyx_t_182, 167, __pyx_t_167);
+  PyTuple_SET_ITEM(__pyx_t_182, 168, __pyx_t_167);
   __Pyx_GIVEREF(__pyx_t_168);
-  PyTuple_SET_ITEM(__pyx_t_182, 168, __pyx_t_168);
+  PyTuple_SET_ITEM(__pyx_t_182, 169, __pyx_t_168);
   __Pyx_GIVEREF(__pyx_t_169);
-  PyTuple_SET_ITEM(__pyx_t_182, 169, __pyx_t_169);
+  PyTuple_SET_ITEM(__pyx_t_182, 170, __pyx_t_169);
   __Pyx_GIVEREF(__pyx_t_170);
-  PyTuple_SET_ITEM(__pyx_t_182, 170, __pyx_t_170);
+  PyTuple_SET_ITEM(__pyx_t_182, 171, __pyx_t_170);
   __Pyx_GIVEREF(__pyx_t_171);
-  PyTuple_SET_ITEM(__pyx_t_182, 171, __pyx_t_171);
+  PyTuple_SET_ITEM(__pyx_t_182, 172, __pyx_t_171);
   __Pyx_GIVEREF(__pyx_t_172);
-  PyTuple_SET_ITEM(__pyx_t_182, 172, __pyx_t_172);
+  PyTuple_SET_ITEM(__pyx_t_182, 173, __pyx_t_172);
   __Pyx_GIVEREF(__pyx_t_173);
-  PyTuple_SET_ITEM(__pyx_t_182, 173, __pyx_t_173);
+  PyTuple_SET_ITEM(__pyx_t_182, 174, __pyx_t_173);
+  __Pyx_INCREF(__pyx_v_self->mixercArrs);
+  __Pyx_GIVEREF(__pyx_v_self->mixercArrs);
+  PyTuple_SET_ITEM(__pyx_t_182, 175, __pyx_v_self->mixercArrs);
   __Pyx_GIVEREF(__pyx_t_174);
-  PyTuple_SET_ITEM(__pyx_t_182, 174, __pyx_t_174);
+  PyTuple_SET_ITEM(__pyx_t_182, 176, __pyx_t_174);
   __Pyx_GIVEREF(__pyx_t_175);
-  PyTuple_SET_ITEM(__pyx_t_182, 175, __pyx_t_175);
+  PyTuple_SET_ITEM(__pyx_t_182, 177, __pyx_t_175);
   __Pyx_GIVEREF(__pyx_t_176);
-  PyTuple_SET_ITEM(__pyx_t_182, 176, __pyx_t_176);
+  PyTuple_SET_ITEM(__pyx_t_182, 178, __pyx_t_176);
   __Pyx_GIVEREF(__pyx_t_177);
-  PyTuple_SET_ITEM(__pyx_t_182, 177, __pyx_t_177);
+  PyTuple_SET_ITEM(__pyx_t_182, 179, __pyx_t_177);
   __Pyx_GIVEREF(__pyx_t_178);
-  PyTuple_SET_ITEM(__pyx_t_182, 178, __pyx_t_178);
+  PyTuple_SET_ITEM(__pyx_t_182, 180, __pyx_t_178);
   __Pyx_GIVEREF(__pyx_t_179);
-  PyTuple_SET_ITEM(__pyx_t_182, 179, __pyx_t_179);
+  PyTuple_SET_ITEM(__pyx_t_182, 181, __pyx_t_179);
   __Pyx_GIVEREF(__pyx_t_180);
-  PyTuple_SET_ITEM(__pyx_t_182, 180, __pyx_t_180);
+  PyTuple_SET_ITEM(__pyx_t_182, 182, __pyx_t_180);
   __Pyx_GIVEREF(__pyx_t_181);
-  PyTuple_SET_ITEM(__pyx_t_182, 181, __pyx_t_181);
+  PyTuple_SET_ITEM(__pyx_t_182, 183, __pyx_t_181);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
@@ -19113,7 +19318,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
 
   /* "(tree fragment)":6
  *     cdef bint use_setstate
- *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
+ *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.cascdata, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.mixercArrs, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
  *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
  *     if _dict is not None:
  *         state += (_dict,)
@@ -19124,7 +19329,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
   __pyx_t_182 = 0;
 
   /* "(tree fragment)":7
- *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
+ *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.cascdata, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.mixercArrs, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -19157,12 +19362,12 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
  *         state += (_dict,)
  *         use_setstate = True             # <<<<<<<<<<<<<<
  *     else:
- *         use_setstate = self.MixObject is not None
+ *         use_setstate = self.MixObject is not None or self.cascdata is not None or self.mixercArrs is not None
  */
     __pyx_v_use_setstate = 1;
 
     /* "(tree fragment)":7
- *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
+ *     state = (self.A0, self.AAA, self.AKS, self.ALOSCH, self.ALPH, self.AMU, self.AttachmentSectionSum, self.BBCONST, self.BField_Angle, self.BField_Mag, self.BeamDirection, self.Beta, self.CONST, self.CONST1, self.CONST2, self.CONST3, self.CONST4, self.CONST5, self.ClusterDistributionBins1, self.ClusterDistributionBins10, self.ClusterDistributionBins100, self.ClusterDistributionBins3, self.ClusterDistributionBins30, self.ClusterDistributionBins300, self.CrossSectionSum, self.Density, self.DetectorEfficiency, self.Dt, self.Dx, self.Dxy, self.Dxyz, self.Dy, self.Dz, self.E, self.EField, self.EIAV, self.EMASS2, self.EMS, self.EOVM, self.Edelta, self.Edelta2, self.ElasticCrossSection, self.ElectronCharge, self.ElectronDistributionBins1, self.ElectronDistributionBins10, self.ElectronDistributionBins100, self.ElectronEnergyStep, self.ElectronMass, self.Enable_Penning, self.EnergyCut, self.EnergySteps, self.ExcitationWeight, self.FinalElectronEnergy, self.Gamma, self.GasFractions, self.GasIDs, self.HBAR, self.IBFLG, self.ICFLG, self.IECascade, self.IPFLG, self.IRFLG, self.Icoll, self.Icoln, self.Icolnn, self.InelasticCrossSection, self.InelasticCrossSectionPerGas, self.InitialElectronEnergy, self.IonizationCrossSection, self.LPEFLG, self.MassOverChargeDivTen, self.Max_Electron_Energy, self.Mcomp, self.MixObject, self.MoleculesPerCm3PerGas, self.Mpair, self.Mphot, self.Mrayl, self.Msum, self.Mvac, self.NumberOfGases, self.OneAtmosphere, self.OutputVerbosity, self.PIR2, self.Phi, self.PresTempCor, self.Pressure_Torr, self.RDistributionBins10, self.RDistributionBins100, self.RDistributionBins1000, self.RDistributionBins10000, self.RDistributionBins100000, self.RDistributionBins2, self.RDistributionBins40, self.RDistributionBins400, self.RDistributionBins4000, self.RDistributionBins40000, self.RE, self.Random_Seed, self.RelativeIonMinusAttachCrossSection, self.RhydbergConst, self.Rmax1, self.SmallNumber, self.SqrtEnergy, self.TAverage, self.Tcfmax, self.TemperatureCentigrade, self.ThermalCut, self.ThermalEnergy, self.Theta, self.Time, self.TotalCrossSection, self.Tsum, self.TwoPi, self.VC, self.VMoleculesPerCm3PerGas, self.WhichAngularModel, self.X00, self.X11, self.XAverage, self.XDistributionBins10, self.XDistributionBins100, self.XDistributionBins1000, self.XDistributionBins10000, self.XDistributionBins100000, self.XDistributionBins2, self.XDistributionBins40, self.XDistributionBins400, self.XDistributionBins4000, self.XDistributionBins40000, self.XMaxRange, self.XYAverage, self.XYMaxRange, self.XYZAverage, self.Xneg, self.YAverage, self.YDistributionBins10, self.YDistributionBins100, self.YDistributionBins1000, self.YDistributionBins10000, self.YDistributionBins100000, self.YDistributionBins2, self.YDistributionBins40, self.YDistributionBins400, self.YDistributionBins4000, self.YDistributionBins40000, self.YMaxRange, self.Yneg, self.ZAverage, self.ZDistributionBins10, self.ZDistributionBins100, self.ZDistributionBins1000, self.ZDistributionBins10000, self.ZDistributionBins100000, self.ZDistributionBins2, self.ZDistributionBins40, self.ZDistributionBins400, self.ZDistributionBins4000, self.ZDistributionBins40000, self.ZMaxRange, self.ZeroCelcius, self.Zneg, self.cascdata, self.ebrtot, self.icoln, self.icolnn, self.icount, self.imip, self.kgas, self.last, self.lbrm, self.lcmp, self.lgas, self.lpap, self.lray, self.mixercArrs, self.nClusters, self.nClustersExcitation, self.nDelta, self.nElectrons, self.nbrem, self.nout, self.numExcitationsPerGas, self.tmax)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -19174,32 +19379,49 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
   /* "(tree fragment)":11
  *         use_setstate = True
  *     else:
- *         use_setstate = self.MixObject is not None             # <<<<<<<<<<<<<<
+ *         use_setstate = self.MixObject is not None or self.cascdata is not None or self.mixercArrs is not None             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, None), state
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, None), state
  */
   /*else*/ {
-    __pyx_t_184 = (((PyObject *)__pyx_v_self->MixObject) != Py_None);
+    __pyx_t_183 = (((PyObject *)__pyx_v_self->MixObject) != Py_None);
+    __pyx_t_185 = (__pyx_t_183 != 0);
+    if (!__pyx_t_185) {
+    } else {
+      __pyx_t_184 = __pyx_t_185;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_185 = (__pyx_v_self->cascdata != ((PyObject*)Py_None));
+    __pyx_t_183 = (__pyx_t_185 != 0);
+    if (!__pyx_t_183) {
+    } else {
+      __pyx_t_184 = __pyx_t_183;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_183 = (__pyx_v_self->mixercArrs != ((PyObject*)Py_None));
+    __pyx_t_185 = (__pyx_t_183 != 0);
+    __pyx_t_184 = __pyx_t_185;
+    __pyx_L4_bool_binop_done:;
     __pyx_v_use_setstate = __pyx_t_184;
   }
   __pyx_L3:;
 
   /* "(tree fragment)":12
  *     else:
- *         use_setstate = self.MixObject is not None
+ *         use_setstate = self.MixObject is not None or self.cascdata is not None or self.mixercArrs is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, None), state
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, None), state
  *     else:
  */
   __pyx_t_184 = (__pyx_v_use_setstate != 0);
   if (__pyx_t_184) {
 
     /* "(tree fragment)":13
- *         use_setstate = self.MixObject is not None
+ *         use_setstate = self.MixObject is not None or self.cascdata is not None or self.mixercArrs is not None
  *     if use_setstate:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, state)
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, state)
  */
     __Pyx_XDECREF(__pyx_r);
     __Pyx_GetModuleGlobalName(__pyx_t_181, __pyx_n_s_pyx_unpickle_Pygrad); if (unlikely(!__pyx_t_181)) __PYX_ERR(2, 13, __pyx_L1_error)
@@ -19209,9 +19431,9 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     PyTuple_SET_ITEM(__pyx_t_182, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_202617947);
-    __Pyx_GIVEREF(__pyx_int_202617947);
-    PyTuple_SET_ITEM(__pyx_t_182, 1, __pyx_int_202617947);
+    __Pyx_INCREF(__pyx_int_97988834);
+    __Pyx_GIVEREF(__pyx_int_97988834);
+    PyTuple_SET_ITEM(__pyx_t_182, 1, __pyx_int_97988834);
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
     PyTuple_SET_ITEM(__pyx_t_182, 2, Py_None);
@@ -19232,17 +19454,17 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
 
     /* "(tree fragment)":12
  *     else:
- *         use_setstate = self.MixObject is not None
+ *         use_setstate = self.MixObject is not None or self.cascdata is not None or self.mixercArrs is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, None), state
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, None), state
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, None), state
  *     else:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_Pygrad__set_state(self, __pyx_state)
  */
@@ -19255,9 +19477,9 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     PyTuple_SET_ITEM(__pyx_t_182, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_202617947);
-    __Pyx_GIVEREF(__pyx_int_202617947);
-    PyTuple_SET_ITEM(__pyx_t_182, 1, __pyx_int_202617947);
+    __Pyx_INCREF(__pyx_int_97988834);
+    __Pyx_GIVEREF(__pyx_int_97988834);
+    PyTuple_SET_ITEM(__pyx_t_182, 1, __pyx_int_97988834);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
     PyTuple_SET_ITEM(__pyx_t_182, 2, __pyx_v_state);
@@ -19476,7 +19698,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_4__reduce_cython__(struct __py
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, state)
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_Pygrad__set_state(self, __pyx_state)
  */
@@ -19501,7 +19723,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6__setstate_cython__(struct __
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, state)
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, state)
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_Pygrad__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
@@ -19512,7 +19734,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad_6Pygrad_6__setstate_cython__(struct __
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_Pygrad, (type(self), 0xc13b45b, state)
+ *         return __pyx_unpickle_Pygrad, (type(self), 0x5d730e2, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_Pygrad__set_state(self, __pyx_state)
  */
@@ -19625,18 +19847,18 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xc13b45b:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x5d730e2:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  */
-  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xc13b45b) != 0);
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x5d730e2) != 0);
   if (__pyx_t_1) {
 
     /* "(tree fragment)":5
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xc13b45b:
+ *     if __pyx_checksum != 0x5d730e2:
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  *     __pyx_result = Pygrad.__new__(__pyx_type)
  */
     __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
@@ -19655,15 +19877,15 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":6
- *     if __pyx_checksum != 0xc13b45b:
+ *     if __pyx_checksum != 0x5d730e2:
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)             # <<<<<<<<<<<<<<
  *     __pyx_result = Pygrad.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
     __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xc1, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 6, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x5d, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_v___pyx_PickleError);
@@ -19690,15 +19912,15 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
     /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xc13b45b:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x5d730e2:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  */
   }
 
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  *     __pyx_result = Pygrad.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
@@ -19724,7 +19946,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
   __pyx_t_3 = 0;
 
   /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  *     __pyx_result = Pygrad.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
@@ -19747,7 +19969,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xc13b45b = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x5d730e2 = (A0, AAA, AKS, ALOSCH, ALPH, AMU, AttachmentSectionSum, BBCONST, BField_Angle, BField_Mag, BeamDirection, Beta, CONST, CONST1, CONST2, CONST3, CONST4, CONST5, ClusterDistributionBins1, ClusterDistributionBins10, ClusterDistributionBins100, ClusterDistributionBins3, ClusterDistributionBins30, ClusterDistributionBins300, CrossSectionSum, Density, DetectorEfficiency, Dt, Dx, Dxy, Dxyz, Dy, Dz, E, EField, EIAV, EMASS2, EMS, EOVM, Edelta, Edelta2, ElasticCrossSection, ElectronCharge, ElectronDistributionBins1, ElectronDistributionBins10, ElectronDistributionBins100, ElectronEnergyStep, ElectronMass, Enable_Penning, EnergyCut, EnergySteps, ExcitationWeight, FinalElectronEnergy, Gamma, GasFractions, GasIDs, HBAR, IBFLG, ICFLG, IECascade, IPFLG, IRFLG, Icoll, Icoln, Icolnn, InelasticCrossSection, InelasticCrossSectionPerGas, InitialElectronEnergy, IonizationCrossSection, LPEFLG, MassOverChargeDivTen, Max_Electron_Energy, Mcomp, MixObject, MoleculesPerCm3PerGas, Mpair, Mphot, Mrayl, Msum, Mvac, NumberOfGases, OneAtmosphere, OutputVerbosity, PIR2, Phi, PresTempCor, Pressure_Torr, RDistributionBins10, RDistributionBins100, RDistributionBins1000, RDistributionBins10000, RDistributionBins100000, RDistributionBins2, RDistributionBins40, RDistributionBins400, RDistributionBins4000, RDistributionBins40000, RE, Random_Seed, RelativeIonMinusAttachCrossSection, RhydbergConst, Rmax1, SmallNumber, SqrtEnergy, TAverage, Tcfmax, TemperatureCentigrade, ThermalCut, ThermalEnergy, Theta, Time, TotalCrossSection, Tsum, TwoPi, VC, VMoleculesPerCm3PerGas, WhichAngularModel, X00, X11, XAverage, XDistributionBins10, XDistributionBins100, XDistributionBins1000, XDistributionBins10000, XDistributionBins100000, XDistributionBins2, XDistributionBins40, XDistributionBins400, XDistributionBins4000, XDistributionBins40000, XMaxRange, XYAverage, XYMaxRange, XYZAverage, Xneg, YAverage, YDistributionBins10, YDistributionBins100, YDistributionBins1000, YDistributionBins10000, YDistributionBins100000, YDistributionBins2, YDistributionBins40, YDistributionBins400, YDistributionBins4000, YDistributionBins40000, YMaxRange, Yneg, ZAverage, ZDistributionBins10, ZDistributionBins100, ZDistributionBins1000, ZDistributionBins10000, ZDistributionBins100000, ZDistributionBins2, ZDistributionBins40, ZDistributionBins400, ZDistributionBins4000, ZDistributionBins40000, ZMaxRange, ZeroCelcius, Zneg, cascdata, ebrtot, icoln, icolnn, icount, imip, kgas, last, lbrm, lcmp, lgas, lpap, lray, mixercArrs, nClusters, nClustersExcitation, nDelta, nElectrons, nbrem, nout, numExcitationsPerGas, tmax))" % __pyx_checksum)
  *     __pyx_result = Pygrad.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
@@ -19760,7 +19982,7 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v___pyx_result);
@@ -19793,8 +20015,8 @@ static PyObject *__pyx_pf_6Pygrad_6Pygrad___pyx_unpickle_Pygrad(CYTHON_UNUSED Py
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):
  */
 
 static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
@@ -19833,9 +20055,9 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
   /* "(tree fragment)":12
  *     return __pyx_result
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]             # <<<<<<<<<<<<<<
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[182])
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[184])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -21496,6 +21718,18 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->cascdata);
+  __Pyx_DECREF(__pyx_v___pyx_result->cascdata);
+  __pyx_v___pyx_result->cascdata = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_double(__pyx_t_1, __pyx_t_10, 6) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   memcpy(&(__pyx_v___pyx_result->ebrtot[0]), __pyx_t_10, sizeof(__pyx_v___pyx_result->ebrtot[0]) * (6));
@@ -21503,7 +21737,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_13, 0x200) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21516,7 +21750,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_14, 60) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21525,7 +21759,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21534,7 +21768,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21543,7 +21777,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21552,7 +21786,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21561,7 +21795,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xA9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAA, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21570,7 +21804,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAA, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAB, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21579,7 +21813,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAB, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAC, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21588,7 +21822,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAC, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAD, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21597,7 +21831,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAD, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAE, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21606,7 +21840,19 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAE, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAF, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->mixercArrs);
+  __Pyx_DECREF(__pyx_v___pyx_result->mixercArrs);
+  __pyx_v___pyx_result->mixercArrs = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(2, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_20, 0x186A0) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21619,7 +21865,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xAF, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_20, 0x186A0) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21632,7 +21878,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21641,7 +21887,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_21, 80) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21650,7 +21896,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_11, 6) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21659,7 +21905,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21668,7 +21914,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__Pyx_carray_from_py_int(__pyx_t_1, __pyx_t_11, 6) < 0)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21677,7 +21923,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_2 == (double)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -21685,16 +21931,16 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
 
   /* "(tree fragment)":13
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[182])
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[184])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     __PYX_ERR(2, 13, __pyx_L1_error)
   }
   __pyx_t_23 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_23 == ((Py_ssize_t)-1))) __PYX_ERR(2, 13, __pyx_L1_error)
-  __pyx_t_24 = ((__pyx_t_23 > 0xB6) != 0);
+  __pyx_t_24 = ((__pyx_t_23 > 0xB8) != 0);
   if (__pyx_t_24) {
   } else {
     __pyx_t_22 = __pyx_t_24;
@@ -21707,9 +21953,9 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
   if (__pyx_t_22) {
 
     /* "(tree fragment)":14
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[182])             # <<<<<<<<<<<<<<
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[184])             # <<<<<<<<<<<<<<
  */
     __pyx_t_26 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_26)) __PYX_ERR(2, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_26);
@@ -21720,7 +21966,7 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(2, 14, __pyx_L1_error)
     }
-    __pyx_t_26 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_26)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __pyx_t_26 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 0xB8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_26)) __PYX_ERR(2, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_26);
     __pyx_t_28 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_27))) {
@@ -21742,9 +21988,9 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
 
     /* "(tree fragment)":13
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[182])
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[184])
  */
   }
 
@@ -21752,8 +21998,8 @@ static PyObject *__pyx_f_6Pygrad_6Pygrad___pyx_unpickle_Pygrad__set_state(struct
  *         __pyx_unpickle_Pygrad__set_state(<Pygrad> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_Pygrad__set_state(Pygrad __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.ebrtot = __pyx_state[162]; __pyx_result.icoln = __pyx_state[163]; __pyx_result.icolnn = __pyx_state[164]; __pyx_result.icount = __pyx_state[165]; __pyx_result.imip = __pyx_state[166]; __pyx_result.kgas = __pyx_state[167]; __pyx_result.last = __pyx_state[168]; __pyx_result.lbrm = __pyx_state[169]; __pyx_result.lcmp = __pyx_state[170]; __pyx_result.lgas = __pyx_state[171]; __pyx_result.lpap = __pyx_state[172]; __pyx_result.lray = __pyx_state[173]; __pyx_result.nClusters = __pyx_state[174]; __pyx_result.nClustersExcitation = __pyx_state[175]; __pyx_result.nDelta = __pyx_state[176]; __pyx_result.nElectrons = __pyx_state[177]; __pyx_result.nbrem = __pyx_state[178]; __pyx_result.nout = __pyx_state[179]; __pyx_result.numExcitationsPerGas = __pyx_state[180]; __pyx_result.tmax = __pyx_state[181]
- *     if len(__pyx_state) > 182 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.A0 = __pyx_state[0]; __pyx_result.AAA = __pyx_state[1]; __pyx_result.AKS = __pyx_state[2]; __pyx_result.ALOSCH = __pyx_state[3]; __pyx_result.ALPH = __pyx_state[4]; __pyx_result.AMU = __pyx_state[5]; __pyx_result.AttachmentSectionSum = __pyx_state[6]; __pyx_result.BBCONST = __pyx_state[7]; __pyx_result.BField_Angle = __pyx_state[8]; __pyx_result.BField_Mag = __pyx_state[9]; __pyx_result.BeamDirection = __pyx_state[10]; __pyx_result.Beta = __pyx_state[11]; __pyx_result.CONST = __pyx_state[12]; __pyx_result.CONST1 = __pyx_state[13]; __pyx_result.CONST2 = __pyx_state[14]; __pyx_result.CONST3 = __pyx_state[15]; __pyx_result.CONST4 = __pyx_state[16]; __pyx_result.CONST5 = __pyx_state[17]; __pyx_result.ClusterDistributionBins1 = __pyx_state[18]; __pyx_result.ClusterDistributionBins10 = __pyx_state[19]; __pyx_result.ClusterDistributionBins100 = __pyx_state[20]; __pyx_result.ClusterDistributionBins3 = __pyx_state[21]; __pyx_result.ClusterDistributionBins30 = __pyx_state[22]; __pyx_result.ClusterDistributionBins300 = __pyx_state[23]; __pyx_result.CrossSectionSum = __pyx_state[24]; __pyx_result.Density = __pyx_state[25]; __pyx_result.DetectorEfficiency = __pyx_state[26]; __pyx_result.Dt = __pyx_state[27]; __pyx_result.Dx = __pyx_state[28]; __pyx_result.Dxy = __pyx_state[29]; __pyx_result.Dxyz = __pyx_state[30]; __pyx_result.Dy = __pyx_state[31]; __pyx_result.Dz = __pyx_state[32]; __pyx_result.E = __pyx_state[33]; __pyx_result.EField = __pyx_state[34]; __pyx_result.EIAV = __pyx_state[35]; __pyx_result.EMASS2 = __pyx_state[36]; __pyx_result.EMS = __pyx_state[37]; __pyx_result.EOVM = __pyx_state[38]; __pyx_result.Edelta = __pyx_state[39]; __pyx_result.Edelta2 = __pyx_state[40]; __pyx_result.ElasticCrossSection = __pyx_state[41]; __pyx_result.ElectronCharge = __pyx_state[42]; __pyx_result.ElectronDistributionBins1 = __pyx_state[43]; __pyx_result.ElectronDistributionBins10 = __pyx_state[44]; __pyx_result.ElectronDistributionBins100 = __pyx_state[45]; __pyx_result.ElectronEnergyStep = __pyx_state[46]; __pyx_result.ElectronMass = __pyx_state[47]; __pyx_result.Enable_Penning = __pyx_state[48]; __pyx_result.EnergyCut = __pyx_state[49]; __pyx_result.EnergySteps = __pyx_state[50]; __pyx_result.ExcitationWeight = __pyx_state[51]; __pyx_result.FinalElectronEnergy = __pyx_state[52]; __pyx_result.Gamma = __pyx_state[53]; __pyx_result.GasFractions = __pyx_state[54]; __pyx_result.GasIDs = __pyx_state[55]; __pyx_result.HBAR = __pyx_state[56]; __pyx_result.IBFLG = __pyx_state[57]; __pyx_result.ICFLG = __pyx_state[58]; __pyx_result.IECascade = __pyx_state[59]; __pyx_result.IPFLG = __pyx_state[60]; __pyx_result.IRFLG = __pyx_state[61]; __pyx_result.Icoll = __pyx_state[62]; __pyx_result.Icoln = __pyx_state[63]; __pyx_result.Icolnn = __pyx_state[64]; __pyx_result.InelasticCrossSection = __pyx_state[65]; __pyx_result.InelasticCrossSectionPerGas = __pyx_state[66]; __pyx_result.InitialElectronEnergy = __pyx_state[67]; __pyx_result.IonizationCrossSection = __pyx_state[68]; __pyx_result.LPEFLG = __pyx_state[69]; __pyx_result.MassOverChargeDivTen = __pyx_state[70]; __pyx_result.Max_Electron_Energy = __pyx_state[71]; __pyx_result.Mcomp = __pyx_state[72]; __pyx_result.MixObject = __pyx_state[73]; __pyx_result.MoleculesPerCm3PerGas = __pyx_state[74]; __pyx_result.Mpair = __pyx_state[75]; __pyx_result.Mphot = __pyx_state[76]; __pyx_result.Mrayl = __pyx_state[77]; __pyx_result.Msum = __pyx_state[78]; __pyx_result.Mvac = __pyx_state[79]; __pyx_result.NumberOfGases = __pyx_state[80]; __pyx_result.OneAtmosphere = __pyx_state[81]; __pyx_result.OutputVerbosity = __pyx_state[82]; __pyx_result.PIR2 = __pyx_state[83]; __pyx_result.Phi = __pyx_state[84]; __pyx_result.PresTempCor = __pyx_state[85]; __pyx_result.Pressure_Torr = __pyx_state[86]; __pyx_result.RDistributionBins10 = __pyx_state[87]; __pyx_result.RDistributionBins100 = __pyx_state[88]; __pyx_result.RDistributionBins1000 = __pyx_state[89]; __pyx_result.RDistributionBins10000 = __pyx_state[90]; __pyx_result.RDistributionBins100000 = __pyx_state[91]; __pyx_result.RDistributionBins2 = __pyx_state[92]; __pyx_result.RDistributionBins40 = __pyx_state[93]; __pyx_result.RDistributionBins400 = __pyx_state[94]; __pyx_result.RDistributionBins4000 = __pyx_state[95]; __pyx_result.RDistributionBins40000 = __pyx_state[96]; __pyx_result.RE = __pyx_state[97]; __pyx_result.Random_Seed = __pyx_state[98]; __pyx_result.RelativeIonMinusAttachCrossSection = __pyx_state[99]; __pyx_result.RhydbergConst = __pyx_state[100]; __pyx_result.Rmax1 = __pyx_state[101]; __pyx_result.SmallNumber = __pyx_state[102]; __pyx_result.SqrtEnergy = __pyx_state[103]; __pyx_result.TAverage = __pyx_state[104]; __pyx_result.Tcfmax = __pyx_state[105]; __pyx_result.TemperatureCentigrade = __pyx_state[106]; __pyx_result.ThermalCut = __pyx_state[107]; __pyx_result.ThermalEnergy = __pyx_state[108]; __pyx_result.Theta = __pyx_state[109]; __pyx_result.Time = __pyx_state[110]; __pyx_result.TotalCrossSection = __pyx_state[111]; __pyx_result.Tsum = __pyx_state[112]; __pyx_result.TwoPi = __pyx_state[113]; __pyx_result.VC = __pyx_state[114]; __pyx_result.VMoleculesPerCm3PerGas = __pyx_state[115]; __pyx_result.WhichAngularModel = __pyx_state[116]; __pyx_result.X00 = __pyx_state[117]; __pyx_result.X11 = __pyx_state[118]; __pyx_result.XAverage = __pyx_state[119]; __pyx_result.XDistributionBins10 = __pyx_state[120]; __pyx_result.XDistributionBins100 = __pyx_state[121]; __pyx_result.XDistributionBins1000 = __pyx_state[122]; __pyx_result.XDistributionBins10000 = __pyx_state[123]; __pyx_result.XDistributionBins100000 = __pyx_state[124]; __pyx_result.XDistributionBins2 = __pyx_state[125]; __pyx_result.XDistributionBins40 = __pyx_state[126]; __pyx_result.XDistributionBins400 = __pyx_state[127]; __pyx_result.XDistributionBins4000 = __pyx_state[128]; __pyx_result.XDistributionBins40000 = __pyx_state[129]; __pyx_result.XMaxRange = __pyx_state[130]; __pyx_result.XYAverage = __pyx_state[131]; __pyx_result.XYMaxRange = __pyx_state[132]; __pyx_result.XYZAverage = __pyx_state[133]; __pyx_result.Xneg = __pyx_state[134]; __pyx_result.YAverage = __pyx_state[135]; __pyx_result.YDistributionBins10 = __pyx_state[136]; __pyx_result.YDistributionBins100 = __pyx_state[137]; __pyx_result.YDistributionBins1000 = __pyx_state[138]; __pyx_result.YDistributionBins10000 = __pyx_state[139]; __pyx_result.YDistributionBins100000 = __pyx_state[140]; __pyx_result.YDistributionBins2 = __pyx_state[141]; __pyx_result.YDistributionBins40 = __pyx_state[142]; __pyx_result.YDistributionBins400 = __pyx_state[143]; __pyx_result.YDistributionBins4000 = __pyx_state[144]; __pyx_result.YDistributionBins40000 = __pyx_state[145]; __pyx_result.YMaxRange = __pyx_state[146]; __pyx_result.Yneg = __pyx_state[147]; __pyx_result.ZAverage = __pyx_state[148]; __pyx_result.ZDistributionBins10 = __pyx_state[149]; __pyx_result.ZDistributionBins100 = __pyx_state[150]; __pyx_result.ZDistributionBins1000 = __pyx_state[151]; __pyx_result.ZDistributionBins10000 = __pyx_state[152]; __pyx_result.ZDistributionBins100000 = __pyx_state[153]; __pyx_result.ZDistributionBins2 = __pyx_state[154]; __pyx_result.ZDistributionBins40 = __pyx_state[155]; __pyx_result.ZDistributionBins400 = __pyx_state[156]; __pyx_result.ZDistributionBins4000 = __pyx_state[157]; __pyx_result.ZDistributionBins40000 = __pyx_state[158]; __pyx_result.ZMaxRange = __pyx_state[159]; __pyx_result.ZeroCelcius = __pyx_state[160]; __pyx_result.Zneg = __pyx_state[161]; __pyx_result.cascdata = __pyx_state[162]; __pyx_result.ebrtot = __pyx_state[163]; __pyx_result.icoln = __pyx_state[164]; __pyx_result.icolnn = __pyx_state[165]; __pyx_result.icount = __pyx_state[166]; __pyx_result.imip = __pyx_state[167]; __pyx_result.kgas = __pyx_state[168]; __pyx_result.last = __pyx_state[169]; __pyx_result.lbrm = __pyx_state[170]; __pyx_result.lcmp = __pyx_state[171]; __pyx_result.lgas = __pyx_state[172]; __pyx_result.lpap = __pyx_state[173]; __pyx_result.lray = __pyx_state[174]; __pyx_result.mixercArrs = __pyx_state[175]; __pyx_result.nClusters = __pyx_state[176]; __pyx_result.nClustersExcitation = __pyx_state[177]; __pyx_result.nDelta = __pyx_state[178]; __pyx_result.nElectrons = __pyx_state[179]; __pyx_result.nbrem = __pyx_state[180]; __pyx_result.nout = __pyx_state[181]; __pyx_result.numExcitationsPerGas = __pyx_state[182]; __pyx_result.tmax = __pyx_state[183]
+ *     if len(__pyx_state) > 184 and hasattr(__pyx_result, '__dict__'):
  */
 
   /* function exit code */
@@ -26357,6 +26603,8 @@ static PyObject *__pyx_tp_new_6Pygrad_6Pygrad_Pygrad(PyTypeObject *t, CYTHON_UNU
   if (unlikely(!o)) return 0;
   p = ((struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)o);
   p->__pyx_vtab = __pyx_vtabptr_6Pygrad_6Pygrad_Pygrad;
+  p->mixercArrs = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->cascdata = ((PyObject*)Py_None); Py_INCREF(Py_None);
   p->MixObject = ((struct __pyx_obj_8PyGasMix_6Gasmix_Gasmix *)Py_None); Py_INCREF(Py_None);
   return o;
 }
@@ -26369,6 +26617,8 @@ static void __pyx_tp_dealloc_6Pygrad_6Pygrad_Pygrad(PyObject *o) {
   }
   #endif
   PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->mixercArrs);
+  Py_CLEAR(p->cascdata);
   Py_CLEAR(p->MixObject);
   (*Py_TYPE(o)->tp_free)(o);
 }
@@ -26376,6 +26626,12 @@ static void __pyx_tp_dealloc_6Pygrad_6Pygrad_Pygrad(PyObject *o) {
 static int __pyx_tp_traverse_6Pygrad_6Pygrad_Pygrad(PyObject *o, visitproc v, void *a) {
   int e;
   struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *p = (struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)o;
+  if (p->mixercArrs) {
+    e = (*v)(p->mixercArrs, a); if (e) return e;
+  }
+  if (p->cascdata) {
+    e = (*v)(p->cascdata, a); if (e) return e;
+  }
   if (p->MixObject) {
     e = (*v)(((PyObject *)p->MixObject), a); if (e) return e;
   }
@@ -26385,6 +26641,12 @@ static int __pyx_tp_traverse_6Pygrad_6Pygrad_Pygrad(PyObject *o, visitproc v, vo
 static int __pyx_tp_clear_6Pygrad_6Pygrad_Pygrad(PyObject *o) {
   PyObject* tmp;
   struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *p = (struct __pyx_obj_6Pygrad_6Pygrad_Pygrad *)o;
+  tmp = ((PyObject*)p->mixercArrs);
+  p->mixercArrs = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  tmp = ((PyObject*)p->cascdata);
+  p->cascdata = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
   tmp = ((PyObject*)p->MixObject);
   p->MixObject = ((struct __pyx_obj_8PyGasMix_6Gasmix_Gasmix *)Py_None); Py_INCREF(Py_None);
   Py_XDECREF(tmp);
@@ -26892,6 +27154,32 @@ static int __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_WhichAngularModel(PyObject *o, 
   else {
     PyErr_SetString(PyExc_NotImplementedError, "__del__");
     return -1;
+  }
+}
+
+static PyObject *__pyx_getprop_6Pygrad_6Pygrad_6Pygrad_mixercArrs(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_1__get__(o);
+}
+
+static int __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_mixercArrs(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_10mixercArrs_5__del__(o);
+  }
+}
+
+static PyObject *__pyx_getprop_6Pygrad_6Pygrad_6Pygrad_cascdata(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_1__get__(o);
+}
+
+static int __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_cascdata(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_6Pygrad_6Pygrad_6Pygrad_8cascdata_5__del__(o);
   }
 }
 
@@ -28981,7 +29269,9 @@ static struct PyGetSetDef __pyx_getsets_6Pygrad_6Pygrad_Pygrad[] = {
   {(char *)"CONST3", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_CONST3, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_CONST3, (char *)"Constant that is equal to CONST1 * ALOSCH * 1e-15", 0},
   {(char *)"CONST4", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_CONST4, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_CONST4, (char *)"Constant that is equal to CONST3 / 2.0", 0},
   {(char *)"CONST5", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_CONST5, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_CONST5, (char *)"Whether gas is isotropic or anistropic", 0},
-  {(char *)"WhichAngularModel", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_WhichAngularModel, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_WhichAngularModel, (char *)0, 0},
+  {(char *)"WhichAngularModel", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_WhichAngularModel, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_WhichAngularModel, (char *)"Arrays used in the mixerc subroutines.", 0},
+  {(char *)"mixercArrs", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_mixercArrs, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_mixercArrs, (char *)"Arrays used in the cascade data subroutines.", 0},
+  {(char *)"cascdata", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_cascdata, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_cascdata, (char *)0, 0},
   {(char *)"last", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_last, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_last, (char *)0, 0},
   {(char *)"tmax", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_tmax, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_tmax, (char *)0, 0},
   {(char *)"nout", __pyx_getprop_6Pygrad_6Pygrad_6Pygrad_nout, __pyx_setprop_6Pygrad_6Pygrad_6Pygrad_nout, (char *)0, 0},
@@ -29238,11 +29528,10 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_AnisotropicDetected, __pyx_k_AnisotropicDetected, sizeof(__pyx_k_AnisotropicDetected), 0, 0, 1, 1},
   {&__pyx_kp_u_Format_string_allocated_too_shor, __pyx_k_Format_string_allocated_too_shor, sizeof(__pyx_k_Format_string_allocated_too_shor), 0, 1, 0, 0},
   {&__pyx_kp_u_Format_string_allocated_too_shor_2, __pyx_k_Format_string_allocated_too_shor_2, sizeof(__pyx_k_Format_string_allocated_too_shor_2), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
-  {&__pyx_kp_s_Incompatible_checksums_s_vs_0xc1, __pyx_k_Incompatible_checksums_s_vs_0xc1, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xc1), 0, 0, 1, 0},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x5d, __pyx_k_Incompatible_checksums_s_vs_0x5d, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x5d), 0, 0, 1, 0},
   {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_OverflowError, __pyx_k_OverflowError, sizeof(__pyx_k_OverflowError), 0, 0, 1, 1},
@@ -29403,7 +29692,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 2, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 2, __pyx_L1_error)
-  __pyx_int_202617947 = PyInt_FromLong(202617947L); if (unlikely(!__pyx_int_202617947)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_int_97988834 = PyInt_FromLong(97988834L); if (unlikely(!__pyx_int_97988834)) __PYX_ERR(0, 2, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -29893,20 +30182,6 @@ invalid_keyword:
     #endif
     return 0;
 }
-
-/* PyObjectSetAttrStr */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_setattro))
-        return tp->tp_setattro(obj, attr_name, value);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_setattr))
-        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
-#endif
-    return PyObject_SetAttr(obj, attr_name, value);
-}
-#endif
 
 /* PyFunctionFastCall */
 #if CYTHON_FAST_PYCALL

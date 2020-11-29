@@ -1,5 +1,6 @@
 import unittest, os
-import pygrad,utils
+from Pygrad.Pygrad import Pygrad
+from Pygrad import utils
 
 #A class to test the setup and density functions.
 class TestSetup(unittest.TestCase):

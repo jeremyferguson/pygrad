@@ -1234,6 +1234,8 @@ struct __pyx_obj_6Pygrad_6Pygrad_Pygrad {
   double CONST4;
   double CONST5;
   int WhichAngularModel;
+  PyObject *mixercArrs;
+  PyObject *cascdata;
   int last;
   double tmax;
   int nout;

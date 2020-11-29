@@ -1,3 +1,4 @@
+from Pygrad.Pygrad import Pygrad
 import numpy as np
 import os
 
@@ -59,27 +60,27 @@ def createObject(path,fname):
     obj.imip = int(params[0][2])
     obj.BeamDirection = int(params[0][3])
     obj.Random_Seed = int(params[0][4])
-    obj.InitialElectronEnergy = double(params[0][5])
-    obj.ThermalCut = double(params[0][6])
-    obj.EnergyCut = double(params[0][7])
-    obj.GasIds = [int(i) for i in params[1]]
-    obj.GasFractions = [double(i) for i in params[2][:6]]
-    obj.TemperatureCentigrade = double(params[2][6])
-    obj.Pressure_Torr = double(params[2][7])
-    obj.EField = double(params[3][0])
-    obj.BField_Mag = double(params[3][1])
-    obj.BField_Angle = double(params[3][2])
+    obj.InitialElectronEnergy = float(params[0][5])
+    obj.ThermalCut = float(params[0][6])
+    obj.EnergyCut = float(params[0][7])
+    obj.GasIDs = [int(i) for i in params[1]]
+    obj.GasFractions = [float(i) for i in params[2][:6]]
+    obj.TemperatureCentigrade = float(params[2][6])
+    obj.Pressure_Torr = float(params[2][7])
+    obj.EField = float(params[3][0])
+    obj.BField_Mag = float(params[3][1])
+    obj.BField_Angle = float(params[3][2])
     obj.OutputVerbosity = int(params[3][3])
     obj.Enable_Penning = int(params[3][4])
-    obj.DetectorEfficiency = double(params[4][0])
-    obj.ExcitationWeight = double(params[4][1])
+    obj.DetectorEfficiency = float(params[4][0])
+    obj.ExcitationWeight = float(params[4][1])
     obj.kgas = int(params[4][2])
     obj.lgas = int(params[4][3])
     obj.lcmp = int(params[4][4])
     obj.lray = int(params[4][5])
     obj.lpap = int(params[4][6])
     obj.lbrm = int(params[4][7])
-    obj.iecasc = int(params[4][8])
+    obj.IECascade = int(params[4][8])
     return obj
 
 
