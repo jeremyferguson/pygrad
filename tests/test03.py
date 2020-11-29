@@ -9,9 +9,10 @@ class TestMixer(unittest.TestCase):
 
     def testMixer(self):
         def function(fname):
-            print('init')
+            print('test inner function')
             obj = utils.createObject(self.mixerTestPath,fname)
             print(obj.MixObject)
+            print(Mixers.Mixer)
             Mixers.Mixer(obj)
             return [obj.ElasticCrossSection,obj.CrossSectionSum,obj.AttachmentSectionSum,obj.TotalCrossSection,obj.RelativeIonMinusAttachCrossSection,obj.InelasticCrossSection,obj.ElasticCrossSection]
         utils.checkFortranTests(self.mixerTestPath, function,"01",3)
