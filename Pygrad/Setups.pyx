@@ -75,7 +75,7 @@ cpdef Setup(Pygrad object):
     object.icount = 0
     if object.imip == 1:
         object.icount = 1
-    object.EnergySteps = 20000
+    object.EnergySteps = 4000
     check_parameters(object)
     object.Max_Electron_Energy = object.InitialElectronEnergy * 50.0
     object.FinalElectronEnergy = object.InitialElectronEnergy*1.0001 + 760.0*object.Max_Electron_Energy/object.Pressure_Torr*(object.TemperatureCentigrade+object.ZeroCelsius)/293.15 + object.EField
@@ -108,34 +108,10 @@ cpdef Setup(Pygrad object):
     object.VAN = 100.0 * object.PresTempCor * object.CONST3 * object.ALOSCH
     
 
-    if object.FinalElectronEnergy <= 20000.0:
-        object.ElectronEnergyStep = object.FinalElectronEnergy/object.EnergySteps
-        object.EHalf = object.EnergySteps/2.0
-        for i in range(20000):
-            assignIndex(object,i,i)
-    elif object.FinalElectronEnergy <= 140000.0:
-        object.ElectronEnergyStep = 1.0
-        object.EHalf = 0.5
-        for i in range(16000):
-            assignIndex(object,i,i)
-        EnergySteps1 = object.ElectronEnergyStep
-        object.ElectronEnergyStep = (object.FinalElectronEnergy-16000.0)/4000.0
-        for i in range(16000,20000):
-            assignIndex(object,i,i-15999)
-        object.ElectronEnergyStep = EnergySteps1
-    else:
-        object.ElectronEnergyStep = 1.0
-        object.EHalf = 0.5
-        for i in range(12000):
-            assignIndex(object,i,i)
-        EnergySteps1 = object.ElectronEnergyStep
-        object.ElectronEnergyStep = 20.0
-        for i in range(12000,16000):
-            assignIndex(object,i,i-11999)
-        object.ElectronEnergyStep = (object.FinalElectronEnergy-92000.0)/4000.0
-        for i in range(16000,20000):
-            assignIndex(object,i,i-15999)
-        object.ElectronEnergyStep = EnergySteps1
+    object.ElectronEnergyStep = object.FinalElectronEnergy/ float(object.EnergySteps)
+    object.EHalf = object.EnergySteps/2.0
+    for i in range(4000):
+        assignIndex(object,i,i)
     
     object.AngularSpeedOfRotation = MassOverChargeDivTen * object.BField_Mag * 1e-12
     if object.BField_Mag != 0.0:
@@ -217,7 +193,7 @@ cpdef calcDensity(Pygrad object):
     x0 -= dcor
     x1 -= dcor
     afc = 2.0*np.log(10.0)
-    for i in range(20000):
+    for i in range(4000):
         bg=object.bet[i]*object.gam[i]
         x = np.log10(bg)
         if x < x0:

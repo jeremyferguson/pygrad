@@ -18,7 +18,7 @@ cdef class Pygrad:
         double Max_Electron_Energy
         '''This is the upper limit for the electron energy integration.'''
         double ElectronEnergyStep
-        '''PyGrad does the electron energy integration in 20000 steps this variable has the difference in energy between each step.'''
+        '''PyGrad does the electron energy integration in 4000 steps this variable has the difference in energy between each step.'''
         double ThermalCut
         '''PyGrad will track electrons until they fall below this threshold.'''
         double ThermalEnergy
@@ -145,15 +145,15 @@ cdef class Pygrad:
         '''Gas mixer object'''
       
         #Cross section arrays
-        double CrossSectionSum[20000]
-        double IonizationCrossSection[6][20000]
-        double InelasticCrossSectionPerGas[6][250][20000]
-        double AttachmentSectionSum[20000]
+        double CrossSectionSum[4000]
+        double IonizationCrossSection[6][4000]
+        double InelasticCrossSectionPerGas[6][250][4000]
+        double AttachmentSectionSum[4000]
 
-        double TotalCrossSection[20000]
-        double RelativeIonMinusAttachCrossSection[20000]
-        double InelasticCrossSection[20000]
-        double ElasticCrossSection[20000]
+        double TotalCrossSection[4000]
+        double RelativeIonMinusAttachCrossSection[4000]
+        double InelasticCrossSection[4000]
+        double ElasticCrossSection[4000]
 
         int N_Inelastic[6]
         double PenningFraction[3][512]
@@ -204,15 +204,15 @@ cdef class Pygrad:
         double Dxyz[100000]
         '''DXYZ'''
         
-        double E[20000]
+        double E[4000]
         '''Energy ar each energy step.'''
-        double SqrtEnergy[20000]
+        double SqrtEnergy[4000]
         '''The square root of each energy step.'''
-        double Gamma[20000]
+        double Gamma[4000]
         '''Gamma for each step'''
-        double Beta[20000]
+        double Beta[4000]
         '''Beta for each step'''
-        double Density[20000]
+        double Density[4000]
         '''Density for each step'''
 
         double Rmax1[100000]
